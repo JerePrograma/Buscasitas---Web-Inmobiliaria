@@ -22,40 +22,23 @@
 nav {
   background-color: rgb(64, 98, 233);
 }
-
-.nav__li:hover {
-  color: #ccc;
+.navbar-nav .nav-item .nav-link {
+    color: white !important; /* Cambiar a blanco y usar !important para anular estilos previos */
+    transition: color 1s;
+}
+.btn-info, .btn-info:active {
+    display: inline-block;
+    padding: 10px 20px; /* Ajusta el relleno según tus preferencias */
+    background-color: rgb(64, 98, 233); /* Color de fondo del botón */
+    color: #fff; /* Color de texto */
+    text-decoration: none;
+    border-radius: 5px solid rgb(64, 98, 233); /* Bordes redondeados */
+    transition: background-color 0.3s; /* Transición de color suave */
+}
+.btn-info:hover {
+    background-color: #0051bc;
 }
 
-.nav__responsive-ul {
-  display: none;
-}
-
-.nav__li {
-  display: inline-block;
-  padding: 12px;
-  color: #fff;
-}
-
-nav__li a {
-  text-decoration: none;
-  color: #fff;
-}
-
-.nav__li i {
-  width: 30px;
-  box-sizing: border-box;
-  text-align: center;
-  margin-right: 5px;
-}
-
-.nav__li a:hover {
-  color: #ccc;
-}
-
-.nav__li:hover > a {
-  color: #ccc;
-}
 h1 .title {
   font-size: xx-large;
   font-weight: bolder;
@@ -82,12 +65,6 @@ h1 .title {
   display: flex;
 }
 
-.flex-item {
-  background-color: #248;
-  color: #fff;
-  padding: 10px;
-  margin: 10px;
-}
 
 .grid-container {
   display: grid;
