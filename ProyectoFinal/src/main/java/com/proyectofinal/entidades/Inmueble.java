@@ -24,14 +24,10 @@ public class Inmueble implements Serializable {
     private String ciudad;
     private String provincia;
     private String transaccion; // input o enum . compra, venta, alquiler anual, alquiler temporario o enum
-    private List listaOfertas;
+    private List <String> listaOfertas;
+    private List <String> citaDiaHora;
     
     
-    @Temporal(TemporalType.DATE) 
-    private Calendar citaDia; 
-    
-    @Temporal(TemporalType.TIME)
-    private Time citaHora;
     
     
 }
