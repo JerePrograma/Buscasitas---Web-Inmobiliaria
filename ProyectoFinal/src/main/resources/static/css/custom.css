@@ -8,7 +8,6 @@
   flex-direction: column;
   height: 100vh;
 }
-
 .header,
 .main,
 .aside,
@@ -196,4 +195,27 @@ h1 .title {
 
 .footer__li:hover > a {
   color: blue;
+}
+
+@keyframes show {
+	from {
+		opacity: 0;
+		scale: 10%;
+	}
+
+	to {
+		opacity: 1;
+		scale: 100%;
+	}
+}
+
+img {
+	view-timeline-name: --image;
+	view-timeline-axis: block;
+
+	animation-timeline: --image;
+	animation-name: show;
+
+	animation-range: entry 30% cover 60%;
+	animation-fill-mode: both;
 }
