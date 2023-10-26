@@ -1,6 +1,5 @@
 package com.proyectofinal.entidades;
 
-
 import com.proyectofinal.enumeraciones.Rol;
 import lombok.Data;
 import lombok.NoArgsConstructor;

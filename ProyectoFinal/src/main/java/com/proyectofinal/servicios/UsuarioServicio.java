@@ -1,4 +1,3 @@
-
 package com.proyectofinal.servicios;
 
 import com.proyectofinal.entidades.Usuario;
@@ -10,16 +9,14 @@ import java.util.List;
 
 @Service
 public class UsuarioServicio {
-    
+
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
-    
-    
-    public List<Usuario>listarUsuarios(){
-        
-        
+
+    public List<Usuario> listarUsuarios() {
+
         return null;
-        
+
     }
-    
+
 }

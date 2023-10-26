@@ -1,6 +1,5 @@
 package com.proyectofinal.entidades;
 
-
 import com.proyectofinal.enumeraciones.TipoInmueble;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +23,7 @@ public class Inmueble implements Serializable {
     private String transaccion; // input compra, venta, alquiler anual, alquiler temporario
     @Column
     @ElementCollection
-    private List <String> listaOfertas;
+    private List<String> listaOfertas;
     @Column
     @ElementCollection
     private List<String> citaDiaHora;
@@ -34,6 +33,5 @@ public class Inmueble implements Serializable {
 
     @OneToOne
     private Imagen imagen;
-    
 
 }

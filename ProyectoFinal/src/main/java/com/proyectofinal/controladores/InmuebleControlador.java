@@ -1,4 +1,3 @@
-
 package com.proyectofinal.controladores;
 
 import com.proyectofinal.entidades.Inmueble;
@@ -18,6 +17,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/inmueble")
 public class InmuebleControlador {
+
     @Autowired
     private InmuebleServicio inmuebleServicio;
 
@@ -32,21 +32,20 @@ public class InmuebleControlador {
 
     @GetMapping("/registrar")
     public String registrarInmueble() {
-            return "inmueble_form.html";
+        return "inmueble_form.html";
     }
-
 
     @PostMapping("/crear")
     public String crearInmueble(@RequestParam("archivo") MultipartFile archivo,
-                                @RequestParam("cuentaTributaria") String cuentaTributaria,
-                                @RequestParam("direccion") String direccion,
-                                @RequestParam("ciudad") String ciudad,
-                                @RequestParam("provincia") String provincia,
-                                @RequestParam("transaccion") String transaccion,
-                                @RequestParam("listaOfertas") String listaOfertas,
-                                @RequestParam("citaDiaHora") String citaDiaHora,
-                                @RequestParam("tipoInmueble") String tipoInmueble,
-                                ModelMap modelo) {
+            @RequestParam("cuentaTributaria") String cuentaTributaria,
+            @RequestParam("direccion") String direccion,
+            @RequestParam("ciudad") String ciudad,
+            @RequestParam("provincia") String provincia,
+            @RequestParam("transaccion") String transaccion,
+            @RequestParam("listaOfertas") String listaOfertas,
+            @RequestParam("citaDiaHora") String citaDiaHora,
+            @RequestParam("tipoInmueble") String tipoInmueble,
+            ModelMap modelo) {
         try {
             List<String> listaOfertasList = Arrays.asList(listaOfertas.split(","));
             List<String> citaDiaHoraList = Arrays.asList(citaDiaHora.split(","));
@@ -100,4 +99,3 @@ public class InmuebleControlador {
     }
 
 }
-

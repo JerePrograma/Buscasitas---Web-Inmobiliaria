@@ -43,7 +43,7 @@ public class ImagenServicio {
 
                 if (idImagen != null) {
                     Optional<Imagen> respuesta = imagenRepositorio.findById(idImagen);
-                    if(respuesta.isPresent()) {
+                    if (respuesta.isPresent()) {
                         imagen = respuesta.get();
                     }
 
@@ -63,6 +63,5 @@ public class ImagenServicio {
         }
         return null;
     }
-
 
 }

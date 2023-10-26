@@ -10,5 +10,4 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 public class EnteInmobiliario extends Usuario {
 
-    
 }

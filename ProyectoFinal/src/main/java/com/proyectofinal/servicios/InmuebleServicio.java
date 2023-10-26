@@ -1,6 +1,4 @@
-
 package com.proyectofinal.servicios;
-
 
 import com.proyectofinal.entidades.Imagen;
 import com.proyectofinal.entidades.Inmueble;
@@ -24,8 +22,8 @@ public class InmuebleServicio {
 
     @Transactional
     public Inmueble guardarInmueble(MultipartFile archivo, String cuentaTributaria, String direccion, String ciudad, String provincia,
-                                    String transaccion, List <String> listaOfertas, List <String> citaDiaHora,
-                                    TipoInmueble tipoInmueble) throws Exception{
+            String transaccion, List<String> listaOfertas, List<String> citaDiaHora,
+            TipoInmueble tipoInmueble) throws Exception {
         Inmueble inmueble = new Inmueble();
 
         inmueble.setCuentaTributaria(cuentaTributaria);
@@ -89,4 +87,3 @@ public class InmuebleServicio {
     }
 
 }
-
