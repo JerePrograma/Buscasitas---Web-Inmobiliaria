@@ -1,6 +1,6 @@
-package com.proyectofinal.demo.repositorios;
+package com.proyectofinal.repositorios;
 
-import com.proyectofinal.demo.entidades.Imagen;
+import com.proyectofinal.entidades.Imagen;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
