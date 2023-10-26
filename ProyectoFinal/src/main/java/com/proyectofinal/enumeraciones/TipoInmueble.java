@@ -1,9 +1,6 @@
-
 package com.proyectofinal.enumeraciones;
 
-
 public enum TipoInmueble {
-    
     CASA,
     PH,
     DEPARTAMENTO,
@@ -14,7 +11,5 @@ public enum TipoInmueble {
     CAMPO,
     QUINCHO,
     TERRENO,
-    CABAÑA;
-  
-    
+    CABAÑA;    
 }

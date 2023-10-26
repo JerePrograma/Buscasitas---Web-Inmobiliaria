@@ -1,4 +1,3 @@
-
 package com.proyectofinal.servicios;
 
 import com.proyectofinal.entidades.Inmueble;
@@ -10,10 +9,9 @@ public class InmuebleServicio {
 
     @Autowired
     private InmuebleRepositorio inmuebleRepositorio;
-    
-    
-public List<Inmueble> listarInmueble(){
-    
-    return null;
-}    
+
+    public List<Inmueble> listarInmueble() {
+
+        return null;
+    }
 }
