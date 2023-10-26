@@ -1,4 +1,4 @@
-<<<<<<< HEAD:ProyectoFinal/src/main/java/com/proyectofinal/demo/enumeraciones/Rol.java
+package com.proyectofinal.enumeraciones;<<<<<<< HEAD:ProyectoFinal/src/main/java/com/proyectofinal/demo/enumeraciones/Rol.java
 
 package com.proyectofinal.demo.enumeraciones;
 =======

@@ -1,20 +1,15 @@
-<<<<<<< HEAD:ProyectoFinal/src/main/java/com/proyectofinal/demo/entidades/Usuario.java
-
-package com.proyectofinal.demo.entidades;
-=======
 package com.proyectofinal.entidades;
->>>>>>> 1af475c9326bac16537cf1d6fd921d6714f2a417:ProyectoFinal/src/main/java/com/proyectofinal/entidades/Usuario.java
 
 import com.proyectofinal.demo.enumeraciones.Rol;
-import java.io.Serializable;
-import java.util.List;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -37,7 +32,7 @@ public class Usuario implements Serializable {
 
     @Enumerated
 <<<<<<< HEAD:ProyectoFinal/src/main/java/com/proyectofinal/demo/entidades/Usuario.java
-    private  Rol rol;
+    private Rol rol;
 
     @OneToMany
     private List<Inmueble> propiedades;

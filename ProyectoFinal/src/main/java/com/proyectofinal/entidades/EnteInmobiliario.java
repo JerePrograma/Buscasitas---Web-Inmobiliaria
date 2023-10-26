@@ -1,8 +1,9 @@
 package com.proyectofinal.entidades;
 
-import javax.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import javax.persistence.Entity;
 
 @Entity
 @Data

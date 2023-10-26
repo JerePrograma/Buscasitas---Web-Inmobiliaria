@@ -1,7 +1,7 @@
-package com.proyectofinal.demo.servicios;
+package com.proyectofinal.servicios;
 
-import com.proyectofinal.demo.repositorios.ImagenRepositorio;
-import com.proyectofinal.demo.entidades.Imagen;
+import com.proyectofinal.entidades.Imagen;
+import com.proyectofinal.repositorios.ImagenRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

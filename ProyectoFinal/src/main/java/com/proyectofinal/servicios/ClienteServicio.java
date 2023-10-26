@@ -1,9 +1,10 @@
 package com.proyectofinal.servicios;
 
 import com.proyectofinal.entidades.Usuario;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import com.proyectofinal.repositorios.ClienteRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 public class ClienteServicio {
 
