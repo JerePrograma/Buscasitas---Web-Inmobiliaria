@@ -1,8 +1,8 @@
 
-package com.proyectofinal.controladores;
+package com.proyectofinal.demo.controladores;
 
-import com.proyectofinal.entidades.Usuario;
-import com.proyectofinal.servicios.UsuarioServicio;
+import com.proyectofinal.demo.entidades.Usuario;
+import com.proyectofinal.demo.servicios.UsuarioServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

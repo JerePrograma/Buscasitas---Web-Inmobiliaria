@@ -1,5 +1,5 @@
 
-package com.proyectofinal.enumeraciones;
+package com.proyectofinal.demo.enumeraciones;
 
 
 public enum TipoInmueble {

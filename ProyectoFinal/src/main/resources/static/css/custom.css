@@ -111,14 +111,12 @@ h1 .title {
   .aside {
     grid-row: 2 / 6;
   }
-  #formulario {
-    padding: 10px;
-    border: #000 solid;
-    margin: 10px;
-    font-size: small;
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-      "Lucida Sans", Arial, sans-serif;
-    background: #bbb;
+  .formulario{
+      width: 50%;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
   }
   .input {
     border-radius: 25%;
@@ -177,7 +175,7 @@ h1 .title {
 @keyframes show {
 	from {
 		opacity: 0;
-		scale: 10%;
+		scale: 25%;
 	}
 
 	to {
@@ -193,6 +191,6 @@ img {
 	animation-timeline: --image;
 	animation-name: show;
 
-	animation-range: entry 30% cover 60%;
+	animation-range: entry 30% cover 50%;
 	animation-fill-mode: both;
 }

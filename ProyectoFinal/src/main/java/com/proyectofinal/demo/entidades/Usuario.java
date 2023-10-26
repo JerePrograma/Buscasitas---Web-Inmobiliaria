@@ -1,18 +1,20 @@
 
-package com.proyectofinal.entidades;
+package com.proyectofinal.demo.entidades;
 
-import com.proyectofinal.enumeraciones.Rol;
+import com.proyectofinal.demo.enumeraciones.Rol;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 
 public class Usuario implements Serializable {
     
@@ -30,10 +32,10 @@ public class Usuario implements Serializable {
     private String tipoPersona; // formulario select persona humana o persona juridica
     
     @Enumerated
-    private  Rol rol;  
-    
+    private  Rol rol;
+
     @OneToMany
-    private Inmueble propiedad;
+    private List<Inmueble> propiedades;
     
    
     

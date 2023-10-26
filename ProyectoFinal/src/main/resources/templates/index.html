@@ -13,7 +13,7 @@ Bootstrap includes HTML and CSS based design templates for typography, forms, bu
 Bootstrap also gives you the ability to easily create responsive designs. -->
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 	<head th:replace = "fragments/head :: head">
 
 		</head>
@@ -25,10 +25,37 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
 				</nav>
 
 			<!-- End of NavBar -->
-			
+
 			<!-- This is to make the Form Contents appear on the Image -->
 			<form class="container mt-5 mt-6 rounded mx-auto" style="max-width: 650px; padding: 30px 30px 60px 30px; background-color: white; font-family: Helvetica; font-weight: 600; color: #484848;">
 				<h1 style="font-size: 2em; font-weight: bold; margin-bottom: 15px;">Encuentra tu lugar, experiencias únicas.</h1>
+				<div class="form-group" style=" font-size: small;">
+					<label>Transacción</label>
+					<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="transaccionDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Seleccionar Transacción
+						</button>
+						<div class="dropdown-menu" aria-labelledby="transaccionDropdown">
+							<a class="dropdown-item" th:href="@{/inmueble/busqueda(transaccion='compra')}">Compra</a>
+							<a class="dropdown-item" th:href="@{/inmueble/busqueda(transaccion='venta')}">Venta</a>
+							<a class="dropdown-item" th:href="@{/inmueble/busqueda(transaccion='alquiler')}">Alquiler</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group" style=" font-size: small;">
+					<label>Tipo de Inmueble</label>
+					<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="tipoInmuebleDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Seleccionar Tipo de Inmueble
+						</button>
+						<div class="dropdown-menu" aria-labelledby="tipoInmuebleDropdown">
+							<a class="dropdown-item" th:href="@{/inmueble/busqueda(tipoInmueble='CASA')}" >Casa</a>
+							<a class="dropdown-item" th:href="@{/inmueble/busqueda(tipoInmueble=APARTAMENTO)}">Apartamento</a>
+							<!-- Agrega más opciones según tus tipos de inmueble disponibles -->
+						</div>
+					</div>
+				</div>
 				<div class="form-group" style=" font-size: small;">
 					<label>Donde</label><br>
 					<input class="form-control" type="text" placeholder="Cualquier lugar" name="Ubicación" />
@@ -44,9 +71,6 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
 				<br>
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary btn-lg" style="float: right;">Buscar</button>
-				</div>
-				<div>
-					<p>A</p>
 				</div>
 			</form>
 
@@ -74,7 +98,13 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
 		</div>
 		<hr>
 		<div th:replace = "fragments/footer :: footer">
-
 		</div>
-	</body>
+
+				<!--JavaScript-->
+
+				<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+		</body>
 </html>
