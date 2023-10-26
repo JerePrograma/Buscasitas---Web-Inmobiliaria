@@ -1,5 +1,9 @@
+<<<<<<< HEAD:ProyectoFinal/src/main/java/com/proyectofinal/demo/entidades/Usuario.java
 
 package com.proyectofinal.demo.entidades;
+=======
+package com.proyectofinal.entidades;
+>>>>>>> 1af475c9326bac16537cf1d6fd921d6714f2a417:ProyectoFinal/src/main/java/com/proyectofinal/entidades/Usuario.java
 
 import com.proyectofinal.demo.enumeraciones.Rol;
 import java.io.Serializable;
@@ -17,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class Usuario implements Serializable {
-    
+
     @Id
     private String idCodigoTributario;//formulario select CUIL o CUIT
     private String nombre;
@@ -30,8 +34,9 @@ public class Usuario implements Serializable {
     private String email;
     private String celular; // separar en codigo pais, provincia, numero?
     private String tipoPersona; // formulario select persona humana o persona juridica
-    
+
     @Enumerated
+<<<<<<< HEAD:ProyectoFinal/src/main/java/com/proyectofinal/demo/entidades/Usuario.java
     private  Rol rol;
 
     @OneToMany
@@ -39,4 +44,10 @@ public class Usuario implements Serializable {
     
    
     
+=======
+    private Rol rol;
+
+    @OneToMany
+    private List<Inmueble> propiedad;
+>>>>>>> 1af475c9326bac16537cf1d6fd921d6714f2a417:ProyectoFinal/src/main/java/com/proyectofinal/entidades/Usuario.java
 }
