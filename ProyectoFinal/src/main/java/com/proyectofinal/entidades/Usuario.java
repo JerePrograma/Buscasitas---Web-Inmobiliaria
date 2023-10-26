@@ -1,8 +1,8 @@
-
 package com.proyectofinal.entidades;
 
 import com.proyectofinal.enumeraciones.Rol;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
@@ -15,7 +15,7 @@ import lombok.Data;
 @AllArgsConstructor
 
 public class Usuario implements Serializable {
-    
+
     @Id
     private String idCodigoTributario;//formulario select CUIL o CUIT
     private String nombre;
@@ -28,13 +28,10 @@ public class Usuario implements Serializable {
     private String email;
     private String celular; // separar en codigo pais, provincia, numero?
     private String tipoPersona; // formulario select persona humana o persona juridica
-    
+
     @Enumerated
-    private  Rol rol;  
-    
+    private Rol rol;
+
     @OneToMany
-    private Inmueble propiedad;
-    
-   
-    
+    private List<Inmueble> propiedad;
 }
