@@ -1,6 +1,7 @@
 
 package com.proyectofinal.entidades;
 
+import com.proyectofinal.enumeraciones.Rol;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -29,7 +30,7 @@ public class Usuario implements Serializable {
     private String tipoPersona; // formulario select persona humana o persona juridica
     
     @Enumerated
-    private String rol;  
+    private  Rol rol;  
     
     @OneToMany
     private Inmueble propiedad;
