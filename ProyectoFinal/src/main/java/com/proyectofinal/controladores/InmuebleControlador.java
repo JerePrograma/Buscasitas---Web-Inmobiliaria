@@ -2,6 +2,7 @@
 package com.proyectofinal.controladores;
 
 import com.proyectofinal.entidades.Inmueble;
+import com.proyectofinal.enumeraciones.TipoInmueble;
 import com.proyectofinal.repositorios.InmuebleRepositorio;
 import com.proyectofinal.servicios.InmuebleServicio;
 import org.springframework.beans.factory.annotation.Autowired;
