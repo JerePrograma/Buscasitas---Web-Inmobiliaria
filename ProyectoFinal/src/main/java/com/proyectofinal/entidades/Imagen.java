@@ -25,7 +25,7 @@ public class Imagen {
     private String nombre;
 
     @Lob
-    @Basic (fetch = FetchType.LAZY)
+    @Basic(fetch = FetchType.LAZY)
     private byte[] contenido;
 
 }
