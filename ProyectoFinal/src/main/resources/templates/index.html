@@ -27,7 +27,7 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
 			<!-- End of NavBar -->
 
 			<!-- This is to make the Form Contents appear on the Image -->
-			<form class="container mt-5 mt-6 rounded mx-auto" style="max-width: 650px; padding: 30px 30px 60px 30px; background-color: white; font-family: Helvetica; font-weight: 600; color: #484848;">
+			<form th:action="@{/inmueble/buscar-inmuebles}" method="get" class="container mt-5 mt-6 rounded mx-auto" style="max-width: 650px; padding: 30px 30px 60px 30px; background-color: white; font-family: Helvetica; font-weight: 600; color: #484848;">
 				<h1 style="font-size: 2em; font-weight: bold; margin-bottom: 15px;">Encuentra tu lugar, experiencias únicas.</h1>
 				<div class="form-group" style=" font-size: small;">
 					<label>Transacción</label>
@@ -50,24 +50,24 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
 							Seleccionar Tipo de Inmueble
 						</button>
 						<div class="dropdown-menu" aria-labelledby="tipoInmuebleDropdown">
-							<a class="dropdown-item" th:href="@{/inmueble/busqueda(tipoInmueble='CASA')}" >Casa</a>
-							<a class="dropdown-item" th:href="@{/inmueble/busqueda(tipoInmueble=APARTAMENTO)}">Apartamento</a>
+							<a class="dropdown-item" th:href="@{/inmueble/busqueda(tipoInmueble='casa')}" >Casa</a>
+							<a class="dropdown-item" th:href="@{/inmueble/busqueda(tipoInmueble='departamento')}">Apartamento</a>
 							<!-- Agrega más opciones según tus tipos de inmueble disponibles -->
 						</div>
 					</div>
 				</div>
 				<div class="form-group" style=" font-size: small;">
 					<label>Donde</label><br>
-					<input class="form-control" type="text" placeholder="Cualquier lugar" name="Ubicación" />
+					<input class="form-control" type="text" placeholder="Cualquier lugar" name="ubicación" />
 				</div>
-				<div class="input-group-prepend" style=" font-size: small;">
+				<!--<div class="input-group-prepend" style=" font-size: small;">
 					<label>Fecha de ingreso</label> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
 					<label>Fecha de egreso</label><br>
 				</div>
 				<div class="input-group" style=" font-size: small;">
 					<input class="form-control" type="date" placeholder="dd-mm-aaaa" name="checkin" />
 					<input class="form-control" type="date" placeholder="dd-mm-aaaa" name="checkout" />
-				</div>
+				</div> -->
 				<br>
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary btn-lg" style="float: right;">Buscar</button>

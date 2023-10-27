@@ -21,10 +21,10 @@
         <!-- Use th:each to iterate through a list of inmuebles -->
         <div th:each="inmueble : ${inmuebles}" class="col-md-4">
             <div class="card">
-                <img th:src="${inmueble.ciudad}" class="card-img-top" alt="Image">
                 <div class="card-body">
                     <h5 th:text="${inmueble.tipoInmueble}" class="card-title"></h5>
                     <p th:text="${inmueble.transaccion}" class="card-text"></p>
+                    <p th:text="${inmueble.ciudad}" class="card-text"></p>
                 </div>
             </div>
         </div>
