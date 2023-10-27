@@ -29,6 +29,8 @@ public class Usuario implements Serializable {
     private String email;
     private String celular; // separar en codigo pais, provincia, numero?
     private String tipoPersona; // formulario select persona humana o persona juridica
+    private String contrasenia;
+    private Boolean alta;
 
     @Enumerated
     private Rol rol;

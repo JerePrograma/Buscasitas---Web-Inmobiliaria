@@ -1,5 +1,6 @@
 package com.proyectofinal.entidades;
 
+import com.proyectofinal.enumeraciones.Estado;
 import com.proyectofinal.enumeraciones.TipoInmueble;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,16 +21,26 @@ public class Inmueble implements Serializable {
     private String direccion;
     private String ciudad;
     private String provincia;
-    private String transaccion; // input compra, venta, alquiler anual, alquiler temporario
+    private String tipoTransaccion; // input compra, venta, alquiler anual, alquiler temporario
+    private String tituloAnuncio;
+    private String descripcionAnuncio;
+    private Integer precioAlquilerVenta;
+    private String caracteristicaInmueble;
+    private Boolean alta;
+
     @Column
     @ElementCollection
     private List<String> listaOfertas;
+
     @Column
     @ElementCollection
     private List<String> citaDiaHora;
 
     @Enumerated(EnumType.STRING)
     private TipoInmueble tipoInmueble;
+
+    @Enumerated(EnumType.STRING)
+    private Estado estado;
 
     @OneToOne
     private Imagen imagen;
