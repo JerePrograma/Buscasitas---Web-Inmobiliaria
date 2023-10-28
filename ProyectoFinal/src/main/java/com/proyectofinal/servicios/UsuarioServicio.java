@@ -21,8 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-@Service
-public class UsuarioServicio implements UserDetailsService {
+@Service                     //Implementar esta clase cuando se haga el registro de usuarios
+public class UsuarioServicio /*implements UserDetailsService */{
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
@@ -68,8 +68,8 @@ public class UsuarioServicio implements UserDetailsService {
             usuarioRepositorio.save(usuario);
         }
     }
-
-    @Override
+//  Implementar este método cuando se aplique el registro de usuarios
+//    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
         if (usuario != null) {
