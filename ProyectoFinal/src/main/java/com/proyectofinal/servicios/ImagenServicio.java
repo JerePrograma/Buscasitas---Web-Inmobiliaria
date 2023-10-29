@@ -2,17 +2,18 @@ package com.proyectofinal.servicios;
 
 import com.proyectofinal.entidades.Imagen;
 import com.proyectofinal.repositorios.ImagenRepositorio;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ImagenServicio {
 
     @Autowired
-    ImagenRepositorio imagenRepositorio;
+    private ImagenRepositorio imagenRepositorio;
 
     public Imagen guardarImagen(MultipartFile archivo) throws Exception {
         if (archivo != null) {
@@ -64,4 +65,9 @@ public class ImagenServicio {
         return null;
     }
 
+    @Transactional(readOnly = true)
+    public List<Imagen> listarTodos() {
+        return imagenRepositorio.findAll();
+
+    }
 }

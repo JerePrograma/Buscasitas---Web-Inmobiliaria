@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.OneToOne;
 
 @Entity
 @Data
@@ -37,5 +38,8 @@ public class Usuario implements Serializable {
 
     @OneToMany
     private List<Inmueble> propiedades;
+    
+    @OneToOne
+    private Imagen imagen;
 
 }

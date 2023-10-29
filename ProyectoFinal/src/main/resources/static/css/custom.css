@@ -58,6 +58,8 @@ h1 .title {
 }
 
 .main {
+  background-image: url(../images/fondo_inmo.jpg);
+  background-size : cover;  
   background-color: slateblue;
   flex-basis: 300px;
   flex-grow: 2;
