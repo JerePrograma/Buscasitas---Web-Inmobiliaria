@@ -190,3 +190,7 @@ img {
 	animation-range: entry 30% cover 50%;
 	animation-fill-mode: both;
 }
+.container {
+  padding: 2em;
+  background-color: aliceblue;
+  }
