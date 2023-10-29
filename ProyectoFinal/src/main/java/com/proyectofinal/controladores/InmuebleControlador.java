@@ -102,14 +102,10 @@ public class InmuebleControlador {
     @GetMapping("/buscar-inmuebles")
     public String buscarUbicacionInmuebles(
             @RequestParam(name = "ubicacion", required = false) String ubicacion,
-            @RequestParam(name = "transaccion", required = false) String transaccion,
-            @RequestParam(name = "tipoInmueble", required = false) String tipoInmueble,
-            @RequestParam(name = "ciudad", required = false) String ciudad,
-            @RequestParam(name = "provincia", required = false) String provincia,
             Model model
     ) {
         // Llama al servicio con los parámetros adecuados, incluyendo ubicación como String.
-        List<Inmueble> inmuebles = inmuebleServicio.buscarInmueblesPorFiltros(ubicacion, transaccion, tipoInmueble, ciudad, provincia);
+        List<Inmueble> inmuebles = inmuebleServicio.buscarPorUbicacion(ubicacion);
 
         // Agrega los resultados al modelo.
         model.addAttribute("inmuebles", inmuebles);
