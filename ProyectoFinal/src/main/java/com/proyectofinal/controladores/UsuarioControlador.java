@@ -1,6 +1,7 @@
 package com.proyectofinal.controladores;
 
 import com.proyectofinal.entidades.Usuario;
+import com.proyectofinal.excepciones.MiExcepcion;
 import com.proyectofinal.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/usuario")
@@ -23,9 +25,28 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/registrar")
-    public String registrar(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+    public String registrar(ModelMap modelo,
+            @RequestParam("nombre") String nombre,
+            @RequestParam("apellido") String apellido,
+            @RequestParam("direccion") String direccion,
+            @RequestParam("ciudad") String ciudad,
+            @RequestParam("provincia") String provincia,
+            @RequestParam("idCodigoTributario") String idCodigoTributario,
+            @RequestParam("sexo") String sexo,
+            @RequestParam("email") String email,
+            @RequestParam("celular") String celular,
+            @RequestParam("DNI") String DNI,
+            @RequestParam("tipoPersona") String tipoPersona,
+            @RequestParam("contrasenia") String contrasenia,
+            @RequestParam("contrasenia2") String contrasenia2) throws MiExcepcion {
+        usuarioServicio.registrarUsuario(idCodigoTributario, nombre, apellido, direccion, ciudad, provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
+        return "usuario_form.html";
+    }
 
-        return "form_usuario.html";
+    @GetMapping("/listar")
+    public String listarUsuarios(ModelMap modelo) {
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+        modelo.addAllAttributes(usuarios);
+        return "usuario_list.html";
     }
 }

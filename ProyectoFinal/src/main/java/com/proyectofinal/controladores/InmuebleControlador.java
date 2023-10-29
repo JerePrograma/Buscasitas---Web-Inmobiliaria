@@ -31,22 +31,22 @@ public class InmuebleControlador {
         return "inmueble_form.html";
     }
 
-    @PostMapping("/crear")
-    public String crearInmueble(@RequestParam("archivo") MultipartFile archivo,
-                                @RequestParam("cuentaTributaria") String cuentaTributaria,
-                                @RequestParam("direccion") String direccion,
-                                @RequestParam("ciudad") String ciudad,
-                                @RequestParam("provincia") String provincia,
-                                @RequestParam("transaccion") String transaccion,
-                                @RequestParam("listaOfertas") String listaOfertas,
-                                @RequestParam("citaDiaHora") String citaDiaHora,
-                                @RequestParam("tipoInmueble") String tipoInmueble,
-                                @RequestParam("tituloAnuncio") String tituloAnuncio,
-                                @RequestParam("descripcionAnuncio") String descripcionAnuncio,
-                                @RequestParam("precioAlquilerVenta") Integer precioAlquilerVenta,
-                                @RequestParam("caracteristicaInmueble") String caracteristicaInmueble,
-                                @RequestParam("estado") String estado,
-                                ModelMap modelo) {
+    @PostMapping("/registrar")
+    public String crearInmueble(ModelMap modelo,
+            @RequestParam("estado") String estado,
+            @RequestParam("archivo") MultipartFile archivo,
+            @RequestParam("cuentaTributaria") String cuentaTributaria,
+            @RequestParam("direccion") String direccion,
+            @RequestParam("ciudad") String ciudad,
+            @RequestParam("provincia") String provincia,
+            @RequestParam("transaccion") String transaccion,
+            @RequestParam("listaOfertas") String listaOfertas,
+            @RequestParam("citaDiaHora") String citaDiaHora,
+            @RequestParam("tipoInmueble") String tipoInmueble,
+            @RequestParam("tituloAnuncio") String tituloAnuncio,
+            @RequestParam("descripcionAnuncio") String descripcionAnuncio,
+            @RequestParam("precioAlquilerVenta") Integer precioAlquilerVenta,
+            @RequestParam("caracteristicaInmueble") String caracteristicaInmueble) {
         try {
             List<String> listaOfertasList = Arrays.asList(listaOfertas.split(","));
             List<String> citaDiaHoraList = Arrays.asList(citaDiaHora.split(","));
@@ -98,18 +98,13 @@ public class InmuebleControlador {
         return "busqueda_inmuebles";
     }
 
-
     @GetMapping("/buscar-inmuebles")
     public String buscarUbicacionInmuebles(
             @RequestParam(name = "ubicacion", required = false) String ubicacion,
-            @RequestParam(name = "transaccion", required = false) String transaccion,
-            @RequestParam(name = "tipoInmueble", required = false) String tipoInmueble,
-            @RequestParam(name = "ciudad", required = false) String ciudad,
-            @RequestParam(name = "provincia", required = false) String provincia,
             Model model
     ) {
         // Llama al servicio con los parámetros adecuados, incluyendo ubicación como String.
-        List<Inmueble> inmuebles = inmuebleServicio.buscarInmueblesPorFiltros(ubicacion, transaccion, tipoInmueble, ciudad, provincia);
+        List<Inmueble> inmuebles = inmuebleServicio.buscarPorUbicacion(ubicacion);
 
         // Agrega los resultados al modelo.
         model.addAttribute("inmuebles", inmuebles);
@@ -117,4 +112,3 @@ public class InmuebleControlador {
         return "busqueda_inmuebles";
     }
 }
-
