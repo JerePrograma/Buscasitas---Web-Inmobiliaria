@@ -4,16 +4,18 @@
         <!-- SVG for Logo -->
 
         <!-- Scalable Vector Graphics (SVG) is an XML-based vector image format for two-dimensional graphics with support for interactivity and animation. The SVG specification is an open standard developed by the World Wide Web Consortium (W3C) since 1999. SVG images and their behaviors are defined in XML text files. -->
+         <div class="containerImg">
         <a href="/" class="d-inline-block">
-            <img th:src="@{/static/images/logoInmobiliaria2.png}" alt="logo" width="45" height="45"/>
-        </a>
+            <img id="logo" src="/img/logoInmobiliaria2.png" alt="MrHouse.com"/>
+            </a>
+         </div>
 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item"><a class="btn btn-info" th:href="@{/inmueble/registrar}">Vende o alquila</a></li>
             <li class="nav-item"><a class="btn btn-info" th:href="@{/}">Créditos</a></li>
             <li class="nav-item"><a class="btn btn-info" th:href="@{/}">Ayuda</a></li>
-            <li class="nav-item"><a class="btn btn-info" th:href="@{/}">Regístrate!</a></li>
-            <li class="nav-item"><a class="btn btn-info" th:href="@{/login}">Inicia Sesión</a></li>
+            <li class="nav-item"><a class="btn btn-info" href="/registrar">Regístrate!</a></li>
+            <li class="nav-item"><a class="btn btn-info" href="/login">Inicia Sesión</a></li>
         </ul>
     </div>
 </nav>
