@@ -29,7 +29,7 @@ public class PortalControlador {
     public String registrar() {
         return "registro-form.html";
     }
-
+//registroControlador
     @PostMapping("/registro")   
     public String registro(@RequestParam String idCodigoTributario, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String direccion, @RequestParam String ciudad, @RequestParam String provincia, @RequestParam String DNI, @RequestParam String sexo, @RequestParam String email, @RequestParam String celular, @RequestParam String tipoPersona, @RequestParam String contrasenia, @RequestParam String contrasenia2,  ModelMap modelo) {
         try {
