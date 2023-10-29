@@ -1,3 +1,6 @@
+.h1 {
+    align-text : center;
+}
 * {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -14,7 +17,15 @@
 .footer {
   padding: 20px;
 }
-
+#logo{
+    height: 2em;
+    width: 2em; 
+    display: block;
+    fill: currentcolor; 
+    color: white;
+    font-family:Helvetica;
+    font-size: 16px;
+}
 .header {
   background-color: lightblue;
   flex-basis: 60px;
@@ -111,13 +122,6 @@ h1 .title {
   .aside {
     grid-row: 2 / 6;
   }
-  .formulario{
-      width: 50%;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-  }
   .input {
     border-radius: 25%;
   }
@@ -194,3 +198,7 @@ img {
 	animation-range: entry 30% cover 50%;
 	animation-fill-mode: both;
 }
+.container {
+  padding: 2em;
+  background-color: aliceblue;
+  }

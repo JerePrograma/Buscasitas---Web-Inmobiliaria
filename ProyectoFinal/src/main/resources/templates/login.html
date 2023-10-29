@@ -24,57 +24,25 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
 
 				</nav>
 
-			<!-- End of NavBar -->
+				<!-- This is to make the Form Contents appear on the Image -->
 
-			<!-- This is to make the Form Contents appear on the Image -->
-			<form th:action="@{/inmueble/buscar-inmuebles}" method="get" class="container mt-5 mt-6 rounded mx-auto" style="max-width: 650px; padding: 30px 30px 60px 30px; background-color: white; font-family: Helvetica; font-weight: 600; color: #484848;">
-				<h1 style="font-size: 2em; font-weight: bold; margin-bottom: 15px;">Encuentra tu lugar, experiencias únicas.</h1>
-				<div class="form-group" style=" font-size: small;">
-					<label>Transacción</label>
-					<div class="dropdown">
-						<button class="btn btn-secondary dropdown-toggle" type="button" id="transaccionDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Seleccionar Transacción
-						</button>
-						<div class="dropdown-menu" aria-labelledby="transaccionDropdown">
-							<a class="dropdown-item" th:href="@{/inmueble/busqueda(transaccion='compra')}">Compra</a>
-							<a class="dropdown-item" th:href="@{/inmueble/busqueda(transaccion='venta')}">Venta</a>
-							<a class="dropdown-item" th:href="@{/inmueble/busqueda(transaccion='alquiler')}">Alquiler</a>
-						</div>
+				<form class="form-signin">
+					<img class="mb-4" src="/logoInmobiliaria.jpg" alt="" width="72" height="72">
+					<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+					<label for="inputEmail" class="sr-only">Email address</label>
+					<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+					<label for="inputPassword" class="sr-only">Password</label>
+					<input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+					<div class="checkbox mb-3">
+					  <label>
+						<input type="checkbox" value="remember-me"> Remember me
+					  </label>
 					</div>
-				</div>
-
-				<div class="form-group" style=" font-size: small;">
-					<label>Tipo de Inmueble</label>
-					<div class="dropdown">
-						<button class="btn btn-secondary dropdown-toggle" type="button" id="tipoInmuebleDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Seleccionar Tipo de Inmueble
-						</button>
-						<div class="dropdown-menu" aria-labelledby="tipoInmuebleDropdown">
-							<a class="dropdown-item" th:href="@{/inmueble/busqueda(tipoInmueble='casa')}" >Casa</a>
-							<a class="dropdown-item" th:href="@{/inmueble/busqueda(tipoInmueble='departamento')}">Apartamento</a>
-							<!-- Agrega más opciones según tus tipos de inmueble disponibles -->
-						</div>
-					</div>
-				</div>
-				<div class="form-group" style=" font-size: small;">
-					<label>Donde</label><br>
-					<input class="form-control" type="text" placeholder="Cualquier lugar" name="ubicación" />
-				</div>
-				<!--<div class="input-group-prepend" style=" font-size: small;">
-					<label>Fecha de ingreso</label> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-					<label>Fecha de egreso</label><br>
-				</div>
-				<div class="input-group" style=" font-size: small;">
-					<input class="form-control" type="date" placeholder="dd-mm-aaaa" name="checkin" />
-					<input class="form-control" type="date" placeholder="dd-mm-aaaa" name="checkout" />
-				</div> -->
-				<br>
-				<div class="form-group">
-					<button type="submit" class="btn btn-primary btn-lg" style="float: right;">Buscar</button>
-				</div>
-			</form>
-
-			<!-- Form Ends here. -->
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+					<p class="mt-5 mb-3 text-muted">© 2023</p>
+				  </form>
+	
+				<!-- Form Ends here. -->
 
 			<!-- The below section displays the Reviews and Feedbacks given by the users. -->
 
