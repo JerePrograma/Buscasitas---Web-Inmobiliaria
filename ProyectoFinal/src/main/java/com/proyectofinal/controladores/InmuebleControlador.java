@@ -9,7 +9,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class InmuebleControlador {
     }
 
     @PostMapping("/registrar")
-    public String crearInmueble(ModelMap modelo,
+    public String registrarInmueble(ModelMap modelo,
             @RequestParam("estado") String estado,
             @RequestParam("archivo") MultipartFile archivo,
             @RequestParam("cuentaTributaria") String cuentaTributaria,

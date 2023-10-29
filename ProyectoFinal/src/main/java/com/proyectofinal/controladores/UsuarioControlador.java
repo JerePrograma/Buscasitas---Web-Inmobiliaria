@@ -25,7 +25,7 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/registrar")
-    public String registrar(ModelMap modelo,
+    public String registrar(ModelMap modelo)/*,
             @RequestParam("nombre") String nombre,
             @RequestParam("apellido") String apellido,
             @RequestParam("direccion") String direccion,
@@ -38,9 +38,9 @@ public class UsuarioControlador {
             @RequestParam("DNI") String DNI,
             @RequestParam("tipoPersona") String tipoPersona,
             @RequestParam("contrasenia") String contrasenia,
-            @RequestParam("contrasenia2") String contrasenia2) throws MiExcepcion {
-        usuarioServicio.registrarUsuario(idCodigoTributario, nombre, apellido, direccion, ciudad, provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
-        return "usuario_form.html";
+            @RequestParam("contrasenia2") String contrasenia2) throws MiExcepcion*/ {
+//        usuarioServicio.registrarUsuario(idCodigoTributario, nombre, apellido, direccion, ciudad, provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
+        return "registro-form.html";
     }
 
     @GetMapping("/listar")
