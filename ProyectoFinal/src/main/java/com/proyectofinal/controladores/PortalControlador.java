@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
+// PROYECTO FINAL - EQUIPO A - MrHouse.com
+
+
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
@@ -51,9 +55,6 @@ public class PortalControlador {
             modelo.put("contrasenia", contrasenia);
             modelo.put("contrasenia2", contrasenia2);
             
-            
-                    
-
             return "registro-form.html";
         }
     }
@@ -67,12 +68,12 @@ public class PortalControlador {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping("inicio")
+    @GetMapping("/inicio")
     public String inicio(HttpSession session) {
-        Usuario logueado = (Usuario) session.getAttribute("usuario");
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         if (logueado.getRol().toString().equals("ADMIN")) {
             return "redirect:/admin/dashboard";
         }
-        return "inicio.html";
+        return "index.html";
     }
 }

@@ -1,16 +1,4 @@
-<!-- Airbnb clone using Bootstrap 4 and Custom CSS -->
 
-<!-- Bootstrap 4 is the newest version of Bootstrap, which is the most popular HTML, CSS, and JavaScript framework for developing responsive, mobile-first websites.
-
-Bootstrap 4 is completely free to download and use! -->
-
-<!-- What is Bootstrap?  -->
-
-<!-- Bootstrap is a free front-end framework for faster and easier web development.
-
-Bootstrap includes HTML and CSS based design templates for typography, forms, buttons, tables, navigation, modals, image carousels and many other, as well as optional JavaScript plugins.
-
-Bootstrap also gives you the ability to easily create responsive designs. -->
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
@@ -31,7 +19,7 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
                             
                       
                             
-			<form class="formulario" action="/usuario/registro" method="POST" enctype="multipart/form-data">
+			<form class="formulario" action="/registro" method="POST">
                             
                            
                             
@@ -54,7 +42,7 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
 				  <br>
                                      
   <div class="form-check">
-	  <input class="form-check-input" type="radio" name="tipoPersona" id="exampleRadios1" value="option1" checked>
+	  <input class="form-check-input" type="radio" name="tipoPersona" id="exampleRadios1" value="option1" checked th:value="${tipoPersona}">
 	  <label class="form-check-label" for="Persona Física" >
 	  Persona Física
 	  </label>
@@ -70,16 +58,16 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
 	  <div class="row">
 		  <div class="form-group col">
 			  <Label class="col-form-label">Nombre</Label>
-			<input name="nombre" type="text" class="form-control" placeholder="Ingrese su nombre">
+			<input name="nombre" type="text" class="form-control" placeholder="Ingrese su nombre" th:value="${nombre}">
 		  </div>
 		  <div class="form-group col">
 			  <Label class="col-form-label">Apellido</Label>
-			<input name="apellido" type="text" class="form-control" placeholder="Ingrese su apellido">
+			<input name="apellido" type="text" class="form-control" placeholder="Ingrese su apellido" th:value="${apellido}">
 		  </div>
 		</div>
 	  <div class="form-group col-md-6">
 		  <label class="col-form-label" for="exampleFormControlInput1">Dirección</label>
-		  <input name="direccion" type="address" class="form-control" id="exampleFormControlInput1" placeholder="Av. Siempre Viva 2223">
+		  <input name="direccion" type="address" class="form-control" id="exampleFormControlInput1" placeholder="Av. Siempre Viva 2223" th:value="${direccion}">
 		</div>
 <!--		<div class="form-row">
 		  <div class="form-group col-md-4">
@@ -89,7 +77,7 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
                     
 		  <div class="form-group col-md-4">
 			<label class="col-form-label" for="inputState">Provincia</label> <br>
-			                               <select name="provincia"id="provincia">
+			                               <select name="provincia" id="provincia" th:value="${provincia}">
     <option value="1">BUENOS AIRES</option>
     <option value="2">CATAMARCA</option>
     <option value="5">CHACO</option>
@@ -118,18 +106,13 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
 <div class="form-row">
 		  <div class="form-group col-md-7">
 		 <label class="col-form-label" for="exampleFormControlInput1">Ciudad</label>
-		  <input name="ciudad" type="address" class="form-control" id="exampleFormControlInput1" placeholder="Ingrese su ciudad">
+		  <input name="ciudad" type="address" class="form-control" id="exampleFormControlInput1" placeholder="Ingrese su ciudad" th:value="${ciudad}">
 		</div>
-   
-		  <div class="form-group col-md-4">
-			<label class="col-form-label" for="inputZip">Código Postal</label>
-			<input name="codigoPostal" type="text" class="form-control" id="inputZip">
-		  </div>
-		  <br>
+                <br>
 		  <div class="form-row align-items-center">
 			  <div class="col-auto my-1">
 				<label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-				<select name="sexo" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+				<select name="sexo" class="custom-select mr-sm-2" id="inlineFormCustomSelect" th:value="${sexo}">
 				  <option selected>Sexo...</option>
 				  <option value="1">Femenino</option>
 				  <option value="2">Masculino</option>
@@ -140,49 +123,49 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
 		<br>
 				<div class="form-group col-md-12">
 			<label class="col-form-label" for="formGroupExampleInput">Ingrese su DNI</label>
-			<input name="DNI" type="text" class="form-control" id="formGroupExampleInput" placeholder="Sin puntos y sin espacios en blanco.">
+			<input name="DNI" type="text" class="form-control" th:value="${DNI}" placeholder="Sin puntos y sin espacios en blanco.">
 		  </div>
 		  <br>
 		  
 			<br>
 		  <div class="form-group col-md-12">
 			  <div class="form-check">
-				  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+				  <input class="form-check-input" type="radio" name="cuil" value="option1" checked>
 				  <label class="form-check-label" for="exampleRadios1">
 					C.U.I.L.
 				  </label>
 				</div>
 				<br>
 				<div class="form-check">
-				  <input  class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+				  <input  class="form-check-input" type="radio" name="cuit" id="exampleRadios2" value="option2">
 				  <label class="form-check-label" for="exampleRadios2">
 					C.U.I.T.
 				  </label>
 				</div>
 			<label class="col-form-label" for="formGroupExampleInput2">Ingrese su Código Tributario</label>
-			<input name="idCodigoTributario" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Sin puntos, sin guiones y sin espacios en blanco.">
+			<input name="idCodigoTributario" type="text" class="form-control" id="formGroupExampleInput2" th:value="${idCodigoTributario}" placeholder="Sin puntos, sin guiones y sin espacios en blanco.">
 		  </div>
   <br>
 		  <div class="form-group col-md-7">
 			  <label class="col-form-label" for="formGroupExampleInput">Ingrese su número de celular</label>
-			  <input name="celular" type="text" class="form-control" id="formGroupExampleInput" placeholder="+54 11 1111 1111">
+			  <input name="celular" type="text" class="form-control" id="formGroupExampleInput" placeholder="+54 11 1111 1111" th:value="${celular}">
 			</div>
 			<br>
                             
 	  <div class="form-group col-md-7">
 		  <label class="col-form-label" for="exampleInputEmail1">Dirección de correo electrónico</label>
-		  <input name=="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+		  <input name=="email" type="String" class="form-control" id="InputEmail1" th:value="${email}">
 		  <small id="emailHelp" class="form-text text-muted">Nunca compartiremos con nadie su datos personales.</small>
 		</div>
 		<br>
 			<div class="form-group col-md-7">
 		  <label class="col-form-label" for="exampleInputPassword1">Ingrese su Contraseña</label>
-		  <input name="contrasenia" type="password" class="form-control" id="exampleInputPassword1">
+		  <input name="contrasenia" type="password" class="form-control" th:value="${contrasenia}" id="InputPassword1">
 		</div>
 		<br>
 		<div class="form-group col-md-7">
 		  <label class="col-form-label" for="exampleInputPassword1">Repita su Contraseña</label>
-		  <input type="password" class="form-control" id="exampleInputPassword1">
+		  <input type="contrasenia2" class="form-control" th:value="${contrasenia2}" id="InputPassword1">
 		</div>
 		<br>
 		<div class="form-group col-md-7 form-check">
