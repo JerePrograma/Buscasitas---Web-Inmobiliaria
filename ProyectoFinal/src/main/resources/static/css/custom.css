@@ -17,7 +17,15 @@
 .footer {
   padding: 20px;
 }
-
+#logo{
+    height: 2em;
+    width: 2em; 
+    display: block;
+    fill: currentcolor; 
+    color: white;
+    font-family:Helvetica;
+    font-size: 16px;
+}
 .header {
   background-color: lightblue;
   flex-basis: 60px;
