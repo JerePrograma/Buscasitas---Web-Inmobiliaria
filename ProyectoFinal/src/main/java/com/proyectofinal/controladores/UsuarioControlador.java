@@ -28,12 +28,25 @@ public class UsuarioControlador {
     }
 
     //registroControlador
-    @PostMapping("/registro")
-    public String registro(@RequestParam String idCodigoTributario, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String direccion, @RequestParam String ciudad, @RequestParam String provincia, @RequestParam String DNI, @RequestParam String sexo, @RequestParam String email, @RequestParam String celular, @RequestParam String tipoPersona, @RequestParam String contrasenia, @RequestParam String contrasenia2, ModelMap modelo) {
+    @PostMapping("/registrar")
+    public String registro(@RequestParam("idCodigoTributario") String idCodigoTributario, 
+            @RequestParam("nombre") String nombre, 
+            @RequestParam("apellido") String apellido, 
+            @RequestParam("direccion") String direccion, 
+            @RequestParam("ciudad") String ciudad, 
+            @RequestParam("provincia") String provincia, 
+            @RequestParam("DNI") String DNI, 
+            @RequestParam("sexo") String sexo, 
+            @RequestParam("email") String email, 
+            @RequestParam("celular") String celular, 
+            @RequestParam("tipoPersona") String tipoPersona, 
+            @RequestParam("contraseña") String contrasenia, 
+            @RequestParam("contraseña2") String contrasenia2, 
+            ModelMap modelo) {
         try {
             usuarioServicio.registrarUsuario(idCodigoTributario, nombre, apellido, direccion, ciudad, provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
             modelo.put("exito", "Usuario registrado correctamente");
-            return "index.html";
+           
         } catch (MiExcepcion ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("idCodigoTributario", idCodigoTributario);
@@ -51,5 +64,6 @@ public class UsuarioControlador {
 
             return "registro-form.html";
         }
+         return "redirect:/";
     }
 }
