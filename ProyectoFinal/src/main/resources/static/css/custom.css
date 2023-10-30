@@ -204,10 +204,11 @@ img {
   }
 
   .container-login {
-      padding: 2em;
-      box-sizing: border-box;
+      padding: 10em 10em 5em 43em;
+      
+      box-sizing: content-box;
       width: 25%;
-      left: 30em;
-      display: flex;
+      align-content: center;
       justify-content: center;
   }
+ 

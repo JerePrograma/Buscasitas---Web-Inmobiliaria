@@ -1,63 +1,76 @@
-<!-- Airbnb clone using Bootstrap 4 and Custom CSS -->
-
-<!-- Bootstrap 4 is the newest version of Bootstrap, which is the most popular HTML, CSS, and JavaScript framework for developing responsive, mobile-first websites.
-
-Bootstrap 4 is completely free to download and use! -->
-
-<!-- What is Bootstrap?  -->
-
-<!-- Bootstrap is a free front-end framework for faster and easier web development.
-
-Bootstrap includes HTML and CSS based design templates for typography, forms, buttons, tables, navigation, modals, image carousels and many other, as well as optional JavaScript plugins.
-
-Bootstrap also gives you the ability to easily create responsive designs. -->
-
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="fragments/head :: head"> </head>
-  <body class="background_img">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Registrar Inmueble</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link rel="stylesheet" th:href="@{/css/custom.css}" />
+
+    <link
+      rel="shortcut icon"
+      sizes="76x76"
+      type="image/x-icon"
+      th:href="@{images/logoInmobiliaria2.png}"
+    />
+  </head>
+    <body class="loging-body">
     <!-- This is to display the Navbar of the website. -->
     <nav th:replace="fragments/navbar :: nav"></nav>
 
     <!-- This is to make the Form Contents appear on the Image -->
-<div class="container-login">
-    <form class="form-signin">
-      <img
-        class="mb-4"
-        src="/logoInmobiliaria.jpg"
-        alt=""
-        width="72"
-        height="72"
-      />
-      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input
-        type="email"
-        id="inputEmail"
-        class="form-control"
-        placeholder="Email address"
-        required=""
-        autofocus=""
-      />
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input
-        type="password"
-        id="inputPassword"
-        class="form-control"
-        placeholder="Password"
-        required=""
-      />
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me" /> Remember me
-        </label>
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-8 col-lg-7 col-xl-6">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+          class="img-fluid" alt="Phone image">
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
-        Sign in
-      </button>
-      <p class="mt-5 mb-3 text-muted">© 2023</p>
-    </form>
-</div>
+      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+        <form>
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="email" id="form1Example13" class="form-control form-control-lg" />
+            <label class="form-label" for="form1Example13">Dirección de correo electrónico</label>
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <input type="password" id="form1Example23" class="form-control form-control-lg" />
+            <label class="form-label" for="form1Example23">Contraseña</label>
+          </div>
+
+          <div class="d-flex justify-content-around align-items-center mb-4">
+            <!-- Checkbox -->
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
+              <label class="form-check-label" for="form1Example3"> Recuérdame </label>
+            </div>
+            <a href="#!">Olvidó su contraseña?</a>
+          </div>
+
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Ingresa aquí</button>
+
+          <div class="divider d-flex align-items-center my-4">
+            </div>
+         </form>
+      </div>
+    </div>
+  </div>
+</section>
     <!-- Form Ends here. -->
 
     <!-- The below section displays the Reviews and Feedbacks given by the users. -->
