@@ -9,290 +9,55 @@
 
     <!-- End of NavBar -->
 
-    <!-- This is to make the Form Contents appear on the Image -->
-    <div class="container">
-      <form>
-        <h1><span class="badge badge-primary">Regístrate</span></h1>
-        <br />
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="tipo_persona"
-            id="tipo_persona"
-            value="fisica"
-            checked
-          />
-          <label class="form-check-label" for="tipo_persona">
-            Persona Física
-          </label>
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="tipo_persona"
-            id="exampleRadios2"
-            value="juridica"
-          />
-          <label class="form-check-label" for="tipo_persona">
-            Persona Jurídica
-          </label>
-          <br />
-          <div class="row">
-            <div class="form-group col">
-              <label class="col-form-label">Nombre</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Ingrese su nombre"
-              />
-            </div>
-            <div class="form-group col">
-              <label class="col-form-label">Apellido</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Ingrese su apellido"
-              />
-            </div>
-          </div>
-          <div class="form-group col-md-6">
-            <label class="col-form-label" for="exampleFormControlInput1"
-              >Dirección</label
-            >
-            <input
-              type="address"
-              class="form-control"
-              id="exampleFormControlInput1"
-              placeholder="Av. Siempre Viva 742"
-            />
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <label class="col-form-label" for="ciudad">Ciudad</label>
-              <input type="text" class="form-control" id="ciudad" />
-            </div>
-            <div class="form-group col-md-4">
-              <label class="col-form-label" for="provincia">Provincia</label>
-              <select id="provincia" class="form-control">
-                <option selected>Elegir Provincia...</option>
-                <option>Buenos Aires</option>
-              </select>
-            </div>
- <!------------------------------------No pusimos código postal------------------------------------>
-            <div class="form-group col-md-4">
-<!--              <label class="col-form-label" for="inputZip">Código Postal</label>
-              <input type="text" class="form-control" id="inputZip" />-->
-            </div>
-            <br />
-            <div class="form-row align-items-center">
-              <div class="col-auto my-1">
-                <label class="mr-sm-2 sr-only" for="sexo"
-                  >Sexo</label
-                >
-                <select
-                  class="custom-select mr-sm-2"
-                  id="sexo"
-                >
-                  <option selected>Sexo...</option>
-                  <option value="1">Femenino</option>
-                  <option value="2">Masculino</option>
-                  <option value="3">Otro</option>
-                </select>
-              </div>
-            </div>
-            <br />
-            <div class="form-group col-md-12">
-              <label class="col-form-label" for="formGroupExampleInput"
-                >Ingrese su DNI</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="DNI"
-                placeholder="Sin puntos y sin espacios en blanco."
-              />
-            </div>
-            <br />
-
-            <br />
-            <div class="form-group col-md-12">
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="exampleRadios"
-                  id="exampleRadios1"
-                  value="option1"
-                  checked="checked"
-                />
-                <label class="form-check-label" for="exampleRadios1">
-                  C.U.I.L.
-                </label>
-              </div>
-              <br />
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="exampleRadios"
-                  id="exampleRadios2"
-                  value="option2"
-                />
-                <label class="form-check-label" for="exampleRadios2">
-                  C.U.I.T.
-                </label>
-              </div>
-              <label class="col-form-label" for="idCodigoTributario"
-                >Ingrese su Código Tributario</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="idCodigoTributario"
-                placeholder="Sin puntos, sin guiones y sin espacios en blanco."
-              />
-            </div>
-            <br />
-            <div class="form-group col-md-7">
-              <label class="col-form-label" for="celular"
-                >Ingrese su número de celular</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="celular"
-                placeholder="+54 11 1111 1111"
-              />
-            </div>
-            <br />
-            <div class="form-group col-md-7">
-              <label class="col-form-label" for="email"
-                >Dirección de correo electrónico</label
-              >
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                aria-describedby="emailHelp"
-              />
-              <small id="emailHelp" class="form-text text-muted"
-                >Nunca compartiremos con nadie su datos personales.</small
-              >
-            </div>
-            <br />
-            <div class="form-group col-md-7">
-              <label class="col-form-label" for="contrasenia"
-                >Ingrese su Contraseña</label
-              >
-              <input
-                type="password"
-                class="form-control"
-                id="contrasenia"
-              />
-            </div>
-            <br />
-            <div class="form-group col-md-7">
-              <label class="col-form-label" for="contrasenia2"
-                >Repita su Contraseña</label
-              >
-              <input
-                type="password"
-                class="form-control"
-                id="contrasenia2"
-              />
-            </div>
-            <br />
-            <div class="form-group col-md-7 form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                id="exampleCheck1"
-              />
-              <label class="form-check-label" for="exampleCheck1"
-                >Recuérdame en este dispositivo</label
-              >
-            </div>
-            <br />
-            <button type="submit" class="btn btn-primary col-md-7">
-              Enviar Formulario
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-
-    <!-- Form Ends here. -->
-
-<<<<<<< HEAD
-    <hr />
-    <div th:replace="fragments/footer :: footer"></div>
-=======
-			<!-- This is to make the Form Contents appear on the Image -->
-			<div class="container">
+<div class="container">
                             
-                      
-                            
-			<form class="formulario" action="/registro" method="POST">
-                            
-                           
-                            
-                        <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
-                        <div class="card-body">
-                        <h5 class="card-title">Error ð</h5>
-                        <p class="card-text" th:text="${error}"></p>
+   <form class="formulario" action="/registro" method="POST">
+      <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
+          <div class="card-body">
+             <h5 class="card-title">Error ð</h5>
+                <p class="card-text" th:text="${error}"></p>
+                  </div>
                     </div>
-                </div>
-                            <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
-                    <div class="card-body">
-                        <h5 class="card-title">Exito!</h5>
-                        <p class="card-text" th:text="${exito}"></p>
-                    </div>
-                </div>
-				  
-                          
-                            
-                            <h1> <span class="badge badge-primary">Regístrate</span></h1>
+ <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+     <div class="card-body">
+       <h5 class="card-title">Exito!</h5>
+          <p class="card-text" th:text="${exito}"></p>
+            </div>
+              </div>
+			    
+ <h1> <span class="badge badge-primary">Regístrate</span></h1>
 				  <br>
                                      
-  <div class="form-check">
-	  <input class="form-check-input" type="radio" name="tipoPersona" id="exampleRadios1" value="option1" checked th:value="${tipoPersona}">
-	  <label class="form-check-label" for="Persona Física" >
-	  Persona Física
-	  </label>
-	</div>
-	<div class="form-check">
-	  <input class="form-check-input" type="radio" name="tipoPersona" id="exampleRadios2" value="option2">
-	  <label class="form-check-label" for="Persona Jurídica">
-	  Persona Jurídica
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="tipoPersona" id="exampleRadios1" value="option1" checked th:value="${tipoPersona}">
+    <label class="form-check-label" for="Persona Física" >
+      Persona Física
+	</label>
+	  </div>
+<div class="form-check">
+   <input class="form-check-input" type="radio" name="tipoPersona" id="exampleRadios2" value="option2" th:value="${tipoPersona}>
+      <label class="form-check-label" for="Persona Jurídica">
+        Persona Jurídica
 	  </label>
 	  <br>
-              
-              
-	  <div class="row">
-		  <div class="form-group col">
-			  <Label class="col-form-label">Nombre</Label>
-			<input name="nombre" type="text" class="form-control" placeholder="Ingrese su nombre" th:value="${nombre}">
-                    </div>
-		  <div class="form-group col">
-			  <Label class="col-form-label">Apellido</Label>
-			<input name="apellido" type="text" class="form-control" placeholder="Ingrese su apellido" th:value="${apellido}">
-		  </div>
-		</div>
-	  <div class="form-group col-md-6">
-		  <label class="col-form-label" for="exampleFormControlInput1">Dirección</label>
-		  <input name="direccion" type="address" class="form-control" id="exampleFormControlInput1" placeholder="Av. Siempre Viva 2223" th:value="${direccion}">
-		</div>
-<!--		<div class="form-row">
-		  <div class="form-group col-md-4">
-			<label class="col-form-label" for="inputCity">Ciudad</label>
-			<input name="ciudad" type="text" class="form-control" id="inputCity">
-		  </div>-->
-                    
-		  <div class="form-group col-md-4">
-			<label class="col-form-label" for="inputState">Provincia</label> <br>
-			                               <select name="provincia" id="provincia" th:value="${provincia}">
+            <div class="row">
+                <div class="form-group col">
+                    <Label class="col-form-label">Nombre</Label>
+                        <input name="nombre" type="text" class="form-control" placeholder="Ingrese su nombre" th:value="${nombre}">
+                            </div>
+            <div class="form-group col">
+                 <Label class="col-form-label">Apellido</Label>
+                      <input name="apellido" type="text" class="form-control" placeholder="Ingrese su apellido" th:value="${apellido}">
+                         </div>
+                             </div>
+         <div class="form-group col-md-6">
+            <label class="col-form-label" for="exampleFormControlInput1">Dirección</label>
+                <input name="direccion" type="address" class="form-control" id="exampleFormControlInput1" placeholder="Av. Siempre Viva 2223" th:value="${direccion}">
+		    </div>
+
+	<div class="form-group col-md-4">
+            <label class="col-form-label" for="inputState">Provincia</label> <br>
+		<select name="provincia" id="provincia" th:value="${provincia}">
     <option value="1">BUENOS AIRES</option>
     <option value="2">CATAMARCA</option>
     <option value="5">CHACO</option>
@@ -317,106 +82,84 @@
     <option value="22">TIERRA DEL FUEGO</option>
     <option disabled="true" selected="true" value="">Seleccionar una Provincia</option>
 </select>
-		  </div>
+</div>
 <div class="form-row">
-		  <div class="form-group col-md-7">
-		 <label class="col-form-label" for="exampleFormControlInput1">Ciudad</label>
-		  <input name="ciudad" type="address" class="form-control" id="exampleFormControlInput1" placeholder="Ingrese su ciudad" th:value="${ciudad}">
-		</div>
+    <div class="form-group col-md-7">
+        <label class="col-form-label" for="exampleFormControlInput1">Ciudad</label>
+            <input name="ciudad" type="address" class="form-control" id="exampleFormControlInput1" placeholder="Ingrese su ciudad" th:value="${ciudad}">
+               </div>
                 <br>
-		  <div class="form-row align-items-center">
-			  <div class="col-auto my-1">
-				<label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-				<select name="sexo" class="custom-select mr-sm-2" id="inlineFormCustomSelect" th:value="${sexo}">
-				  <option selected>Sexo...</option>
-				  <option value="1">Femenino</option>
-				  <option value="2">Masculino</option>
-				  <option value="3">Otro</option>
-				</select>
-			  </div>
+<div class="form-row align-items-center">
+    <div class="col-auto my-1">
+        <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+            <select name="sexo" class="custom-select mr-sm-2" id="inlineFormCustomSelect" th:value="${sexo}">
+		<option selected>Sexo...</option>
+		<option value="1">Femenino</option>
+		<option value="2">Masculino</option>
+		<option value="3">Otro</option>
+                    </select>
+                        </div>
+                            </div>
+                                <br>
+<div class="form-group col-md-12">
+    <label class="col-form-label" for="formGroupExampleInput">Ingrese su DNI</label>
+        <input name="DNI" type="text" class="form-control" th:value="${DNI}" placeholder="Sin puntos y sin espacios en blanco.">
+            </div>
+                <br>
+  <div class="form-group col-md-12">
+    <div class="form-check">
+       <input class="form-check-input" type="radio" name="cuil" value="option1" checked>
+	  <label class="form-check-label" for="exampleRadios1">
+             C.U.I.L.
+		</label>
+		   </div>
+                        <br>
+<div class="form-check">
+  <input  class="form-check-input" type="radio" name="cuit" id="exampleRadios2" value="option2">
+    <label class="form-check-label" for="exampleRadios2">
+	C.U.I.T.
+            </label>
 		</div>
+    <label class="col-form-label" for="formGroupExampleInput2">Ingrese su Código Tributario</label>
+	<input name="idCodigoTributario" type="text" class="form-control" id="formGroupExampleInput2" th:value="${idCodigoTributario}" placeholder="Sin puntos, sin guiones y sin espacios en blanco.">
+	  </div>
+             <br>
+ <div class="form-group col-md-7">
+    <label class="col-form-label" for="formGroupExampleInput">Ingrese su número de celular</label>
+	<input name="celular" type="text" class="form-control" id="formGroupExampleInput" placeholder="+54 11 1111 1111" th:value="${celular}">
+            </div>
 		<br>
-				<div class="form-group col-md-12">
-			<label class="col-form-label" for="formGroupExampleInput">Ingrese su DNI</label>
-			<input name="DNI" type="text" class="form-control" th:value="${DNI}" placeholder="Sin puntos y sin espacios en blanco.">
-		  </div>
-		  <br>
-		  
-			<br>
-		  <div class="form-group col-md-12">
-			  <div class="form-check">
-				  <input class="form-check-input" type="radio" name="cuil" value="option1" checked>
-				  <label class="form-check-label" for="exampleRadios1">
-					C.U.I.L.
-				  </label>
-				</div>
-				<br>
-				<div class="form-check">
-				  <input  class="form-check-input" type="radio" name="cuit" id="exampleRadios2" value="option2">
-				  <label class="form-check-label" for="exampleRadios2">
-					C.U.I.T.
-				  </label>
-				</div>
-			<label class="col-form-label" for="formGroupExampleInput2">Ingrese su Código Tributario</label>
-			<input name="idCodigoTributario" type="text" class="form-control" id="formGroupExampleInput2" th:value="${idCodigoTributario}" placeholder="Sin puntos, sin guiones y sin espacios en blanco.">
-		  </div>
-  <br>
-		  <div class="form-group col-md-7">
-			  <label class="col-form-label" for="formGroupExampleInput">Ingrese su número de celular</label>
-			  <input name="celular" type="text" class="form-control" id="formGroupExampleInput" placeholder="+54 11 1111 1111" th:value="${celular}">
-			</div>
-			<br>
                             
-	  <div class="form-group col-md-7">
-		  <label class="col-form-label" for="exampleInputEmail1">Dirección de correo electrónico</label>
-		  <input name=="email" type="String" class="form-control" id="InputEmail1" th:value="${email}">
-		  <small id="emailHelp" class="form-text text-muted">Nunca compartiremos con nadie su datos personales.</small>
-		</div>
+ <div class="form-group col-md-7">
+     <label class="col-form-label" for="exampleInputEmail1">Dirección de correo electrónico</label>
+	<input name=="email" type="String" class="form-control" id="InputEmail1" th:value="${email}">
+	 <small id="emailHelp" class="form-text text-muted">Nunca compartiremos con nadie su datos personales.</small>
+            </div>
 		<br>
-			<div class="form-group col-md-7">
-		  <label class="col-form-label" for="exampleInputPassword1">Ingrese su Contraseña</label>
-		  <input name="contrasenia" type="password" class="form-control" th:value="${contrasenia}" id="InputPassword1">
-		</div>
+<div class="form-group col-md-7">
+    <label class="col-form-label" for="exampleInputPassword1">Ingrese su Contraseña</label>
+        <input name="contrasenia" type="password" class="form-control" th:value="${contrasenia}" id="InputPassword1">
+            </div>
 		<br>
-		<div class="form-group col-md-7">
-		  <label class="col-form-label" for="exampleInputPassword1">Repita su Contraseña</label>
-		  <input type="contrasenia2" class="form-control" th:value="${contrasenia2}" id="InputPassword1">
-		</div>
+<div class="form-group col-md-7">
+    <label class="col-form-label" for="exampleInputPassword1">Repita su Contraseña</label>
+	 <input type="contrasenia2" class="form-control" th:value="${contrasenia2}" id="InputPassword1">
+            </div>
 		<br>
-		<div class="form-group col-md-7 form-check">
-		  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-		  <label class="form-check-label" for="exampleCheck1">Recuérdame en este dispositivo</label>
-		</div>
-		<br>
-		<button type="submit" class="btn btn-primary col-md-7">Enviar Formulario</button>
+<div class="form-group col-md-7 form-check">
+  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+     <label class="form-check-label" for="exampleCheck1">Recuérdame en este dispositivo</label>
+	</div>
+	<br>
+	<button type="submit" class="btn btn-primary col-md-7">Enviar Formulario</button>
 	</div>
 	</div>
-				</form>
-			  </div>
+	</form>
+        </div>
   
-			<!-- Form Ends here. -->
->>>>>>> 4dc6c07053c8f9a24178772038984ac6ae7e3672
-
-    <!--JavaScript-->
-
-<<<<<<< HEAD
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-  </body>
-</html>
-=======
-			
-		
-		<hr>
+	<hr>
 		<div th:replace = "fragments/footer :: footer">
 		</div>
-
-				<!--JavaScript-->
-              <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-				<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-
-		</body>
+</body>
 </html>
->>>>>>> 4dc6c07053c8f9a24178772038984ac6ae7e3672
+
