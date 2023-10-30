@@ -24,7 +24,7 @@ public class UsuarioControlador {
 
     @GetMapping("/registrar")
     public String registrar(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+       
 
         return "form_usuario.html";
     }
