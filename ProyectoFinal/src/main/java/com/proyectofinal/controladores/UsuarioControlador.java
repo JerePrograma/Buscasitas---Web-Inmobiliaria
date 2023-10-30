@@ -25,6 +25,7 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/registrar")
+<<<<<<< HEAD
     public String registrar(ModelMap modelo)/*,
             @RequestParam("nombre") String nombre,
             @RequestParam("apellido") String apellido,
@@ -42,6 +43,10 @@ public class UsuarioControlador {
 //        usuarioServicio.registrarUsuario(idCodigoTributario, nombre, apellido, direccion, ciudad, provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
         return "registro-form.html";
     }
+=======
+    public String registrar(ModelMap modelo) {
+       
+>>>>>>> 4dc6c07053c8f9a24178772038984ac6ae7e3672
 
     @GetMapping("/listar")
     public String listarUsuarios(ModelMap modelo) {
