@@ -70,7 +70,7 @@ public class InmuebleControlador {
         System.out.println(cuentaTributaria);
         return "inmueble_modificar"; // Crea una página HTML para la edición del inmueble
     }
-
+ 
     @PostMapping("/modificar/{cuentaTributaria}")
     public String actualizarInmueble(@PathVariable String cuentaTributaria,
                                      MultipartFile archivo,
