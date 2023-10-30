@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
-<body class="background_img">
-<!-- This is to display the Navbar of the website. -->
-<nav th:replace="fragments/navbar :: nav"></nav>
-<!-- End of NavBar -->
+  <head th:replace="fragments/head :: head"></head>
+  <body class="background_img">
+    <!-- This is to display the Navbar of the website. -->
+    <nav th:replace="fragments/navbar :: nav"></nav>
+    <!-- End of NavBar -->
+
 
 <div class="container mt-5 rounded mx-auto" style="max-width: 650px; background-color: white; font-family: Helvetica; font-weight: 600; color: #484848;">
     <h1 style="font-size: 2em; font-weight: bold; margin-bottom: 15px;">Resultados de la búsqueda</h1>
@@ -12,34 +13,46 @@
     <div class="form-group" style="font-size: small;">
         <label>Filtros de búsqueda:</label>
     </div>
+    <!-- Container for Search Results -->
+    <div
 
-    <!-- Display Search Results -->
-    <div class="row">
+
+      <!-- Display Search Results -->
+      <div class="row">
         <!-- Use th:each to iterate through a list of inmuebles -->
         <div th:each="inmueble : ${inmuebles}" class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 th:text="${inmueble.tipoInmueble}" class="card-title"></h5>
-                    <p th:text="${inmueble.transaccion}" class="card-text"></p>
-                    <p th:text="${inmueble.ciudad}" class="card-text"></p>
-                </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 th:text="${inmueble.tipoInmueble}" class="card-title"></h5>
+              <p th:text="${inmueble.transaccion}" class="card-text"></p>
+              <p th:text="${inmueble.ciudad}" class="card-text"></p>
             </div>
+          </div>
         </div>
         <!-- Repeat the above structure for each inmueble -->
+      </div>
     </div>
-</div>
 
-<!-- End of Search Results -->
+    <!-- End of Search Results -->
 
-<!-- The below section displays the Reviews and Feedbacks given by the users. -->
-<div class="container mt-5 mx-auto" style="padding: 2px; font-size: 14px; font-family: Helvetica; position: relative; left: -90px;">
-    <h3>Reseñas de los usuarios</h3>
-    <!-- Include user reviews and ratings here -->
-</div>
+    <!-- The below section displays the Reviews and Feedbacks given by the users. -->
+    <div
+      class="container mt-5 mx-auto"
+      style="
+        padding: 2px;
+        font-size: 14px;
+        font-family: Helvetica;
+        position: relative;
+        left: -90px;
+      "
+    >
+      <h3>Reseñas de los usuarios</h3>
+      <!-- Include user reviews and ratings here -->
+    </div>
 
-<hr>
+    <hr />
 
-<!-- Footer Section -->
-<div th:replace="fragments/footer :: footer"></div>
-</body>
+    <!-- Footer Section -->
+    <div th:replace="fragments/footer :: footer"></div>
+  </body>
 </html>

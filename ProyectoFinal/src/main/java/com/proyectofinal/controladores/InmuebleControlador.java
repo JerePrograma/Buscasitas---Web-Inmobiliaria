@@ -9,7 +9,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,22 +24,22 @@ public class InmuebleControlador {
         return "inmueble_form.html";
     }
 
-    @PostMapping("/crear")
-    public String crearInmueble(@RequestParam("archivo") MultipartFile archivo,
-                                @RequestParam("cuentaTributaria") String cuentaTributaria,
-                                @RequestParam("direccion") String direccion,
-                                @RequestParam("ciudad") String ciudad,
-                                @RequestParam("provincia") String provincia,
-                                @RequestParam("transaccion") String transaccion,
-                                @RequestParam("listaOfertas") String listaOfertas,
-                                @RequestParam("citaDiaHora") String citaDiaHora,
-                                @RequestParam("tipoInmueble") String tipoInmueble,
-                                @RequestParam("tituloAnuncio") String tituloAnuncio,
-                                @RequestParam("descripcionAnuncio") String descripcionAnuncio,
-                                @RequestParam("precioAlquilerVenta") Integer precioAlquilerVenta,
-                                @RequestParam("caracteristicaInmueble") String caracteristicaInmueble,
-                                @RequestParam("estado") String estado,
-                                ModelMap modelo) {
+    @PostMapping("/registrar")
+    public String registrarInmueble(ModelMap modelo,
+            @RequestParam("estado") String estado,
+            @RequestParam("archivo") MultipartFile archivo,
+            @RequestParam("cuentaTributaria") String cuentaTributaria,
+            @RequestParam("direccion") String direccion,
+            @RequestParam("ciudad") String ciudad,
+            @RequestParam("provincia") String provincia,
+            @RequestParam("transaccion") String transaccion,
+            @RequestParam("listaOfertas") String listaOfertas,
+            @RequestParam("citaDiaHora") String citaDiaHora,
+            @RequestParam("tipoInmueble") String tipoInmueble,
+            @RequestParam("tituloAnuncio") String tituloAnuncio,
+            @RequestParam("descripcionAnuncio") String descripcionAnuncio,
+            @RequestParam("precioAlquilerVenta") Integer precioAlquilerVenta,
+            @RequestParam("caracteristicaInmueble") String caracteristicaInmueble) {
         try {
             List<String> listaOfertasList = Arrays.asList(listaOfertas.split(","));
             List<String> citaDiaHoraList = Arrays.asList(citaDiaHora.split(","));
@@ -123,7 +122,6 @@ public class InmuebleControlador {
         return "busqueda_inmuebles";
     }
 
-
     @GetMapping("/buscar-inmuebles")
     public String buscarUbicacionInmuebles(
             @RequestParam(name = "ubicacion", required = false) String ubicacion,
@@ -138,4 +136,3 @@ public class InmuebleControlador {
         return "busqueda_inmuebles";
     }
 }
-
