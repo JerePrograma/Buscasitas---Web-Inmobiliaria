@@ -74,6 +74,9 @@ public class InmuebleServicio {
 
             inmuebleRepositorio.save(inmueble);
         }
+        else {
+            System.out.println("No se ha encontrado una cuenta tributaria");
+        }
 
 
     }

@@ -54,7 +54,7 @@ public class PortalControlador {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping("inicio")
+    @GetMapping("/inicio")
     public String inicio(HttpSession session) {
         Usuario logueado = (Usuario) session.getAttribute("usuario");
         if (logueado.getRol().toString().equals("ADMIN")) {
