@@ -86,7 +86,6 @@ public class InmuebleControlador {
         try {
             System.out.println(cuentaTributaria);
             List<String> citaDiaHoraList = Arrays.asList(citaDiaHora.split(","));
-            Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
             inmuebleServicio.modificarInmueble(archivo, cuentaTributaria, transaccion, citaDiaHoraList, tituloAnuncio, descripcionAnuncio, precioAlquilerVenta, caracteristicaInmueble, estado);
 
             // Resto del código
