@@ -19,12 +19,6 @@ public class InmuebleControlador {
     @Autowired
     private InmuebleServicio inmuebleServicio;
 
-    @GetMapping("")
-    public String index(Model model) {
-
-        return "index";
-    }
-
     @GetMapping("/registrar")
     public String registrarInmueble() {
         return "inmueble_form.html";
@@ -60,19 +54,50 @@ public class InmuebleControlador {
         return "redirect:/";
     }
 
-    @GetMapping("/editar/{cuentaTributaria}")
-    public String mostrarFormularioEditar(@PathVariable String cuentaTributaria, Model model) {
-        Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
-        model.addAttribute("inmueble", inmueble);
-        return "inmueble_modificar";
+    @GetMapping("/lista")
+    public String listarInmueble(ModelMap modelo) {
+        List<Inmueble> inmuebles = inmuebleServicio.listarTodosLosInmuebles();
+
+        modelo.addAttribute("inmueble", inmuebles);
+
+        return "inmueble_lista";
     }
 
-    //    @PostMapping("/editar/{cuentaTributaria}")
-//    public String actualizarInmueble(@PathVariable String cuentaTributaria, @ModelAttribute Inmueble inmueble) {
-//        inmueble.setCuentaTributaria(cuentaTributaria); // Asegúrate de que la cuenta tributaria no cambie
-//        inmuebleServicio.modificarInmueble(inmueble);
-//        return "redirect:/inmueble/";
-//    }
+    @GetMapping("/modificar/{cuentaTributaria}")
+    public String editarInmueble(@PathVariable String cuentaTributaria, ModelMap model) {
+        model.put("inmueble", inmuebleServicio.getOne(cuentaTributaria));
+        System.out.println(cuentaTributaria);
+        return "inmueble_modificar"; // Crea una página HTML para la edición del inmueble
+    }
+ 
+    @PostMapping("/modificar/{cuentaTributaria}")
+    public String actualizarInmueble(@PathVariable String cuentaTributaria,
+                                     MultipartFile archivo,
+                                     String transaccion,
+                                     String citaDiaHora,
+                                     String tituloAnuncio,
+                                     String descripcionAnuncio,
+                                     Integer precioAlquilerVenta,
+                                     String caracteristicaInmueble,
+                                     String estado,
+                                     ModelMap model) {
+
+        try {
+            System.out.println(cuentaTributaria);
+            List<String> citaDiaHoraList = Arrays.asList(citaDiaHora.split(","));
+            inmuebleServicio.modificarInmueble(archivo, cuentaTributaria, transaccion, citaDiaHoraList, tituloAnuncio, descripcionAnuncio, precioAlquilerVenta, caracteristicaInmueble, estado);
+
+            // Resto del código
+
+            model.put("exito", "Los cambios fueron guardados correctamente!");
+            return "redirect:/"; // Redirige a la página principal o la página de éxito, según sea necesario
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            System.out.println("error" + ex.getMessage());
+            return "inmueble_modificar"; // Permanece en la página de edición y muestra el mensaje de error
+        }
+    }
+
     @GetMapping("/eliminar/{cuentaTributaria}")
     public String eliminarInmueble(@PathVariable String cuentaTributaria) {
         inmuebleServicio.eliminarInmueblePorCuentaTributaria(cuentaTributaria);
