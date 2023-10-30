@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,11 +51,11 @@ public class InmuebleServicio {
     }
 
     @Transactional
-    public void modificarInmueble(MultipartFile archivo, String cuentaTributaria, String transaccion,
-            List<String> citaDiaHora, String tituloAnuncio, String descripcionAnuncio, Integer precioAlquilerVenta,
-            String caracteristicaInmueble, String estado) throws Exception {
+    public void modificarInmueble(MultipartFile archivo, String cuentaTributaria,
+                                  String tituloAnuncio, String descripcionAnuncio,
+                                  String caracteristicaInmueble, String estado) throws Exception {
         // Verifica si el inmueble ya existe en la base de datos
-        validarDatos(archivo, cuentaTributaria, transaccion, citaDiaHora, tituloAnuncio, descripcionAnuncio, precioAlquilerVenta, caracteristicaInmueble, estado);
+        validarDatos(archivo, cuentaTributaria, tituloAnuncio, descripcionAnuncio, caracteristicaInmueble, estado);
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(cuentaTributaria);
         if (respuesta.isPresent()) {
             Inmueble inmueble = respuesta.get();
@@ -64,11 +63,8 @@ public class InmuebleServicio {
             Imagen imagen = imagenServicio.guardarImagen(archivo);
 
             inmueble.setImagen(imagen);
-            inmueble.setTransaccion(transaccion);
-            inmueble.setCitaDiaHora(citaDiaHora);
             inmueble.setTituloAnuncio(tituloAnuncio);
             inmueble.setDescripcionAnuncio(descripcionAnuncio);
-            inmueble.setPrecioAlquilerVenta(precioAlquilerVenta);
             inmueble.setCaracteristicaInmueble(caracteristicaInmueble);
             inmueble.setEstado(estado);
 
@@ -172,19 +168,13 @@ public class InmuebleServicio {
         }
     }
 
-    public void validarDatos(MultipartFile archivo, String cuentaTributaria, String transaccion, List<String> citaDiaHora,
-            String tituloAnuncio, String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, String estado) throws MiExcepcion {
+    public void validarDatos(MultipartFile archivo, String cuentaTributaria,
+            String tituloAnuncio, String descripcionAnuncio, String caracteristicaInmueble, String estado) throws MiExcepcion {
         if (archivo == null || archivo.isEmpty()) {
             throw new MiExcepcion("La imagen no puede estar vacío o ser nulo");
         }
         if (cuentaTributaria == null || cuentaTributaria.isEmpty()) {
             throw new MiExcepcion("El cuentaTributaria no puede estar vacío o ser nulo");
-        }
-        if (transaccion == null || transaccion.isEmpty()) {
-            throw new MiExcepcion("El transaccion no puede estar vacío o ser nulo");
-        }
-        if (citaDiaHora == null || citaDiaHora.isEmpty()) {
-            throw new MiExcepcion("El citaDiaHora no puede estar vacío o ser nulo");
         }
         if (tituloAnuncio == null || tituloAnuncio.isEmpty()) {
             throw new MiExcepcion("El tituloAnuncio no puede estar vacío o ser nulo");
@@ -193,9 +183,6 @@ public class InmuebleServicio {
             throw new MiExcepcion("El descripcionAnuncio no puede estar vacío o ser nulo");
         }
 
-        if (precioAlquilerVenta == null || precioAlquilerVenta <= 0) {
-            throw new MiExcepcion("El tituloAnuncio no puede estar vacío o ser nulo");
-        }
         if (caracteristicaInmueble == null || caracteristicaInmueble.isEmpty()) {
             throw new MiExcepcion("El caracteristicaInmueble no puede estar vacío o ser nulo");
         }

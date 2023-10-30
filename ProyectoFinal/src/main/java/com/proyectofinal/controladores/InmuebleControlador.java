@@ -58,34 +58,33 @@ public class InmuebleControlador {
     public String listarInmueble(ModelMap modelo) {
         List<Inmueble> inmuebles = inmuebleServicio.listarTodosLosInmuebles();
 
-        modelo.addAttribute("inmueble", inmuebles);
+        modelo.addAttribute("inmuebles", inmuebles);
 
         return "inmueble_lista";
     }
 
     @GetMapping("/modificar/{cuentaTributaria}")
     public String editarInmueble(@PathVariable String cuentaTributaria, ModelMap model) {
-        model.put("inmueble", inmuebleServicio.getOne(cuentaTributaria));
-        System.out.println(cuentaTributaria);
+        Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
+        model.put("inmueble", inmueble);
+        model.addAttribute("cuentaTributaria", cuentaTributaria);
         return "inmueble_modificar"; // Crea una página HTML para la edición del inmueble
     }
  
     @PostMapping("/modificar/{cuentaTributaria}")
-    public String actualizarInmueble(@PathVariable String cuentaTributaria,
-                                     MultipartFile archivo,
-                                     String transaccion,
-                                     String citaDiaHora,
-                                     String tituloAnuncio,
-                                     String descripcionAnuncio,
-                                     Integer precioAlquilerVenta,
-                                     String caracteristicaInmueble,
-                                     String estado,
+    public String actualizarInmueble(@PathVariable("cuentaTributaria") String cuentaTributaria,
+                                     @RequestParam("archivo") MultipartFile archivo,
+                                     @RequestParam("tituloAnuncio") String tituloAnuncio,
+                                     @RequestParam("descripcionAnuncio") String descripcionAnuncio,
+                                     @RequestParam("caracteristicaInmueble") String caracteristicaInmueble,
+                                     @RequestParam("estado") String estado,
                                      ModelMap model) {
 
         try {
+
             System.out.println(cuentaTributaria);
-            List<String> citaDiaHoraList = Arrays.asList(citaDiaHora.split(","));
-            inmuebleServicio.modificarInmueble(archivo, cuentaTributaria, transaccion, citaDiaHoraList, tituloAnuncio, descripcionAnuncio, precioAlquilerVenta, caracteristicaInmueble, estado);
+          //Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
+            inmuebleServicio.modificarInmueble(archivo, cuentaTributaria, tituloAnuncio, descripcionAnuncio, caracteristicaInmueble, estado);
 
             // Resto del código
 
@@ -94,8 +93,10 @@ public class InmuebleControlador {
         } catch (Exception ex) {
             model.put("error", ex.getMessage());
             System.out.println("error" + ex.getMessage());
+            System.out.println(cuentaTributaria);
             return "inmueble_modificar"; // Permanece en la página de edición y muestra el mensaje de error
         }
+
     }
 
     @GetMapping("/eliminar/{cuentaTributaria}")

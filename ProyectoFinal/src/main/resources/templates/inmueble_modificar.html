@@ -1,63 +1,39 @@
-<!DOCTYPE html>
-<!--suppress ALL -->
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<<<<<<< HEAD
-<head th:replace="fragments/head :: head">
-    <link rel="stylesheet" th:href="@{/css/formulario.css}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/css/formulario.css}" />
+    <title>Modificar Inmueble</title>
 </head>
+<body>
+<nav th:replace="/fragments/navbar :: nav">
+</nav>
 
-<body class="background_img">
+<form class="form-register" th:action="@{/inmueble/modificar/__${inmueble.cuentaTributaria}__}" method="POST" enctype="multipart/form-data">
 
-<nav th:replace="fragments/navbar :: nav"></nav>
+    <input hidden name="cuentaTributaria" th:value="${cuentaTributaria}" >
 
-<div class="container mt-5 rounded mx-auto" style="max-width: 650px; background-color: white; font-family: Helvetica; font-weight: 600; color: #484848;">
-    <h1 style="font-size: 2em; font-weight: bold; margin-bottom: 15px;">Editar Inmueble</h1>
+    <div class="form-group my-3">
 
-    <form class = "form-register" th:action="@{/inmueble/modificar/__${inmueble.cuentaTributaria}__}" method="POST" enctype="multipart/form-data">
-
-        <!-- Luego, puedes usar ${cuentaTributaria} para acceder a la cuentaTributaria en la vista -->
-        <input type = "hidden" name="cuentaTributaria" th:value="${cuentaTributaria}">
-        <!-- Campos para editar los detalles del inmueble -->
+        <label class="mb-2">Actualizar Noticia</label>
         <div class="form-group">
             <label for="archivo">Imagen:</label>
-            <input type="file" name="archivo" class="form-control">
+            <input type="file" name="archivo" class="form-control controls">
         </div>
-        <div class="form-group">
-            <label for="transaccion">Transacción:</label>
-            <input type="text" name="transaccion" th:value="${inmueble.transaccion}" />
-        </div>
-        <div class="form-group">
-            <label for="citaDiaHora">Cita Día/Hora:</label>
-            <input type="text" name="citaDiaHora" class="form-control" th:value="${inmueble.citaDiaHora}">
-        </div>
-        <div class="form-group">
-            <label for="tituloAnuncio">Título del Anuncio:</label>
-            <input type="text" name="tituloAnuncio" class="form-control" th:value="${inmueble.tituloAnuncio}">
-        </div>
-        <div class="form-group">
-            <label for="descripcionAnuncio">Descripción del Anuncio:</label>
-            <textarea name="descripcionAnuncio" class="form-control" th:text="${inmueble.descripcionAnuncio}"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="precioAlquilerVenta">Precio de Alquiler/Venta:</label>
-            <input type="number" name="precioAlquilerVenta" class="form-control" th:value="${inmueble.precioAlquilerVenta}">
-        </div>
-        <div class="form-group">
-            <label for="caracteristicaInmueble">Características del Inmueble:</label>
-            <input type="text" name="caracteristicaInmueble" class="form-control" th:value="${inmueble.caracteristicaInmueble}">
-        </div>
-        <div class="form-group">
-            <label for="estado">Estado:</label>
-            <input type="text" name="estado" class="form-control" th:value="${inmueble.estado}">
-        </div>
-        <button type="submit" class="btn btn-primary">Guardar cambios</button>
-    </form>
-</div>
+        <input name="tituloAnuncio"  type="text" class="form-control controls"  th:value="${inmueble.tituloAnuncio}" placeholder= "Titulo">
+        <input th:value="${inmueble.descripcionAnuncio}" type="text" class="form-control controls" name="descripcionAnuncio" placeholder= "Descripcion" >
+        <input th:value="${inmueble.caracteristicaInmueble}" type="text" class="form-control controls" name="caracteristicaInmueble" placeholder= "Caracteristicas" >
+        <input th:value="${inmueble.estado}" type="text" class="form-control controls" name="estado" placeholder= "estado" >
+    </div>
 
+    <button type="submit" class="btn btn-primary mt-3 botons">Actualizar</button>
 
-
-<hr>
-
-<div th:replace="fragments/footer :: footer"></div>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
 </body>
 </html>
