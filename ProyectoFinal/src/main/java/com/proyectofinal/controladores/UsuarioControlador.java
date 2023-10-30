@@ -1,15 +1,13 @@
 package com.proyectofinal.controladores;
 
-import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.excepciones.MiExcepcion;
 import com.proyectofinal.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -25,33 +23,33 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/registrar")
-<<<<<<< HEAD
-    public String registrar(ModelMap modelo)/*,
-            @RequestParam("nombre") String nombre,
-            @RequestParam("apellido") String apellido,
-            @RequestParam("direccion") String direccion,
-            @RequestParam("ciudad") String ciudad,
-            @RequestParam("provincia") String provincia,
-            @RequestParam("idCodigoTributario") String idCodigoTributario,
-            @RequestParam("sexo") String sexo,
-            @RequestParam("email") String email,
-            @RequestParam("celular") String celular,
-            @RequestParam("DNI") String DNI,
-            @RequestParam("tipoPersona") String tipoPersona,
-            @RequestParam("contrasenia") String contrasenia,
-            @RequestParam("contrasenia2") String contrasenia2) throws MiExcepcion*/ {
-//        usuarioServicio.registrarUsuario(idCodigoTributario, nombre, apellido, direccion, ciudad, provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
+    public String registrar() {
         return "registro-form.html";
     }
-=======
-    public String registrar(ModelMap modelo) {
-       
->>>>>>> 4dc6c07053c8f9a24178772038984ac6ae7e3672
 
-    @GetMapping("/listar")
-    public String listarUsuarios(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
-        modelo.addAllAttributes(usuarios);
-        return "usuario_list.html";
+    //registroControlador
+    @PostMapping("/registro")
+    public String registro(@RequestParam String idCodigoTributario, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String direccion, @RequestParam String ciudad, @RequestParam String provincia, @RequestParam String DNI, @RequestParam String sexo, @RequestParam String email, @RequestParam String celular, @RequestParam String tipoPersona, @RequestParam String contrasenia, @RequestParam String contrasenia2, ModelMap modelo) {
+        try {
+            usuarioServicio.registrarUsuario(idCodigoTributario, nombre, apellido, direccion, ciudad, provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
+            modelo.put("exito", "Usuario registrado correctamente");
+            return "index.html";
+        } catch (MiExcepcion ex) {
+            modelo.put("error", ex.getMessage());
+            modelo.put("idCodigoTributario", idCodigoTributario);
+            modelo.put("apellido", apellido);
+            modelo.put("direccion", direccion);
+            modelo.put("ciudad", ciudad);
+            modelo.put("provincia", provincia);
+            modelo.put("DNI", DNI);
+            modelo.put("sexo", sexo);
+            modelo.put("email", email);
+            modelo.put("celular", celular);
+            modelo.put("tipoPersona", tipoPersona);
+            modelo.put("contrasenia", contrasenia);
+            modelo.put("contrasenia2", contrasenia2);
+
+            return "registro-form.html";
+        }
     }
 }
