@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
@@ -28,25 +27,25 @@
                 <th scope="col" sec:authorize="hasRole('ADMIN')">Acciones</th>
             </tr>
             </thead>
-            <tbody th:each="inmuebles : ${inmueble}">
+            <tbody th:each="inmueble : ${inmuebles}">
             <tr>
-                <td th:text="${inmuebles.cuentaTributaria}"></td>
-                <td th:text="${inmuebles.direccion}"></td>
-                <td th:text="${inmuebles.ciudad}"></td>
-                <td th:text="${inmuebles.provincia}"></td>
-                <td th:text="${inmuebles.transaccion}"></td>
-                <td th:text="${inmuebles.tituloAnuncio}"></td>
-                <td th:text="${inmuebles.descripcionAnuncio}"></td>
-                <td th:text="${inmuebles.precioAlquilerVenta}"></td>
-                <td th:text="${inmuebles.caracteristicaInmueble}"></td>
-                <td th:text="${inmuebles.estado}"></td>
+                <td th:text="${inmueble.cuentaTributaria}"></td>
+                <td th:text="${inmueble.direccion}"></td>
+                <td th:text="${inmueble.ciudad}"></td>
+                <td th:text="${inmueble.provincia}"></td>
+                <td th:text="${inmueble.transaccion}"></td>
+                <td th:text="${inmueble.tituloAnuncio}"></td>
+                <td th:text="${inmueble.descripcionAnuncio}"></td>
+                <td th:text="${inmueble.precioAlquilerVenta}"></td>
+                <td th:text="${inmueble.caracteristicaInmueble}"></td>
+                <td th:text="${inmueble.estado}"></td>
                 <a
                         sec:authorize="hasRole('ADMIN')"
                         th:href="@{/modificar/__${noticias.idNoticia}__}"
                 ><i class="fas fa-feather-alt"> </i> Modificar
                 </a>
                 <td>
-                    <a th:href="@{/inmueble/modificar/__${inmuebles.cuentaTributaria}__}"><i class="fas fa-edit"></i> Editar </a>
+                    <a th:href="@{/inmueble/modificar/__${inmueble.cuentaTributaria}__}"><i class="fas fa-edit"></i> Editar </a>
                 </td>
             </tr>
             </tbody>
