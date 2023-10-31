@@ -112,6 +112,7 @@ public class InmuebleControlador {
             @RequestParam(name = "tipoInmueble", required = false) String tipoInmueble,
             @RequestParam(name = "ciudad", required = false) String ciudad,
             @RequestParam(name = "provincia", required = false) String provincia,
+            @RequestParam(name = "archivo", required = false) MultipartFile archivo,
             Model model
     ) {
         // Llama al servicio con los parámetros adecuados, incluyendo tipoInmueble como String.

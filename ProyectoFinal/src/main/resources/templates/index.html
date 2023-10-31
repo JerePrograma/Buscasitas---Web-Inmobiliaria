@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="fragments/head :: head"> </head>
+  <head th:replace="fragments/head :: head">
+  </head>
   <body class="background_img">
     <!-- This is to display the Navbar of the website. -->
     <nav th:replace="fragments/navbar :: nav"></nav>
@@ -49,9 +50,9 @@
               >Alquiler</a
             >
             <a
-              class="dropdown-item"
-              th:href="@{/inmueble/busqueda(transaccion='alquilerTemporal')}"
-              >Alquiler Temporal</a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(transaccion='alquilerTemporal')}"
+            >Alquiler Temporal</a
             >
           </div>
         </div>
@@ -82,14 +83,29 @@
               >Departamento</a
             >
             <a
-              class="dropdown-item"
-              th:href="@{/inmueble/busqueda(tipoInmueble='ph')}"
-              >PH</a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(tipoInmueble='ph')}"
+            >PH</a
             >
             <a
-              class="dropdown-item"
-              th:href="@{/inmueble/busqueda(tipoInmueble='casa')}"
-              >Casa</a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(tipoInmueble='terreno')}"
+            >Terreno</a
+            >
+            <a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(tipoInmueble='oficina')}"
+            >Oficina</a
+            >
+            <a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(tipoInmueble='local')}"
+            >Local</a
+            >
+            <a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(tipoInmueble='cochera')}"
+            >Cochera</a
             >
             <!-- Agrega más opciones según tus tipos de inmueble disponibles -->
           </div>
@@ -135,7 +151,6 @@
         font-size: 14px;
         font-family: Helvetica;
         position: relative;
-        left: -90px;
       "
     >
       <h3>Que reseñas nos dejan los huéspedes...</h3>

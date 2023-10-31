@@ -55,15 +55,24 @@ public class InmuebleServicio {
                                   String tituloAnuncio, String descripcionAnuncio,
                                   String caracteristicaInmueble, String estado) throws Exception {
         // Verifica si el inmueble ya existe en la base de datos
-        validarDatos(archivo, cuentaTributaria, tituloAnuncio, descripcionAnuncio, caracteristicaInmueble, estado);
+        validarDatosModificar(cuentaTributaria, tituloAnuncio, descripcionAnuncio, caracteristicaInmueble, estado);
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(cuentaTributaria);
         if (respuesta.isPresent()) {
             Inmueble inmueble = respuesta.get();
 
-            Imagen imagen = imagenServicio.guardarImagen(archivo);
 
-            inmueble.setImagen(imagen);
+            if (archivo != null) {
+                String idImagen = null;
+
+                idImagen = inmueble.getImagen().getId();
+
+                Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+
+                inmueble.setImagen(imagen);
+            }
+
             inmueble.setTituloAnuncio(tituloAnuncio);
+
             inmueble.setDescripcionAnuncio(descripcionAnuncio);
             inmueble.setCaracteristicaInmueble(caracteristicaInmueble);
             inmueble.setEstado(estado);
@@ -168,11 +177,8 @@ public class InmuebleServicio {
         }
     }
 
-    public void validarDatos(MultipartFile archivo, String cuentaTributaria,
+    public void validarDatosModificar(String cuentaTributaria,
             String tituloAnuncio, String descripcionAnuncio, String caracteristicaInmueble, String estado) throws MiExcepcion {
-        if (archivo == null || archivo.isEmpty()) {
-            throw new MiExcepcion("La imagen no puede estar vacío o ser nulo");
-        }
         if (cuentaTributaria == null || cuentaTributaria.isEmpty()) {
             throw new MiExcepcion("El cuentaTributaria no puede estar vacío o ser nulo");
         }
@@ -190,6 +196,7 @@ public class InmuebleServicio {
             throw new MiExcepcion("El estado no puede estar vacío o ser nulo");
         }
     }
+
 
 
 }
