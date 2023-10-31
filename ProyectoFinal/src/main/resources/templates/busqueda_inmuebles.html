@@ -22,6 +22,7 @@
         <!-- Use th:each to iterate through a list of inmuebles -->
         <div th:each="inmueble : ${inmuebles}" class="col-md-4">
           <div class="card">
+              <img class="logo" th:src="@{/imagen/inmueble/__${inmueble.cuentaTributaria}__}" alt="Img logo egg">
             <div class="card-body">
               <h5 th:text="${inmueble.tipoInmueble}" class="card-title"></h5>
               <p th:text="${inmueble.transaccion}" class="card-text"></p>

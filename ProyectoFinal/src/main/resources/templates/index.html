@@ -54,11 +54,6 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
           <div class="dropdown-menu" aria-labelledby="transaccionDropdown">
             <a
               class="dropdown-item"
-              th:href="@{/inmueble/busqueda(transaccion='compra')}"
-              >Compra</a
-            >
-            <a
-              class="dropdown-item"
               th:href="@{/inmueble/busqueda(transaccion='venta')}"
               >Venta</a
             >
@@ -66,6 +61,11 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
               class="dropdown-item"
               th:href="@{/inmueble/busqueda(transaccion='alquiler')}"
               >Alquiler</a
+            >
+            <a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(transaccion='alquilerTemporal')}"
+            >Alquiler Temporal</a
             >
           </div>
         </div>
@@ -93,7 +93,32 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
             <a
               class="dropdown-item"
               th:href="@{/inmueble/busqueda(tipoInmueble='departamento')}"
-              >Apartamento</a
+              >Departamento</a
+            >
+            <a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(tipoInmueble='ph')}"
+            >PH</a
+            >
+            <a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(tipoInmueble='terreno')}"
+            >Terreno</a
+            >
+            <a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(tipoInmueble='oficina')}"
+            >Oficina</a
+            >
+            <a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(tipoInmueble='local')}"
+            >Local</a
+            >
+            <a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(tipoInmueble='cochera')}"
+            >Cochera</a
             >
             <!-- Agrega más opciones según tus tipos de inmueble disponibles -->
           </div>
