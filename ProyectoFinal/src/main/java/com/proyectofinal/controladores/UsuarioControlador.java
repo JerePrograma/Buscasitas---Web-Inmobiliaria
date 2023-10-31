@@ -40,8 +40,8 @@ public class UsuarioControlador {
             @RequestParam("email") String email, 
             @RequestParam("celular") String celular, 
             @RequestParam("tipoPersona") String tipoPersona, 
-            @RequestParam("contraseña") String contrasenia, 
-            @RequestParam("contraseña2") String contrasenia2, 
+            @RequestParam("contrasenia") String contrasenia, 
+            @RequestParam("contrasenia2") String contrasenia2, 
             ModelMap modelo) {
         try {
             usuarioServicio.registrarUsuario(idCodigoTributario, nombre, apellido, direccion, ciudad, provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2);

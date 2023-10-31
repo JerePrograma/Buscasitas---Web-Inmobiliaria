@@ -1,7 +1,9 @@
 package com.proyectofinal.controladores;
 
+import com.proyectofinal.entidades.Inmueble;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.excepciones.MiExcepcion;
+import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.UsuarioServicio;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 // PROYECTO FINAL - EQUIPO A - MrHouse.com
 @Controller
 @RequestMapping("/")
@@ -21,8 +25,14 @@ public class PortalControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
+    @Autowired
+    private InmuebleServicio inmuebleServicio;
+
     @GetMapping("/")
-    public String index() {
+    public String index(ModelMap modelo) {
+        List<Inmueble> inmuebles = inmuebleServicio.listarTodosLosInmuebles();
+
+        modelo.addAttribute("inmuebles", inmuebles);
         return "index.html";
     }
 
