@@ -1,8 +1,7 @@
-
-  body {
-    background-image: url(../images/fondo.jpg);
-    background-size : cover;
-  }
+body {
+  background-image: url(../images/fondo.jpg);
+  background-size: cover;
+}
 
 .form-register {
   width: 400px;
@@ -11,7 +10,7 @@
   margin: auto;
   margin-top: 100px;
   border-radius: 4px;
-  font-family: 'calibri';
+  font-family: "calibri";
   color: white;
   box-shadow: 7px 13px 37px #000;
 }
@@ -28,7 +27,7 @@
   border-radius: 4px;
   margin-bottom: 16px;
   border: 1px solid #1f53c5;
-  font-family: 'calibri';
+  font-family: "calibri";
   font-size: 18px;
   color: white;
 }
@@ -63,18 +62,24 @@ nav {
   background-color: rgb(64, 98, 233);
 }
 .navbar-nav .nav-item .nav-link {
-    color: white !important; /* Cambiar a blanco y usar !important para anular estilos previos */
-    transition: color 1s;
+  color: white !important; /* Cambiar a blanco y usar !important para anular estilos previos */
+  transition: color 1s;
 }
-.btn-info, .btn-info:active {
-    display: inline-block;
-    padding: 10px 20px; /* Ajusta el relleno según tus preferencias */
-    background-color: rgb(64, 98, 233); /* Color de fondo del botón */
-    color: #fff; /* Color de texto */
-    text-decoration: none;
-    border-radius: 5px solid rgb(64, 98, 233); /* Bordes redondeados */
-    transition: background-color 0.3s; /* Transición de color suave */
+.btn-info,
+.btn-info:active {
+  display: inline-block;
+  padding: 10px 20px; /* Ajusta el relleno según tus preferencias */
+  background-color: rgb(64, 98, 233); /* Color de fondo del botón */
+  color: #fff; /* Color de texto */
+  text-decoration: none;
+  border-radius: 5px solid rgb(64, 98, 233); /* Bordes redondeados */
+  transition: background-color 0.3s; /* Transición de color suave */
 }
 .btn-info:hover {
-    background-color: #0051bc;
+  background-color: #0051bc;
+}
+
+#logo {
+  width: 75px;
+  height: auto;
 }

@@ -1,17 +1,3 @@
-<!-- Airbnb clone using Bootstrap 4 and Custom CSS -->
-
-<!-- Bootstrap 4 is the newest version of Bootstrap, which is the most popular HTML, CSS, and JavaScript framework for developing responsive, mobile-first websites.
-
-Bootstrap 4 is completely free to download and use! -->
-
-<!-- What is Bootstrap?  -->
-
-<!-- Bootstrap is a free front-end framework for faster and easier web development.
-
-Bootstrap includes HTML and CSS based design templates for typography, forms, buttons, tables, navigation, modals, image carousels and many other, as well as optional JavaScript plugins.
-
-Bootstrap also gives you the ability to easily create responsive designs. -->
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head th:replace="fragments/head :: head"> </head>
@@ -63,9 +49,15 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
               >Alquiler</a
             >
             <a
+<<<<<<< HEAD
                     class="dropdown-item"
                     th:href="@{/inmueble/busqueda(transaccion='alquilerTemporal')}"
             >Alquiler Temporal</a
+=======
+              class="dropdown-item"
+              th:href="@{/inmueble/busqueda(transaccion='alquilerTemporal')}"
+              >Alquiler Temporal</a
+>>>>>>> fcd241b3ddb00901821a0fb3db5bbb5469fabdf1
             >
           </div>
         </div>
@@ -96,6 +88,7 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
               >Departamento</a
             >
             <a
+<<<<<<< HEAD
                     class="dropdown-item"
                     th:href="@{/inmueble/busqueda(tipoInmueble='ph')}"
             >PH</a
@@ -119,6 +112,16 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
                     class="dropdown-item"
                     th:href="@{/inmueble/busqueda(tipoInmueble='cochera')}"
             >Cochera</a
+=======
+              class="dropdown-item"
+              th:href="@{/inmueble/busqueda(tipoInmueble='ph')}"
+              >PH</a
+            >
+            <a
+              class="dropdown-item"
+              th:href="@{/inmueble/busqueda(tipoInmueble='casa')}"
+              >Casa</a
+>>>>>>> fcd241b3ddb00901821a0fb3db5bbb5469fabdf1
             >
             <!-- Agrega más opciones según tus tipos de inmueble disponibles -->
           </div>
@@ -134,13 +137,13 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
         />
       </div>
       <!--<div class="input-group-prepend" style=" font-size: small;">
-                    <label>Fecha de ingreso</label> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-                    <label>Fecha de egreso</label><br>
-            </div>
-            <div class="input-group" style=" font-size: small;">
-                    <input class="form-control" type="date" placeholder="dd-mm-aaaa" name="checkin" />
-                    <input class="form-control" type="date" placeholder="dd-mm-aaaa" name="checkout" />
-            </div> -->
+                          <label>Fecha de ingreso</label> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                          <label>Fecha de egreso</label><br>
+                  </div>
+                  <div class="input-group" style=" font-size: small;">
+                          <input class="form-control" type="date" placeholder="dd-mm-aaaa" name="checkin" />
+                          <input class="form-control" type="date" placeholder="dd-mm-aaaa" name="checkout" />
+                  </div> -->
       <br />
       <div class="form-group">
         <button
@@ -168,7 +171,6 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
       "
     >
       <h3>Que reseñas nos dejan los huéspedes...</h3>
-
 
       <!-- SVG for particular Star Symbol -->
 
