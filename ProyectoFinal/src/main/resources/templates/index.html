@@ -1,20 +1,7 @@
-<!-- Airbnb clone using Bootstrap 4 and Custom CSS -->
-
-<!-- Bootstrap 4 is the newest version of Bootstrap, which is the most popular HTML, CSS, and JavaScript framework for developing responsive, mobile-first websites.
-
-Bootstrap 4 is completely free to download and use! -->
-
-<!-- What is Bootstrap?  -->
-
-<!-- Bootstrap is a free front-end framework for faster and easier web development.
-
-Bootstrap includes HTML and CSS based design templates for typography, forms, buttons, tables, navigation, modals, image carousels and many other, as well as optional JavaScript plugins.
-
-Bootstrap also gives you the ability to easily create responsive designs. -->
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="fragments/head :: head"> </head>
+  <head th:replace="fragments/head :: head">
+  </head>
   <body class="background_img">
     <!-- This is to display the Navbar of the website. -->
     <nav th:replace="fragments/navbar :: nav"></nav>
@@ -54,11 +41,6 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
           <div class="dropdown-menu" aria-labelledby="transaccionDropdown">
             <a
               class="dropdown-item"
-              th:href="@{/inmueble/busqueda(transaccion='compra')}"
-              >Compra</a
-            >
-            <a
-              class="dropdown-item"
               th:href="@{/inmueble/busqueda(transaccion='venta')}"
               >Venta</a
             >
@@ -66,6 +48,11 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
               class="dropdown-item"
               th:href="@{/inmueble/busqueda(transaccion='alquiler')}"
               >Alquiler</a
+            >
+            <a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(transaccion='alquilerTemporal')}"
+            >Alquiler Temporal</a
             >
           </div>
         </div>
@@ -93,7 +80,32 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
             <a
               class="dropdown-item"
               th:href="@{/inmueble/busqueda(tipoInmueble='departamento')}"
-              >Apartamento</a
+              >Departamento</a
+            >
+            <a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(tipoInmueble='ph')}"
+            >PH</a
+            >
+            <a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(tipoInmueble='terreno')}"
+            >Terreno</a
+            >
+            <a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(tipoInmueble='oficina')}"
+            >Oficina</a
+            >
+            <a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(tipoInmueble='local')}"
+            >Local</a
+            >
+            <a
+                    class="dropdown-item"
+                    th:href="@{/inmueble/busqueda(tipoInmueble='cochera')}"
+            >Cochera</a
             >
             <!-- Agrega más opciones según tus tipos de inmueble disponibles -->
           </div>
@@ -109,13 +121,13 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
         />
       </div>
       <!--<div class="input-group-prepend" style=" font-size: small;">
-                    <label>Fecha de ingreso</label> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-                    <label>Fecha de egreso</label><br>
-            </div>
-            <div class="input-group" style=" font-size: small;">
-                    <input class="form-control" type="date" placeholder="dd-mm-aaaa" name="checkin" />
-                    <input class="form-control" type="date" placeholder="dd-mm-aaaa" name="checkout" />
-            </div> -->
+                          <label>Fecha de ingreso</label> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                          <label>Fecha de egreso</label><br>
+                  </div>
+                  <div class="input-group" style=" font-size: small;">
+                          <input class="form-control" type="date" placeholder="dd-mm-aaaa" name="checkin" />
+                          <input class="form-control" type="date" placeholder="dd-mm-aaaa" name="checkout" />
+                  </div> -->
       <br />
       <div class="form-group">
         <button
@@ -139,11 +151,9 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
         font-size: 14px;
         font-family: Helvetica;
         position: relative;
-        left: -90px;
       "
     >
       <h3>Que reseñas nos dejan los huéspedes...</h3>
-
 
       <!-- SVG for particular Star Symbol -->
 

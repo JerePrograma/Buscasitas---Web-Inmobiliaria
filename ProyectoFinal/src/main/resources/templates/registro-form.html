@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Registrar Inmueble</title>
+    <title>Registrar Usuario</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -55,18 +55,16 @@
 			    
  <h1> <span class="badge badge-primary">Regístrate</span></h1>
 				  <br>
-                                     
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="tipoPersona" id="exampleRadios1" value="option1" checked th:value="${tipoPersona}">
-    <label class="form-check-label" for="Persona Física" >
-      Persona Física
-	</label>
-	  </div>
-<div class="form-check">
-   <input class="form-check-input" type="radio" name="tipoPersona" id="exampleRadios2" value="option2" th:value="${tipoPersona}">
-      <label class="form-check-label" for="Persona Jurídica">
-        Persona Jurídica
-	  </label>
+   <div class="form-row align-items-center">
+    <div class="col-auto my-1">
+        <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+            <select name="tipoPersona" class="custom-select mr-sm-2" id="inlineFormCustomSelect" th:value="${tipoPersona}">
+		<option selected>Tipo Persona...</option>
+		<option value="1">Persona Física</option>
+		<option value="2">Persona Jurídica</option>
+		  </select>
+                        </div>
+                            </div>
 	  <br>
             <div class="row">
                 <div class="form-group col">
@@ -117,7 +115,11 @@
             <input name="ciudad" type="address" class="form-control" id="exampleFormControlInput1" placeholder="Ingrese su ciudad" th:value="${ciudad}">
                </div>
                 <br>
-<div class="form-row align-items-center">
+ <div class="form-group col-md-12">
+    <label class="col-form-label" for="formGroupExampleInput">Ingrese su DNI</label>
+        <input name="DNI" type="text" class="form-control" th:value="${DNI}" placeholder="Sin puntos y sin espacios en blanco.">
+            </div>
+                                    <div class="form-row align-items-center">
     <div class="col-auto my-1">
         <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
             <select name="sexo" class="custom-select mr-sm-2" id="inlineFormCustomSelect" th:value="${sexo}">
@@ -128,11 +130,6 @@
                     </select>
                         </div>
                             </div>
-                                <br>
-<div class="form-group col-md-12">
-    <label class="col-form-label" for="formGroupExampleInput">Ingrese su DNI</label>
-        <input name="DNI" type="text" class="form-control" th:value="${DNI}" placeholder="Sin puntos y sin espacios en blanco.">
-            </div>
                 <br>
   <div class="form-group col-md-12">
     <div class="form-check">
@@ -160,7 +157,7 @@
                             
  <div class="form-group col-md-7">
      <label class="col-form-label" for="exampleInputEmail1">Dirección de correo electrónico</label>
-	<input name=="email" type="String" class="form-control" id="InputEmail1" th:value="${email}">
+	<input name="email" type="String" class="form-control" id="InputEmail1" >
 	 <small id="emailHelp" class="form-text text-muted">Nunca compartiremos con nadie su datos personales.</small>
             </div>
 		<br>
@@ -171,7 +168,7 @@
 		<br>
 <div class="form-group col-md-7">
     <label class="col-form-label" for="exampleInputPassword1">Repita su Contraseña</label>
-	 <input type="contrasenia2" class="form-control" th:value="${contrasenia2}" id="InputPassword1">
+	 <input name="contrasenia2" type="password" class="form-control" th:value="${contrasenia2}" id="InputPassword1">
             </div>
 		<br>
 <div class="form-group col-md-7 form-check">
@@ -180,7 +177,6 @@
 	</div>
 	<br>
 	<button type="submit" class="btn btn-primary col-md-7">Enviar Formulario</button>
-	</div>
 	</div>
 	</form>
         </div>
