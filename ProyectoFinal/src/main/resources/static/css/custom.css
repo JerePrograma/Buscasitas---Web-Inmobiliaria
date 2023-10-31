@@ -1,5 +1,5 @@
 .h1 {
-    align-text : center;
+  align-items: center;
 }
 * {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
@@ -17,14 +17,14 @@
 .footer {
   padding: 20px;
 }
-#logo{
-    height: 2em;
-    width: 2em; 
-    display: block;
-    fill: currentcolor; 
-    color: white;
-    font-family:Helvetica;
-    font-size: 16px;
+#logo {
+  height: 2em;
+  width: 2em;
+  display: block;
+  fill: currentcolor;
+  color: white;
+  font-family: Helvetica;
+  font-size: 16px;
 }
 .header {
   background-color: lightblue;
@@ -34,20 +34,21 @@ nav {
   background-color: rgb(64, 98, 233);
 }
 .navbar-nav .nav-item .nav-link {
-    color: white !important; /* Cambiar a blanco y usar !important para anular estilos previos */
-    transition: color 1s;
+  color: white !important; /* Cambiar a blanco y usar !important para anular estilos previos */
+  transition: color 1s;
 }
-.btn-info, .btn-info:active {
-    display: inline-block;
-    padding: 10px 20px; /* Ajusta el relleno según tus preferencias */
-    background-color: rgb(64, 98, 233); /* Color de fondo del botón */
-    color: #fff; /* Color de texto */
-    text-decoration: none;
-    border-radius: 5px solid rgb(64, 98, 233); /* Bordes redondeados */
-    transition: background-color 0.3s; /* Transición de color suave */
+.btn-info,
+.btn-info:active {
+  display: inline-block;
+  padding: 10px 20px; /* Ajusta el relleno según tus preferencias */
+  background-color: rgb(64, 98, 233); /* Color de fondo del botón */
+  color: #fff; /* Color de texto */
+  text-decoration: none;
+  border-radius: 5px solid rgb(64, 98, 233); /* Bordes redondeados */
+  transition: background-color 0.3s; /* Transición de color suave */
 }
 .btn-info:hover {
-    background-color: #0051bc;
+  background-color: #0051bc;
 }
 
 h1 .title {
@@ -75,7 +76,6 @@ h1 .title {
 .flex-container {
   display: flex;
 }
-
 
 .grid-container {
   display: grid;
@@ -177,38 +177,37 @@ h1 .title {
 }
 
 @keyframes show {
-	from {
-		opacity: 0;
-		scale: 25%;
-	}
+  from {
+    opacity: 0;
+    scale: 25%;
+  }
 
-	to {
-		opacity: 1;
-		scale: 100%;
-	}
+  to {
+    opacity: 1;
+    scale: 100%;
+  }
 }
 
 img {
-	view-timeline-name: --image;
-	view-timeline-axis: block;
+  view-timeline-name: --image;
+  view-timeline-axis: block;
 
-	animation-timeline: --image;
-	animation-name: show;
+  animation-timeline: --image;
+  animation-name: show;
 
-	animation-range: entry 30% cover 50%;
-	animation-fill-mode: both;
+  animation-range: entry 30% cover 50%;
+  animation-fill-mode: both;
 }
 .container {
   padding: 2em;
   background-color: aliceblue;
-  }
+}
 
-  .container-login {
-      padding: 10em 10em 5em 43em;
-      
-      box-sizing: content-box;
-      width: 25%;
-      align-content: center;
-      justify-content: center;
-  }
- 
+.container-login {
+  padding: 10em 10em 5em 43em;
+
+  box-sizing: content-box;
+  width: 25%;
+  align-content: center;
+  justify-content: center;
+}
