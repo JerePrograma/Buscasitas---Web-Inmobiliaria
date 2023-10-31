@@ -2,8 +2,6 @@ package com.proyectofinal.servicios;
 
 import com.proyectofinal.entidades.Imagen;
 import com.proyectofinal.entidades.Inmueble;
-import com.proyectofinal.enumeraciones.Estado;
-import com.proyectofinal.enumeraciones.TipoInmueble;
 import com.proyectofinal.excepciones.MiExcepcion;
 import com.proyectofinal.repositorios.InmuebleRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +23,16 @@ public class InmuebleServicio {
 
     @Transactional
     public void registrarInmueble(MultipartFile archivo, String cuentaTributaria, String direccion, String ciudad, String provincia,
-            String tipoTransaccion, List<String> listaOfertas, List<String> citaDiaHora, TipoInmueble tipoInmueble, String tituloAnuncio,
-            String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, Estado estado) throws Exception {
-        validarDatos(archivo, cuentaTributaria, direccion, ciudad, provincia, tipoTransaccion, listaOfertas, citaDiaHora, tipoInmueble, tituloAnuncio, descripcionAnuncio, precioAlquilerVenta, caracteristicaInmueble, estado);
+            String transaccion, List<String> listaOfertas, List<String> citaDiaHora, String tipoInmueble, String tituloAnuncio,
+            String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, String estado) throws Exception {
+        validarDatos(archivo, cuentaTributaria, direccion, ciudad, provincia, transaccion, listaOfertas, citaDiaHora, tipoInmueble, tituloAnuncio, descripcionAnuncio, precioAlquilerVenta, caracteristicaInmueble, estado);
         Inmueble inmueble = new Inmueble();
 
         inmueble.setCuentaTributaria(cuentaTributaria);
         inmueble.setDireccion(direccion);
         inmueble.setCiudad(ciudad);
         inmueble.setProvincia(provincia);
-        inmueble.setTipoTransaccion(tipoTransaccion);
+        inmueble.setTransaccion(transaccion);
         inmueble.setListaOfertas(listaOfertas);
         inmueble.setCitaDiaHora(citaDiaHora);
         inmueble.setTipoInmueble(tipoInmueble);
@@ -53,28 +51,38 @@ public class InmuebleServicio {
     }
 
     @Transactional
-    public void modificarInmueble(MultipartFile archivo, String cuentaTributaria, String tipoTransaccion,
-            List<String> citaDiaHora, String tituloAnuncio, String descripcionAnuncio, Integer precioAlquilerVenta,
-            String caracteristicaInmueble, Estado estado) throws Exception {
+    public void modificarInmueble(MultipartFile archivo, String cuentaTributaria,
+                                  String tituloAnuncio, String descripcionAnuncio,
+                                  String caracteristicaInmueble, String estado) throws Exception {
         // Verifica si el inmueble ya existe en la base de datos
-        validarDatos(archivo, cuentaTributaria, tipoTransaccion, citaDiaHora, tituloAnuncio, descripcionAnuncio, precioAlquilerVenta, caracteristicaInmueble, estado);
+        validarDatosModificar(cuentaTributaria, tituloAnuncio, descripcionAnuncio, caracteristicaInmueble, estado);
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(cuentaTributaria);
         if (respuesta.isPresent()) {
             Inmueble inmueble = respuesta.get();
 
-            Imagen imagen = imagenServicio.guardarImagen(archivo);
 
-            inmueble.setImagen(imagen);
-            inmueble.setTipoTransaccion(tipoTransaccion);
-            inmueble.setCitaDiaHora(citaDiaHora);
+            if (archivo != null) {
+                String idImagen = null;
+
+                idImagen = inmueble.getImagen().getId();
+
+                Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+
+                inmueble.setImagen(imagen);
+            }
+
             inmueble.setTituloAnuncio(tituloAnuncio);
+
             inmueble.setDescripcionAnuncio(descripcionAnuncio);
-            inmueble.setPrecioAlquilerVenta(precioAlquilerVenta);
             inmueble.setCaracteristicaInmueble(caracteristicaInmueble);
             inmueble.setEstado(estado);
 
             inmuebleRepositorio.save(inmueble);
         }
+        else {
+            System.out.println("No se ha encontrado una cuenta tributaria");
+        }
+
 
     }
 
@@ -104,21 +112,26 @@ public class InmuebleServicio {
         inmuebleRepositorio.deleteById(cuentaTributaria);
     }
 
-//    public List<Inmueble> buscarInmueblesPorFiltros(String ubicacion, String transaccion, String tipoInmueble, String ciudad, String provincia) {
-//        // Aquí construyes y ejecutas tu consulta personalizada utilizando el repositorio de InmuebleRepositorio.
-//        // Puedes usar las cláusulas WHERE en la consulta para aplicar los filtros necesarios.
-//
-//        // Ejemplo de consulta con el uso de InmuebleRepositorio:
-//        return inmuebleRepositorio.findInmueblesByFiltros(ubicacion, transaccion, tipoInmueble, ciudad, provincia);
-//    }
+    public List<Inmueble> buscarInmueblesPorFiltros(String ubicacion, String transaccion, String tipoInmueble, String ciudad, String provincia) {
+        // Aquí construyes y ejecutas tu consulta personalizada utilizando el repositorio de InmuebleRepositorio.
+        // Puedes usar las cláusulas WHERE en la consulta para aplicar los filtros necesarios.
+
+        // Ejemplo de consulta con el uso de InmuebleRepositorio:
+       return inmuebleRepositorio.findInmueblesByFiltros(ubicacion, transaccion, tipoInmueble, ciudad, provincia);
+    }
     public Inmueble obtenerInmueblePorCuentaTributaria(String cuentaTributaria) {
         // Implementa la lógica para obtener un inmueble por su cuenta tributaria
         return inmuebleRepositorio.findById(cuentaTributaria).orElse(null);
     }
 
+    @Transactional(readOnly = true)
+    public List<Inmueble> buscarPorUbicacion(String ubicacion) {
+        return inmuebleRepositorio.buscarPorUbicacion(ubicacion);
+    }
+
     public void validarDatos(MultipartFile archivo, String cuentaTributaria, String direccion, String ciudad, String provincia,
-            String transaccion, List<String> listaOfertas, List<String> citaDiaHora, TipoInmueble tipoInmueble, String tituloAnuncio,
-            String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, Estado estado) throws MiExcepcion {
+            String transaccion, List<String> listaOfertas, List<String> citaDiaHora, String tipoInmueble, String tituloAnuncio,
+            String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, String estado) throws MiExcepcion {
         if (archivo == null || archivo.isEmpty()) {
             throw new MiExcepcion("La imagen no puede estar vacío o ser nulo");
         }
@@ -164,19 +177,10 @@ public class InmuebleServicio {
         }
     }
 
-    public void validarDatos(MultipartFile archivo, String cuentaTributaria, String transaccion, List<String> citaDiaHora,
-            String tituloAnuncio, String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, Estado estado) throws MiExcepcion {
-        if (archivo == null || archivo.isEmpty()) {
-            throw new MiExcepcion("La imagen no puede estar vacío o ser nulo");
-        }
+    public void validarDatosModificar(String cuentaTributaria,
+            String tituloAnuncio, String descripcionAnuncio, String caracteristicaInmueble, String estado) throws MiExcepcion {
         if (cuentaTributaria == null || cuentaTributaria.isEmpty()) {
             throw new MiExcepcion("El cuentaTributaria no puede estar vacío o ser nulo");
-        }
-        if (transaccion == null || transaccion.isEmpty()) {
-            throw new MiExcepcion("El transaccion no puede estar vacío o ser nulo");
-        }
-        if (citaDiaHora == null || citaDiaHora.isEmpty()) {
-            throw new MiExcepcion("El citaDiaHora no puede estar vacío o ser nulo");
         }
         if (tituloAnuncio == null || tituloAnuncio.isEmpty()) {
             throw new MiExcepcion("El tituloAnuncio no puede estar vacío o ser nulo");
@@ -185,9 +189,6 @@ public class InmuebleServicio {
             throw new MiExcepcion("El descripcionAnuncio no puede estar vacío o ser nulo");
         }
 
-        if (precioAlquilerVenta == null || precioAlquilerVenta <= 0) {
-            throw new MiExcepcion("El tituloAnuncio no puede estar vacío o ser nulo");
-        }
         if (caracteristicaInmueble == null || caracteristicaInmueble.isEmpty()) {
             throw new MiExcepcion("El caracteristicaInmueble no puede estar vacío o ser nulo");
         }
@@ -195,4 +196,7 @@ public class InmuebleServicio {
             throw new MiExcepcion("El estado no puede estar vacío o ser nulo");
         }
     }
+
+
+
 }
