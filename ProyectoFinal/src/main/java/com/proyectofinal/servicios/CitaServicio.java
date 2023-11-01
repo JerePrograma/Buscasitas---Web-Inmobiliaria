@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.proyectofinal.servicios;
 
 import com.proyectofinal.entidades.Cita;
@@ -84,17 +79,3 @@ public class CitaServicio {
             citaRepositorio.save(cita);
         }
     }
-
-//    private void Validar(Usuario ente,Usuario cliente, RangoHorario horario){
-//        
-//         if (ente == null) {
-//            throw new MiExeption("el ente no puede ser nulo");
-//        }
-//        if (cliente == null) {
-//            throw new MiExeption("el cliente no puede ser nulo");
-//        }
-//        if (horario == null) {
-//            throw new MiExeption("el horario no puede ser nulo");
-//        }
-//    }
-}

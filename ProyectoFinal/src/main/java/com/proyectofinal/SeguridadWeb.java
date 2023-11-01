@@ -29,7 +29,7 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
 
-    @Override
+ @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
@@ -41,7 +41,7 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/logincheck")
                 .usernameParameter("email")
                 .passwordParameter("contrasenia")
-                .defaultSuccessUrl("/inicio")
+                .defaultSuccessUrl("/")
                 .permitAll()
                 .and().logout()
                 .logoutUrl("/logout")
