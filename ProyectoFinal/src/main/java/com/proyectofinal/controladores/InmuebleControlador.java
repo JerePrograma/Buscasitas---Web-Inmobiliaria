@@ -1,7 +1,10 @@
 package com.proyectofinal.controladores;
 
 import com.proyectofinal.entidades.Inmueble;
+import com.proyectofinal.entidades.RangoHorario;
+import com.proyectofinal.repositorios.RangoHorarioRepositorio;
 import com.proyectofinal.servicios.InmuebleServicio;
+import com.proyectofinal.servicios.RangoHorarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +12,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,36 +24,76 @@ public class InmuebleControlador {
     @Autowired
     private InmuebleServicio inmuebleServicio;
 
+    @Autowired
+    RangoHorarioServicio rangoHorarioServicio;
+
     @GetMapping("/registrar")
     public String registrarInmueble() {
         return "inmueble_form.html";
     }
 
+
     @PostMapping("/registrar")
     public String registrarInmueble(ModelMap modelo,
-            @RequestParam("estado") String estado,
-            @RequestParam("archivo") MultipartFile archivo,
-            @RequestParam("cuentaTributaria") String cuentaTributaria,
-            @RequestParam("direccion") String direccion,
-            @RequestParam("ciudad") String ciudad,
-            @RequestParam("provincia") String provincia,
-            @RequestParam("transaccion") String transaccion,
-            @RequestParam("listaOfertas") String listaOfertas,
-            @RequestParam("citaDiaHora") String citaDiaHora,
-            @RequestParam("tipoInmueble") String tipoInmueble,
-            @RequestParam("tituloAnuncio") String tituloAnuncio,
-            @RequestParam("descripcionAnuncio") String descripcionAnuncio,
-            @RequestParam("precioAlquilerVenta") Integer precioAlquilerVenta,
-            @RequestParam("caracteristicaInmueble") String caracteristicaInmueble) {
+                                    @RequestParam("estado") String estado,
+                                    @RequestParam("archivo") MultipartFile archivo,
+                                    @RequestParam("cuentaTributaria") String cuentaTributaria,
+                                    @RequestParam("direccion") String direccion,
+                                    @RequestParam("ciudad") String ciudad,
+                                    @RequestParam("provincia") String provincia,
+                                    @RequestParam("transaccion") String transaccion,
+                                    @RequestParam("tipoInmueble") String tipoInmueble,
+                                    @RequestParam("tituloAnuncio") String tituloAnuncio,
+                                    @RequestParam("descripcionAnuncio") String descripcionAnuncio,
+                                    @RequestParam("precioAlquilerVenta") Integer precioAlquilerVenta,
+                                    @RequestParam("caracteristicaInmueble") String caracteristicaInmueble,
+                                    @RequestParam("diaSemana") List<String> diaSemanaList,
+                                    @RequestParam("horaInicio") List<String> horaInicioList, // Cambiado a List<String>
+                                    @RequestParam("horaFin") List<String> horaFinList) { // Cambiado a List<String>
         try {
-            List<String> listaOfertasList = Arrays.asList(listaOfertas.split(","));
-            List<String> citaDiaHoraList = Arrays.asList(citaDiaHora.split(","));
+            // Crea una instancia de Inmueble
+            Inmueble inmueble = new Inmueble();
+// Configura los atributos de Inmueble según sea necesario
+            inmueble.setCuentaTributaria(cuentaTributaria);
+            inmueble.setDireccion(direccion);
+            inmueble.setCiudad(ciudad);
+            inmueble.setProvincia(provincia);
+            inmueble.setTransaccion(transaccion);
+            inmueble.setTipoInmueble(tipoInmueble);
+            inmueble.setDescripcionAnuncio(descripcionAnuncio);
+            inmueble.setPrecioAlquilerVenta(precioAlquilerVenta);
+            inmueble.setCaracteristicaInmueble(caracteristicaInmueble);
+            inmueble.setEstado(estado);
+            inmueble.setTituloAnuncio(tituloAnuncio);
+            inmueble.setAlta(true);
 
-            //Acomodar atributos 
-            inmuebleServicio.registrarInmueble(archivo, cuentaTributaria, direccion, ciudad, provincia, transaccion, listaOfertasList, citaDiaHoraList, tipoInmueble, tituloAnuncio, descripcionAnuncio, precioAlquilerVenta, caracteristicaInmueble, estado);
+// Crea una lista para los RangoHorario
+
+            List<RangoHorario> rangosHorarios = new ArrayList<>();
+
+            for (int i = 0; i < diaSemanaList.size(); i++) {
+                LocalTime horaInicio = LocalTime.parse(horaInicioList.get(i));
+                LocalTime horaFin = LocalTime.parse(horaFinList.get(i));
+
+                RangoHorario rangoHorario = rangoHorarioServicio.crearRangoHorario(diaSemanaList.get(i), horaInicio, horaFin, inmueble);
+
+                // Establece la relación con la instancia de Inmueble que ya ha sido guardada
+                rangoHorario.setInmueble(inmueble);
+
+                System.out.println("Asignando rangoHorario a Inmueble: " + rangoHorario);
+
+                rangosHorarios.add(rangoHorario);
+            }
+
+// Asigna la lista de rangosHorarios a la instancia de Inmueble
+            inmueble.setRangosHorarios(rangosHorarios);
+
+// Llama al servicio para registrar el Inmueble con sus RangoHorario
+
             modelo.put("exito", "El inmueble fue cargado correctamente!");
         } catch (Exception ex) {
             modelo.put("error", ex.getMessage());
+            System.out.println(ex.getMessage());
             return "inmueble_form.html";
         }
         return "redirect:/";

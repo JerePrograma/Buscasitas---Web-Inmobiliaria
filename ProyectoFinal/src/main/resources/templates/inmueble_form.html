@@ -49,7 +49,7 @@
       />
 
       <label for="tipoInmueble">Tipo de Inmueble:</label>
-      <select id="tipoInmueble" name="tipoInmueble">
+      <select class="controls"id="tipoInmueble" name="tipoInmueble">
         <option value="casa">Casa</option>
         <option value="ph">PH</option>
         <option value="departamento">Departamento</option>
@@ -136,23 +136,32 @@
         <option value="Vendido">Vendido</option>
       </select>
 
-      <input
-        class="controls"
-        type="text"
-        id="listaOfertas"
-        name="listaOfertas"
-        placeholder="Lista de Ofertas"
-      />
+      <label for="diaSemana">Horarios Disponibles</label>
+      <br>
+      <label for="diaSemana">Día de la semana:</label>
+      <select class="controls" id="diaSemana" name="diaSemana">
+        <option value="Lunes">Lunes</option>
+        <option value="Martes">Martes</option>
+        <option value="Miercoles">Miercoles</option>
+        <option value="Jueves">Jueves</option>
+        <option value="Viernes">Viernes</option>
+        <!-- Agrega opciones para otros días de la semana -->
+      </select>
 
-      <input
-        class="controls"
-        type="text"
-        id="citaDiaHora"
-        name="citaDiaHora"
-        placeholder="Fecha de la Cita (Dia y Hora)"
-      />
+      <br>
 
-      <button type="submit">Guardar Inmueble</button>
+      <label for="horaInicio">Hora de inicio:</label>
+      <input class="controls" type="time" id="horaInicio" name="horaInicio" required>
+
+      <label for="horaFin">Hora de fin:</label>
+      <input class="controls" type="time" id="horaFin" name="horaFin" required>
+
+      <br>
+
+      <button class="botons" type="submit">Guardar Inmueble</button>
     </form>
+
+  <script th:src="@{/js/script.js}" type = "text/javascript"></script>
+
   </body>
 </html>

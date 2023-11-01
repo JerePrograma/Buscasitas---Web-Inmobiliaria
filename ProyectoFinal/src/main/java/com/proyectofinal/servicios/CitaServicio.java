@@ -9,6 +9,7 @@ import com.proyectofinal.entidades.Cita;
 import com.proyectofinal.entidades.RangoHorario;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.repositorios.CitaRepositorio;
+import com.proyectofinal.repositorios.RangoHorarioRepositorio;
 import com.proyectofinal.repositorios.UsuarioRepositorio;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ public class CitaServicio {
         Optional<Cita> respuesta = citaRepositorio.findById(id);
         Optional<Usuario> respuestaEnte = usuarioRepositorio.findById(idEnte);
         Optional<Usuario> respuestaCliente = usuarioRepositorio.findById(idCliente);
-        Optional<RangoHorario> respuestaHorario = rangoHorarioRepositorio.findById(idHorario);
+        Optional<RangoHorario> respuestaHorario = Optional.ofNullable(rangoHorarioRepositorio.findById(idHorario));
 
         Usuario ente = new Usuario();
         Usuario cliente = new Usuario();

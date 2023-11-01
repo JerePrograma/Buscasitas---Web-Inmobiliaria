@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.proyectofinal.entidades;
 
 import javax.persistence.Entity;
@@ -23,7 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Data
 @NoArgsConstructor
 public class Cita {
-    
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -32,9 +27,11 @@ public class Cita {
     private Usuario ente;
     @ManyToOne
     private Usuario cliente;
-    
+
+    @OneToOne
     private RangoHorario horario;
+
     private String Nota;
-    
-    
+
+
 }
