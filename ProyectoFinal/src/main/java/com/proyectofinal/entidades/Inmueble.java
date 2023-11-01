@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.proyectofinal.entidades.RangoHorario;
+
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -31,17 +33,9 @@ public class Inmueble implements Serializable {
     private String tipoInmueble;
     private String estado;
 
-    @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @Fetch(FetchMode.SUBSELECT)
-    private List<RangoHorario> rangoHorario;
-
-    @Column
-    @ElementCollection
-    private List<String> listaOfertas;
-
-    @Column
-    @ElementCollection
-    private List<String> citaDiaHora;
+    @OneToMany(mappedBy = "inmueble")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private List<RangoHorario> rangosHorarios;
 
     @OneToOne
     private Imagen imagen;
