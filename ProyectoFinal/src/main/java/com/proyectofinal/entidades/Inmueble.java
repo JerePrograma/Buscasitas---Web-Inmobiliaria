@@ -39,4 +39,8 @@ public class Inmueble implements Serializable {
     @OneToOne
     private Imagen imagen;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_administrador_id")
+    private Usuario usuarioAdministrador;
+
 }
