@@ -2,6 +2,7 @@ package com.proyectofinal.servicios;
 
 import com.proyectofinal.entidades.Imagen;
 import com.proyectofinal.entidades.Inmueble;
+import com.proyectofinal.entidades.RangoHorario;
 import com.proyectofinal.excepciones.MiExcepcion;
 import com.proyectofinal.repositorios.InmuebleRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,9 @@ public class InmuebleServicio {
 
     @Transactional
     public void registrarInmueble(MultipartFile archivo, String cuentaTributaria, String direccion, String ciudad, String provincia,
-            String transaccion, List<String> listaOfertas, List<String> citaDiaHora, String tipoInmueble, String tituloAnuncio,
-            String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, String estado) throws Exception {
-        validarDatos(archivo, cuentaTributaria, direccion, ciudad, provincia, transaccion, listaOfertas, citaDiaHora, tipoInmueble, tituloAnuncio, descripcionAnuncio, precioAlquilerVenta, caracteristicaInmueble, estado);
+                                  String transaccion, String tipoInmueble, String tituloAnuncio,
+                                  String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, String estado, List<RangoHorario> rangosHorarios) throws Exception {
+        validarDatos(archivo, cuentaTributaria, direccion, ciudad, provincia, transaccion, tipoInmueble, tituloAnuncio, descripcionAnuncio, precioAlquilerVenta, caracteristicaInmueble, estado, rangosHorarios);
         Inmueble inmueble = new Inmueble();
 
         inmueble.setCuentaTributaria(cuentaTributaria);
@@ -33,8 +34,6 @@ public class InmuebleServicio {
         inmueble.setCiudad(ciudad);
         inmueble.setProvincia(provincia);
         inmueble.setTransaccion(transaccion);
-        inmueble.setListaOfertas(listaOfertas);
-        inmueble.setCitaDiaHora(citaDiaHora);
         inmueble.setTipoInmueble(tipoInmueble);
         inmueble.setDescripcionAnuncio(descripcionAnuncio);
         inmueble.setPrecioAlquilerVenta(precioAlquilerVenta);
@@ -46,6 +45,9 @@ public class InmuebleServicio {
         Imagen imagen = imagenServicio.guardarImagen(archivo);
 
         inmueble.setImagen(imagen);
+
+        // Asignar el rango horario al inmueble
+        inmueble.setRangosHorarios(rangosHorarios);
 
         inmuebleRepositorio.save(inmueble);
     }
@@ -130,8 +132,8 @@ public class InmuebleServicio {
     }
 
     public void validarDatos(MultipartFile archivo, String cuentaTributaria, String direccion, String ciudad, String provincia,
-            String transaccion, List<String> listaOfertas, List<String> citaDiaHora, String tipoInmueble, String tituloAnuncio,
-            String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, String estado) throws MiExcepcion {
+                             String transaccion, String tipoInmueble, String tituloAnuncio,
+                             String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, String estado, List<RangoHorario> rangosHorarios) throws MiExcepcion {
         if (archivo == null || archivo.isEmpty()) {
             throw new MiExcepcion("La imagen no puede estar vacío o ser nulo");
         }
@@ -149,12 +151,6 @@ public class InmuebleServicio {
         }
         if (provincia == null || provincia.isEmpty()) {
             throw new MiExcepcion("El código no puede estar vacío o ser nulo");
-        }
-        if (listaOfertas == null || listaOfertas.isEmpty()) {
-            throw new MiExcepcion("El listaOfertas no puede estar vacío o ser nulo");
-        }
-        if (citaDiaHora == null || citaDiaHora.isEmpty()) {
-            throw new MiExcepcion("El citaDiaHora no puede estar vacío o ser nulo");
         }
         if (tipoInmueble == null) {
             throw new MiExcepcion("El tipoInmueble no puede estar vacío o ser nulo");
@@ -174,6 +170,9 @@ public class InmuebleServicio {
         }
         if (estado == null) {
             throw new MiExcepcion("El estado no puede estar vacío o ser nulo");
+        }
+        if (rangosHorarios == null) {
+            throw new RuntimeException("Los Rangos Horarios no pueden estar vacios o ser nulos");
         }
     }
 

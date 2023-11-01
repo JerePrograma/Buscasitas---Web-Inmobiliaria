@@ -441,6 +441,15 @@ img {
     padding-left: 25px;
   }
 }
+main{
+  background: url(../images/dfp-alquiler.jpg);
+  background-size:auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  height: 70vh;
+  margin-top: 40px;
+}
 .emp-profile {
   padding: 3%;
   margin-top: 3%;
