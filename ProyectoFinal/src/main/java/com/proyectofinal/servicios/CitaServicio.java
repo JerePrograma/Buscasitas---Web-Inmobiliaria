@@ -79,3 +79,4 @@ public class CitaServicio {
             citaRepositorio.save(cita);
         }
     }
+}

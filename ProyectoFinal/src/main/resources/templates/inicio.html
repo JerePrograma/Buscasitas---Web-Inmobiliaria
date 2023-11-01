@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="fragments/head :: head">
-  </head>
+  <head th:replace="fragments/head :: head"> </head>
   <body class="background_img">
     <!-- This is to display the Navbar of the website. -->
     <nav th:replace="fragments/navbar :: nav"></nav>
 
     <!-- End of NavBar -->
-<p class="tituloLibros" th:if="${session.usuariosession != null}" th:text=" 'Hola de vuelta '+ ${session.usuariosession.nombre} + ' ! ' "></p>
+    <p
+      class="tituloLibros"
+      th:if="${session.usuariosession != null}"
+      th:text=" 'Hola de vuelta '+ ${session.usuariosession.nombre} + ' ! ' "
+    ></p>
     <!-- This is to make the Form Contents appear on the Image -->
     <form
       th:action="@{/inmueble/buscar-inmuebles}"
@@ -50,9 +53,9 @@
               >Alquiler</a
             >
             <a
-                    class="dropdown-item"
-                    th:href="@{/inmueble/busqueda(transaccion='alquilerTemporal')}"
-            >Alquiler Temporal</a
+              class="dropdown-item"
+              th:href="@{/inmueble/busqueda(transaccion='alquilerTemporal')}"
+              >Alquiler Temporal</a
             >
           </div>
         </div>
@@ -83,29 +86,29 @@
               >Departamento</a
             >
             <a
-                    class="dropdown-item"
-                    th:href="@{/inmueble/busqueda(tipoInmueble='ph')}"
-            >PH</a
+              class="dropdown-item"
+              th:href="@{/inmueble/busqueda(tipoInmueble='ph')}"
+              >PH</a
             >
             <a
-                    class="dropdown-item"
-                    th:href="@{/inmueble/busqueda(tipoInmueble='terreno')}"
-            >Terreno</a
+              class="dropdown-item"
+              th:href="@{/inmueble/busqueda(tipoInmueble='terreno')}"
+              >Terreno</a
             >
             <a
-                    class="dropdown-item"
-                    th:href="@{/inmueble/busqueda(tipoInmueble='oficina')}"
-            >Oficina</a
+              class="dropdown-item"
+              th:href="@{/inmueble/busqueda(tipoInmueble='oficina')}"
+              >Oficina</a
             >
             <a
-                    class="dropdown-item"
-                    th:href="@{/inmueble/busqueda(tipoInmueble='local')}"
-            >Local</a
+              class="dropdown-item"
+              th:href="@{/inmueble/busqueda(tipoInmueble='local')}"
+              >Local</a
             >
             <a
-                    class="dropdown-item"
-                    th:href="@{/inmueble/busqueda(tipoInmueble='cochera')}"
-            >Cochera</a
+              class="dropdown-item"
+              th:href="@{/inmueble/busqueda(tipoInmueble='cochera')}"
+              >Cochera</a
             >
             <!-- Agrega más opciones según tus tipos de inmueble disponibles -->
           </div>

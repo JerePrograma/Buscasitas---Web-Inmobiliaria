@@ -69,15 +69,15 @@ public class UsuarioControlador {
         }
         return "redirect:/";
     }
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_CLIENT','ROLE_ENTE')")
     @GetMapping("/perfil/{idCodigotributario}")
-    public String perfil(ModelMap modelo, HttpSession session){
-       
+    public String perfil(ModelMap modelo, HttpSession session) {
+
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        
+
         modelo.put("usuario", usuario);
-        
-            return "perfil.html";
-                
-}
+
+        return "perfil.html";
+    }
 }
