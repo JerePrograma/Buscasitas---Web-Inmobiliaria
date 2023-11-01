@@ -28,7 +28,7 @@
       th:href="@{images/logoInmobiliaria2.png}"
     />
   </head>
-  <body class="background_img">
+  <body id="body-registro-user" class="background_img">
     <!-- This is to display the Navbar of the website. -->
     <nav th:replace="fragments/navbar :: nav"></nav>
 
@@ -60,28 +60,29 @@
         <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
             <select name="tipoPersona" class="custom-select mr-sm-2" id="inlineFormCustomSelect" th:value="${tipoPersona}">
 		<option selected>Tipo Persona...</option>
-		<option value="1">Persona Física</option>
+		<option value="1">Persona Humana</option>
 		<option value="2">Persona Jurídica</option>
 		  </select>
                         </div>
                             </div>
 	  <br>
             <div class="row">
-                <div class="form-group col">
+                <div class="form-group col-md-7">
                     <Label class="col-form-label">Nombre</Label>
                         <input name="nombre" type="text" class="form-control" placeholder="Ingrese su nombre" th:value="${nombre}">
                             </div>
-            <div class="form-group col">
+            <div class="form-group col-md-5">
                  <Label class="col-form-label">Apellido</Label>
                       <input name="apellido" type="text" class="form-control" placeholder="Ingrese su apellido" th:value="${apellido}">
                          </div>
                              </div>
+              <div class="form-group col-md-12">
          <div class="form-group col-md-6">
             <label class="col-form-label" for="exampleFormControlInput1">Dirección</label>
                 <input name="direccion" type="address" class="form-control" id="exampleFormControlInput1" placeholder="Av. Siempre Viva 2223" th:value="${direccion}">
 		    </div>
 
-	<div class="form-group col-md-4">
+	<div class="form-group col-md-5">
             <label class="col-form-label" for="inputState">Provincia</label> <br>
 		<select name="provincia" id="provincia" th:value="${provincia}">
     <option value="1">BUENOS AIRES</option>
@@ -109,19 +110,21 @@
     <option disabled="true" selected="true" value="">Seleccionar una Provincia</option>
 </select>
 </div>
+              </div>
 <div class="form-row">
     <div class="form-group col-md-7">
         <label class="col-form-label" for="exampleFormControlInput1">Ciudad</label>
             <input name="ciudad" type="address" class="form-control" id="exampleFormControlInput1" placeholder="Ingrese su ciudad" th:value="${ciudad}">
                </div>
                 <br>
- <div class="form-group col-md-12">
+ <div class="form-group col-md-7">
     <label class="col-form-label" for="formGroupExampleInput">Ingrese su DNI</label>
         <input name="DNI" type="text" class="form-control" th:value="${DNI}" placeholder="Sin puntos y sin espacios en blanco.">
             </div>
+                    <br/>
                                     <div class="form-row align-items-center">
     <div class="col-auto my-1">
-        <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+        <label class="mr-sm-2 sr-only"  for="inlineFormCustomSelect">Preference</label>
             <select name="sexo" class="custom-select mr-sm-2" id="inlineFormCustomSelect" th:value="${sexo}">
 		<option selected>Sexo...</option>
 		<option value="1">Femenino</option>
@@ -131,42 +134,42 @@
                         </div>
                             </div>
                 <br>
-  <div class="form-group col-md-12">
-    <div class="form-check">
-       <input class="form-check-input" type="radio" name="cuil" value="option1" checked>
-	  <label class="form-check-label" for="exampleRadios1">
-             C.U.I.L.
-		</label>
-		   </div>
-                        <br>
-<div class="form-check">
-  <input  class="form-check-input" type="radio" name="cuit" id="exampleRadios2" value="option2">
-    <label class="form-check-label" for="exampleRadios2">
-	C.U.I.T.
-            </label>
-		</div>
-    <label class="col-form-label" for="formGroupExampleInput2">Ingrese su Código Tributario</label>
+                                                  
+                    <br/>
+           <div class="form-group col-md-7">
+  <label class="col-form-label" for="formGroupExampleInput2">Ingrese su Código Tributario</label>
 	<input name="idCodigoTributario" type="text" class="form-control" id="formGroupExampleInput2" th:value="${idCodigoTributario}" placeholder="Sin puntos, sin guiones y sin espacios en blanco.">
-	  </div>
-             <br>
- <div class="form-group col-md-7">
+	 </div>
+                    <br>
+                <div class="form-row align-items-center">
+                    <div class="col-auto my-1">
+                        <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+                         <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                            <option selected>Tipo ID...</option>
+                            <option value="1">C.U.I.L</option>
+                            <option value="2">C.U.IT</option>
+                          </select>
+                     </div>
+                </div> 
+            <br>
+ <div class="form-group col-md-6">
     <label class="col-form-label" for="formGroupExampleInput">Ingrese su número de celular</label>
 	<input name="celular" type="text" class="form-control" id="formGroupExampleInput" placeholder="+54 11 1111 1111" th:value="${celular}">
             </div>
 		<br>
                             
- <div class="form-group col-md-7">
+ <div class="form-group col-md-6">
      <label class="col-form-label" for="exampleInputEmail1">Dirección de correo electrónico</label>
 	<input name="email" type="String" class="form-control" id="InputEmail1" >
 	 <small id="emailHelp" class="form-text text-muted">Nunca compartiremos con nadie su datos personales.</small>
             </div>
 		<br>
-<div class="form-group col-md-7">
+<div class="form-group col-md-6">
     <label class="col-form-label" for="exampleInputPassword1">Ingrese su Contraseña</label>
         <input name="contrasenia" type="password" class="form-control" th:value="${contrasenia}" id="InputPassword1">
             </div>
 		<br>
-<div class="form-group col-md-7">
+<div class="form-group col-md-6">
     <label class="col-form-label" for="exampleInputPassword1">Repita su Contraseña</label>
 	 <input name="contrasenia2" type="password" class="form-control" th:value="${contrasenia2}" id="InputPassword1">
             </div>
