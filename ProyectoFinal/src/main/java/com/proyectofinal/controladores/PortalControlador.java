@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-// PROYECTO FINAL - EQUIPO A - MrHouse.com
+// PROYECTO FINAL - EQUIPO A - Buscasitas.com.ar
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
@@ -47,8 +47,15 @@ public class PortalControlador {
     public String inicio(HttpSession session) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         if (logueado.getRol().toString().equals("ADMIN")) {
-            return "redirect:/admin/dashboard";
+            return "redirect:/inicio";
         }
         return "index.html";
     }
+
+ 
 }
+
+
+
+
+
