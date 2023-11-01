@@ -1,15 +1,14 @@
-<div th:fragment ="publicaciones" xmlns:th="http://www.thymeleaf.org">
-<div class="container" style="padding: 5px;" >
-
+<div th:fragment="publicaciones" xmlns:th="http://www.thymeleaf.org">
+  <div class="container" style="padding: 5px">
     <!-- Bootstrap's grid system is built with flexbox and allows up to 12 columns across the page. A grid row is divided into 12 parts. -->
 
     <!-- The grid system is responsive, and the columns will re-arrange automatically depending on the screen size.
 
     Make sure that the sum adds up to 12 or fewer. -->
 
-        <!-- The Bootstrap 4 grid system has five classes: -->
+    <!-- The Bootstrap 4 grid system has five classes: -->
 
-        <!-- .col- (extra small devices - screen width less than 576px)
+    <!-- .col- (extra small devices - screen width less than 576px)
 
         .col-sm- (small devices - screen width equal to or greater than 576px)
 
@@ -21,62 +20,64 @@
 
         The classes above can be combined to create more dynamic and flexible layouts. -->
 
-    <div class="blog-card" th:each = "inmueble : ${inmuebles}">
-        <div class="meta">
-            <div class="photo" th:style="'background-image: url(\'' + @{/imagen/inmueble/} + ${inmueble.cuentaTributaria} + '\')'"></div>
-            <ul class="details">
-                <li class="author"><a href="#">Autor</a></li>
-                <li class="date">Aug. 24, 2015</li>
-                <li class="tags">
-                    <ul>
-                        <li><a href="#">Etiquetas</a></li>
-                    </ul>
-                </li>
+    <div class="blog-card" th:each="inmueble : ${inmuebles}">
+      <div class="meta">
+        <div
+          class="photo"
+          th:style="'background-image: url(\'' + @{/imagen/inmueble/} + ${inmueble.cuentaTributaria} + '\')'"
+        ></div>
+        <ul class="details">
+          <li class="author"><a href="#">Autor</a></li>
+          <li class="date">Aug. 24, 2015</li>
+          <li class="tags">
+            <ul>
+              <li><a href="#">Etiquetas</a></li>
             </ul>
-        </div>
-        <div class="description">
-            <h1 th:text = "${inmueble.tituloAnuncio}"></h1>
-            <h2 th:text = "${inmueble.direccion}" + ></h2>
-            <p th:text = "${inmueble.descripcionAnuncio}"> </p>
-            <p class="read-more">
-                <a href="#">Read More</a>
-            </p>
-        </div>
+          </li>
+        </ul>
+      </div>
+      <div class="description">
+        <h1 th:text="${inmueble.tituloAnuncio}"></h1>
+        <h2 th:text="${inmueble.direccion}" +></h2>
+        <p th:text="${inmueble.descripcionAnuncio}"></p>
+        <p class="read-more">
+          <a href="#">Read More</a>
+        </p>
+      </div>
     </div>
 
+    <!-- Reviews and Feedbacks which displays star ratings -->
 
-<!-- Reviews and Feedbacks which displays star ratings -->
-
-<!--Estrellas-->
-    <div class="container" style="padding: 5px;">
-    <div class="row">
+    <!--Estrellas-->
+    <div class="container" style="padding: 5px">
+      <div class="row">
         <div class="col-md-4">
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
         </div>
         <div class="col-md-4">
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
         </div>
         <div class="col-md-4">
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
         </div>
+      </div>
     </div>
-</div>
 
-<!-- Reviews and Feedbacks which uses Bootstrap Grid property, includes text -->
+    <!-- Reviews and Feedbacks which uses Bootstrap Grid property, includes text -->
 
-<!-- <div class="container" style="padding: 3px; font-size: 14px; font-family: Helvetica;">
+    <!-- <div class="container" style="padding: 3px; font-size: 14px; font-family: Helvetica;">
     <div class="row">
         <div class="col-md-4">
             <p>Belén y Marcos son unos excelentes anfitriones. Ellos estaban en otro país pero en todo momento estaban atentos a que nuestras necesidades estén cubiertas.
@@ -131,15 +132,31 @@
     </div>
 </div>
     -->
-<div class="container" style="margin-bottom: 50px; color: #484848;">
-    <div class="row">
+    <div class="container" style="margin-bottom: 50px; color: #484848">
+      <div class="row">
         <div class="col-md-10">
-            <h3 style="margin-top: 50px;">Ya decidiste cual te gusta más?</h3>
-            <p>Coordina una entrevista con un representante para reservar tu propiedad!</p>
+          <h3 style="margin-top: 50px">Ya decidiste cual te gusta más?</h3>
+          <p>
+            Coordina una entrevista con un representante para reservar tu
+            propiedad!
+          </p>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-outline-primary rounded nohover" style="margin: 50px; padding: 10px; padding-left: 20px; padding-right: 20px; border: 2px solid;"><strong>Agrega Fechas</strong></button>
+          <button
+            type="button"
+            class="btn btn-outline-primary rounded nohover"
+            style="
+              margin: 50px;
+              padding: 10px;
+              padding-left: 20px;
+              padding-right: 20px;
+              border: 2px solid;
+            "
+          >
+            <strong>Agrega Fechas</strong>
+          </button>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 </div>

@@ -3,7 +3,11 @@
   <head>
     <title>Buscasitas.com.ar - Login</title>
 
-    <meta charset="utf-8" ame="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      charset="utf-8"
+      ame="viewport"
+      content="width=device-width, initial-scale=1"
+    />
 
     <link
       rel="stylesheet"
@@ -35,92 +39,88 @@
     <section class="vh-100">
       <div class="container py-5 h-100">
         <div class="row d-flex align-items-center justify-content-center h-100">
-          <div class="col-md-8 col-lg-7 col-xl-6">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-              class="img-fluid"
-              alt="Phone image"
-            />
-          </div>
+          <!-- ... (form content) ... -->
           <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
             <div class="form-outline mb-4">
-                  <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
-                       <div class="card-body">
-                <h5 class="card-title">Error!</h5>
-                <p class="card-text" th:text="${error}"></p>
-            </div>
-        </div>
-        <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
-            <div class="card-body">
-                <h5 class="card-title">Exito!</h5>
-                <p class="card-text" th:text="${exito}"></p>
-            </div>
-        </div>
+              <div
+                th:if="${error != null}"
+                class="card text-white bg-danger mb-3 mensajeError"
+              >
+                <div class="card-body">
+                  <h5 class="card-title">Error!</h5>
+                  <p class="card-text" th:text="${error}"></p>
+                </div>
+              </div>
+              <div
+                th:if="${exito != null}"
+                class="card text-white bg-success mb-3 mt-3 mensajeExito"
+              >
+                <div class="card-body">
+                  <h5 class="card-title">Exito!</h5>
+                  <p class="card-text" th:text="${exito}"></p>
+                </div>
+              </div>
               <form th:action="@{/logincheck}" method="POST">
-              <!-- Email input -->
-             
                 <input
-                    name="email"
+                  name="email"
                   type="email"
-                  id="form1Example13
+                  id="form1Example13"
                   th:value="${email}"
                   class="form-control form-control-lg"
                   required
                 />
-                <label class="form-label" for="form1Example13"
-                  >Dirección de correo electrónico</label
-                >
-              </div>
 
-              <!-- Password input -->
-              <div class="form-outline mb-4">
-                <input
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form1Example23"
+                    >Contraseña</label
+                  >
+                  <input
                     name="contrasenia"
-                  type="password"
-                  id="form1Example23"
-                  th:value="${contrasenia}"
-                  class="form-control form-control-lg"
-                />
-
-                <label class="form-label" for="form1Example23"
-                  >Contraseña</label
-                >
-              </div>
-
-              <!-- Checkbox -->
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="form1Example3"
-                  checked
-                />
-                <label class="form-check-label" for="form1Example3">
-                  Recuérdame
-                </label>
-              </div>
-
-              <!-- Submit button -->
-              <button type="submit" class="btn btn-primary btn-lg btn-block">
-                Ingresa aquí
-              </button>
-            </form>
-                <section class=" text-center container">
-                <div class="row mt-3">
-                    <div class="divVolver">
-                        <a th:href="@{/}" class="btn btn-secondary my-2 botonVolver botones">Volver</a>
-                    </div>
+                    type="password"
+                    id="form1Example23"
+                    th:value="${contrasenia}"
+                    class="form-control form-control-lg"
+                  />
                 </div>
-            </section>
+
+                <!-- Checkbox -->
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="form1Example3"
+                    checked
+                  />
+                  <label class="form-check-label" for="form1Example3">
+                    Recuérdame
+                  </label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                  Ingresa aquí
+                </button>
+              </form>
+              <section class="text-center container">
+                <div class="row mt-3">
+                  <div class="divVolver">
+                    <a
+                      th:href="@{/}"
+                      class="btn btn-secondary my-2 botonVolver botones"
+                      >Volver</a
+                    >
+                  </div>
+                </div>
+              </section>
+            </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- Form Ends here. -->
-
     <!-- The below section displays the Reviews and Feedbacks given by the users. -->
-
+    <!-- The below section displays the Reviews and Feedbacks given by the users. -->
     <div
       class="container mt-5 mt-5 mx-auto"
       style="
@@ -157,16 +157,15 @@
         con <strong> más de 2000 reviews </strong>
       </p>
     </div>
-    <br />
 
-    <!-- Reviews and Feedbacks which uses Bootstrap Grid property, includes images  -->
+    <br />
+    <!-- Reviews and Feedbacks which use Bootstrap Grid property, includes images  -->
 
     <div th:replace="fragments/publicaciones :: publicaciones"></div>
     <hr />
     <div th:replace="fragments/footer :: footer"></div>
 
-    <!--JavaScript-->
-
+    <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
