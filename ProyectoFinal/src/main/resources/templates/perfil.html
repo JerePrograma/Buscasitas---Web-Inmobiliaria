@@ -38,20 +38,19 @@
         <div class="row">
           <div class="col-md-4">
             <div class="profile-img">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
-                alt=""
-              />
-              <div class="file btn btn-sm btn-primary">
-                Foto
+            <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+</svg>
+            <div class="file btn btn-sm btn-primary">
+                
                 <input type="file" name="file" />
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="profile-head">
-              <h5>th:text="${sesión.usuario.nombre}"</h5>
-              <h6>th:text="${sesión.usuario.tipoPersona}"</h6>
+              <h5 th:if="${session.usuariosession != null}" th:text=" ' Aqui puedes ver tus datos! '+ ${session.usuariosession.nombre} "></h5>
+              <h6>Somos afortunados de tenerte aquí!</h6>
               <p class="proile-rating">RANKINGS : <span>8/10</span></p>
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
@@ -86,7 +85,7 @@
               type="submit"
               class="profile-edit-btn"
               name="btnAddMore"
-              value="Edit Profile"
+              value="Editar"
             />
           </div>
         </div>
@@ -115,18 +114,34 @@
               >
                 <div class="row">
                   <div class="col-md-6">
-                    <label>User Id</label>
+                    <label>Código Tributario</label>
                   </div>
                   <div class="col-md-6">
-                    <p>Kshiti123</p>
+                    <p th:if="${session.usuariosession != null}" th:text=${session.usuariosession.idCodigoTributario}></p>
+                  </div>
+                </div>
+                  <div class="row">
+                  <div class="col-md-6">
+                    <label>Tipo de Persona</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p th:if="${session.usuariosession != null}" th:text=${session.usuariosession.tipoPersona}></p>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
-                    <label>Name</label>
+                    <label>Nombre</label>
                   </div>
                   <div class="col-md-6">
-                    <p>Kshiti Ghelani</p>
+                    <p th:if="${session.usuariosession != null}" th:text=${session.usuariosession.nombre}></p>
+                  </div>
+                </div>
+                  <div class="row">
+                  <div class="col-md-6">
+                    <label>Nombre</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p th:if="${session.usuariosession != null}" th:text=${session.usuariosession.apellido}></p>
                   </div>
                 </div>
                 <div class="row">
@@ -134,26 +149,51 @@
                     <label>Email</label>
                   </div>
                   <div class="col-md-6">
-                    <p>kshitighelani@gmail.com</p>
+                    <p th:if="${session.usuariosession != null}" th:text=${session.usuariosession.email}></p>
+                  </div>
+                </div>
+                  <div class="row">
+                  <div class="col-md-6">
+                    <label>Teléfono celular</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p th:if="${session.usuariosession != null}" th:text=${session.usuariosession.celular}></p>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
-                    <label>Phone</label>
+                    <label>Dirección</label>
                   </div>
                   <div class="col-md-6">
-                    <p>123 456 7890</p>
+                    <p th:if="${session.usuariosession != null}" th:text=${session.usuariosession.direccion}></p>
+                  </div>
+                </div>
+                    <div class="row">
+                  <div class="col-md-6">
+                    <label>Provincia</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p th:if="${session.usuariosession != null}" th:text=${session.usuariosession.provincia}></p>
+                  </div>
+                </div>
+                   <div class="row">
+                  <div class="col-md-6">
+                    <label>Ciudad</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p th:if="${session.usuariosession != null}" th:text=${session.usuariosession.ciudad}></p>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
-                    <label>Profession</label>
+                    <label>DNI</label>
                   </div>
-                  <div class="col-md-6">
-                    <p>Web Developer and Designer</p>
+                 <div class="col-md-6">
+                    <p th:if="${session.usuariosession != null}" th:text=${session.usuariosession.DNI}></p>
                   </div>
                 </div>
               </div>
+                
               <div
                 class="tab-pane fade"
                 id="profile"
