@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+  <head th:replace="fragments/head :: head"> </head>
+
+  <body>
+    <nav th:replace="fragments/navbar :: nav"></nav>
+
+    <div class="align-center">
+      <h1>Registrar Oferta</h1>
+    </div>
+    <form
+      class="form-register"
+      sec:authorize="hasRole('CLIENT')"
+      th:action="@{/oferta/enviar/__${cuentaTributaria}__}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <input
+        hidden
+        th:value="${inmueble.cuentaTributaria}"
+        name="cuentaTributaria"
+      />
+      <input hidden th:value="${usuario.idCodigoTributario}" name="idUsuario" />
+
+      <input
+        class="controls"
+        type="number"
+        id="valorOferta"
+        name="valorOferta"
+        th:value="${valorOferta}"
+        placeholder="Valor de la Oferta"
+      />
+      <input
+        class="controls"
+        type="date"
+        id="fechaOferta"
+        name="fechaOferta"
+        placeholder="Fecha de la Oferta"
+      />
+
+      <button type="submit">Guardar Oferta</button>
+    </form>
+  </body>
+</html>
