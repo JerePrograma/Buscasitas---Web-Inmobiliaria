@@ -66,7 +66,7 @@
                     role="tab"
                     aria-controls="home"
                     aria-selected="true"
-                    >About</a
+                    >Perfil Personal</a
                   >
                 </li>
                 <li class="nav-item">
@@ -78,34 +78,30 @@
                     role="tab"
                     aria-controls="profile"
                     aria-selected="false"
-                    >Timeline</a
+                    >Mis Transacciones</a
                   >
                 </li>
               </ul>
             </div>
           </div>
-          <div class="col-md-2">
-            <input
-              type="submit"
-              class="profile-edit-btn"
-              name="btnAddMore"
-              value="Editar"
-            />
-          </div>
+            <div class="col-md-2">
+                <a th:href="@{/usuario/perfil/modificar}" class="btn btn-secondary my-2 boton Volver botones" name="btnAddMore" value="Editar">Editar</a>
+	</div>
         </div>
         <div class="row">
           <div class="col-md-4">
             <div class="profile-work">
-              <p>WORK LINK</p>
-              <a href="">Website Link</a><br />
-              <a href="">Bootsnipp Profile</a><br />
-              <a href="">Bootply Profile</a>
-              <p>SKILLS</p>
-              <a href="">Web Designer</a><br />
-              <a href="">Web Developer</a><br />
-              <a href="">WordPress</a><br />
-              <a href="">WooCommerce</a><br />
-              <a href="">PHP, .Net</a><br />
+              <p>Alquileres favoritos</p>
+              <a href="">Cabaña Esquel</a><br />
+              <a href="">Chalet (5hab)</a><br />
+              <a href="">Puerto Madero</a>
+              <p></p>
+              <p>En Venta favoritos</p>
+              <a href="">Terreno 8000m2</a><br />
+              <a href="">Isla en Tigre</a><br />
+              <a href="">Dpto.Costa..</a><br />
+              <a href="">Dpto.Miramar</a><br />
+              <a href="">PH Colegiales</a><br />
             </div>
           </div>
           <div class="col-md-8">
@@ -288,10 +284,6 @@
     </div>
 
     <!-- Form Ends here. -->
-    <hr />
-    <!-- Reviews and Feedbacks which uses Bootstrap Grid property, includes images  -->
-
-    <div th:replace="fragments/publicaciones :: publicaciones"></div>
     <hr />
     <div th:replace="fragments/footer :: footer"></div>
 
