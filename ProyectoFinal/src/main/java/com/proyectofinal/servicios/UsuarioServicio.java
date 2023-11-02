@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-
 @Service
 public class UsuarioServicio implements UserDetailsService {
 
@@ -77,7 +76,6 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setCelular(celular);
             usuario.setTipoPersona(tipoPersona);
             usuario.setContrasenia(contrasenia);
-             
             usuarioRepositorio.save(usuario);
         }
     }
@@ -86,7 +84,7 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        
+
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
 
         if (usuario == null) {
@@ -96,7 +94,6 @@ public class UsuarioServicio implements UserDetailsService {
         List<GrantedAuthority> permisos = new ArrayList<>();
         GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
         permisos.add(p);
-
 
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session = attr.getRequest().getSession(true);
