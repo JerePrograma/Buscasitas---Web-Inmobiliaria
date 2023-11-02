@@ -99,8 +99,8 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    public Usuario getOne(String id) {
-        return usuarioRepositorio.getOne(id);
+    public Usuario getOne(String idCodigoTributario) {
+        return usuarioRepositorio.getOne(idCodigoTributario);
     }
 
     @Transactional(readOnly = true)
