@@ -165,9 +165,8 @@ public class InmuebleControlador {
             byte[] imagenContenido = inmueble.getImagen().getContenido();
             String imagenBase64 = Base64.getEncoder().encodeToString(imagenContenido);
 
-            // Agrega la imagen base64 al modelo
+//             Agrega la imagen base64 al modelo
             model.addAttribute("imagenBase64", imagenBase64);
-
             // Agrega el inmueble al modelo
             model.addAttribute("inmueble", inmueble);
 
