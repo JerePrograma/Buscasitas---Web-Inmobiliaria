@@ -1,10 +1,10 @@
 package com.proyectofinal.controladores;
 
 import com.proyectofinal.entidades.Inmueble;
-import com.proyectofinal.entidades.RangoHorario;
 import com.proyectofinal.servicios.ImagenServicio;
 import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.RangoHorarioServicio;
+import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -12,9 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.time.LocalTime;
-import java.util.ArrayList;
 
 import java.util.List;
 
@@ -40,24 +37,23 @@ public class InmuebleControlador {
         return "inmueble_form.html";
     }
 
-
     @PostMapping("/registrar")
     public String registrarInmueble(ModelMap modelo,
-                                    @RequestParam("estado") String estado,
-                                    @RequestParam("archivo") MultipartFile archivo,
-                                    @RequestParam("cuentaTributaria") String cuentaTributaria,
-                                    @RequestParam("direccion") String direccion,
-                                    @RequestParam("ciudad") String ciudad,
-                                    @RequestParam("provincia") String provincia,
-                                    @RequestParam("transaccion") String transaccion,
-                                    @RequestParam("tipoInmueble") String tipoInmueble,
-                                    @RequestParam("tituloAnuncio") String tituloAnuncio,
-                                    @RequestParam("descripcionAnuncio") String descripcionAnuncio,
-                                    @RequestParam("precioAlquilerVenta") Integer precioAlquilerVenta,
-                                    @RequestParam("caracteristicaInmueble") String caracteristicaInmueble,
-                                    @RequestParam("diaSemana") List<String> diaSemanaList,
-                                    @RequestParam("horaInicio") List<String> horaInicioList, // Cambiado a List<String>
-                                    @RequestParam("horaFin") List<String> horaFinList) { // Cambiado a List<String>
+            @RequestParam("estado") String estado,
+            @RequestParam("archivo") MultipartFile archivo,
+            @RequestParam("cuentaTributaria") String cuentaTributaria,
+            @RequestParam("direccion") String direccion,
+            @RequestParam("ciudad") String ciudad,
+            @RequestParam("provincia") String provincia,
+            @RequestParam("transaccion") String transaccion,
+            @RequestParam("tipoInmueble") String tipoInmueble,
+            @RequestParam("tituloAnuncio") String tituloAnuncio,
+            @RequestParam("descripcionAnuncio") String descripcionAnuncio,
+            @RequestParam("precioAlquilerVenta") Integer precioAlquilerVenta,
+            @RequestParam("caracteristicaInmueble") String caracteristicaInmueble,
+            @RequestParam("diaSemana") List<String> diaSemanaList,
+            @RequestParam("horaInicio") List<String> horaInicioList, // Cambiado a List<String>
+            @RequestParam("horaFin") List<String> horaFinList) { // Cambiado a List<String>
         try {
 
             // Llama al servicio para registrar el Inmueble con sus RangoHorario
@@ -95,23 +91,21 @@ public class InmuebleControlador {
 
     @PostMapping("/modificar/{cuentaTributaria}")
     public String actualizarInmueble(@PathVariable("cuentaTributaria") String cuentaTributaria,
-                                     @RequestParam("archivo") MultipartFile archivo,
-                                     @RequestParam("tituloAnuncio") String tituloAnuncio,
-                                     @RequestParam("descripcionAnuncio") String descripcionAnuncio,
-                                     @RequestParam("caracteristicaInmueble") String caracteristicaInmueble,
-                                     @RequestParam("estado") String estado,
-                                     ModelMap model) {
-
+            @RequestParam("archivo") MultipartFile archivo,
+            @RequestParam("tituloAnuncio") String tituloAnuncio,
+            @RequestParam("descripcionAnuncio") String descripcionAnuncio,
+            @RequestParam("caracteristicaInmueble") String caracteristicaInmueble,
+            @RequestParam("estado") String estado,
+            ModelMap model) {
 
         try {
 
             System.out.println(cuentaTributaria);
 
-          //Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
+            //Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
             inmuebleServicio.modificarInmueble(archivo, cuentaTributaria, tituloAnuncio, descripcionAnuncio, caracteristicaInmueble, estado);
 
             // Resto del código
-
             model.put("exito", "Los cambios fueron guardados correctamente!");
             return "redirect:/"; // Redirige a la página principal o la página de éxito, según sea necesario
         } catch (Exception ex) {
