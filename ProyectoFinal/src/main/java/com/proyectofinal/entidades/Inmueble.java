@@ -3,11 +3,8 @@ package com.proyectofinal.entidades;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.proyectofinal.entidades.RangoHorario;
 
 import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -45,4 +42,3 @@ public class Inmueble implements Serializable {
     private Usuario usuarioAdministrador;
 
 }
-

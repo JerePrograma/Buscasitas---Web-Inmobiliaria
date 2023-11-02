@@ -15,25 +15,8 @@ import java.util.Optional;
 @Service
 public class RangoHorarioServicio {
 
-
-    // NO TOCAR
-    // NO TOCAR
-    // NO TOCAR
-    // NO TOCAR
-    // NO TOCAR
-    // NO TOCAR
-    // NO TOCAR
-    // NO TOCAR
-    // NO TOCAR
-    // NO TOCAR
-    // NO TOCAR
-    // NO TOCAR
-    // NO TOCAR
-    // NO TOCAR
-    // NO TOCAR
     @Autowired
     private RangoHorarioRepositorio rangoHorarioRepositorio;
-
 
     @Transactional
     public RangoHorario crearRangoHorario(String diaSemana, LocalTime horaInicio, LocalTime horaFin, Inmueble inmueble) {
@@ -45,11 +28,9 @@ public class RangoHorarioServicio {
         return rangoHorarioRepositorio.save(rangoHorario);
     }
 
-
     public List<RangoHorario> establecerRangoHorarios(List<String> diaSemanaList, List<String> horaInicioList, List<String> horaFinList, Inmueble inmueble) {
         List<RangoHorario> rangosHorarios = new ArrayList<>();
-        for (
-                int i = 0; i < diaSemanaList.size(); i++) {
+        for (int i = 0; i < diaSemanaList.size(); i++) {
             LocalTime horaInicio = LocalTime.parse(horaInicioList.get(i));
             LocalTime horaFin = LocalTime.parse(horaFinList.get(i));
 
@@ -59,7 +40,6 @@ public class RangoHorarioServicio {
             rangoHorario.setInmueble(inmueble);
 
             System.out.println("Asignando rangoHorario a Inmueble: " + rangoHorario);
-
 
             rangosHorarios.add(rangoHorario);
         }
