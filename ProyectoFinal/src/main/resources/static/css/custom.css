@@ -23,7 +23,7 @@
   padding: 20px;
 }
 #logo {
-  height: 2em;
+   height: 2.2em;
   width: 2em;
   display: block;
   fill: currentcolor;
@@ -36,7 +36,14 @@
   flex-basis: 60px;
 }
 nav {
-  background-color: rgb(64, 98, 233);
+  color: white;
+    background-color: blueviolet;
+    background-image: linear-gradient(
+        150deg,
+        #9500ff,
+        #09f,
+        #00DDFF
+    );
 }
 .navbar-nav .nav-item .nav-link {
   color: white !important; /* Cambiar a blanco y usar !important para anular estilos previos */
@@ -45,15 +52,33 @@ nav {
 .btn-info,
 .btn-info:active {
   display: inline-block;
-  padding: 10px 20px; /* Ajusta el relleno según tus preferencias */
+  /* Ajusta el relleno según tus preferencias */
   background-color: rgb(64, 98, 233); /* Color de fondo del botón */
   color: #fff; /* Color de texto */
   text-decoration: none;
-  border-radius: 5px solid rgb(64, 98, 233); /* Bordes redondeados */
+  /* Bordes redondeados */
   transition: background-color 0.3s; /* Transición de color suave */
+  padding: 10px 20px;
+    border-radius: 10px;
+    border: 2px solid black;
+    box-shadow: 2px 2px 10px black;
+    color: white;
+    background-color: blueviolet;
+    background-image: linear-gradient(
+        150deg,
+        #9500ff,
+        #09f,
+        #00DDFF
+    );
+  
+    cursor: pointer;
+    transition: .3s;
+    border: 0;
 }
+
 .btn-info:hover {
-  background-color: #0051bc;
+     background-color: blueviolet;
+    cursor: pointer;
 }
 
 h1 .title {
@@ -257,7 +282,7 @@ img {
 
 /* Agregar estilos adicionales según sea necesario */
 
-}
+
 #Blog Cards body {
   background: #f1f1f1;
   display: flex;
@@ -586,3 +611,12 @@ main{
   font-weight: 600;
   color: #0062cc;
 }
+
+#hero {
+  height: 90vh;
+  background-image: url("https://www.geekinsta.com/ezoimgfmt/images.unsplash.com/photo-1416153716529-31b4f85a319e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&w=2000&ezimgfmt=ngcb1/notWebP");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
