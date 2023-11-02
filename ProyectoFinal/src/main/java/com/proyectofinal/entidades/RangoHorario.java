@@ -18,6 +18,7 @@ public class RangoHorario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String diaSemana; // Día de la semana (por ejemplo, "Lunes", "Martes", etc.)
 
     @Column(name = "hora_inicio")
