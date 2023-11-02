@@ -3,7 +3,11 @@
   <head>
     <title>Buscasitas.com.ar - Login</title>
 
-    <meta charset="utf-8" ame="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      charset="utf-8"
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
 
     <link
       rel="stylesheet"
@@ -46,23 +50,30 @@
           </div>
           <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
             <div class="form-outline mb-4">
-                  <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
-                       <div class="card-body">
+              <div
+                th:if="${error != null}"
+                class="card text-white bg-danger mb-3 mensajeError"
+              >
+                <div class="card-body"></div>
                 <h5 class="card-title">Error!</h5>
                 <p class="card-text" th:text="${error}"></p>
+              </div>
             </div>
-        </div>
-        <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
-            <div class="card-body">
+            <div
+              th:if="${exito != null}"
+              class="card text-white bg-success mb-3 mt-3 mensajeExito"
+            >
+              <div class="card-body">
                 <h5 class="card-title">Exito!</h5>
                 <p class="card-text" th:text="${exito}"></p>
+              </div>
             </div>
-        </div>
-              <form th:action="@{/logincheck}" method="POST">
+
+            <form th:action="@{/logincheck}" method="POST">
               <!-- Email input -->
-             
+              <div>
                 <input
-                    name="email"
+                  name="email"
                   type="email"
                   id="form1Example13"
                   th:value="${email}"
@@ -76,7 +87,7 @@
               <!-- Password input -->
               <div class="form-outline mb-4">
                 <input
-                    name="contrasenia"
+                  name="contrasenia"
                   type="password"
                   id="form1Example23"
                   th:value="${contrasenia}"
@@ -113,12 +124,16 @@
 
               <div class="divider d-flex align-items-center my-4"></div>
             </form>
-                <section class=" text-center container">
-                <div class="row mt-3">
-                    <div class="divVolver">
-                        <a th:href="@{/}" class="btn btn-secondary my-2 botonVolver botones">Volver</a>
-                    </div>
+            <section class="text-center container">
+              <div class="row mt-3">
+                <div class="divVolver">
+                  <a
+                    th:href="@{/}"
+                    class="btn btn-secondary my-2 botonVolver botones"
+                    >Volver</a
+                  >
                 </div>
+              </div>
             </section>
           </div>
         </div>
