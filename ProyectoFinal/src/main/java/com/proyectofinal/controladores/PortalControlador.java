@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import java.util.List;
 
 // PROYECTO FINAL - EQUIPO A - Buscasitas.com.ar
@@ -30,10 +31,10 @@ public class PortalControlador {
     public String index(ModelMap modelo) {
         List<Inmueble> inmuebles = inmuebleServicio.listarTodosLosInmuebles();
 
+
         modelo.addAttribute("inmuebles", inmuebles);
         return "index.html";
     }
-
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {
         if (error != null) {
@@ -42,7 +43,9 @@ public class PortalControlador {
         return "login.html";
     }
 
+
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ENTE','ROLE_CLIENT', 'ROLE_ADMIN')")
+
     @GetMapping("/inicio")
     public String inicio(HttpSession session) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");

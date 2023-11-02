@@ -6,6 +6,11 @@
     "Lucida Sans", Arial, sans-serif;
 }
 
+.body .main {
+    background: url(../images/fondo_inmo.png);
+
+}
+
 .content {
   display: flex;
   flex-direction: column;
@@ -199,11 +204,10 @@ img {
   animation-fill-mode: both;
 }
 .container {
-  padding: 4em;
+  padding: 2em;
   background-color: aliceblue;
   max-width: 40%;
   box-sizing: border-box;
-  
 }
 
 .container-login {
@@ -213,6 +217,46 @@ img {
   width: 25%;
   align-content: center;
   justify-content: center;
+}
+
+
+/* Agregar estilos específicos para la página de detalles de inmuebles */
+.inmueble-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.inmueble-image img {
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.inmueble-info {
+    margin-left: 20px;
+}
+
+.inmueble-info h3 {
+    font-size: 24px;
+}
+
+.inmueble-info ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.inmueble-info li {
+    margin-bottom: 10px;
+}
+
+.inmueble-info li strong {
+    font-weight: bold;
+}
+
+/* Agregar estilos adicionales según sea necesario */
+
 }
 #Blog Cards body {
   background: #f1f1f1;
