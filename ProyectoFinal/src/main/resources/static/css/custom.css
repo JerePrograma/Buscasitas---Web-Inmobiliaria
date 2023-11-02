@@ -23,13 +23,23 @@
   padding: 20px;
 }
 #logo {
-   height: 2.2em;
-  width: 2em;
+   height: 2.4em;
+  width: 2.2em;
   display: block;
   fill: currentcolor;
   color: white;
   font-family: Helvetica;
   font-size: 16px;
+}
+.logo-text {
+    padding-left: 0.5em;
+  background-image: linear-gradient(45deg, blueviolet, lightblue); /* Degradado de blueviolet a lightblue */
+  -webkit-background-clip: text; /* Clip de fondo al texto para que el degradado solo afecte al texto en navegadores webkit (Safari, Chrome) */
+  background-clip: text;
+  color: transparent; /* Texto transparente para que se muestre el degradado de fondo */
+  display: inline-block;
+  font-size: 36px;
+  animation: colorChange 2s infinite; /* Animación de cambio de color infinita en 4 segundos */
 }
 .header {
   background-color: lightblue;
@@ -45,6 +55,8 @@ nav {
         #00DDFF
     );
 }
+
+
 .navbar-nav .nav-item .nav-link {
   color: white !important; /* Cambiar a blanco y usar !important para anular estilos previos */
   transition: color 1s;
@@ -229,6 +241,7 @@ img {
   animation-fill-mode: both;
 }
 .container {
+  padding-top: 5em;
   padding: 2em;
   background-color: aliceblue;
   max-width: 40%;
@@ -511,6 +524,7 @@ img {
   }
 }
 main{
+  padding-top: 2em;
   background: url(../images/dfp-alquiler.jpg);
   background-size:auto;
   background-position: center;
