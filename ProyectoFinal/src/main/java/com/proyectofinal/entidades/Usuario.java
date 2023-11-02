@@ -19,17 +19,17 @@ import javax.persistence.OneToOne;
 public class Usuario implements Serializable {
 
     @Id
-    private String idCodigoTributario;//formulario select CUIL o CUIT
+    private String idCodigoTributario;//formulario select CUIL o CUIT. HECHO
     private String nombre;
     private String apellido;
     private String DNI;
     private String direccion;
     private String ciudad;
     private String provincia;
-    private String sexo; //formulario femenino o masculino
+    private String sexo; //formulario femenino o masculino. HECHO
     private String email;
-    private String celular; // separar en codigo pais, provincia, numero?
-    private String tipoPersona; // formulario select persona humana o persona juridica
+    private String celular; // separar en codigo pais, provincia, numero?. HACE FALTA?
+    private String tipoPersona; // formulario select persona humana o persona juridica. HECHO
     private String contrasenia;
     private Boolean alta;
 

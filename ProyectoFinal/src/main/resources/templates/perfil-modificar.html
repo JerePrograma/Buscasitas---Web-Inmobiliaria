@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
   <head>
 
-    <title>Registrar Usuario</title>
+    <title>Actualizar Usuario</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link
@@ -35,13 +35,9 @@
     <div class="container">
         <br/>
            
-      <form
-        class="formulario"
-        th:action="@{/usuario/registrar}"
-        method="post"
-        enctype="multipart/form-data"
-      >
+      <form class="formulario" th:action="@{/usuario/modificar/__${usuario.idCodigoTributario}__}" method="POST">
           <br/>
+       
         <div
           th:if="${error != null}"
           class="card text-white bg-danger mb-3 mensajeError"
@@ -62,8 +58,10 @@
           <br/>    
  <h1> <span class="badge badge-primary">Regístrate</span></h1>
 				  <br>
+                                      
+     <input hidden th:value="${idCodigoTributario}" name="idCodigoTributario">
    <div class="form-row align-items-center">
-    <div class="col-auto my-1" style="padding-top: 1.5em">
+    <div class="col-auto my-1">
         <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
             <select name="tipoPersona" class="custom-select mr-sm-2" id="inlineFormCustomSelect" th:value="${tipoPersona}">
 		<option selected>Tipo Persona...</option>
@@ -130,7 +128,7 @@
             </div>
                     <br/>
                                     <div class="form-row align-items-center">
-    <div class="col-auto my-1" style="padding-top: 1.5em">
+    <div class="col-auto my-1">
         <label class="mr-sm-2 sr-only"  for="inlineFormCustomSelect">Preference</label>
             <select name="sexo" class="custom-select mr-sm-2" id="inlineFormCustomSelect" th:value="${sexo}">
 		<option selected>Sexo...</option>
@@ -149,7 +147,7 @@
 	 </div>
                     <br>
                 <div class="form-row align-items-center">
-                    <div class="col-auto my-1" style="padding-top: 1.5em">
+                    <div class="col-auto my-1">
                         <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
                          <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
                             <option selected>Tipo ID...</option>
@@ -181,15 +179,8 @@
 	 <input name="contrasenia2" type="password" class="form-control" th:value="${contrasenia2}" id="InputPassword1">
             </div>
 		<br>
-<div class="form-group col-md-7 form-check">
-  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-     <label class="form-check-label" for="exampleCheck1">Recuérdame en este dispositivo</label>
-	</div>
 	<br>
-	<button type="submit" class="btn btn-primary col-md-7">Enviar Formulario</button>
-          <div style="padding-left: 11em"   class="divVolver">
-                        <a th:href="@{/}" class="btn btn-secondary my-2 boton Volver botones">Volver</a>
-                    </div>
+	<button type="submit" class="btn btn-primary col-md-7">Actualizar Datos</button>
 	</div>
 	</form>
         </div>
