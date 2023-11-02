@@ -144,6 +144,12 @@
 
     <!-- The below section displays the Reviews and Feedbacks given by the users. -->
 
+    <br />
+
+    <!-- Reviews and Feedbacks which uses Bootstrap Grid property, includes images  -->
+
+    <div th:replace="fragments/publicaciones :: publicaciones"></div>
+    <hr />
     <div
       class="container mt-5 mt-5 mx-auto"
       style="
@@ -179,12 +185,6 @@
         con <strong> más de 2000 reviews </strong>
       </p>
     </div>
-    <br />
-
-    <!-- Reviews and Feedbacks which uses Bootstrap Grid property, includes images  -->
-
-    <div th:replace="fragments/publicaciones :: publicaciones"></div>
-    <hr />
     <div th:replace="fragments/footer :: footer"></div>
 
     <!--JavaScript-->
