@@ -12,9 +12,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 @Controller
@@ -125,9 +124,11 @@ public class InmuebleControlador {
                                      @RequestParam("estado") String estado,
                                      ModelMap model) {
 
+
         try {
 
             System.out.println(cuentaTributaria);
+
           //Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
             inmuebleServicio.modificarInmueble(archivo, cuentaTributaria, tituloAnuncio, descripcionAnuncio, caracteristicaInmueble, estado);
 
@@ -182,4 +183,27 @@ public class InmuebleControlador {
 
         return "busqueda_inmuebles";
     }
+
+    @GetMapping("/detalle/{cuentaTributaria}")
+    public String detalleInmueble(@PathVariable String cuentaTributaria, Model model) {
+        Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
+
+        if (inmueble != null) {
+            // Realiza la conversión de la imagen a base64
+            byte[] imagenContenido = inmueble.getImagen().getContenido();
+            String imagenBase64 = Base64.getEncoder().encodeToString(imagenContenido);
+
+            // Agrega la imagen base64 al modelo
+            model.addAttribute("imagenBase64", imagenBase64);
+
+            // Agrega el inmueble al modelo
+            model.addAttribute("inmueble", inmueble);
+
+            return "inmueble_detalle";
+        } else {
+            // Manejar el caso en el que no se encuentra el inmueble
+            return "error"; // Puedes crear una vista específica para errores.
+        }
+    }
+
 }
