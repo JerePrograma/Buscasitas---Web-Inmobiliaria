@@ -140,7 +140,7 @@
 
 
       <label for="diaSemana">Horarios Disponibles</label>
-      <br>
+      <br />
       <label for="diaSemana">Día de la semana:</label>
       <select class="controls" id="diaSemana" name="diaSemana">
         <option value="Lunes">Lunes</option>
@@ -151,20 +151,31 @@
         <!-- Agrega opciones para otros días de la semana -->
       </select>
 
-      <br>
+      <br />
 
       <label for="horaInicio">Hora de inicio:</label>
-      <input class="controls" type="time" id="horaInicio" name="horaInicio" required>
+      <input
+        class="controls"
+        type="time"
+        id="horaInicio"
+        name="horaInicio"
+        required
+      />
 
       <label for="horaFin">Hora de fin:</label>
-      <input class="controls" type="time" id="horaFin" name="horaFin" required>
+      <input
+        class="controls"
+        type="time"
+        id="horaFin"
+        name="horaFin"
+        required
+      />
 
-      <br>
+      <br />
 
       <button class="botons" type="submit">Guardar Inmueble</button>
     </form>
 
-  <script th:src="@{/js/script.js}" type = "text/javascript"></script>
-
+    <script th:src="@{/js/script.js}" type="text/javascript"></script>
   </body>
 </html>

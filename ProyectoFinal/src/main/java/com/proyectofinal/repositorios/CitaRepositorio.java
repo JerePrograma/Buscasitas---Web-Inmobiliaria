@@ -1,17 +1,9 @@
-///*
-// * To change this license header, choose License Headers in Project Properties.
-// * To change this template file, choose Tools | Templates
-// * and open the template in the editor.
-// */
-//package com.proyectofinal.repositorios;
-//
-//import com.proyectofinal.entidades.Cita;
-//import org.springframework.data.repository.CrudRepository;
-//
-///**
-// *
-// * @author matob
-// */
-//public interface CitaRepositorio extends CrudRepository<Cita, String> {
-//    
-//}
+
+package com.proyectofinal.repositorios;
+
+import com.proyectofinal.entidades.Cita;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CitaRepositorio extends CrudRepository<Cita, String> {
+
+}

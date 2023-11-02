@@ -5,32 +5,35 @@
     <!-- This is to display the Navbar of the website. -->
     <nav th:replace="fragments/navbar :: nav"></nav>
     <!-- End of NavBar -->
-  <div
-    class="container mt-5 rounded mx-auto"
-    style="
-    max-width: 650px;
-    background-color: white;
-    font-family: Helvetica;
-    font-weight: 600;
-    color: #484848;
-    "
+    <div
+      class="container mt-5 rounded mx-auto"
+      style="
+        max-width: 650px;
+        background-color: white;
+        font-family: Helvetica;
+        font-weight: 600;
+        color: #484848;
+      "
     >
-    <h1 style="font-size: 2em; font-weight: bold; margin-bottom: 15px">
-      Resultados de la búsqueda
-    </h1>
+      <h1 style="font-size: 2em; font-weight: bold; margin-bottom: 15px">
+        Resultados de la búsqueda
+      </h1>
 
-    <div class="form-group" style="font-size: small">
-      <label>Filtros de búsqueda:</label>
+      <div class="form-group" style="font-size: small">
+        <label>Filtros de búsqueda:</label>
+      </div>
     </div>
-  </div>
     <!-- Container for Search Results -->
     <div>
-      <div class="container" style="padding: 5px;" >
-      <!-- Display Search Results -->
+      <div class="container" style="padding: 5px">
+        <!-- Display Search Results -->
         <!-- Use th:each to iterate through a list of inmuebles -->
-        <div class="blog-card" th:each = "inmueble : ${inmuebles}">
+        <div class="blog-card" th:each="inmueble : ${inmuebles}">
           <div class="meta">
-            <div class="photo" th:style="'background-image: url(\'' + @{/imagen/inmueble/} + ${inmueble.cuentaTributaria} + '\')'"></div>
+            <div
+              class="photo"
+              th:style="'background-image: url(\'' + @{/imagen/inmueble/} + ${inmueble.cuentaTributaria} + '\')'"
+            ></div>
             <ul class="details">
               <li class="author"><a href="#">Autor</a></li>
               <li class="date">Aug. 24, 2015</li>
@@ -42,30 +45,29 @@
             </ul>
           </div>
           <div class="description">
-            <h1 th:text = "${inmueble.tituloAnuncio}"></h1>
-            <h2 th:text = "${inmueble.direccion}" + ></h2>
-            <p th:text = "${inmueble.descripcionAnuncio}"> </p>
+            <h1 th:text="${inmueble.tituloAnuncio}"></h1>
+            <h2 th:text="${inmueble.direccion}" +></h2>
+            <p th:text="${inmueble.descripcionAnuncio}"></p>
             <p class="read-more">
               <a href="#">Read More</a>
             </p>
           </div>
         </div>
       </div>
-        <!-- Repeat the above structure for each inmueble -->
-      </div>
+      <!-- Repeat the above structure for each inmueble -->
+    </div>
 
     <!-- End of Search Results -->
 
     <!-- The below section displays the Reviews and Feedbacks given by the users. -->
     <div
-            class="container mt-5 mx-auto"
-            style="
-          padding: 2px;
-          font-size: 14px;
-          font-family: Helvetica;
-          position: relative;
-
-        "
+      class="container mt-5 mx-auto"
+      style="
+        padding: 2px;
+        font-size: 14px;
+        font-family: Helvetica;
+        position: relative;
+      "
     >
       <h3>Reseñas de los usuarios</h3>
       <!-- Include user reviews and ratings here -->
