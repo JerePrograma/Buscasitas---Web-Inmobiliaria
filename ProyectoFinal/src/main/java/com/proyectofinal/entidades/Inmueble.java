@@ -3,6 +3,11 @@ package com.proyectofinal.entidades;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.proyectofinal.entidades.RangoHorario;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,16 +33,16 @@ public class Inmueble implements Serializable {
     private String tipoInmueble;
     private String estado;
 
-    @Column
-    @ElementCollection
-    private List<String> listaOfertas;
-
-    @Column
-    @ElementCollection
-    private List<String> citaDiaHora;
+    @OneToMany(mappedBy = "inmueble")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private List<RangoHorario> rangosHorarios;
 
     @OneToOne
     private Imagen imagen;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_administrador_id")
+    private Usuario usuarioAdministrador;
 
 }
 

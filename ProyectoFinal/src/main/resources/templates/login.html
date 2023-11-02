@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Registrar Inmueble</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Buscasitas.com.ar - Login</title>
 
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
@@ -44,13 +44,30 @@
             />
           </div>
           <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-            <form>
+
+            <div class="form-outline mb-4">
+                  <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
+                       <div class="card-body">
+                <h5 class="card-title">Error!</h5>
+                <p class="card-text" th:text="${error}"></p>
+            </div>
+        </div>
+        <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+            <div class="card-body">
+                <h5 class="card-title">Exito!</h5>
+                <p class="card-text" th:text="${exito}"></p>
+            </div>
+        </div>
+              <form th:action="@{/logincheck}" method="POST">
               <!-- Email input -->
-              <div class="form-outline mb-4">
+             
                 <input
+                    name="email"
                   type="email"
-                  id="form1Example13"
+                  id="form1Example13
+                  th:value="${email}"
                   class="form-control form-control-lg"
+                  required
                 />
                 <label class="form-label" for="form1Example13"
                   >Dirección de correo electrónico</label
@@ -60,8 +77,10 @@
               <!-- Password input -->
               <div class="form-outline mb-4">
                 <input
+                    name="contrasenia"
                   type="password"
                   id="form1Example23"
+                  th:value="${contrasenia}"
                   class="form-control form-control-lg"
                 />
                 <label class="form-label" for="form1Example23"
@@ -69,23 +88,19 @@
                 >
               </div>
 
-              <div
-                class="d-flex justify-content-around align-items-center mb-4"
-              >
-                <!-- Checkbox -->
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="form1Example3"
-                    checked
-                  />
-                  <label class="form-check-label" for="form1Example3">
-                    Recuérdame
-                  </label>
-                </div>
-                <a href="#!">Olvidó su contraseña?</a>
+
+              <!-- Checkbox -->
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="form1Example3"
+                  checked
+                />
+                <label class="form-check-label" for="form1Example3">
+                  Recuérdame
+                </label>
               </div>
 
               <!-- Submit button -->
@@ -93,8 +108,14 @@
                 Ingresa aquí
               </button>
 
-              <div class="divider d-flex align-items-center my-4"></div>
             </form>
+                <section class=" text-center container">
+                <div class="row mt-3">
+                    <div class="divVolver">
+                        <a th:href="@{/}" class="btn btn-secondary my-2 botonVolver botones">Volver</a>
+                    </div>
+                </div>
+            </section>
           </div>
         </div>
       </div>

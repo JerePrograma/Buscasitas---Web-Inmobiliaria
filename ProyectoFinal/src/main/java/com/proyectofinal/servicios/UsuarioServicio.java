@@ -21,7 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-@Service                     
+
+@Service
 public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
@@ -29,11 +30,11 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Transactional
     public void registrarUsuario(String idCodigoTributario, String nombre, String apellido, String direccion, String ciudad, String provincia, String DNI, String sexo, String email, String celular, String tipoPersona, String contrasenia, String contrasenia2) throws MiExcepcion {
-        
+
         validarDatos(idCodigoTributario, nombre, apellido, direccion, ciudad, provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
-        
+
         Usuario usuario = new Usuario();
-        
+
         usuario.setApellido(apellido);
         usuario.setCelular(celular);
         usuario.setCiudad(ciudad);
@@ -47,20 +48,21 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setTipoPersona(tipoPersona);
         usuario.setAlta(true);
         usuario.setContrasenia(new BCryptPasswordEncoder().encode(contrasenia));
-        usuario.setRol(Rol.CLIENTE);
+
+        usuario.setRol(Rol.USER);
 
         usuarioRepositorio.save(usuario);
     }
-    
+
     @Transactional
     public void modificarUsuario(String idCodigoTributario, String direccion, String ciudad, String provincia,
             String sexo, String email, String celular, String tipoPersona) throws MiExcepcion {
-       
+
         validarDatos(idCodigoTributario, direccion, ciudad, provincia, sexo, email, celular, tipoPersona);
-        
+
         Optional<Usuario> respuesta = usuarioRepositorio.findById(idCodigoTributario);
         if (respuesta.isPresent()) {
-            
+
             Usuario usuario = respuesta.get();
             usuario.setIdCodigoTributario(idCodigoTributario);
             usuario.setDireccion(direccion);
@@ -76,30 +78,28 @@ public class UsuarioServicio implements UserDetailsService {
     }
 //  Implementar este método cuando se aplique el registro de usuarios
 //    @Override
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
-        
-        if (usuario != null) {
-            
-            List<GrantedAuthority> permisos = new ArrayList<>();
-           
-            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
-            
-            permisos.add(p);
 
-            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-
-            HttpSession session = attr.getRequest().getSession(true);
-
-            session.setAttribute("usuariosession", usuario);
-
-            return new User(usuario.getEmail(), usuario.getContrasenia(), permisos);
-        } else {
-            return null;
+        if (usuario == null) {
+            throw new UsernameNotFoundException("Usuario no encontrado con el email: " + email);
         }
+
+        List<GrantedAuthority> permisos = new ArrayList<>();
+        GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
+        permisos.add(p);
+
+
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(true);
+        session.setAttribute("usuariosession", usuario);
+
+        return new User(usuario.getEmail(), usuario.getContrasenia(), permisos);
     }
-   
+
     @Transactional(readOnly = true)
     public Usuario getOne(String id) {
         return usuarioRepositorio.getOne(id);
@@ -107,14 +107,10 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Transactional(readOnly = true)
     public List<Usuario> listarUsuarios() {
-        
-        List<Usuario> usuarios = new ArrayList(); 
-        
-        usuarios = usuarioRepositorio.findAll();
-        
-     return usuarios;
+
+        return usuarioRepositorio.findAll();
     }
-    
+
     @Transactional
     public void darBajaUsuario(String idCodigoTributario) {
         Optional<Usuario> respuesta = usuarioRepositorio.findById(idCodigoTributario);
