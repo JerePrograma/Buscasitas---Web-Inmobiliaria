@@ -45,3 +45,4 @@ public class Inmueble implements Serializable {
     private Usuario usuarioAdministrador;
 
 }
+

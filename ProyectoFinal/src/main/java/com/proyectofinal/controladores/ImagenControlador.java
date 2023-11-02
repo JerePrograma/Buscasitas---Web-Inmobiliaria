@@ -14,29 +14,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-    @Controller
-    @RequestMapping("/imagen")
-    public class ImagenControlador {
 
-        @Autowired
-        UsuarioServicio usuarioServicio;
+@Controller
+@RequestMapping("/imagen")
+public class ImagenControlador {
 
-        @Autowired
-        InmuebleServicio inmuebleServicio;
+    @Autowired
+    UsuarioServicio usuarioServicio;
 
-        @GetMapping("/inmueble/{cuentaTributaria}")
-        public ResponseEntity<byte[]> imagenInmueble(@PathVariable String cuentaTributaria) {
-            Inmueble inmueble = inmuebleServicio.getOne(cuentaTributaria);
+    @Autowired
+    InmuebleServicio inmuebleServicio;
 
-            byte[] imagen = inmueble.getImagen().getContenido();
+    @GetMapping("/inmueble/{cuentaTributaria}")
+    public ResponseEntity<byte[]> imagenInmueble(@PathVariable String cuentaTributaria) {
+        Inmueble inmueble = inmuebleServicio.getOne(cuentaTributaria);
 
-            HttpHeaders headers = new HttpHeaders();
+        byte[] imagen = inmueble.getImagen().getContenido();
 
-            headers.setContentType(MediaType.IMAGE_JPEG);
+        HttpHeaders headers = new HttpHeaders();
 
-            return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
+        headers.setContentType(MediaType.IMAGE_JPEG);
 
-        }
+        return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
 
     }
 
+}
