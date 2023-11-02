@@ -62,7 +62,9 @@ public class InmuebleServicio {
                                   String tituloAnuncio, String descripcionAnuncio,
                                   String caracteristicaInmueble, String estado) throws Exception {
         // Verifica si el inmueble ya existe en la base de datos
+
         validarDatosModificar(cuentaTributaria, tituloAnuncio, descripcionAnuncio, caracteristicaInmueble, estado);
+
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(cuentaTributaria);
         if (respuesta.isPresent()) {
             Inmueble inmueble = respuesta.get();
@@ -177,6 +179,7 @@ public class InmuebleServicio {
             throw new MiExcepcion("El estado no puede estar vacío o ser nulo");
         }
     }
+
 
     public void validarDatosModificar(String cuentaTributaria,
                                       String tituloAnuncio, String descripcionAnuncio, String caracteristicaInmueble, String estado) throws MiExcepcion {
