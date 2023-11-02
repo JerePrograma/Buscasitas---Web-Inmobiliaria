@@ -1,23 +1,19 @@
 package com.proyectofinal.entidades;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-/**
- *
- * @author matob
- */
 @Entity
 @Data
 @NoArgsConstructor
-public class Cita {
+public class Cita implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -32,6 +28,5 @@ public class Cita {
     private RangoHorario horario;
 
     private String Nota;
-
 
 }

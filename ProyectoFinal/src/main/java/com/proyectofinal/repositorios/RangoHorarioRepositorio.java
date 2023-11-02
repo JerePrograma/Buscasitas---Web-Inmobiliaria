@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RangoHorarioRepositorio extends JpaRepository<RangoHorario, Long> {
+
     RangoHorario findById(String idHorario);
 }

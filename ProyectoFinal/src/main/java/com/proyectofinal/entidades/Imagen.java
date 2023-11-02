@@ -1,6 +1,6 @@
 package com.proyectofinal.entidades;
 
-
+import java.io.Serializable;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 
 @Entity
-public class Imagen {
+public class Imagen implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")

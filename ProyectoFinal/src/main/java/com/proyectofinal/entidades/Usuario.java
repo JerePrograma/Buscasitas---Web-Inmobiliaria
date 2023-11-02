@@ -15,7 +15,6 @@ import javax.persistence.OneToOne;
 @Entity
 @Data
 @NoArgsConstructor
-
 public class Usuario implements Serializable {
 
     @Id
@@ -38,7 +37,7 @@ public class Usuario implements Serializable {
 
     @OneToMany
     private List<Inmueble> propiedades;
-    
+
     @OneToOne
     private Imagen imagen;
 

@@ -1,8 +1,6 @@
 package com.proyectofinal.controladores;
 
-import com.proyectofinal.entidades.Imagen;
 import com.proyectofinal.entidades.Inmueble;
-import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
