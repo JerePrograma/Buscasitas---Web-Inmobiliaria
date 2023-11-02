@@ -57,8 +57,8 @@ public class UsuarioServicio implements UserDetailsService {
     public void modificarUsuario(String idCodigoTributario, String nombre, String apellido, String direccion, String ciudad, String provincia, String DNI,
             String sexo, String email, String celular, String tipoPersona, String contrasenia, String contrasenia2) throws MiExcepcion {
 
-      validarDatos(idCodigoTributario, nombre, apellido, direccion, ciudad, provincia, DNI,
-            sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
+        validarDatos(idCodigoTributario, nombre, apellido, direccion, ciudad, provincia, DNI,
+                sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(idCodigoTributario);
         if (respuesta.isPresent()) {
