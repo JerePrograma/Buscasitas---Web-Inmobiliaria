@@ -2,26 +2,35 @@ package com.proyectofinal.controladores;
 
 import com.proyectofinal.entidades.Inmueble;
 import com.proyectofinal.entidades.RangoHorario;
-import com.proyectofinal.repositorios.RangoHorarioRepositorio;
+import com.proyectofinal.servicios.ImagenServicio;
 import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.RangoHorarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Arrays;
-import java.util.Base64;
+import java.time.LocalTime;
+import java.util.ArrayList;
+
 import java.util.List;
 
 @Controller
 @RequestMapping("/inmueble")
 public class InmuebleControlador {
 
+    private final InmuebleServicio inmuebleServicio;
+
     @Autowired
-    private InmuebleServicio inmuebleServicio;
+    public InmuebleControlador(@Lazy InmuebleServicio inmuebleServicio) {
+        this.inmuebleServicio = inmuebleServicio;
+    }
+
+    @Autowired
+    private ImagenServicio imagenServicio;
 
     @Autowired
     RangoHorarioServicio rangoHorarioServicio;
@@ -50,44 +59,13 @@ public class InmuebleControlador {
                                     @RequestParam("horaInicio") List<String> horaInicioList, // Cambiado a List<String>
                                     @RequestParam("horaFin") List<String> horaFinList) { // Cambiado a List<String>
         try {
-            // Crea una instancia de Inmueble
-            Inmueble inmueble = new Inmueble();
-// Configura los atributos de Inmueble según sea necesario
-            inmueble.setCuentaTributaria(cuentaTributaria);
-            inmueble.setDireccion(direccion);
-            inmueble.setCiudad(ciudad);
-            inmueble.setProvincia(provincia);
-            inmueble.setTransaccion(transaccion);
-            inmueble.setTipoInmueble(tipoInmueble);
-            inmueble.setDescripcionAnuncio(descripcionAnuncio);
-            inmueble.setPrecioAlquilerVenta(precioAlquilerVenta);
-            inmueble.setCaracteristicaInmueble(caracteristicaInmueble);
-            inmueble.setEstado(estado);
-            inmueble.setTituloAnuncio(tituloAnuncio);
-            inmueble.setAlta(true);
 
-// Crea una lista para los RangoHorario
-
-            List<RangoHorario> rangosHorarios = new ArrayList<>();
-
-            for (int i = 0; i < diaSemanaList.size(); i++) {
-                LocalTime horaInicio = LocalTime.parse(horaInicioList.get(i));
-                LocalTime horaFin = LocalTime.parse(horaFinList.get(i));
-
-                RangoHorario rangoHorario = rangoHorarioServicio.crearRangoHorario(diaSemanaList.get(i), horaInicio, horaFin, inmueble);
-
-                // Establece la relación con la instancia de Inmueble que ya ha sido guardada
-                rangoHorario.setInmueble(inmueble);
-
-                System.out.println("Asignando rangoHorario a Inmueble: " + rangoHorario);
-
-                rangosHorarios.add(rangoHorario);
-            }
-
-// Asigna la lista de rangosHorarios a la instancia de Inmueble
-            inmueble.setRangosHorarios(rangosHorarios);
-
-// Llama al servicio para registrar el Inmueble con sus RangoHorario
+            // Llama al servicio para registrar el Inmueble con sus RangoHorario
+            inmuebleServicio.registrarInmueble(archivo, cuentaTributaria, direccion, ciudad, provincia, transaccion,
+                    tipoInmueble, tituloAnuncio, descripcionAnuncio, precioAlquilerVenta, caracteristicaInmueble,
+                    estado);
+            Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
+            rangoHorarioServicio.establecerRangoHorarios(diaSemanaList, horaInicioList, horaFinList, inmueble);
 
             modelo.put("exito", "El inmueble fue cargado correctamente!");
         } catch (Exception ex) {
@@ -114,7 +92,7 @@ public class InmuebleControlador {
         model.addAttribute("cuentaTributaria", cuentaTributaria);
         return "inmueble_modificar"; // Crea una página HTML para la edición del inmueble
     }
- 
+
     @PostMapping("/modificar/{cuentaTributaria}")
     public String actualizarInmueble(@PathVariable("cuentaTributaria") String cuentaTributaria,
                                      @RequestParam("archivo") MultipartFile archivo,
