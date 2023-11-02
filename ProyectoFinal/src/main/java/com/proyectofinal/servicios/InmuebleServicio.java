@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,11 +24,14 @@ public class InmuebleServicio {
     @Autowired
     private ImagenServicio imagenServicio;
 
+    @Autowired
+    RangoHorarioServicio rangoHorarioServicio;
+
     @Transactional
     public void registrarInmueble(MultipartFile archivo, String cuentaTributaria, String direccion, String ciudad, String provincia,
                                   String transaccion, String tipoInmueble, String tituloAnuncio,
-                                  String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, String estado, List<RangoHorario> rangosHorarios) throws Exception {
-        validarDatos(archivo, cuentaTributaria, direccion, ciudad, provincia, transaccion, tipoInmueble, tituloAnuncio, descripcionAnuncio, precioAlquilerVenta, caracteristicaInmueble, estado, rangosHorarios);
+                                  String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, String estado) throws Exception {
+        validarDatos(archivo, cuentaTributaria, direccion, ciudad, provincia, transaccion, tipoInmueble, tituloAnuncio, descripcionAnuncio, precioAlquilerVenta, caracteristicaInmueble, estado);
         Inmueble inmueble = new Inmueble();
 
         inmueble.setCuentaTributaria(cuentaTributaria);
@@ -47,10 +52,10 @@ public class InmuebleServicio {
         inmueble.setImagen(imagen);
 
         // Asignar el rango horario al inmueble
-        inmueble.setRangosHorarios(rangosHorarios);
 
         inmuebleRepositorio.save(inmueble);
     }
+
 
     @Transactional
     public void modificarInmueble(MultipartFile archivo, String cuentaTributaria,
@@ -80,8 +85,7 @@ public class InmuebleServicio {
             inmueble.setEstado(estado);
 
             inmuebleRepositorio.save(inmueble);
-        }
-        else {
+        } else {
             System.out.println("No se ha encontrado una cuenta tributaria");
         }
 
@@ -119,8 +123,9 @@ public class InmuebleServicio {
         // Puedes usar las cláusulas WHERE en la consulta para aplicar los filtros necesarios.
 
         // Ejemplo de consulta con el uso de InmuebleRepositorio:
-       return inmuebleRepositorio.findInmueblesByFiltros(ubicacion, transaccion, tipoInmueble, ciudad, provincia);
+        return inmuebleRepositorio.findInmueblesByFiltros(ubicacion, transaccion, tipoInmueble, ciudad, provincia);
     }
+
     public Inmueble obtenerInmueblePorCuentaTributaria(String cuentaTributaria) {
         // Implementa la lógica para obtener un inmueble por su cuenta tributaria
         return inmuebleRepositorio.findById(cuentaTributaria).orElse(null);
@@ -133,7 +138,7 @@ public class InmuebleServicio {
 
     public void validarDatos(MultipartFile archivo, String cuentaTributaria, String direccion, String ciudad, String provincia,
                              String transaccion, String tipoInmueble, String tituloAnuncio,
-                             String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, String estado, List<RangoHorario> rangosHorarios) throws MiExcepcion {
+                             String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, String estado) throws MiExcepcion {
         if (archivo == null || archivo.isEmpty()) {
             throw new MiExcepcion("La imagen no puede estar vacío o ser nulo");
         }
@@ -171,13 +176,10 @@ public class InmuebleServicio {
         if (estado == null) {
             throw new MiExcepcion("El estado no puede estar vacío o ser nulo");
         }
-        if (rangosHorarios == null) {
-            throw new RuntimeException("Los Rangos Horarios no pueden estar vacios o ser nulos");
-        }
     }
 
     public void validarDatosModificar(String cuentaTributaria,
-            String tituloAnuncio, String descripcionAnuncio, String caracteristicaInmueble, String estado) throws MiExcepcion {
+                                      String tituloAnuncio, String descripcionAnuncio, String caracteristicaInmueble, String estado) throws MiExcepcion {
         if (cuentaTributaria == null || cuentaTributaria.isEmpty()) {
             throw new MiExcepcion("El cuentaTributaria no puede estar vacío o ser nulo");
         }
@@ -195,7 +197,6 @@ public class InmuebleServicio {
             throw new MiExcepcion("El estado no puede estar vacío o ser nulo");
         }
     }
-
 
 
 }

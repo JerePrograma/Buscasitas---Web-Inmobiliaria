@@ -6,13 +6,14 @@ import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.repositorios.CitaRepositorio;
 import com.proyectofinal.repositorios.RangoHorarioRepositorio;
 import com.proyectofinal.repositorios.UsuarioRepositorio;
+
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
  * @author matob
  */
 @Service

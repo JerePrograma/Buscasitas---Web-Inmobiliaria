@@ -7,16 +7,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class RangoHorarioServicio {
 
+
+    // NO TOCAR
+    // NO TOCAR
+    // NO TOCAR
+    // NO TOCAR
+    // NO TOCAR
+    // NO TOCAR
+    // NO TOCAR
+    // NO TOCAR
+    // NO TOCAR
+    // NO TOCAR
+    // NO TOCAR
+    // NO TOCAR
+    // NO TOCAR
+    // NO TOCAR
+    // NO TOCAR
     @Autowired
     private RangoHorarioRepositorio rangoHorarioRepositorio;
+
 
     @Transactional
     public RangoHorario crearRangoHorario(String diaSemana, LocalTime horaInicio, LocalTime horaFin, Inmueble inmueble) {
@@ -26,6 +43,27 @@ public class RangoHorarioServicio {
         rangoHorario.setHoraFin(horaFin);
         rangoHorario.setInmueble(inmueble);
         return rangoHorarioRepositorio.save(rangoHorario);
+    }
+
+
+    public List<RangoHorario> establecerRangoHorarios(List<String> diaSemanaList, List<String> horaInicioList, List<String> horaFinList, Inmueble inmueble) {
+        List<RangoHorario> rangosHorarios = new ArrayList<>();
+        for (
+                int i = 0; i < diaSemanaList.size(); i++) {
+            LocalTime horaInicio = LocalTime.parse(horaInicioList.get(i));
+            LocalTime horaFin = LocalTime.parse(horaFinList.get(i));
+
+            RangoHorario rangoHorario = crearRangoHorario(diaSemanaList.get(i), horaInicio, horaFin, inmueble);
+
+            // Establece la relación con la instancia de Inmueble que ya ha sido guardada
+            rangoHorario.setInmueble(inmueble);
+
+            System.out.println("Asignando rangoHorario a Inmueble: " + rangoHorario);
+
+
+            rangosHorarios.add(rangoHorario);
+        }
+        return rangosHorarios;
     }
 
     @Transactional
