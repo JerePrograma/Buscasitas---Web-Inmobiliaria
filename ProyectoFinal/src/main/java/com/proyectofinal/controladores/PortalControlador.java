@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+// PROYECTO FINAL - EQUIPO A - MrHouse.com
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
@@ -25,26 +26,6 @@ public class PortalControlador {
         return "index.html";
     }
 
-    @GetMapping("/registrar")
-    public String registrar() {
-        return "registro.html";
-    }
-
-//    @PostMapping("registro")
-//    public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
-//        try {
-//            usuarioServicio.registrarUsuario(nombre, email, password, password2);
-//            modelo.put("exito", "Usuario registrado correctamente");
-//            return "redirect:/";
-//        } catch (MiExcepcion ex) {
-//            modelo.put("error", ex.getMessage());
-//            modelo.put("nombre", nombre);
-//            modelo.put("email", email);
-//
-//            return "registro.html";
-//        }
-//    }
-
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {
         if (error != null) {
@@ -54,12 +35,12 @@ public class PortalControlador {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping("inicio")
+    @GetMapping("/inicio")
     public String inicio(HttpSession session) {
-        Usuario logueado = (Usuario) session.getAttribute("usuario");
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         if (logueado.getRol().toString().equals("ADMIN")) {
             return "redirect:/admin/dashboard";
         }
-        return "inicio.html";
+        return "index.html";
     }
 }

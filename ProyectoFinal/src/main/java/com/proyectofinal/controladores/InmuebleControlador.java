@@ -9,8 +9,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 @Controller
@@ -20,33 +20,27 @@ public class InmuebleControlador {
     @Autowired
     private InmuebleServicio inmuebleServicio;
 
-    @GetMapping("")
-    public String index(Model model) {
-
-        return "index";
-    }
-
     @GetMapping("/registrar")
     public String registrarInmueble() {
         return "inmueble_form.html";
     }
 
-    @PostMapping("/crear")
-    public String crearInmueble(@RequestParam("archivo") MultipartFile archivo,
-                                @RequestParam("cuentaTributaria") String cuentaTributaria,
-                                @RequestParam("direccion") String direccion,
-                                @RequestParam("ciudad") String ciudad,
-                                @RequestParam("provincia") String provincia,
-                                @RequestParam("transaccion") String transaccion,
-                                @RequestParam("listaOfertas") String listaOfertas,
-                                @RequestParam("citaDiaHora") String citaDiaHora,
-                                @RequestParam("tipoInmueble") String tipoInmueble,
-                                @RequestParam("tituloAnuncio") String tituloAnuncio,
-                                @RequestParam("descripcionAnuncio") String descripcionAnuncio,
-                                @RequestParam("precioAlquilerVenta") Integer precioAlquilerVenta,
-                                @RequestParam("caracteristicaInmueble") String caracteristicaInmueble,
-                                @RequestParam("estado") String estado,
-                                ModelMap modelo) {
+    @PostMapping("/registrar")
+    public String registrarInmueble(ModelMap modelo,
+            @RequestParam("estado") String estado,
+            @RequestParam("archivo") MultipartFile archivo,
+            @RequestParam("cuentaTributaria") String cuentaTributaria,
+            @RequestParam("direccion") String direccion,
+            @RequestParam("ciudad") String ciudad,
+            @RequestParam("provincia") String provincia,
+            @RequestParam("transaccion") String transaccion,
+            @RequestParam("listaOfertas") String listaOfertas,
+            @RequestParam("citaDiaHora") String citaDiaHora,
+            @RequestParam("tipoInmueble") String tipoInmueble,
+            @RequestParam("tituloAnuncio") String tituloAnuncio,
+            @RequestParam("descripcionAnuncio") String descripcionAnuncio,
+            @RequestParam("precioAlquilerVenta") Integer precioAlquilerVenta,
+            @RequestParam("caracteristicaInmueble") String caracteristicaInmueble) {
         try {
             List<String> listaOfertasList = Arrays.asList(listaOfertas.split(","));
             List<String> citaDiaHoraList = Arrays.asList(citaDiaHora.split(","));
@@ -61,19 +55,50 @@ public class InmuebleControlador {
         return "redirect:/";
     }
 
-    @GetMapping("/editar/{cuentaTributaria}")
-    public String mostrarFormularioEditar(@PathVariable String cuentaTributaria, Model model) {
-        Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
-        model.addAttribute("inmueble", inmueble);
-        return "inmueble_modificar";
+    @GetMapping("/lista")
+    public String listarInmueble(ModelMap modelo) {
+        List<Inmueble> inmuebles = inmuebleServicio.listarTodosLosInmuebles();
+
+        modelo.addAttribute("inmuebles", inmuebles);
+
+        return "inmueble_lista";
     }
 
-    //    @PostMapping("/editar/{cuentaTributaria}")
-//    public String actualizarInmueble(@PathVariable String cuentaTributaria, @ModelAttribute Inmueble inmueble) {
-//        inmueble.setCuentaTributaria(cuentaTributaria); // Asegúrate de que la cuenta tributaria no cambie
-//        inmuebleServicio.modificarInmueble(inmueble);
-//        return "redirect:/inmueble/";
-//    }
+    @GetMapping("/modificar/{cuentaTributaria}")
+    public String editarInmueble(@PathVariable String cuentaTributaria, ModelMap model) {
+        Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
+        model.put("inmueble", inmueble);
+        model.addAttribute("cuentaTributaria", cuentaTributaria);
+        return "inmueble_modificar"; // Crea una página HTML para la edición del inmueble
+    }
+
+    @PostMapping("/modificar/{cuentaTributaria}")
+    public String actualizarInmueble(@PathVariable("cuentaTributaria") String cuentaTributaria,
+            @RequestParam("archivo") MultipartFile archivo,
+            @RequestParam("tituloAnuncio") String tituloAnuncio,
+            @RequestParam("descripcionAnuncio") String descripcionAnuncio,
+            @RequestParam("caracteristicaInmueble") String caracteristicaInmueble,
+            @RequestParam("estado") String estado,
+            ModelMap model) {
+
+        try {
+
+            System.out.println(cuentaTributaria);
+            //Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
+            inmuebleServicio.modificarInmueble(archivo, cuentaTributaria, tituloAnuncio, descripcionAnuncio, caracteristicaInmueble, estado);
+
+            // Resto del código
+            model.put("exito", "Los cambios fueron guardados correctamente!");
+            return "redirect:/"; // Redirige a la página principal o la página de éxito, según sea necesario
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            System.out.println("error" + ex.getMessage());
+            System.out.println(cuentaTributaria);
+            return "inmueble_modificar"; // Permanece en la página de edición y muestra el mensaje de error
+        }
+
+    }
+
     @GetMapping("/eliminar/{cuentaTributaria}")
     public String eliminarInmueble(@PathVariable String cuentaTributaria) {
         inmuebleServicio.eliminarInmueblePorCuentaTributaria(cuentaTributaria);
@@ -98,23 +123,40 @@ public class InmuebleControlador {
         return "busqueda_inmuebles";
     }
 
-
     @GetMapping("/buscar-inmuebles")
     public String buscarUbicacionInmuebles(
             @RequestParam(name = "ubicacion", required = false) String ubicacion,
-            @RequestParam(name = "transaccion", required = false) String transaccion,
-            @RequestParam(name = "tipoInmueble", required = false) String tipoInmueble,
-            @RequestParam(name = "ciudad", required = false) String ciudad,
-            @RequestParam(name = "provincia", required = false) String provincia,
             Model model
     ) {
         // Llama al servicio con los parámetros adecuados, incluyendo ubicación como String.
-        List<Inmueble> inmuebles = inmuebleServicio.buscarInmueblesPorFiltros(ubicacion, transaccion, tipoInmueble, ciudad, provincia);
+        List<Inmueble> inmuebles = inmuebleServicio.buscarPorUbicacion(ubicacion);
 
         // Agrega los resultados al modelo.
         model.addAttribute("inmuebles", inmuebles);
 
         return "busqueda_inmuebles";
     }
-}
 
+    @GetMapping("/detalle/{cuentaTributaria}")
+    public String detalleInmueble(@PathVariable String cuentaTributaria, Model model) {
+        Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
+
+        if (inmueble != null) {
+            // Realiza la conversión de la imagen a base64
+            byte[] imagenContenido = inmueble.getImagen().getContenido();
+            String imagenBase64 = Base64.getEncoder().encodeToString(imagenContenido);
+
+            // Agrega la imagen base64 al modelo
+            model.addAttribute("imagenBase64", imagenBase64);
+
+            // Agrega el inmueble al modelo
+            model.addAttribute("inmueble", inmueble);
+
+            return "inmueble_detalle";
+        } else {
+            // Manejar el caso en el que no se encuentra el inmueble
+            return "error"; // Puedes crear una vista específica para errores.
+        }
+    }
+
+}

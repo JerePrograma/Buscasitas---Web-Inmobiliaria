@@ -40,3 +40,4 @@ public class Inmueble implements Serializable {
     private Imagen imagen;
 
 }
+
