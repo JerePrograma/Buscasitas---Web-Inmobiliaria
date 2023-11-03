@@ -1,6 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
-  <head th:replace="fragments/head :: head"> </head>
+  <head>
+    <title>Registrar Oferta</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link rel="stylesheet" th:href="@{/css/formulario.css}" />
+
+    <link
+      rel="shortcut icon"
+      sizes="76x76"
+      type="image/x-icon"
+      th:href="@{images/logoInmobiliaria2.png}"
+    />
+  </head>
 
   <body>
     <nav th:replace="fragments/navbar :: nav"></nav>
@@ -10,8 +35,7 @@
     </div>
     <form
       class="form-register"
-      sec:authorize="hasRole('CLIENT')"
-      th:action="@{/oferta/enviar/__${cuentaTributaria}__}"
+      th:action="@{/oferta/inmueble/aceptar/__${cuentaTributaria}__}"
       method="post"
       enctype="multipart/form-data"
     >
@@ -20,7 +44,11 @@
         th:value="${inmueble.cuentaTributaria}"
         name="cuentaTributaria"
       />
-      <input hidden th:value="${usuario.idCodigoTributario}" name="idUsuario" />
+      <input
+        hidden
+        th:value="${usuario.idCodigoTributario}"
+        name="idCodigoTributario"
+      />
 
       <input
         class="controls"

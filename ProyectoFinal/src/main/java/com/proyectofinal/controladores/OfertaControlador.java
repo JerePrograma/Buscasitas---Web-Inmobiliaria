@@ -3,7 +3,8 @@ package com.proyectofinal.controladores;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.OfertaServicio;
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,20 +43,20 @@ public class OfertaControlador {
     @PostMapping("/aceptar/{cuentaTributaria}")
     public String enviarOferta(
             @PathVariable("cuentaTributaria") String cuentaTributaria,
-            @RequestParam("idUsuario") String idUsuario,
+            @RequestParam("idCodigoTributario") String idCodigoTributario,
             @RequestParam("valorOferta") Integer valorOferta,
-            @RequestParam("fechaOferta") LocalDate fechaOferta,
+            @RequestParam("fechaOferta") String fechaOferta,
             ModelMap modelo,
             HttpSession session) { // VER SI FUNCIONA
 
         try {
-            //SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-            // Date fecha = formato.parse(fechaOferta);// transformar date en string
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            Date fecha = formato.parse(fechaOferta);// transformar date en string
 
-            ofertaServicio.realizarOferta(cuentaTributaria, idUsuario, valorOferta, fechaOferta);
+            ofertaServicio.realizarOferta(cuentaTributaria, idCodigoTributario, valorOferta, fecha);
 
             modelo.put("exito", "La oferta fue aceptada por el Ente");
-            return "form_oferta"; //se puede usar el mismo formulario de enviar oferta?
+            return "redirect:/"; //se puede usar el mismo formulario de enviar oferta?
 
         } catch (Exception ex) {
             modelo.put("error", ex.getMessage());
@@ -64,29 +65,28 @@ public class OfertaControlador {
         }
 
     }
+//   @PostMapping("/revocar")
+//   public String revocarOferta (
+//           @PathVariable ("idOferta")String idOferta,
+//           @RequestParam ("cuentaTributaria") String cuentaTributaria,
+//           @RequestParam ("valorOferta") Integer valorOferta,
+//           @RequestParam ("fechaOferta") LocalDate fechaOferta,
+//           @RequestParam ("fechaAceptacion") LocalDate fechaAceptacion, 
+//           @RequestParam ("fechaRevocacion") LocalDate fechaRevocacion, 
+//           
+//           ModelMap modelo){
+//    try{
+//           ofertaServicio.revocarOferta(cuentaTributaria, idOferta, valorOferta,  fechaAceptacion);
+//           modelo.put("exito", "La oferta fue revocada por el Cliente");
+//       return "form_oferta"; //se puede usar el mismo formulario de enviar oferta?
+//       
+//       } catch (Exception ex) {
+//         modelo.put("error", ex.getMessage());  
+//               
+//        return "redirect:/";
+//   }
 
-    @PostMapping("/revocar")
-    public String revocarOferta(
-            @PathVariable("idOferta") String idOferta,
-            @RequestParam("cuentaTributaria") String cuentaTributaria,
-            @RequestParam("valorOferta") Integer valorOferta,
-            @RequestParam("fechaOferta") LocalDate fechaOferta,
-            @RequestParam("fechaAceptacion") LocalDate fechaAceptacion,
-            @RequestParam("fechaRevocacion") LocalDate fechaRevocacion,
-            ModelMap modelo) {
-        try {
-            ofertaServicio.revocarOferta(cuentaTributaria, idOferta, valorOferta, fechaAceptacion);
-            modelo.put("exito", "La oferta fue revocada por el Cliente");
-            return "form_oferta"; //se puede usar el mismo formulario de enviar oferta?
-
-        } catch (Exception ex) {
-            modelo.put("error", ex.getMessage());
-
-            return "redirect:/";
-        }
-
-    }
-
+//   }
     // buscar oferta por la cuenta tributaria del inmueble.
 //    @GetMapping("/mostrar")
 //    public String listarOfertas(ModelMap modelo) {
