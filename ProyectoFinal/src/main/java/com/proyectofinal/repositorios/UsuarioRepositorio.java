@@ -15,4 +15,5 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
     @Query("SELECT u FROM Usuario u WHERE u.idCodigoTributario =  :idCodigoTributario")
     public Usuario buscarPorIdCodigoTributario(@Param("idCodigoTributario") String idCodigoTributario);
 
+    public Usuario buscarPorResetPwToken(String token);
 }
