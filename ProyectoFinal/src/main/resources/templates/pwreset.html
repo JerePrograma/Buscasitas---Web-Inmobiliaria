@@ -48,30 +48,16 @@
               id="login-imagen"
             />
           </div>
-          <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-            <div class="form-outline mb-4">
-              <div
-                th:if="${error != null}"
-                class="card text-white bg-danger mb-3 mensajeError"
-              >
-                <div class="card-body"></div>
-                <h5 class="card-title">Error!</h5>
-                <p class="card-text" th:text="${error}"></p>
+              
+            <div> th:if="${error!=null}">
+                  <p class="text-danger"> [[${error}]]</p>
+                  <div th:if="${mensaje != null}">
+                      <p class="text-warning">[[${mensaje}]]</p>
               </div>
-            </div>
-            <div
-              th:if="${exito != null}"
-              class="card text-white bg-success mb-3 mt-3 mensajeExito"
-            >
-              <div class="card-body">
-                <h5 class="card-title">Exito!</h5>
-                <p class="card-text" th:text="${exito}"></p>
-              </div>
-            </div>
-
-            <form th:action="@{/logincheck}" method="POST">
+<div>
+          <form th:action="@{/pwreset}" method="POST">
               <!-- Email input -->
-              <div>
+          
                 <input
                   name="email"
                   type="email"
@@ -83,43 +69,9 @@
                   >Dirección de correo electrónico</label
                 >
               </div>
-
-              <!-- Password input -->
-              <div class="form-outline mb-4">
-                <input
-                  name="contrasenia"
-                  type="password"
-                  id="form1Example23"
-                  th:value="${contrasenia}"
-                  class="form-control form-control-lg"
-                />
-                <label class="form-label" for="form1Example23"
-                  >Contraseña</label
-                >
-              </div>
-
-              <div
-                class="d-flex justify-content-around align-items-center mb-4"
-              >
-                <!-- Checkbox -->
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="form1Example3"
-                    checked
-                  />
-                  <label class="form-check-label" for="form1Example3">
-                    Recuérdame
-                  </label>
-                </div>
-                <a th:href="@{/pwreset}">Olvidó su contraseña?</a>
-              </div>
-
-              <!-- Submit button -->
-              <button type="submit" class="btn btn-primary btn-lg btn-block">
-                Ingresa aquí
+              <label class="form-label">Verificaremos su direccón de correo electrónico. Si posee un usuario validádo,<br> recibirá un link único de un solo uso. Ingrese y restablesca su contraseña. </label>              <!-- Submit button -->
+              <button type="submit" value="send" class="btn btn-primary btn-lg btn-block">
+                Enviar
               </button>
 
               <div class="divider d-flex align-items-center my-4"></div>
