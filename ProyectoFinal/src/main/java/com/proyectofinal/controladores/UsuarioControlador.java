@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -91,36 +92,35 @@ public class UsuarioControlador {
 
         return "perfil-modificar.html";
     }
-
-//    
-//    
-//   @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
-//    @PostMapping("/modificar/{idCodigoTributario}")
-//    public String modificar(@PathVariable("idCodigoTributario") String idCodigoTributario,
-//            @RequestParam("nombre") String nombre,
-//            @RequestParam("apellido") String apellido,
-//            @RequestParam("direccion") String direccion,
-//            @RequestParam("ciudad") String ciudad,
-//            @RequestParam("provincia") String provincia,
-//            @RequestParam("DNI") String DNI,
-//            @RequestParam("sexo") String sexo,
-//            @RequestParam("email") String email,
-//            @RequestParam("celular") String celular,
-//            @RequestParam("tipoPersona") String tipoPersona,
-//            @RequestParam("contrasenia") String contrasenia,
-//            @RequestParam("contrasenia2") String contrasenia2,
-//            ModelMap modelo) {
-//        try {
-//            usuarioServicio.modificarUsuario(idCodigoTributario, nombre, apellido, direccion, ciudad, provincia, DNI,
-//            sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
-//            modelo.put("exito", "Usuario actualizado correctamente!");
-//            return "inicio.html";
-//        } catch (MiExcepcion ex) {
-//            modelo.put("error", ex.getMessage());
-//            modelo.put("nombre", nombre);
-//            modelo.put("email", email);
-//            
-//            return "perfil-modificar.html";
-//    }
-//    }
+    
+   @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @PostMapping("/modificar/{idCodigoTributario}")
+    public String modificar(@PathVariable("idCodigoTributario") String idCodigoTributario,
+            @RequestParam("nombre") String nombre,
+            @RequestParam("apellido") String apellido,
+            @RequestParam("direccion") String direccion,
+            @RequestParam("ciudad") String ciudad,
+            @RequestParam("provincia") String provincia,
+            @RequestParam("DNI") String DNI,
+            @RequestParam("sexo") String sexo,
+            @RequestParam("email") String email,
+            @RequestParam("celular") String celular,
+            @RequestParam("tipoPersona") String tipoPersona,
+            @RequestParam("contrasenia") String contrasenia,
+            @RequestParam("contrasenia2") String contrasenia2,
+            ModelMap modelo) {
+        try {
+            usuarioServicio.modificarUsuario(idCodigoTributario, nombre, apellido, direccion, ciudad, provincia, DNI,
+            sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
+            modelo.put("exito", "Usuario actualizado correctamente!");
+            return "inicio.html";
+        } catch (MiExcepcion ex) {
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("email", email);
+            
+            return "perfil-modificar.html";
+    }
+    }
+    
 }

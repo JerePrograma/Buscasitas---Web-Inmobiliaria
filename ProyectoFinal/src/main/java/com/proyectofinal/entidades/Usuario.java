@@ -11,10 +11,15 @@ import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.OneToOne;
+import lombok.Getter;
+import lombok.Setter;
 
-@Entity
+
 @Data
 @NoArgsConstructor
+@Getter
+@Setter
+@Entity
 public class Usuario implements Serializable {
 
     @Id
@@ -30,7 +35,9 @@ public class Usuario implements Serializable {
     private String celular; // separar en codigo pais, provincia, numero?. HACE FALTA?
     private String tipoPersona; // formulario select persona humana o persona juridica. HECHO
     private String contrasenia;
+    private String resetPwToken;
     private Boolean alta;
+    
 
     @Enumerated
     private Rol rol;
@@ -40,5 +47,5 @@ public class Usuario implements Serializable {
 
     @OneToOne
     private Imagen imagen;
-
+    
 }
