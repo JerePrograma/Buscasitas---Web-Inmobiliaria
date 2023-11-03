@@ -44,14 +44,21 @@
               <strong>Características del Inmueble:</strong>
               <span th:text="${inmueble.caracteristicaInmueble}"></span>
             </li>
+            <li>
+              <strong>Valor del Inmueble: $</strong>
+              <span th:text="${inmueble.precioAlquilerVenta}"></span>
+            </li>
+            <li>
+              <strong>Horarios Disponibles:</strong>
+              <span th:text="${rangoHorario.diaSemana + ' Desde: ' + rangoHorario.horaInicio + ' Hasta: ' + rangoHorario.horaFin}"></span>
+            </li>
+            <li>
+              <strong>Estado:</strong>
+              <span th:text="${inmueble.estado}"></span>
+            </li>
           </ul>
-          <p>
-            <strong>Valor del Inmueble: $</strong>
-            <span th:text="${inmueble.precioAlquilerVenta}"></span>
-          </p>
-          <p>
-            <strong>Estado:</strong> <span th:text="${inmueble.estado}"></span>
-          </p>
+
+
           <div class="text-center">
             <button class="btn btn-primary" id="aceptarOfertaButton">
               Ofertar

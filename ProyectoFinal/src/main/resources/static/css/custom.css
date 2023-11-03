@@ -23,7 +23,7 @@
   padding: 20px;
 }
 #logo {
-   height: 2.4em;
+  height: 2.4em;
   width: 2.2em;
   display: block;
   fill: currentcolor;
@@ -242,10 +242,17 @@ img {
 }
 .container {
   padding-top: 5em;
-  padding: 2em;
-  background-color: aliceblue;
-  max-width: 40%;
   box-sizing: border-box;
+  background-color: aliceblue;
+  align-content: center;
+  justify-content : center;
+}
+.container-sm {
+  padding-top: 5em;
+  box-sizing: border-box;
+  background-color: aliceblue;
+  align-content: center;
+  justify-content : center;
 }
 
 .container-login {

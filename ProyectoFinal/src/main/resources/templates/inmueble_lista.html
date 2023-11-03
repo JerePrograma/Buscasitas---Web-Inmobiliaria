@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
-  <head th:replace="/fragments/head :: head">
-    <link rel="stylesheet" th:href="@{/css/formulario.css}" />
-  </head>
+<head th:replace="/fragments/head :: head">
+</head>
 
-  <body>
-    <div th:replace="fragments/navbar :: navbar"></div>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
 
-    <div class="container auto">
-      <table class="table table-dark table table-hover">
+<div class="container-sm">
+    <table class="table table-dark table table-hover">
         <thead>
-          <tr>
+        <tr>
             <th scope="col">Cuenta Tributaria</th>
+            <th scope="col">Imagen</th>
             <th scope="col">Dirección</th>
             <th scope="col">Ciudad</th>
             <th scope="col">Provincia</th>
@@ -23,13 +23,15 @@
             <th scope="col">Descripción de Anuncio</th>
             <th scope="col">Precio Alquiler/Venta</th>
             <th scope="col">Característica del Inmueble</th>
+            <th scope="col">Horarios</th>
             <th scope="col">Estado</th>
             <th scope="col" sec:authorize="hasRole('ADMIN')">Acciones</th>
-          </tr>
+        </tr>
         </thead>
-        <tbody th:each="inmueble : ${inmuebles}">
-          <tr>
+        <tbody th:each="inmueble, iterStat : ${inmuebles}">
+        <tr>
             <td th:text="${inmueble.cuentaTributaria}"></td>
+            <td><img th:src="@{/imagen/inmueble/__${inmueble.cuentaTributaria}__}" alt="" height=200 width=200></td>
             <td th:text="${inmueble.direccion}"></td>
             <td th:text="${inmueble.ciudad}"></td>
             <td th:text="${inmueble.provincia}"></td>
@@ -38,44 +40,46 @@
             <td th:text="${inmueble.descripcionAnuncio}"></td>
             <td th:text="${inmueble.precioAlquilerVenta}"></td>
             <td th:text="${inmueble.caracteristicaInmueble}"></td>
+            <td>
+            <span th:if="${iterStat.index >= 0 && iterStat.index < inmueble.rangosHorarios.size()}">
+            <span th:text="${inmueble.rangosHorarios[iterStat.index].diaSemana}"></span>
+            <span th:text="' '"></span> <!-- Agrega un espacio entre las variables -->
+            <span th:text="${inmueble.rangosHorarios[iterStat.index].horaInicio}"></span>
+            <span th:text="' - '"></span> <!-- Agrega un guion entre las variables -->
+            <span th:text="${inmueble.rangosHorarios[iterStat.index].horaFin}"></span>
+            </span>
+            </td>
             <td th:text="${inmueble.estado}"></td>
             <td>
-              <a
-                th:href="@{/inmueble/detalle/{cuentaTributaria}(cuentaTributaria=${inmueble.cuentaTributaria})}"
-                >Ver Detalles</a
-              >
+                <a th:href="@{/inmueble/detalle/{cuentaTributaria}(cuentaTributaria=${inmueble.cuentaTributaria})}">Ver
+                    Detalles</a>
             </td>
-
-            <a
-              sec:authorize="hasRole('ADMIN')"
-              th:href="@{/modificar/__${inmueble.cuentaTributaria}__}"
-              ><i class="fas fa-feather-alt"> </i> Modificar
-            </a>
+            <td sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/modificar/__${inmueble.cuentaTributaria}__}"><i class="fas fa-feather-alt"> </i>
+                    Modificar</a>
+            </td>
             <td>
-              <a
-                th:href="@{/inmueble/modificar/__${inmueble.cuentaTributaria}__}"
-                ><i class="fas fa-edit"></i> Editar
-              </a>
+                <a th:href="@{/inmueble/modificar/__${inmueble.cuentaTributaria}__}"><i class="fas fa-edit"></i> Editar</a>
             </td>
-          </tr>
+        </tr>
         </tbody>
-      </table>
-    </div>
+    </table>
+</div>
 
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
-      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
-      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"
+></script>
+</body>
 </html>
