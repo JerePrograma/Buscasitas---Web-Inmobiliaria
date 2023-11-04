@@ -3,6 +3,7 @@ package com.proyectofinal.servicios;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.enumeraciones.Rol;
 import com.proyectofinal.excepciones.MiExcepcion;
+import com.proyectofinal.excepciones.UsuarioNoEncontradoExcepcion;
 import com.proyectofinal.repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
+@Transactional
 public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
@@ -217,7 +219,7 @@ public class UsuarioServicio implements UserDetailsService {
 //        return ;
 //    } 
     
-    public void updateResetPwToken(String token, String email) throws MiExcepcion{
+    public void updateResetPwToken(String token, String email) throws UsuarioNoEncontradoExcepcion{
       
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
         
@@ -225,20 +227,21 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setResetPwToken(token);
             usuarioRepositorio.save(usuario);
         }else{
-            throw new MiExcepcion("No pudimos encontrar ningún usuario con el email" + email);
+            throw new UsuarioNoEncontradoExcepcion("No pudimos encontrar ningún usuario con el email" + email);
         }
     }
-       public Usuario get(String resetPwToken){
-            return usuarioRepositorio.buscarPorResetPwToken(resetPwToken);
+       public Usuario getResetPwToken(String token){
+           
+            return usuarioRepositorio.buscarPorResetPwToken(token);
         }
        
        public void updatePassword(Usuario usuario, String newPassword){
+           System.out.println(usuario);
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodePassword = passwordEncoder.encode(newPassword);
-        
         usuario.setContrasenia(encodePassword);
+      
         usuario.setResetPwToken(null);
-        
         usuarioRepositorio.save(usuario);
         
        }

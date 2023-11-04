@@ -634,3 +634,13 @@ main{
   background-position: center;
 }
 
+#Neiboorhood{
+ 
+    border-radius: 23%;
+    filter: drop-shadow(0 0 0.55rem rgb(97, 39, 213));
+}
+
+#Neiboorhood2{
+  border-radius: 23%;
+    filter: drop-shadow(0 0 0.55rem rgb(97, 39, 213));
+}
