@@ -7,7 +7,11 @@
   <div class="collapse navbar-collapse">
     <div class="containerImg">
       <a href="/" class="d-inline-block">
-        <img id="logo" src="/images/logoInmobiliaria2.png" alt="MrHouse.com" />
+        <img
+          id="logo"
+          src="/images/logoInmobiliaria2.png"
+          alt="Buscasita.com.ar"
+        />
       </a>
       <a href="/" class="d-inline-block">
         <p class="logo-text">Buscasitas.com.ar</p>
@@ -15,20 +19,24 @@
     </div>
 
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item" sec:authorize="isAuthenticated()">
+      <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ENTE')">
         <a class="btn btn-info" th:href="@{/inmueble/registrar}"
           >Vende o alquila</a
         >
       </li>
 
-      <li class="nav-item">
-        <a class="btn btn-info" th:href="@{/inmueble/lista}"
-          >Expo Inmuebles</a
-        >
+      <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ENTE')">
+        <a class="btn btn-info" th:href="@{/inmueble/lista}">Expo Inmuebles</a>
       </li>
-      <li class="nav-item">
-        <a class="btn btn-info" sec:authorize="isAuthenticated()" th:href="@{/usuario/perfil}">Perfil</a>
-
+      <li
+        th:if="${T(com.proyectofinal.SeguridadWeb).isAuthenticated()}"
+        class="nav-item"
+      >
+        <a
+          class="btn btn-info"
+          th:href="@{/usuario/perfil/{idCodigoTributario}(idCodigoTributario=${usuario.idCodigoTributario})}"
+          >Perfil</a
+        >
       </li>
       <li class="nav-item"><a class="btn btn-info" th:href="@{/}">Home</a></li>
       <li class="nav-item" sec:authorize="!isAuthenticated()">
@@ -37,8 +45,11 @@
       <li class="nav-item" sec:authorize="!isAuthenticated()">
         <a class="btn btn-info" th:href="@{/login}">Inicia Sesión</a>
       </li>
-        <li><a class="btn btn-info" sec:authorize="isAuthenticated()" href="/logout" >Salir</a></li>
-                                       </li>
+      <li>
+        <a class="btn btn-info" sec:authorize="isAuthenticated()" href="/logout"
+          >Salir</a
+        >
+      </li>
     </ul>
   </div>
 </nav>

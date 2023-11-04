@@ -13,6 +13,7 @@ body {
   font-family: "calibri";
   color: white;
   box-shadow: 7px 13px 37px #000;
+  padding-top: 5em;
 }
 
 .form-register h4 {
