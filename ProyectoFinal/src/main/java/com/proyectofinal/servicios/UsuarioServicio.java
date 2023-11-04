@@ -60,28 +60,23 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void modificarUsuario(String idCodigoTributario, String nombre, String apellido, String direccion, String ciudad, String provincia, String DNI,
-            String sexo, String email, String celular, String tipoPersona, String contrasenia, String contrasenia2) throws MiExcepcion {
+    public void modificarUsuario(String idCodigoTributario, String direccion, String ciudad, String provincia,
+            String sexo, String email, String celular, String tipoPersona) throws MiExcepcion {
 
-        validarDatos(idCodigoTributario, nombre, apellido, direccion, ciudad, provincia, DNI,
-                sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
+        validarDatos(idCodigoTributario, direccion, ciudad, provincia,
+                sexo, email, celular, tipoPersona);
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(idCodigoTributario);
         if (respuesta.isPresent()) {
 
             Usuario usuario = respuesta.get();
-            usuario.setIdCodigoTributario(idCodigoTributario);
-            usuario.setNombre(nombre);
-            usuario.setApellido(apellido);
             usuario.setDireccion(direccion);
             usuario.setCiudad(ciudad);
             usuario.setProvincia(provincia);
-            usuario.setDNI(DNI);
             usuario.setSexo(sexo);
             usuario.setEmail(email);
             usuario.setCelular(celular);
             usuario.setTipoPersona(tipoPersona);
-            usuario.setContrasenia(contrasenia);
             usuarioRepositorio.save(usuario);
         }
     }

@@ -52,10 +52,17 @@
           <p>
             <strong>Estado:</strong> <span th:text="${inmueble.estado}"></span>
           </p>
+
           <div class="text-center">
-            <button class="btn btn-primary" id="aceptarOfertaButton">
-              Ofertar
-            </button>
+            <a
+              href="#"
+              th:href="@{/oferta/enviar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+              class="btn btn-primary"
+            >
+              <button class="btn btn-primary" id="aceptarOfertaButton">
+                Ofertar
+              </button>
+            </a>
           </div>
           <section class="text-center container">
             <div class="row mt-3">
