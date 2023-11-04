@@ -2,6 +2,7 @@ package com.proyectofinal.controladores;
 
 import com.proyectofinal.entidades.Inmueble;
 import com.proyectofinal.entidades.Usuario;
+import com.proyectofinal.repositorios.UsuarioRepositorio;
 import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.UsuarioServicio;
 import javax.servlet.http.HttpSession;
@@ -14,11 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 // PROYECTO FINAL - EQUIPO A - Buscasitas.com.ar
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
+    
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
 
     @Autowired
     private UsuarioServicio usuarioServicio;
@@ -57,5 +63,4 @@ public class PortalControlador {
         }
         return "index.html";
     }
-
 }

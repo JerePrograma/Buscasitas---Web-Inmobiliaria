@@ -618,7 +618,7 @@ main {
 
 #hero {
   height: 90vh;
-  background-image: url("https://www.geekinsta.com/ezoimgfmt/images.unsplash.com/photo-1416153716529-31b4f85a319e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&w=2000&ezimgfmt=ngcb1/notWebP");
+  background-image: url("/images/login-cover.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
