@@ -149,81 +149,159 @@
             </select>
           </div>
         </div>
-       
-<div class="form-row">
-    <div class="form-group col-md-7">
-        <label class="col-form-label" for="exampleFormControlInput1">Ciudad</label>
-            <input name="ciudad" type="address" class="form-control" id="exampleFormControlInput1" placeholder="Ingrese su ciudad" th:value="${ciudad}">
-               </div>
-                <br>
- <div class="form-group col-md-7">
-    <label class="col-form-label" for="formGroupExampleInput">Ingrese su DNI</label>
-        <input name="DNI" type="text" class="form-control" th:value="${DNI}" placeholder="Sin puntos y sin espacios en blanco.">
+        <div class="form-row">
+          <div class="form-group col-md-7">
+            <label class="col-form-label" for="exampleFormControlInput1"
+              >Ciudad</label
+            >
+            <input
+              name="ciudad"
+              type="address"
+              class="form-control"
+              id="exampleFormControlInput1"
+              placeholder="Ingrese su ciudad"
+              th:value="${ciudad}"
+            />
+          </div>
+          <br />
+          <div class="form-group col-md-7">
+            <label class="col-form-label" for="formGroupExampleInput"
+              >Ingrese su DNI</label
+            >
+            <input
+              name="DNI"
+              type="text"
+              class="form-control"
+              th:value="${DNI}"
+              placeholder="Sin puntos y sin espacios en blanco."
+            />
+          </div>
+          <br />
+          <div class="form-row align-items-center">
+            <div class="col-auto my-1" style="padding-top: 1.5em">
+              <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect"
+                >Preference</label
+              >
+              <select
+                name="sexo"
+                class="custom-select mr-sm-2"
+                id="inlineFormCustomSelect"
+                th:value="${sexo}"
+              >
+                <option selected>Sexo...</option>
+                <option value="1">Femenino</option>
+                <option value="2">Masculino</option>
+                <option value="3">Otro</option>
+              </select>
             </div>
-                    <br/>
-                                    <div class="form-row align-items-center">
-    <div class="col-auto my-1" style="padding-top: 1.5em">
-        <label class="mr-sm-2 sr-only"  for="inlineFormCustomSelect">Preference</label>
-            <select name="sexo" class="custom-select mr-sm-2" id="inlineFormCustomSelect" th:value="${sexo}">
-		<option selected>Sexo...</option>
-		<option value="1">Femenino</option>
-		<option value="2">Masculino</option>
-		<option value="3">Otro</option>
-                    </select>
-                        </div>
-                            </div>
-                <br>
-                                                  
-                    <br/>
-           <div class="form-group col-md-7">
-  <label class="col-form-label" for="formGroupExampleInput2">Ingrese su Código Tributario</label>
-	<input name="idCodigoTributario" type="text" class="form-control" id="formGroupExampleInput2" th:value="${idCodigoTributario}" placeholder="Sin puntos, sin guiones y sin espacios en blanco.">
-	 </div>
-                    <br>
-                <div class="form-row align-items-center">
-                    <div class="col-auto my-1" style="padding-top: 1.5em">
-                        <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                         <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                            <option selected>Tipo ID...</option>
-                            <option value="1">C.U.I.L</option>
-                            <option value="2">C.U.IT</option>
-                          </select>
-                     </div>
-                </div> 
-            <br>
- <div class="form-group col-md-6">
-    <label class="col-form-label" for="formGroupExampleInput">Ingrese su número de celular</label>
-	<input name="celular" type="text" class="form-control" id="formGroupExampleInput" placeholder="+54 11 1111 1111" th:value="${celular}">
+          </div>
+          <br />
+
+          <br />
+          <div class="form-group col-md-7">
+            <label class="col-form-label" for="formGroupExampleInput2"
+              >Ingrese su Código Tributario</label
+            >
+            <input
+              name="idCodigoTributario"
+              type="text"
+              class="form-control"
+              id="formGroupExampleInput2"
+              th:value="${idCodigoTributario}"
+              placeholder="Sin puntos, sin guiones y sin espacios en blanco."
+            />
+          </div>
+          <br />
+          <div class="form-row align-items-center">
+            <div class="col-auto my-1" style="padding-top: 1.5em">
+              <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect"
+                >Preference</label
+              >
+              <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                <option selected>Tipo ID...</option>
+                <option value="1">C.U.I.L</option>
+                <option value="2">C.U.IT</option>
+              </select>
             </div>
-		<br>
-                            
- <div class="form-group col-md-6">
-     <label class="col-form-label" for="exampleInputEmail1">Dirección de correo electrónico</label>
-	<input name="email" type="String" class="form-control" id="InputEmail1" >
-	 <small id="emailHelp" class="form-text text-muted">Nunca compartiremos con nadie su datos personales.</small>
-            </div>
-		<br>
-<div class="form-group col-md-6">
-    <label class="col-form-label" for="exampleInputPassword1">Ingrese su Contraseña</label>
-        <input name="contrasenia" type="password" class="form-control" th:value="${contrasenia}" id="InputPassword1">
-            </div>
-		<br>
-<div class="form-group col-md-6">
-    <label class="col-form-label" for="exampleInputPassword1">Repita su Contraseña</label>
-	 <input name="contrasenia2" type="password" class="form-control" th:value="${contrasenia2}" id="InputPassword1">
-            </div>
-		<br>
-<div class="form-group col-md-7 form-check">
-  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-     <label class="form-check-label" for="exampleCheck1">Recuérdame en este dispositivo</label>
-	</div>
-	<br>
-	<button type="submit" class="btn btn-info" style="margin-top: 3em">Enviar Formulario</button>
-          <div style="padding-left: 11em"   class="divVolver">
-                        <a th:href="@{/}" class="btn btn-secondary my-2 boton Volver botones">Volver</a>
-                    </div>
-	</div>
-	</form>
+          </div>
+          <br />
+          <div class="form-group col-md-6">
+            <label class="col-form-label" for="formGroupExampleInput"
+              >Ingrese su número de celular</label
+            >
+            <input
+              name="celular"
+              type="text"
+              class="form-control"
+              id="formGroupExampleInput"
+              placeholder="+54 11 1111 1111"
+              th:value="${celular}"
+            />
+          </div>
+          <br />
+
+          <div class="form-group col-md-6">
+            <label class="col-form-label" for="exampleInputEmail1"
+              >Dirección de correo electrónico</label
+            >
+            <input
+              name="email"
+              type="String"
+              class="form-control"
+              id="InputEmail1"
+            />
+            <small id="emailHelp" class="form-text text-muted"
+              >Nunca compartiremos con nadie su datos personales.</small
+            >
+          </div>
+          <br />
+          <div class="form-group col-md-6">
+            <label class="col-form-label" for="exampleInputPassword1"
+              >Ingrese su Contraseña</label
+            >
+            <input
+              name="contrasenia"
+              type="password"
+              class="form-control"
+              th:value="${contrasenia}"
+              id="InputPassword1"
+            />
+          </div>
+          <br />
+          <div class="form-group col-md-6">
+            <label class="col-form-label" for="exampleInputPassword1"
+              >Repita su Contraseña</label
+            >
+            <input
+              name="contrasenia2"
+              type="password"
+              class="form-control"
+              th:value="${contrasenia2}"
+              id="InputPassword1"
+            />
+          </div>
+          <br />
+          <div class="form-group col-md-7 form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="exampleCheck1"
+            />
+            <label class="form-check-label" for="exampleCheck1"
+              >Recuérdame en este dispositivo</label
+            >
+          </div>
+          <br />
+          <button type="submit" class="btn btn-primary col-md-7">
+            Enviar Formulario
+          </button>
+          <div style="padding-left: 11em" class="divVolver">
+            <a
+              th:href="@{/}"
+              class="btn btn-secondary my-2 boton Volver botones"
+              >Volver</a
+            >
+          </div>
         </div>
       </form>
     </div>

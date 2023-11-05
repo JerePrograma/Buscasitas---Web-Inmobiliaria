@@ -26,6 +26,7 @@ public class OfertaControlador {
     @Autowired
     private InmuebleServicio inmuebleServicio;  //ver si es neceario
 
+    //LOGUEAR ANTES DE USAR //
     // el role client es el unico autorizado a ofertar y entra por la vista inmueble
     // se envia oferta relacionando cuenta tributaria y usuario
     @GetMapping("/enviar/{cuentaTributaria}")
@@ -38,6 +39,7 @@ public class OfertaControlador {
         modelo.put("usuario", usuario);
         return "form_oferta.html";
     }
+    //LOGUEAR ANTES DE USAR //
 
     // @RequestMapping(value = "/inmueble/aceptar/{cuentaTributaria}", method = {RequestMethod.GET, RequestMethod.POST})
     @PostMapping("/aceptar/{cuentaTributaria}")
