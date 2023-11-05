@@ -91,6 +91,7 @@ public class UsuarioControlador {
         modelo.put("usuario", usuario);
 
         return "perfil-modificar.html";
+    }
 
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     @PostMapping("/modificar/{idCodigoTributario}")
