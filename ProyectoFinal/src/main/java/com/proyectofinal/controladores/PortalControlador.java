@@ -33,10 +33,13 @@ public class PortalControlador {
     private InmuebleServicio inmuebleServicio;
 
     @GetMapping("/")
-    public String index(ModelMap modelo) {
+    public String index(ModelMap modelo, HttpSession session) {
         List<Inmueble> inmuebles = inmuebleServicio.listarTodosLosInmuebles();
-
         modelo.addAttribute("inmuebles", inmuebles);
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+
+        modelo.put("usuario", usuario);
         return "index.html";
     }
 
@@ -51,9 +54,11 @@ public class PortalControlador {
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ENTE','ROLE_CLIENT', 'ROLE_ADMIN')")
 
     @GetMapping("/inicio")
-    public String inicio(HttpSession session) {
-        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        if (logueado.getRol().toString().equals("ADMIN")) {
+    public String inicio(ModelMap modelo, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+
+        modelo.put("usuario", usuario);
+        if (usuario.getRol().toString().equals("ADMIN")) {
             return "redirect:/inicio";
         }
         return "index.html";
