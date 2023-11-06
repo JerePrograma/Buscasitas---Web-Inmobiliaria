@@ -45,6 +45,7 @@
           <label for="archivo">Imagen:</label>
           <input type="file" name="archivo" class="form-control controls" />
         </div>
+        <label for="tituloAnuncio">Titulo del Anuncio</label>
         <input
           name="tituloAnuncio"
           type="text"
@@ -52,6 +53,7 @@
           th:value="${inmueble.tituloAnuncio}"
           placeholder="Titulo"
         />
+        <label for="descripcionAnuncio">Descripcion del Anuncio</label>
         <input
           th:value="${inmueble.descripcionAnuncio}"
           type="text"
@@ -59,6 +61,7 @@
           name="descripcionAnuncio"
           placeholder="Descripcion"
         />
+        <label for="caracteristicaInmueble">Caracteristicas del Inmueble</label>
         <input
           th:value="${inmueble.caracteristicaInmueble}"
           type="text"
@@ -66,6 +69,37 @@
           name="caracteristicaInmueble"
           placeholder="Caracteristicas"
         />
+        <label for="diaSemana">Horarios Disponibles</label>
+        <br />
+        <label for="diaSemana">Día de la semana:</label>
+        <select class="controls" id="diaSemana" name="diaSemana">
+          <option value="Lunes">Lunes</option>
+          <option value="Martes">Martes</option>
+          <option value="Miercoles">Miercoles</option>
+          <option value="Jueves">Jueves</option>
+          <option value="Viernes">Viernes</option>
+        </select>
+
+        <br />
+
+        <label for="horaInicio">Hora de inicio:</label>
+        <input
+                class="controls"
+                type="time"
+                id="horaInicio"
+                name="horaInicio"
+                required
+        />
+
+        <label for="horaFin">Hora de fin:</label>
+        <input
+                class="controls"
+                type="time"
+                id="horaFin"
+                name="horaFin"
+                required
+        />
+
         <label for="estado">Estado del Inmueble</label>
         <select class="controls" id="estado" name="estado">
           <option value="Disponible">Disponible</option>

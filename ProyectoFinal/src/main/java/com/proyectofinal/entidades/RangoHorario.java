@@ -28,7 +28,6 @@ public class RangoHorario implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "cuenta_tributaria", referencedColumnName = "cuentaTributaria")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Inmueble inmueble;
 
     // Otras propiedades y getters/setters

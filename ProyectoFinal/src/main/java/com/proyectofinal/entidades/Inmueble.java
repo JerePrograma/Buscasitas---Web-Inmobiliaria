@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import org.hibernate.annotations.Cascade;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +14,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "rangosHorarios")
 public class Inmueble implements Serializable {
 
     @Id
@@ -30,8 +31,7 @@ public class Inmueble implements Serializable {
     private String tipoInmueble;
     private String estado;
 
-    @OneToMany(mappedBy = "inmueble")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RangoHorario> rangosHorarios;
 
     @OneToOne
@@ -40,5 +40,7 @@ public class Inmueble implements Serializable {
     @ManyToOne
     @JoinColumn(name = "usuario_administrador_id")
     private Usuario usuarioAdministrador;
+
+
 
 }
