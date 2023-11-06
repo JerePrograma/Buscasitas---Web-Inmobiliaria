@@ -346,7 +346,7 @@ function provincia() {
 $d.addEventListener("DOMContentLoaded", provincia)
 
 function municipio(provincia) {
-    fetch(`https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincia}`)
+    fetch(`https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincia}&max=100`)
     .then(res => res.ok ? res.json() : Promise.reject(res))
     .then(json => {
         let $options = `<option value="Elige un municipio">Elige un municipio</option>`;
