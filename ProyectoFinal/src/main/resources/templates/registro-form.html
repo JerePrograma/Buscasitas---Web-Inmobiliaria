@@ -72,6 +72,7 @@
               id="inlineFormCustomSelect"
               th:value="${tipoPersona}"
               onchange="toggleFields(this.value);"
+              required
             >
               <option selected>Tipo Persona...</option>
               <option value="1">Persona Humana</option>
@@ -89,6 +90,7 @@
               class="form-control"
               placeholder="Ingrese su nombre"
               th:value="${nombre}"
+              required
             />
           </div>
           <div class="form-group col-md-5" id="apellido">
@@ -125,18 +127,19 @@
               id="exampleFormControlInput1"
               placeholder="Av. Siempre Viva 2223"
               th:value="${direccion}"
+              required
             />
            </div>
         
         <div class="form-row">
          <label class="col-form-label">Provincia</label>
-    <select class="custom-select mr-sm-2" name="provincia" id="selectProvincias">
+    <select class="custom-select mr-sm-2" name="provincia" id="selectProvincias" required>
       <option value="Elige una provincia">Elige una provincia</option>
     </select>
     <span></span>
 
     <label class="col-form-label">Ciudad</label>
-    <select name="ciudad" class="custom-select mr-sm-2"  id="selectMunicipios">
+    <select name="ciudad" class="custom-select mr-sm-2"  id="selectMunicipios" required>
       <option value="Elige un municipio">Elige un municipio</option>
     </select>
     <span></span>
@@ -153,7 +156,7 @@
               class="form-control"
               th:value="${DNI}"
               placeholder="Sin puntos y sin espacios en blanco."
-            />
+              />
           </div>
           <br />
           <div class="form-row align-items-center" id="sexo">
@@ -187,6 +190,7 @@
               id="formGroupExampleInput2"
               th:value="${idCodigoTributario}"
               placeholder="Sin puntos, sin guiones y sin espacios en blanco."
+              required
             />
           </div>
           <br />
@@ -214,6 +218,7 @@
               id="formGroupExampleInput"
               placeholder="+## ## #### ####"
               th:value="${celular}"
+              required
             />
           </div>
           <br />
@@ -227,6 +232,7 @@
               type="String"
               class="form-control"
               id="InputEmail1"
+              required
             />
             <small id="emailHelp" class="form-text text-muted"
               >Nunca compartiremos con nadie su datos personales.</small
@@ -243,6 +249,7 @@
               class="form-control"
               th:value="${contrasenia}"
               id="InputPassword1"
+              required
             />
           </div>
           <br />
@@ -255,7 +262,8 @@
               type="password"
               class="form-control"
               th:value="${contrasenia2}"
-              id="InputPassword1"
+              id="InputPassword2"
+              required
             />
           </div>
           <br />
@@ -354,6 +362,22 @@ $selectProvincias.addEventListener("change", e => {
     municipio(e.target.value);
     console.log(e.target.value)
 })
+
+(function () {
+    'use strict';
+
+    var forms = document.querySelectorAll('.needs-validation');
+
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+})();
 
     </script>
   </body>

@@ -106,7 +106,7 @@ public class UsuarioControlador {
             ModelMap modelo) {
         try {
             usuarioServicio.modificarUsuario(idCodigoTributario, direccion, ciudad, provincia,
-                    sexo, email, celular, tipoPersona);
+                    email, celular, tipoPersona);
             modelo.put("exito", "Usuario actualizado correctamente!");
             return "inicio.html";
         } catch (MiExcepcion ex) {
