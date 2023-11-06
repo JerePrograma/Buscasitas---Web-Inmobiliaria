@@ -176,9 +176,16 @@
           </button>
         </div>
       </form>
+    
     </div>
+         
+    <form th:action="@{/eliminar-usuario}" method="post">
+    
+        <input style="visibility: hidden" th:value="${usuario.idCodigoTributario}" id="codigoTributario" name="codigoTributario" required>
+        <button type="submit">Eliminar mi cuenta</button>
+    </form>
         <br>
-    <hr />
+    <hr/>
     <div th:replace="fragments/footer :: footer"></div>
     <script>
 const $d = document;
