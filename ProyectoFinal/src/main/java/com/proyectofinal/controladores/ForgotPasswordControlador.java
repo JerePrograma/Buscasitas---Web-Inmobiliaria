@@ -53,7 +53,7 @@ public class ForgotPasswordControlador {
             } catch (UnsupportedEncodingException | MessagingException e) {
                 model.addAttribute("error","Error al enviar el email.");
             }
-//         model.addAttribute("pageTitle", "Olvido sus credenciales??");
+
         
             
                 return "/pwreset";
@@ -94,7 +94,7 @@ public class ForgotPasswordControlador {
              
              return "error";
          }
-//         model.addAttribute("pageTitle","Ingresa un nuevo password. ");
+
          return"reset_password.html";
      }
      
@@ -128,31 +128,3 @@ public class ForgotPasswordControlador {
 
         
  
-//     @GetMapping("/pwreset")
-//    public String pwreset() {
-//        
-//        return "pwreset.html";
-//    }
-//    
-//    @PostMapping("/pwreset")
-//    public String pwResetProceso(@RequestParam String email, ModelMap modelo){
-//        String output = "";
-//        Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
-//                if (usuario!= null) { 
-//           output = usuarioServicio.sendEmail();
-//           
-//              // mensaje de éxito o error al modelo para mostrarlo en la vista
-//        if (output.equals("enviado_exitosamente")) {
-//            modelo.addAttribute("mensaje", "El correo se ha enviado exitosamente.");
-//        } else {
-//            modelo.addAttribute("mensaje", "Hubo un problema al enviar el correo.");
-//        }
-//    } else {
-//        modelo.addAttribute("mensaje", "Usuario no encontrado");
-//    }
-//
-//     
-//        
-//    return "";
-//    
-//}
