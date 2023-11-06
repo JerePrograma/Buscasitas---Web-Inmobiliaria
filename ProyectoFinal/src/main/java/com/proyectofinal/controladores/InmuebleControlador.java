@@ -1,9 +1,12 @@
 package com.proyectofinal.controladores;
 
 import com.proyectofinal.entidades.Inmueble;
+import com.proyectofinal.entidades.RangoHorario;
 import com.proyectofinal.servicios.ImagenServicio;
 import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.RangoHorarioServicio;
+
+import java.util.ArrayList;
 import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -73,18 +76,26 @@ public class InmuebleControlador {
     }
 
     @GetMapping("/lista")
-    public String listarInmueble(ModelMap modelo) {
+    public String listarInmueble(ModelMap modelo) throws Exception {
         List<Inmueble> inmuebles = inmuebleServicio.listarTodosLosInmuebles();
+        for (Inmueble inmueble : inmuebles) {
+            List <RangoHorario> rangosHorarios = rangoHorarioServicio.obtenerTodosLosRangosHorarios();
+            inmueble.setRangosHorarios(rangosHorarios);
+        }
 
         modelo.addAttribute("inmuebles", inmuebles);
 
         return "inmueble_lista";
     }
 
+
+
     @GetMapping("/modificar/{cuentaTributaria}")
-    public String editarInmueble(@PathVariable String cuentaTributaria, ModelMap model) {
+    public String editarInmueble(@PathVariable String cuentaTributaria, ModelMap model) throws Exception {
         Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
+        RangoHorario rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
         model.put("inmueble", inmueble);
+        model.put("rangoHorario", rangoHorario);
         model.addAttribute("cuentaTributaria", cuentaTributaria);
         return "inmueble_modificar"; // Crea una página HTML para la edición del inmueble
     }
@@ -96,14 +107,19 @@ public class InmuebleControlador {
             @RequestParam("descripcionAnuncio") String descripcionAnuncio,
             @RequestParam("caracteristicaInmueble") String caracteristicaInmueble,
             @RequestParam("estado") String estado,
+            @RequestParam("diaSemana") List<String> diaSemanaList,
+            @RequestParam("horaInicio") List<String> horaInicioList,
+            @RequestParam("horaFin") List<String> horaFinList,
             ModelMap model) {
 
         try {
-
             System.out.println(cuentaTributaria);
-
-            //Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
+            //Modificar inmueble
+            Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
             inmuebleServicio.modificarInmueble(archivo, cuentaTributaria, tituloAnuncio, descripcionAnuncio, caracteristicaInmueble, estado);
+            //Modificar RangoHorario
+            RangoHorario rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
+            rangoHorarioServicio.actualizarRangoHorario(rangoHorario, diaSemanaList, horaInicioList, horaFinList);
 
             // Resto del código
             model.put("exito", "Los cambios fueron guardados correctamente!");
@@ -118,9 +134,10 @@ public class InmuebleControlador {
     }
 
     @GetMapping("/eliminar/{cuentaTributaria}")
-    public String eliminarInmueble(@PathVariable String cuentaTributaria) {
+    public String eliminarInmueble(@PathVariable String cuentaTributaria) throws Exception {
         inmuebleServicio.eliminarInmueblePorCuentaTributaria(cuentaTributaria);
-        return "redirect:/inmueble/";
+        rangoHorarioServicio.eliminarInmueblePorCuentaTributaria(cuentaTributaria);
+        return "redirect:/";
     }
 
     @GetMapping("/busqueda")
@@ -157,8 +174,9 @@ public class InmuebleControlador {
     }
 
     @GetMapping("/detalle/{cuentaTributaria}")
-    public String detalleInmueble(@PathVariable String cuentaTributaria, Model model) {
+    public String detalleInmueble(@PathVariable String cuentaTributaria, Model model) throws Exception {
         Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
+        RangoHorario rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
 
         if (inmueble != null) {
             // Realiza la conversión de la imagen a base64
@@ -169,6 +187,7 @@ public class InmuebleControlador {
             model.addAttribute("imagenBase64", imagenBase64);
             // Agrega el inmueble al modelo
             model.addAttribute("inmueble", inmueble);
+            model.addAttribute("rangoHorario", rangoHorario);
 
             return "inmueble_detalle";
         } else {
