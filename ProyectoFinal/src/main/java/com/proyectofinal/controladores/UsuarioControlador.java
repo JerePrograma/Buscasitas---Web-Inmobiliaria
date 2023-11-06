@@ -108,7 +108,7 @@ public class UsuarioControlador {
             usuarioServicio.modificarUsuario(idCodigoTributario, direccion, ciudad, provincia,
                     email, celular, tipoPersona);
             modelo.put("exito", "Usuario actualizado correctamente!");
-            return "inicio.html";
+            return "index.html";
         } catch (MiExcepcion ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("email", email);

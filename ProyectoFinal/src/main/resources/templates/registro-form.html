@@ -32,7 +32,7 @@
     <!-- End of NavBar -->
 
     <div class="container">
-      <br />
+    
 
       <form
         class="formulario"
@@ -267,14 +267,15 @@
             />
           </div>
           <br />
-          <div class="form-group col-md-7 form-check">
+          <div class="form-group col-md-7 form-check" style="padding-left: 3em">
             <input
               type="checkbox"
               class="form-check-input"
               id="exampleCheck1"
             />
             <label class="form-check-label" for="exampleCheck1"
-              >Recuérdame en este dispositivo</label
+              ><small id="emailHelp" class="form-text text-muted"
+                  >Recuérdame en este dispositivo</small></label
             >
           </div>
           <br />
@@ -289,9 +290,12 @@
             >
           </div>
         </div>
+        <br>
+            <br>
       </form>
     </div>
-          
+    <br>
+
     <script>
       function toggleFields(selectedValue) {
         const nombre = document.getElementById("nombre");
@@ -363,7 +367,7 @@ $selectProvincias.addEventListener("change", e => {
     console.log(e.target.value)
 })
 
-(function () {
+function validarForm() {
     'use strict';
 
     var forms = document.querySelectorAll('.needs-validation');
@@ -377,7 +381,7 @@ $selectProvincias.addEventListener("change", e => {
             form.classList.add('was-validated');
         }, false);
     });
-})();
+};
 
     </script>
   </body>
