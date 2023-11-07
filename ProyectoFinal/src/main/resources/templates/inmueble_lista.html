@@ -67,7 +67,10 @@
               </span>
             </td>
             <td th:text="${inmueble.estado}"></td>
-            <td sec:authorize="hasRole('ADMIN')" th:text="${inmueble.alta}"></td>
+            <td
+              sec:authorize="hasRole('ADMIN')"
+              th:text="${inmueble.alta}"
+            ></td>
             <td>
               <a
                 th:href="@{/inmueble/detalle/{cuentaTributaria}(cuentaTributaria=${inmueble.cuentaTributaria})}"

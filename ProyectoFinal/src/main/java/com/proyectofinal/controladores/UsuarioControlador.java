@@ -117,7 +117,6 @@ public class UsuarioControlador {
             return "perfil-modificar.html";
         }
     }
-<<<<<<< HEAD
 
     @GetMapping("/lista")
     public String listarUsuario(ModelMap modelo) throws Exception {
@@ -149,18 +148,5 @@ public class UsuarioControlador {
         usuarioServicio.darAltaUsuario(idCodigoTributario);
 
         return "index.html";
-=======
-   
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
-    @GetMapping("/eliminar-usuario/{idCodigoTributario}")
-    public void eliminarUsuario(@PathVariable("idCodigoTributario") String idCodigoTributario) {
-        String codigo = idCodigoTributario;
-        System.out.println(codigo);
-        usuarioServicio.eliminarUsuario(idCodigoTributario);
-        
-         // Redirige a la página del formulario después de la eliminación.
->>>>>>> ebda82a9dec20efdc257e27f67797f584749769f
     }
 }
-    
-

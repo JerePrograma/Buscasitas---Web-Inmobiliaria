@@ -46,8 +46,6 @@ public class ForgotPasswordControlador {
             String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
             sendEmail(email, resetPasswordLink);
             model.addAttribute("mensaje", "Enviamos el link, por favor revise su correo electronico");
-<<<<<<< HEAD
-
         } catch (UsuarioNoEncontradoExcepcion ex) {
             model.addAttribute("error", ex.getMessage());
         } catch (UnsupportedEncodingException | MessagingException e) {
@@ -109,12 +107,12 @@ public class ForgotPasswordControlador {
             return "error";
 
         } else if (password == null || password.isEmpty()) {
-            modelo.addAttribute("mensaje", "La contraseña no puede estar vacía.");
+            modelo.addAttribute("mensaje", "La contraseÃ±a no puede estar vacÃ­a.");
             return "reset_password.html";
         } else {
             try {
                 usuarioServicio.updatePassword(usuario, password);
-                modelo.put("exito", "Contraseña cambiada correctamente");
+                modelo.put("exito", "ContraseÃ±a cambiada correctamente");
             } catch (MiExcepcion ex) {
                 modelo.put("error", ex.getMessage());
                 return "reset_password.html";
@@ -141,7 +139,7 @@ public class ForgotPasswordControlador {
 //                if (usuario!= null) { 
 //           output = usuarioServicio.sendEmail();
 //           
-//              // mensaje de éxito o error al modelo para mostrarlo en la vista
+//              // mensaje de Ã©xito o error al modelo para mostrarlo en la vista
 //        if (output.equals("enviado_exitosamente")) {
 //            modelo.addAttribute("mensaje", "El correo se ha enviado exitosamente.");
 //        } else {
@@ -156,86 +154,3 @@ public class ForgotPasswordControlador {
 //    return "";
 //    
 //}
-=======
-                
-            } catch (UsuarioNoEncontradoExcepcion ex) {
-               model.addAttribute("error",ex.getMessage());
-            } catch (UnsupportedEncodingException | MessagingException e) {
-                model.addAttribute("error","Error al enviar el email.");
-            }
-
-        
-            
-                return "/pwreset";
-}
-     
-        
-        
-        private void sendEmail(String email, String resetPasswordLink) throws MessagingException, UnsupportedEncodingException{
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message);
-            
-            helper.setFrom("facio.gabrielemiliano@gmail.com",  "Buscasitas.com.ar - Soporte ");
-            helper.setTo(email);
-            
-            String asunto = "Aqui le compartimos el link para resetear su password";
-            
-            String cuerpoMensaje = "<p>Hola,</p>"
-                    + "<p>Usted ha hecho una solicitud para resetear sus credenciales. </p>"
-                    + "<p>Haga click en el link que le proporcionamos debajo de este mensaje.</p> "
-                    +"<p><b><a href=\"" + resetPasswordLink + "\">Cambiar mis credenciales</b></a></p>"
-                    + "<p>Ignore este mail si recordo su password, o si usted no hizo esta solicitud.</p> ";
-            
-           
-                    helper.setSubject(asunto);
-                    helper.setText(cuerpoMensaje,true); 
-                    
-                    mailSender.send(message);
-         }
-        
-     @GetMapping("/reset_password")  
-     public String mostrarResetPwForm(@Param(value = "token")String token, Model model){
-         Usuario usuario = usuarioServicio.getResetPwToken(token);
-         model.addAttribute("token", token);
-         
-         if(usuario == null){
-            model.addAttribute("title", "Elija su nuevo password");//descomentado
-             model.addAttribute("error", "Invalid Token");
-             
-             return "error";
-         }
-
-         return"reset_password.html";
-     }
-     
-     @PostMapping("/reset_password")
-     public String processResetPassword(HttpServletRequest request, Model model){
-         String token = request.getParameter("token");
-         String password = request.getParameter("password");
-         
-          Usuario usuario = usuarioServicio.getResetPwToken(token);
-          System.out.println(usuario);
-          model.addAttribute("title", "Resetea tu password");
-          
-          if(usuario == null){
-          model.addAttribute("error", "Invalid Token");
-             return "error";
-          
-          } else if (password == null || password.isEmpty()) {
-        model.addAttribute("mensaje", "La contraseña no puede estar vacía.");
-        
-          }else{
-              usuarioServicio.updatePassword(usuario, password);
-              model.addAttribute("mensaje", "Su password ha sido modificado satisfactoriamente.");
-              
-          }
-         
-         return "reset_password.html";
-     }
-
-}
-
-
-        
- 
->>>>>>> ebda82a9dec20efdc257e27f67797f584749769f
