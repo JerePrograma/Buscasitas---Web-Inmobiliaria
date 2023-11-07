@@ -3,6 +3,7 @@ package com.proyectofinal.controladores;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.excepciones.MiExcepcion;
 import com.proyectofinal.servicios.UsuarioServicio;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -116,16 +117,36 @@ public class UsuarioControlador {
             return "perfil-modificar.html";
         }
     }
-   
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
-    @GetMapping("/eliminar-usuario/{idCodigoTributario}")
-    public void eliminarUsuario(@PathVariable("idCodigoTributario") String idCodigoTributario) {
-        String codigo = idCodigoTributario;
-        System.out.println(codigo);
+
+    @GetMapping("/lista")
+    public String listarUsuario(ModelMap modelo) throws Exception {
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+        modelo.addAttribute("usuarios", usuarios);
+
+        return "usuario_lista";
+    }
+
+    @GetMapping("/eliminar/{idCodigoTributario}")
+    public String eliminarUsuario(@PathVariable("idCodigoTributario") String idCodigoTributario,
+            ModelMap modelo) throws Exception {
         usuarioServicio.eliminarUsuario(idCodigoTributario);
-        
-         // Redirige a la página del formulario después de la eliminación.
+
+        return "index.html";
+    }
+
+    @GetMapping("/dar-baja/{idCodigoTributario}")
+    public String darBajaUsuario(@PathVariable("idCodigoTributario") String idCodigoTributario,
+            ModelMap modelo) throws Exception {
+        usuarioServicio.darBajaUsuario(idCodigoTributario);
+
+        return "index.html";
+    }
+
+    @GetMapping("/dar-alta/{idCodigoTributario}")
+    public String darAltaUsuario(@PathVariable("idCodigoTributario") String idCodigoTributario,
+            ModelMap modelo) throws Exception {
+        usuarioServicio.darAltaUsuario(idCodigoTributario);
+
+        return "index.html";
     }
 }
-    
-

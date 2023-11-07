@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -20,8 +22,11 @@ public class Oferta implements Serializable {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String idOferta;
     private Integer valorOferta;
+    @Temporal(TemporalType.DATE)
     private Date fechaOferta;
+    @Temporal(TemporalType.DATE)
     private Date fechaAceptacion;
+    @Temporal(TemporalType.DATE)
     private Date fechaRevocacion;
     private String estadoOferta;
 
