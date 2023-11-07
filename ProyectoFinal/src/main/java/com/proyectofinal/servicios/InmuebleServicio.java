@@ -97,11 +97,23 @@ public class InmuebleServicio {
         return inmuebleRepositorio.findAll();
     }
 
+    @Transactional
     public void darBajaInmueble(String cuentaTributaria) {
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(cuentaTributaria);
         if (respuesta.isPresent()) {
             Inmueble inmueble = respuesta.get();
             inmueble.setAlta(false);
+
+            inmuebleRepositorio.save(inmueble);
+        }
+    }
+
+    @Transactional
+    public void darAltaInmueble(String cuentaTributaria) {
+        Optional<Inmueble> respuesta = inmuebleRepositorio.findById(cuentaTributaria);
+        if (respuesta.isPresent()) {
+            Inmueble inmueble = respuesta.get();
+            inmueble.setAlta(true);
 
             inmuebleRepositorio.save(inmueble);
         }

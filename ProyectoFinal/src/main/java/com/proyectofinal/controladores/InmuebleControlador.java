@@ -6,7 +6,6 @@ import com.proyectofinal.servicios.ImagenServicio;
 import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.RangoHorarioServicio;
 
-import java.util.ArrayList;
 import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -79,7 +78,7 @@ public class InmuebleControlador {
     public String listarInmueble(ModelMap modelo) throws Exception {
         List<Inmueble> inmuebles = inmuebleServicio.listarTodosLosInmuebles();
         for (Inmueble inmueble : inmuebles) {
-            List <RangoHorario> rangosHorarios = rangoHorarioServicio.obtenerTodosLosRangosHorarios();
+            List<RangoHorario> rangosHorarios = rangoHorarioServicio.obtenerTodosLosRangosHorarios();
             inmueble.setRangosHorarios(rangosHorarios);
         }
 
@@ -87,8 +86,6 @@ public class InmuebleControlador {
 
         return "inmueble_lista";
     }
-
-
 
     @GetMapping("/modificar/{cuentaTributaria}")
     public String editarInmueble(@PathVariable String cuentaTributaria, ModelMap model) throws Exception {
@@ -131,13 +128,6 @@ public class InmuebleControlador {
             return "inmueble_modificar"; // Permanece en la página de edición y muestra el mensaje de error
         }
 
-    }
-
-    @GetMapping("/eliminar/{cuentaTributaria}")
-    public String eliminarInmueble(@PathVariable String cuentaTributaria) throws Exception {
-        inmuebleServicio.eliminarInmueblePorCuentaTributaria(cuentaTributaria);
-        rangoHorarioServicio.eliminarInmueblePorCuentaTributaria(cuentaTributaria);
-        return "redirect:/";
     }
 
     @GetMapping("/busqueda")
@@ -199,4 +189,26 @@ public class InmuebleControlador {
         }
     }
 
+    @GetMapping("/eliminar/{cuentaTributaria}")
+    public String eliminarInmueble(@PathVariable String cuentaTributaria) throws Exception {
+        inmuebleServicio.eliminarInmueblePorCuentaTributaria(cuentaTributaria);
+        rangoHorarioServicio.eliminarInmueblePorCuentaTributaria(cuentaTributaria);
+        return "redirect:/";
+    }
+
+    @GetMapping("/dar-baja/{cuentaTributaria}")
+    public String darBajaInmueble(@PathVariable("cuentaTributaria") String cuentaTributaria,
+            ModelMap modelo) throws Exception {
+        inmuebleServicio.darBajaInmueble(cuentaTributaria);
+
+        return "index.html";
+    }
+
+    @GetMapping("/dar-alta/{cuentaTributaria}")
+    public String darAltaInmueble(@PathVariable("cuentaTributaria") String cuentaTributaria,
+            ModelMap modelo) throws Exception {
+        inmuebleServicio.darAltaInmueble(cuentaTributaria);
+
+        return "index.html";
+    }
 }
