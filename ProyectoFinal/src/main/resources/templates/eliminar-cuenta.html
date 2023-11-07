@@ -40,63 +40,29 @@
     <section class="vh-100" id="hero">
       <div class="container py-5 h-100">
         <div class="row d-flex align-items-center justify-content-center h-100">
-          <div class="col-md-8 col-lg-7 col-xl-6 align-items-center justify-content-center">
+          <div class="col-md-8 col-lg-7 col-xl-6">
               <br/>
                          <img
               src="/images/Neiboorhood.jpeg"
-             
+              class="img-fluid"
               alt="Phone image"
               id="Neiboorhood"
             />
        
        <br/>
  <br>
-     
 <div th:if="${error != null}">
     <p class="text-danger">[[${error}]]</p>
 </div>
 <div th:if="${mensaje != null}">
     <p class="text-warning">[[${mensaje}]]</p>
 </div>
-         
-<form th:action="@{/pwreset}" method="post" style="max-width: 420px; margin: 0 auto;">
-<div>
-    <div>
-           
-              <label class="form-label"><small class="form-text text-muted">Verificaremos su direccón de correo electrónico. Si posee un usuario validado, recibirá un link de un solo uso. Ingrese y restablesca su contraseña.</small></label> 
-                <input
-                  name="email"
-                  type="email"
-                  id="form1Example13"
-                  th:value="${email}"
-                  class="form-control form-control-lg"
-                  placeholder="Ingrese su email"
-                />
-             <small id="emailHelp" class="form-text text-muted">* Nunca compartiremos con nadie su datos personales.</small>
-              </div>
-                          <!-- Submit button -->
-                          <br>
-              <button type="submit" value="send" class="btn btn-primary btn-lg btn-block">
-                Enviar
-              </button>
-
-              <div class="divider d-flex align-items-center my-4"></div>
-            </form>
-            <section class="text-center container">
-              <div class="row mt-3">
-                <div class="divVolver">
-                  <a
-                    th:href="@{/}"
-                    class="btn btn-secondary my-2 botonVolver botones"
-                    >Volver</a
-                  >
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
-      </div>
-    </section>
+         //TODO mensaje "error" y "mensaje" 
+     <form th:action="@{/eliminar-usuario}" method="post">
+    
+        <input style="visibility: hidden" th:value="${usuario.idCodigoTributario}" id="codigoTributario" name="codigoTributario">
+        <button type="submit">Eliminar mi cuenta</button>
+    </form>
     <!-- Form Ends here. -->
 
     <!-- The below section displays the Reviews and Feedbacks given by the users. -->
