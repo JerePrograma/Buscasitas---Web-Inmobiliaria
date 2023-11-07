@@ -32,7 +32,7 @@
     <!-- End of NavBar -->
 
     <div class="container">
-      <br />
+    
 
       <form
         class="formulario"
@@ -65,13 +65,14 @@
         <div class="form-row align-items-center">
           <div class="col-auto my-1">
             <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect"
-              >Preference</label
-            >
+              >Preference</label>
             <select
               name="tipoPersona"
               class="custom-select mr-sm-2"
               id="inlineFormCustomSelect"
               th:value="${tipoPersona}"
+              onchange="toggleFields(this.value);"
+              required
             >
               <option selected>Tipo Persona...</option>
               <option value="1">Persona Humana</option>
@@ -80,7 +81,7 @@
           </div>
         </div>
         <br />
-        <div class="row">
+        <div class="row" id='nombre'>
           <div class="form-group col-md-7">
             <label class="col-form-label">Nombre</label>
             <input
@@ -89,9 +90,10 @@
               class="form-control"
               placeholder="Ingrese su nombre"
               th:value="${nombre}"
+              required
             />
           </div>
-          <div class="form-group col-md-5">
+          <div class="form-group col-md-5" id="apellido">
             <label class="col-form-label">Apellido</label>
             <input
               name="apellido"
@@ -102,9 +104,20 @@
             />
           </div>
         </div>
-        <div class="form-group col-md-12">
-          <div class="form-group col-md-6">
-            <label class="col-form-label" for="exampleFormControlInput1"
+        <div class="row" >
+          <div class="form-group col-md-7" id="denominacionSocial" style="display: none">
+            <label class="col-form-label">Denominación Social</label>
+            <input
+              name="denominacionSocial"
+              type="text"
+              class="form-control"
+              placeholder="Denominación Social"
+              th:value="${nombre}"
+            />
+          </div>
+            </div>
+        <div class="row form-group col-md-12">
+           <label class="col-form-label" for="exampleFormControlInput1"
               >Dirección</label
             >
             <input
@@ -114,57 +127,26 @@
               id="exampleFormControlInput1"
               placeholder="Av. Siempre Viva 2223"
               th:value="${direccion}"
+              required
             />
-          </div>
-
-          <div class="form-group col-md-5">
-            <label class="col-form-label" for="inputState">Provincia</label>
-            <br />
-            <select name="provincia" id="provincia" th:value="${provincia}">
-              <option value="1">BUENOS AIRES</option>
-              <option value="2">CATAMARCA</option>
-              <option value="5">CHACO</option>
-              <option value="6">CHUBUT</option>
-              <option value="50">CIUDAD AUTONOMA DE Bs As</option>
-              <option value="3">CORDOBA</option>
-              <option value="4">CORRIENTES</option>
-              <option value="7">ENTRE RIOS</option>
-              <option value="8">FORMOSA</option>
-              <option value="9">JUJUY</option>
-              <option value="10">LA PAMPA</option>
-              <option value="11">LA RIOJA</option>
-              <option value="12">MENDOZA</option>
-              <option value="13">MISIONES</option>
-              <option value="14">NEUQUEN</option>
-              <option value="15">RIO NEGRO</option>
-              <option value="16">SALTA</option>
-              <option value="17">SAN LUIS</option>
-              <option value="19">SANTA CRUZ</option>
-              <option value="20">SANTA FE</option>
-              <option value="21">SANTIAGO DEL ESTERO</option>
-              <option value="22">TIERRA DEL FUEGO</option>
-              <option disabled="true" selected="true" value="">
-                Seleccionar una Provincia
-              </option>
-            </select>
-          </div>
-        </div>
+           </div>
+        
         <div class="form-row">
-          <div class="form-group col-md-7">
-            <label class="col-form-label" for="exampleFormControlInput1"
-              >Ciudad</label
-            >
-            <input
-              name="ciudad"
-              type="address"
-              class="form-control"
-              id="exampleFormControlInput1"
-              placeholder="Ingrese su ciudad"
-              th:value="${ciudad}"
-            />
-          </div>
+         <label class="col-form-label">Provincia</label>
+    <select class="custom-select mr-sm-2" name="provincia" id="selectProvincias" required>
+      <option value="Elige una provincia">Elige una provincia</option>
+    </select>
+    <span></span>
+
+    <label class="col-form-label">Ciudad</label>
+    <select name="ciudad" class="custom-select mr-sm-2"  id="selectMunicipios" required>
+      <option value="Elige un municipio">Elige un municipio</option>
+    </select>
+    <span></span>
+       
+            
           <br />
-          <div class="form-group col-md-7">
+          <div class="form-group col-md-7" id="DNI">
             <label class="col-form-label" for="formGroupExampleInput"
               >Ingrese su DNI</label
             >
@@ -174,10 +156,10 @@
               class="form-control"
               th:value="${DNI}"
               placeholder="Sin puntos y sin espacios en blanco."
-            />
+              />
           </div>
           <br />
-          <div class="form-row align-items-center">
+          <div class="form-row align-items-center" id="sexo">
             <div class="col-auto my-1" style="padding-top: 1.5em">
               <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect"
                 >Preference</label
@@ -185,7 +167,6 @@
               <select
                 name="sexo"
                 class="custom-select mr-sm-2"
-                id="inlineFormCustomSelect"
                 th:value="${sexo}"
               >
                 <option selected>Sexo...</option>
@@ -209,6 +190,7 @@
               id="formGroupExampleInput2"
               th:value="${idCodigoTributario}"
               placeholder="Sin puntos, sin guiones y sin espacios en blanco."
+              required
             />
           </div>
           <br />
@@ -234,8 +216,9 @@
               type="text"
               class="form-control"
               id="formGroupExampleInput"
-              placeholder="+54 11 1111 1111"
+              placeholder="+## ## #### ####"
               th:value="${celular}"
+              required
             />
           </div>
           <br />
@@ -249,6 +232,7 @@
               type="String"
               class="form-control"
               id="InputEmail1"
+              required
             />
             <small id="emailHelp" class="form-text text-muted"
               >Nunca compartiremos con nadie su datos personales.</small
@@ -265,6 +249,7 @@
               class="form-control"
               th:value="${contrasenia}"
               id="InputPassword1"
+              required
             />
           </div>
           <br />
@@ -277,18 +262,20 @@
               type="password"
               class="form-control"
               th:value="${contrasenia2}"
-              id="InputPassword1"
+              id="InputPassword2"
+              required
             />
           </div>
           <br />
-          <div class="form-group col-md-7 form-check">
+          <div class="form-group col-md-7 form-check" style="padding-left: 3em">
             <input
               type="checkbox"
               class="form-check-input"
               id="exampleCheck1"
             />
             <label class="form-check-label" for="exampleCheck1"
-              >Recuérdame en este dispositivo</label
+              ><small id="emailHelp" class="form-text text-muted"
+                  >Recuérdame en este dispositivo</small></label
             >
           </div>
           <br />
@@ -303,9 +290,99 @@
             >
           </div>
         </div>
+        <br>
+            <br>
       </form>
     </div>
-    <hr />
-    <div th:replace="fragments/footer :: footer"></div>
+    <br>
+
+    <script>
+      function toggleFields(selectedValue) {
+        const nombre = document.getElementById("nombre");
+        const apellido = document.getElementById("apellido");
+        const DNI = document.getElementById("DNI");
+        const sexo = document.getElementById("sexo");
+        const denominacionSocial = document.getElementById("denominacionSocial");
+
+        if (selectedValue === "2") { // Si selecciona "Persona Jurídica"
+          nombre.style.display = "none";
+          apellido.style.display = "none";
+          DNI.style.display = "none";
+          sexo.style.display = "none";
+          denominacionSocial.style.display = "";
+        }else{ 
+          nombre.style.display = "";
+          apellido.style.display = "";
+          DNI.style.display = "";
+          sexo.style.display = "";
+          denominacionSocial.style.display = "none";
+        }
+      }
+      
+      
+      
+      const $d = document;
+const $selectProvincias = $d.getElementById("selectProvincias");
+const $selectMunicipios = $d.getElementById("selectMunicipios");
+const $selectLocalidades = $d.getElementById("selectLocalidades");
+
+function provincia() {
+    fetch("https://apis.datos.gob.ar/georef/api/provincias")
+    .then(res => res.ok ? res.json() : Promise.reject(res))
+    .then(json => {
+        let $options = `<option value="Elige una provincia">Elige una provincia</option>`;
+
+        json.provincias.forEach(el => $options += `<option value="${el.nombre}">${el.nombre}</option>`);
+
+        $selectProvincias.innerHTML = $options;
+    })
+    .catch(error => {
+        let message = error.statusText || "Ocurrió un error";
+
+        $selectProvincias.nextElementSibling.innerHTML = `Error: ${error.status}: ${message}`;
+    })
+}
+
+$d.addEventListener("DOMContentLoaded", provincia)
+
+function municipio(provincia) {
+    fetch(`https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincia}&max=100`)
+    .then(res => res.ok ? res.json() : Promise.reject(res))
+    .then(json => {
+        let $options = `<option value="Elige un municipio">Elige un municipio</option>`;
+
+        json.municipios.forEach(el => $options += `<option value="${el.id}">${el.nombre}</option>`);
+
+        $selectMunicipios.innerHTML = $options;
+    })
+    .catch(error => {
+        let message = error.statusText || "Ocurrió un error";
+
+        $selectMunicipios.nextElementSibling.innerHTML = `Error: ${error.status}: ${message}`;
+    })
+}
+
+$selectProvincias.addEventListener("change", e => {
+    municipio(e.target.value);
+    console.log(e.target.value)
+})
+
+function validarForm() {
+    'use strict';
+
+    var forms = document.querySelectorAll('.needs-validation');
+
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+};
+
+    </script>
   </body>
 </html>

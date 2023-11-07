@@ -68,12 +68,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
+<<<<<<< HEAD
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
             <version>5.3.30</version>
             <type>jar</type>
         </dependency>
+=======
+        
+>>>>>>> ebda82a9dec20efdc257e27f67797f584749769f
     </dependencies>
     
 
