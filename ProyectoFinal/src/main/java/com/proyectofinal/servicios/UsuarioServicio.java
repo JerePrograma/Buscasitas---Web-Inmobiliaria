@@ -29,12 +29,12 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
-    
+
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
     JavaMailSender javaMailSender;
-    
+
     @Transactional
     public void registrarUsuario(String idCodigoTributario, String nombre, String apellido, String direccion, String ciudad, String provincia, String DNI, String sexo, String email, String celular, String tipoPersona, String contrasenia, String contrasenia2) throws MiExcepcion {
 
@@ -128,6 +128,17 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
+    public void darAltaUsuario(String idCodigoTributario) {
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(idCodigoTributario);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            usuario.setAlta(true);
+
+            usuarioRepositorio.save(usuario);
+        }
+    }
+
+    @Transactional
     public void eliminarUsuario(String idCodigoTributario) {
         Optional<Usuario> respuesta = usuarioRepositorio.findById(idCodigoTributario);
         if (respuesta.isPresent()) {
@@ -135,6 +146,41 @@ public class UsuarioServicio implements UserDetailsService {
 
             usuarioRepositorio.delete(usuario);
         }
+    }
+
+//
+//    public String sendEmail() {
+//        
+//        //TODO método email-autogenerado
+//        return ;
+//    } 
+    public void updateResetPwToken(String token, String email) throws UsuarioNoEncontradoExcepcion {
+
+        Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
+
+        if (usuario != null) {
+            usuario.setResetPwToken(token);
+            usuarioRepositorio.save(usuario);
+        } else {
+            throw new UsuarioNoEncontradoExcepcion("No pudimos encontrar ningún usuario con el email" + email);
+        }
+    }
+
+    public Usuario getResetPwToken(String token) {
+
+        return usuarioRepositorio.buscarPorResetPwToken(token);
+    }
+
+    public void updatePassword(Usuario usuario, String newPassword) throws MiExcepcion {
+        validarContrasenia(newPassword);
+        System.out.println(usuario);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodePassword = passwordEncoder.encode(newPassword);
+        usuario.setContrasenia(encodePassword);
+
+        usuario.setResetPwToken(null);
+        usuarioRepositorio.save(usuario);
+
     }
 
     public void validarDatos(String idCodigoTributario, String nombre, String apellido, String direccion, String ciudad, String provincia, String DNI,
@@ -207,39 +253,11 @@ public class UsuarioServicio implements UserDetailsService {
             throw new MiExcepcion("El tipoPersona no puede estar vacío o ser nulo");
         }
     }
-//
-//    public String sendEmail() {
-//        
-//        //TODO método email-autogenerado
-//        return ;
-//    } 
-    
-    public void updateResetPwToken(String token, String email) throws UsuarioNoEncontradoExcepcion{
-      
-        Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
-        
-        if (usuario !=null){
-            usuario.setResetPwToken(token);
-            usuarioRepositorio.save(usuario);
-        }else{
-            throw new UsuarioNoEncontradoExcepcion("No pudimos encontrar ningún usuario con el email" + email);
-        }
-    }
-       public Usuario getResetPwToken(String token){
-           
-            return usuarioRepositorio.buscarPorResetPwToken(token);
-        }
-       
-       public void updatePassword(Usuario usuario, String newPassword){
-           System.out.println(usuario);
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodePassword = passwordEncoder.encode(newPassword);
-        usuario.setContrasenia(encodePassword);
-      
-        usuario.setResetPwToken(null);
-        usuarioRepositorio.save(usuario);
-        
-       }
-    }
 
+    public void validarContrasenia(String contrasenia) throws MiExcepcion {
+        if (contrasenia == null || contrasenia.isEmpty() || contrasenia.length() <= 5) {
+            throw new MiExcepcion("La contraseña no puede estar vacía, y debe tener más de 5 dígitos");
+        }
 
+    }
+}

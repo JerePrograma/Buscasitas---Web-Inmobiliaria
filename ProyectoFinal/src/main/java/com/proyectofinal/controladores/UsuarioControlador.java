@@ -3,11 +3,13 @@ package com.proyectofinal.controladores;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.excepciones.MiExcepcion;
 import com.proyectofinal.servicios.UsuarioServicio;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -108,11 +110,43 @@ public class UsuarioControlador {
             usuarioServicio.modificarUsuario(idCodigoTributario, direccion, ciudad, provincia,
                     sexo, email, celular, tipoPersona);
             modelo.put("exito", "Usuario actualizado correctamente!");
-            return "inicio.html";
+            return "index.html";
         } catch (MiExcepcion ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("email", email);
             return "perfil-modificar.html";
         }
+    }
+
+    @GetMapping("/lista")
+    public String listarUsuario(ModelMap modelo) throws Exception {
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+        modelo.addAttribute("usuarios", usuarios);
+
+        return "usuario_lista";
+    }
+
+    @GetMapping("/eliminar/{idCodigoTributario}")
+    public String eliminarUsuario(@PathVariable("idCodigoTributario") String idCodigoTributario,
+            ModelMap modelo) throws Exception {
+        usuarioServicio.eliminarUsuario(idCodigoTributario);
+
+        return "index.html";
+    }
+
+    @GetMapping("/dar-baja/{idCodigoTributario}")
+    public String darBajaUsuario(@PathVariable("idCodigoTributario") String idCodigoTributario,
+            ModelMap modelo) throws Exception {
+        usuarioServicio.darBajaUsuario(idCodigoTributario);
+
+        return "index.html";
+    }
+
+    @GetMapping("/dar-alta/{idCodigoTributario}")
+    public String darAltaUsuario(@PathVariable("idCodigoTributario") String idCodigoTributario,
+            ModelMap modelo) throws Exception {
+        usuarioServicio.darAltaUsuario(idCodigoTributario);
+
+        return "index.html";
     }
 }
