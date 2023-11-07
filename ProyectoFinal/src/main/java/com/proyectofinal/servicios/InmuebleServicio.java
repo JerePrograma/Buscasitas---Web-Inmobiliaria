@@ -126,11 +126,6 @@ public class InmuebleServicio {
         return inmuebleRepositorio.findById(cuentaTributaria).orElse(null);
     }
 
-    @Transactional(readOnly = true)
-    public List<Inmueble> buscarPorUbicacion(String ubicacion) {
-        return inmuebleRepositorio.buscarPorUbicacion(ubicacion);
-    }
-
     public void validarDatos(MultipartFile archivo, String cuentaTributaria, String direccion, String ciudad, String provincia,
             String transaccion, String tipoInmueble, String tituloAnuncio,
             String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, String estado) throws MiExcepcion {

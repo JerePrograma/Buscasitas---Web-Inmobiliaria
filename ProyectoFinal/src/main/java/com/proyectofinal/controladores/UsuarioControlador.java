@@ -1,6 +1,7 @@
 package com.proyectofinal.controladores;
 
 import com.proyectofinal.entidades.Usuario;
+import com.proyectofinal.enumeraciones.Rol;
 import com.proyectofinal.excepciones.MiExcepcion;
 import com.proyectofinal.servicios.UsuarioServicio;
 import javax.servlet.http.HttpSession;
@@ -103,10 +104,11 @@ public class UsuarioControlador {
             @RequestParam("email") String email,
             @RequestParam("celular") String celular,
             @RequestParam("tipoPersona") String tipoPersona,
+                            @RequestParam("Rol") String rol,
             ModelMap modelo) {
         try {
             usuarioServicio.modificarUsuario(idCodigoTributario, direccion, ciudad, provincia,
-                    sexo, email, celular, tipoPersona);
+                    sexo, email, celular, tipoPersona, rol);
             modelo.put("exito", "Usuario actualizado correctamente!");
             return "inicio.html";
         } catch (MiExcepcion ex) {

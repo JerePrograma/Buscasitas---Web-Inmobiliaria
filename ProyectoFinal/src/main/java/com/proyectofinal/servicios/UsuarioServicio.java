@@ -63,7 +63,7 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Transactional
     public void modificarUsuario(String idCodigoTributario, String direccion, String ciudad, String provincia,
-            String sexo, String email, String celular, String tipoPersona) throws MiExcepcion {
+            String sexo, String email, String celular, String tipoPersona, String rol) throws MiExcepcion {
 
         validarDatos(idCodigoTributario, direccion, ciudad, provincia,
                 sexo, email, celular, tipoPersona);
@@ -79,6 +79,7 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setEmail(email);
             usuario.setCelular(celular);
             usuario.setTipoPersona(tipoPersona);
+            usuario.setRol(Rol.valueOf(rol));
             usuarioRepositorio.save(usuario);
         }
     }

@@ -9,7 +9,7 @@
       <a href="/" class="d-inline-block">
         <img
           id="logo"
-          src="/images/logoInmobiliaria2.png"
+          src="/images/buscasitasGold.png"
           alt="Buscasita.com.ar"
         />
       </a>
@@ -19,6 +19,9 @@
     </div>
 
     <ul class="navbar-nav ml-auto">
+      <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+        <a class="btn btn-info" th:href="@{/usuario/lista}">Expo Usuarios</a>
+      </li>
       <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ENTE')">
         <a class="btn btn-info" th:href="@{/inmueble/registrar}"
           >Vende o alquila</a
@@ -34,7 +37,7 @@
       >
         <a
           class="btn btn-info"
-          th:href="@{/usuario/perfil/{idCodigoTributario}(idCodigoTributario=${usuario.idCodigoTributario})}"
+          th:href="@{/usuario/perfil/{idCodigoTributario}}"
           >Perfil</a
         >
       </li>
