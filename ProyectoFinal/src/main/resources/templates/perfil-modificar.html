@@ -43,7 +43,7 @@
           hidden
           name="idCodigoTributario"
           th:value="${idCodigoTributario}"
-          />
+        />
         <br />
 
         <div
@@ -102,20 +102,32 @@
             />
           </div>
 
-             <div class="form-row">
-         <label class="col-form-label">Provincia</label>
-    <select class="custom-select mr-sm-2" name="provincia" id="selectProvincias" required>
-      <option value="Elige una provincia" selected disabled hidden>Elige una provincia</option>
-    </select>
-    <span></span>
+          <div class="form-row">
+            <label class="col-form-label">Provincia</label>
+            <select
+              class="custom-select mr-sm-2"
+              name="provincia"
+              id="selectProvincias"
+              required
+            >
+              <option value="Elige una provincia" selected disabled hidden>
+                Elige una provincia
+              </option>
+            </select>
 
-    <label class="col-form-label">Ciudad</label>
-    <select name="ciudad" class="custom-select mr-sm-2"  id="selectMunicipios" required>
-      <option value="Elige un municipio" selected disabled hidden>Elige un municipio</option>
-    </select>
-    <span></span>
-       
-            
+            <label class="col-form-label">Ciudad</label>
+            <select
+              name="ciudad"
+              class="custom-select mr-sm-2"
+              id="selectMunicipios"
+              required
+            >
+              <option value="Elige un municipio" selected disabled hidden>
+                Elige un municipio
+              </option>
+            </select>
+          </div>
+
           <br />
           <div class="form-row align-items-center">
             <div class="col-auto my-1">
@@ -176,81 +188,94 @@
           </button>
         </div>
       </form>
-    
     </div>
-         
-   
-        <br>
-    <hr/>
-     <form th:action="@{/eliminar-usuario}" method="post">
-    
-        <input style="visibility: hidden" th:value="${usuario.idCodigoTributario}" id="codigoTributario" name="codigoTributario" required>
-        <button type="submit">Eliminar mi cuenta</button>
+
+    <br />
+    <hr />
+    <form th:action="@{/eliminar-usuario}" method="post">
+      <input
+        style="visibility: hidden"
+        th:value="${usuario.idCodigoTributario}"
+        id="codigoTributario"
+        name="codigoTributario"
+        required
+      />
+      <button type="submit">Eliminar mi cuenta</button>
     </form>
     <div th:replace="fragments/footer :: footer"></div>
     <script>
-const $d = document;
-const $selectProvincias = $d.getElementById("selectProvincias");
-const $selectMunicipios = $d.getElementById("selectMunicipios");
+      const $d = document;
+      const $selectProvincias = $d.getElementById("selectProvincias");
+      const $selectMunicipios = $d.getElementById("selectMunicipios");
 
+      function provincia() {
+        fetch("https://apis.datos.gob.ar/georef/api/provincias")
+          .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+          .then((json) => {
+            let $options = `<option value="Elige una provincia">Elige una provincia</option>`;
 
-function provincia() {
-    fetch("https://apis.datos.gob.ar/georef/api/provincias")
-    .then(res => res.ok ? res.json() : Promise.reject(res))
-    .then(json => {
-        let $options = `<option value="Elige una provincia">Elige una provincia</option>`;
+            json.provincias.forEach(
+              (el) =>
+                ($options += `<option value="${el.nombre}">${el.nombre}</option>`)
+            );
 
-        json.provincias.forEach(el => $options += `<option value="${el.nombre}">${el.nombre}</option>`);
+            $selectProvincias.innerHTML = $options;
+          })
+          .catch((error) => {
+            let message = error.statusText || "Ocurrió un error";
 
-        $selectProvincias.innerHTML = $options;
-    })
-    .catch(error => {
-        let message = error.statusText || "Ocurrió un error";
+            $selectProvincias.nextElementSibling.innerHTML = `Error: ${error.status}: ${message}`;
+          });
+      }
 
-        $selectProvincias.nextElementSibling.innerHTML = `Error: ${error.status}: ${message}`;
-    })
-}
+      $d.addEventListener("DOMContentLoaded", provincia);
 
-$d.addEventListener("DOMContentLoaded", provincia)
+      function municipio(provincia) {
+        fetch(
+          `https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincia}&max=100`
+        )
+          .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+          .then((json) => {
+            let $options = `<option value="Elige un municipio">Elige un municipio</option>`;
 
-function municipio(provincia) {
-    fetch(`https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincia}&max=100`)
-    .then(res => res.ok ? res.json() : Promise.reject(res))
-    .then(json => {
-        let $options = `<option value="Elige un municipio">Elige un municipio</option>`;
+            json.municipios.forEach(
+              (el) =>
+                ($options += `<option value="${el.id}">${el.nombre}</option>`)
+            );
 
-        json.municipios.forEach(el => $options += `<option value="${el.id}">${el.nombre}</option>`);
+            $selectMunicipios.innerHTML = $options;
+          })
+          .catch((error) => {
+            let message = error.statusText || "Ocurrió un error";
 
-        $selectMunicipios.innerHTML = $options;
-    })
-    .catch(error => {
-        let message = error.statusText || "Ocurrió un error";
+            $selectMunicipios.nextElementSibling.innerHTML = `Error: ${error.status}: ${message}`;
+          });
+      }
 
-        $selectMunicipios.nextElementSibling.innerHTML = `Error: ${error.status}: ${message}`;
-    })
-}
+      $selectProvincias.addEventListener("change", (e) => {
+        municipio(e.target.value);
+        console.log(e.target.value);
+      });
 
-$selectProvincias.addEventListener("change", e => {
-    municipio(e.target.value);
-    console.log(e.target.value)
-})
+      function validarForm() {
+        "use strict";
 
-function validarForm() {
-    'use strict';
+        var forms = document.querySelectorAll(".needs-validation");
 
-    var forms = document.querySelectorAll('.needs-validation');
-
-    Array.prototype.slice.call(forms).forEach(function (form) {
-        form.addEventListener('submit', function (event) {
-            if (!form.checkValidity()) {
+        Array.prototype.slice.call(forms).forEach(function (form) {
+          form.addEventListener(
+            "submit",
+            function (event) {
+              if (!form.checkValidity()) {
                 event.preventDefault();
                 event.stopPropagation();
-            }
-            form.classList.add('was-validated');
-        }, false);
-    });
-};
-
+              }
+              form.classList.add("was-validated");
+            },
+            false
+          );
+        });
+      }
     </script>
   </body>
 </html>
