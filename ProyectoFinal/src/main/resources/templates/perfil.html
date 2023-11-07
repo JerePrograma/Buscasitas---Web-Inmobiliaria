@@ -228,6 +228,17 @@
                     ></p>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Rol</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p
+                            th:if="${session.usuariosession != null}"
+                            th:text="${session.usuariosession.Rol}"
+                    ></p>
+                  </div>
+                </div>
               </div>
 
               <div
