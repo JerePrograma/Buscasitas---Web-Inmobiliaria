@@ -3,8 +3,7 @@ package com.proyectofinal.enumeraciones;
 public enum Rol {
     //GUEST, NO SE TOMA COMO ROL  
 
-    USER,
-    CLIENT,
+    CLIENTE, //CLIENTE
     ENTE,
     INQUILINO,
     ADMIN;
