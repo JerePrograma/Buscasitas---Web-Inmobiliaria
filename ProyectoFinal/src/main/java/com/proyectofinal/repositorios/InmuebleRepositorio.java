@@ -18,11 +18,9 @@ public interface InmuebleRepositorio extends JpaRepository<Inmueble, String> {
             + "AND (:ciudad IS NULL OR LOWER(i.ciudad) LIKE LOWER(CONCAT('%', :ciudad, '%'))) "
             + "AND (:provincia IS NULL OR LOWER(i.provincia) LIKE LOWER(CONCAT('%', :provincia, '%')))")
     List<Inmueble> findInmueblesByFiltros(@Param("ubicacion") String ubicacion,
-                                          @Param("transaccion") String transaccion,
-                                          @Param("tipoInmueble") String tipoInmueble,
-                                          @Param("ciudad") String ciudad,
-                                          @Param("provincia") String provincia);
-
-
+            @Param("transaccion") String transaccion,
+            @Param("tipoInmueble") String tipoInmueble,
+            @Param("ciudad") String ciudad,
+            @Param("provincia") String provincia);
 
 }

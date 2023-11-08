@@ -26,14 +26,11 @@
       th:href="@{images/logoInmobiliaria2.png}"
     />
     <script type="text/javascript" th:src="@{/js/script.js}"></script>
-
   </head>
   <head th:replace="fragments/head :: head"> </head>
 
   <body>
     <nav th:replace="fragments/navbar :: nav"></nav>
-
-
 
     <div class="align-center">
       <h1>Registrar Inmueble</h1>
@@ -155,24 +152,26 @@
       <br />
 
       <label for="horaInicio">Hora de inicio:</label>
-      <select class="controls" id="horaInicio" name="horaInicio" required></select>
+      <select
+        class="controls"
+        id="horaInicio"
+        name="horaInicio"
+        required
+      ></select>
 
       <label for="horaFin">Hora de fin:</label>
-      <select class="controls"
-              id="horaFin"
-              name="horaFin" required></select>
+      <select class="controls" id="horaFin" name="horaFin" required></select>
 
-      <button class="botons" type="button" id="agregarRangoHorario">Agregar Rango Horario</button>
+      <br />
+      <button class="botons" type="button" id="agregarRangoHorario">
+        Agregar Rango Horario
+      </button>
 
       <div id="rangoHorarioContainer">
         <!-- Las secciones de rango horario agregadas dinámicamente aparecerán aquí -->
       </div>
 
-      <br />
-
       <button class="botons" type="submit">Guardar Inmueble</button>
     </form>
-
-
   </body>
 </html>

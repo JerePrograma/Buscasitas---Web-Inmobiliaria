@@ -1,7 +1,6 @@
 package com.proyectofinal.controladores;
 
 import com.proyectofinal.entidades.Usuario;
-import com.proyectofinal.enumeraciones.Rol;
 import com.proyectofinal.excepciones.MiExcepcion;
 import com.proyectofinal.servicios.UsuarioServicio;
 import java.util.List;
@@ -95,7 +94,6 @@ public class UsuarioControlador {
         return "perfil-modificar.html";
     }
 
-
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE','ROLE_ADMIN','ROLE_ENTE')")
     @PostMapping("/modificar/{idCodigoTributario}")
     public String modificar(@PathVariable("idCodigoTributario") String idCodigoTributario,
@@ -107,7 +105,6 @@ public class UsuarioControlador {
             @RequestParam("celular") String celular,
             @RequestParam("tipoPersona") String tipoPersona,
             @RequestParam("Rol") String rol,
-
             ModelMap modelo) {
         try {
             usuarioServicio.modificarUsuario(idCodigoTributario, direccion, ciudad, provincia,

@@ -189,7 +189,6 @@ public class InmuebleControlador {
         }
     }
 
-
     @GetMapping("/eliminar/{cuentaTributaria}")
     public String eliminarInmueble(@PathVariable String cuentaTributaria) throws Exception {
         inmuebleServicio.eliminarInmueblePorCuentaTributaria(cuentaTributaria);

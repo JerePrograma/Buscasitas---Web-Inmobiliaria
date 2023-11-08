@@ -31,7 +31,7 @@
 }
 .logo-text {
   padding-top: 1em;
-  padding-left: 0,5em;
+  padding-left: 0, 5em;
   background-image: linear-gradient(
     45deg,
     blueviolet,
@@ -48,6 +48,7 @@
   background-color: lightblue;
   flex-basis: 60px;
 }
+
 nav {
   color: white;
   background-color: blueviolet;
@@ -67,7 +68,6 @@ nav {
 .navbar-nav .nav-item .nav-link {
   color: white !important; /* Cambiar a blanco y usar !important para anular estilos previos */
   transition: color 1s;
-  
 }
 
 .btn-info,
@@ -249,14 +249,14 @@ img {
   box-sizing: border-box;
   background-color: aliceblue;
   align-content: center;
-  justify-content : center;
+  justify-content: center;
 }
 .container-sm {
   padding-top: 5em;
   box-sizing: border-box;
   background-color: aliceblue;
   align-content: center;
-  justify-content : center;
+  justify-content: center;
 }
 
 .container-login {
