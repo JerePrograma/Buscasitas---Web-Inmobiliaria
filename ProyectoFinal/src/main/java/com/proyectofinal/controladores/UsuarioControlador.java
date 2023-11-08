@@ -74,7 +74,7 @@ public class UsuarioControlador {
         return "redirect:/";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_CLIENT','ROLE_ENTE')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CLIENTE','ROLE_ENTE')")
     @GetMapping("/perfil/{idCodigoTributario}")
     public String perfil(ModelMap modelo, HttpSession session) {
 
@@ -85,7 +85,7 @@ public class UsuarioControlador {
         return "perfil.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_CLIENT','ROLE_ENTE')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CLIENTE','ROLE_ENTE')")
     @GetMapping("/modificar/{idCodigoTributario}")
     public String modificar(ModelMap modelo, HttpSession session) {
 
@@ -96,7 +96,7 @@ public class UsuarioControlador {
         return "perfil-modificar.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_CLIENTE','ROLE_ADMIN')")
     @PostMapping("/modificar/{idCodigoTributario}")
     public String modificar(@PathVariable("idCodigoTributario") String idCodigoTributario,
             @RequestParam("direccion") String direccion,

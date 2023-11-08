@@ -14,6 +14,6 @@ public interface RangoHorarioRepositorio extends JpaRepository<RangoHorario, Lon
     RangoHorario findById(String idHorario);
 
     @Query("SELECT r FROM RangoHorario r WHERE r.inmueble.cuentaTributaria = :cuentaTributaria")
-    RangoHorario findByCuentaTributaria(@Param("cuentaTributaria") String cuentaTributaria);
+    List<RangoHorario> findByCuentaTributaria(@Param("cuentaTributaria") String cuentaTributaria);
 
 }

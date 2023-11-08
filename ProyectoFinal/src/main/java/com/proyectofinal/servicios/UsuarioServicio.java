@@ -56,7 +56,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setAlta(true);
         usuario.setContrasenia(new BCryptPasswordEncoder().encode(contrasenia));
 
-        usuario.setRol(Rol.USER);
+        usuario.setRol(Rol.CLIENTE);
 
         usuarioRepositorio.save(usuario);
     }
