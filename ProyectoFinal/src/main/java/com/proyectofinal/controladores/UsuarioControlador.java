@@ -95,6 +95,7 @@ public class UsuarioControlador {
         return "perfil-modificar.html";
     }
 
+
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE','ROLE_ADMIN','ROLE_ENTE')")
     @PostMapping("/modificar/{idCodigoTributario}")
     public String modificar(@PathVariable("idCodigoTributario") String idCodigoTributario,
