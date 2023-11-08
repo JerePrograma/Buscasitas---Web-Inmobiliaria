@@ -63,6 +63,17 @@
             <strong>Valor del Inmueble: $</strong>
             <span th:text="${inmueble.precioAlquilerVenta}"></span>
           </p>
+          <li>
+            <strong>Horarios Disponibles:</strong>
+          </li>
+          <li>
+            <span th:each="rangoHorarios : ${rangoHorario}">
+              <span
+                th:utext="${rangoHorarios.diaSemana + ' Desde: ' + rangoHorarios.horaInicio + ' Hasta: ' + rangoHorarios.horaFin}"
+              ></span>
+              <br />
+            </span>
+          </li>
           <p>
             <strong>Estado:</strong> <span th:text="${inmueble.estado}"></span>
           </p>

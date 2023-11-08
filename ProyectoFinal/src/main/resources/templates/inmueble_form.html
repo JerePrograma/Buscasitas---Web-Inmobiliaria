@@ -151,24 +151,24 @@
       <br />
 
       <label for="horaInicio">Hora de inicio:</label>
-      <input
+      <select
         class="controls"
-        type="time"
         id="horaInicio"
         name="horaInicio"
         required
-      />
+      ></select>
 
       <label for="horaFin">Hora de fin:</label>
-      <input
-        class="controls"
-        type="time"
-        id="horaFin"
-        name="horaFin"
-        required
-      />
+      <select class="controls" id="horaFin" name="horaFin" required></select>
 
       <br />
+      <button class="botons" type="button" id="agregarRangoHorario">
+        Agregar Rango Horario
+      </button>
+
+      <div id="rangoHorarioContainer">
+        <!-- Las secciones de rango horario agregadas dinámicamente aparecerán aquí -->
+      </div>
 
       <button class="botons" type="submit">Guardar Inmueble</button>
     </form>
