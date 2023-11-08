@@ -7,13 +7,13 @@
 
 <!-- End of NavBar -->
 
-<!-- This is to make the Form Contents appear on the Image -->
-<main id="formulario">
-	<form
-			th:action="@{/inmueble/busqueda}"
-			method="get"
-			class="container mt-5 mt-6 rounded mx-auto"
-			style="
+    <!-- This is to make the Form Contents appear on the Image -->
+    <main id="formulario">
+      <form
+        th:action="@{/inmueble/busqueda}"
+        method="get"
+        class="container mt-5 mt-6 rounded mx-auto"
+        style="
           max-width: 650px;
           padding: 30px 30px 60px 30px;
           background-color: white;
@@ -21,46 +21,44 @@
           font-weight: 600;
           color: #484848;
         "
-	>
-		<h1 style="font-size: 2em; font-weight: bold; margin-bottom: 15px">
-			Encuentra tu lugar, experiencias únicas.
-		</h1>
-		<div class="form-group" style="font-size: small">
-			<label for="transaccion">Transacción</label>
-			<select class="form-control" id="transaccion" name="transaccion">
-				<option value="">Seleccionar Transacción</option>
-				<option value="venta">Venta</option>
-				<option value="alquiler">Alquiler</option>
-				<option value="alquilerTemporal">Alquiler Temporal</option>
-			</select>
-		</div>
+      >
+        <h1 style="font-size: 2em; font-weight: bold; margin-bottom: 15px">
+          Encuentra tu lugar, experiencias únicas.
+        </h1>
+        <div class="form-group" style="font-size: small">
+          <label for="transaccion">Transacción</label>
+          <select class="form-control" id="transaccion" name="transaccion">
+            <option value="">Seleccionar Transacción</option>
+            <option value="venta">Venta</option>
+            <option value="alquiler">Alquiler</option>
+            <option value="alquilerTemporal">Alquiler Temporal</option>
+          </select>
+        </div>
 
-		<div class="form-group" style="font-size: small">
-			<label for="tipoInmueble">Tipo de Inmueble</label>
-			<select class="form-control" id="tipoInmueble" name="tipoInmueble">
-				<option value="">Seleccionar Tipo de Inmueble</option>
-				<option value="casa">Casa</option>
-				<option value="departamento">Departamento</option>
-				<option value="ph">PH</option>
-				<option value="terreno">Terreno</option>
-				<option value="oficina">Oficina</option>
-				<option value="local">Local</option>
-				<option value="cochera">Cochera</option>
-				<!-- Agrega más opciones según tus tipos de inmueble disponibles -->
-			</select>
-		</div>
-		</div>
-		</div>
-		<div class="form-group" style="font-size: small">
-			<label>Donde</label><br />
-			<input
-					class="form-control"
-					type="text"
-					placeholder="Cualquier lugar"
-					name="ubicacion"
-			/>
-		</div>
-		<!--<div class="input-group-prepend" style=" font-size: small;">
+        <div class="form-group" style="font-size: small">
+          <label for="tipoInmueble">Tipo de Inmueble</label>
+          <select class="form-control" id="tipoInmueble" name="tipoInmueble">
+            <option value="">Seleccionar Tipo de Inmueble</option>
+            <option value="casa">Casa</option>
+            <option value="departamento">Departamento</option>
+            <option value="ph">PH</option>
+            <option value="terreno">Terreno</option>
+            <option value="oficina">Oficina</option>
+            <option value="local">Local</option>
+            <option value="cochera">Cochera</option>
+            <!-- Agrega más opciones según tus tipos de inmueble disponibles -->
+          </select>
+        </div>
+        <div class="form-group" style="font-size: small">
+          <label>Donde</label><br />
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Cualquier lugar"
+            name="ubicacion"
+          />
+        </div>
+        <!--<div class="input-group-prepend" style=" font-size: small;">
                         <label>Fecha de ingreso</label> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
                         <label>Fecha de egreso</label><br>
                 </div>
@@ -101,7 +99,6 @@
   "
 >
   <h3>Que reseñas nos dejan los huéspedes...</h3>
-
 
        SVG for particular Star Symbol -->
     <!--

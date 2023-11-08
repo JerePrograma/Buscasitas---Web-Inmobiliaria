@@ -142,11 +142,12 @@ public class InmuebleControlador {
     ) {
         // Llama al servicio con los parámetros adecuados, incluyendo tipoInmueble como String.
         List<Inmueble> inmuebles;
-        if ((ubicacion == null || ubicacion.isEmpty()) &&
-                (transaccion == null || transaccion.isEmpty()) &&
-                (tipoInmueble == null || tipoInmueble.isEmpty()) &&
-                (ciudad == null || ciudad.isEmpty()) &&
-                (provincia == null || provincia.isEmpty())) {
+        if ((ubicacion == null || ubicacion.isEmpty())
+                && (transaccion == null || transaccion.isEmpty())
+                && (tipoInmueble == null || tipoInmueble.isEmpty())
+                && (ciudad == null || ciudad.isEmpty())
+                && (provincia == null || provincia.isEmpty())) {
+
             // No se ingresaron criterios de búsqueda, obtener todos los inmuebles
             inmuebles = inmuebleServicio.listarTodosLosInmuebles();
         } else {
@@ -159,7 +160,6 @@ public class InmuebleControlador {
                     (provincia != null) ? provincia : ""
             );
         }
-
         // Agrega los resultados al modelo.
         model.addAttribute("inmuebles", inmuebles);
 

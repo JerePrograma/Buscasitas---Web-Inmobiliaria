@@ -23,14 +23,13 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public UsuarioServicio usuarioServicio;
-    
+
 //    @Bean
 //    public UserDetailsService userDetailsService(){
 //        return new UserDetailsService(); 
 //    }
-    
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
