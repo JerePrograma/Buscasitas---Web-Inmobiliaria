@@ -6,7 +6,6 @@ import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.repositorios.InmuebleRepositorio;
 import com.proyectofinal.repositorios.OfertaRepositorio;
 import com.proyectofinal.repositorios.UsuarioRepositorio;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;

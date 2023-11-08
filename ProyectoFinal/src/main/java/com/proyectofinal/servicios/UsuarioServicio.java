@@ -56,7 +56,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setAlta(true);
         usuario.setContrasenia(new BCryptPasswordEncoder().encode(contrasenia));
 
-        usuario.setRol(Rol.USER);
+        usuario.setRol(Rol.CLIENTE);
 
         usuarioRepositorio.save(usuario);
     }
@@ -147,13 +147,13 @@ public class UsuarioServicio implements UserDetailsService {
             usuarioRepositorio.delete(usuario);
         }
     }
-
 //
 //    public String sendEmail() {
 //        
 //        //TODO método email-autogenerado
 //        return ;
 //    } 
+
     public void updateResetPwToken(String token, String email) throws UsuarioNoEncontradoExcepcion {
 
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
@@ -180,7 +180,6 @@ public class UsuarioServicio implements UserDetailsService {
 
         usuario.setResetPwToken(null);
         usuarioRepositorio.save(usuario);
-
     }
 
     public void validarDatos(String idCodigoTributario, String nombre, String direccion, String ciudad, String provincia,
