@@ -21,7 +21,14 @@
 .footer {
   padding: 20px;
 }
-
+#logo {
+  width: auto; /* o una medida específica que prefieras */
+  height: 100%; /* Esto hará que el logo tome la altura completa del navbar, pero necesitas asegurarte de que la imagen tenga aspect ratio correcto */
+  max-height: 5em; /* Esto limitará la altura del logo, ajusta según sea necesario */
+  display: block; /* Esto remplaza 'inline-block' por 'block', lo que puede ayudar con el control de altura y anchura */
+  padding: 0; /* Elimina el padding superior para evitar empujar el contenido */
+  object-fit: contain; /* Esto asegurará que la imagen del logo se escale adecuadamente dentro de las dimensiones dadas */
+}
 .logo-text {
   padding-top: 1em;
   padding-left: 0, 5em;
@@ -52,17 +59,6 @@ nav {
   padding: 0 1em; /* Añade un poco de padding horizontal para que el contenido no toque los bordes */
   max-height: 6em; /* Si el contenido interno es más grande, puedes ajustar esto */
 }
-
-#logo {
-  width: auto; /* o una medida específica que prefieras */
-  height: 100%; /* Esto hará que el logo tome la altura completa del navbar, pero necesitas asegurarte de que la imagen tenga aspect ratio correcto */
-  max-height: 5em; /* Esto limitará la altura del logo, ajusta según sea necesario */
-  display: block; /* Esto remplaza 'inline-block' por 'block', lo que puede ayudar con el control de altura y anchura */
-  padding: 0; /* Elimina el padding superior para evitar empujar el contenido */
-  object-fit: contain; /* Esto asegurará que la imagen del logo se escale adecuadamente dentro de las dimensiones dadas */
-}
-
-/* Si el contenedor del logo necesita ajustes adicionales para manejar el padding o margen */
 .containerImg {
   display: flex;
   align-items: center;

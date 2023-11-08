@@ -90,7 +90,7 @@ public class InmuebleControlador {
     @GetMapping("/modificar/{cuentaTributaria}")
     public String editarInmueble(@PathVariable String cuentaTributaria, ModelMap model) throws Exception {
         Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
-        RangoHorario rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
+        List<RangoHorario> rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
         model.put("inmueble", inmueble);
         model.put("rangoHorario", rangoHorario);
         model.addAttribute("cuentaTributaria", cuentaTributaria);
@@ -115,7 +115,7 @@ public class InmuebleControlador {
             Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
             inmuebleServicio.modificarInmueble(archivo, cuentaTributaria, tituloAnuncio, descripcionAnuncio, caracteristicaInmueble, estado);
             //Modificar RangoHorario
-            RangoHorario rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
+            RangoHorario rangoHorario = (RangoHorario) rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
             rangoHorarioServicio.actualizarRangoHorario(rangoHorario, diaSemanaList, horaInicioList, horaFinList);
 
             // Resto del código
@@ -147,6 +147,7 @@ public class InmuebleControlador {
                 && (tipoInmueble == null || tipoInmueble.isEmpty())
                 && (ciudad == null || ciudad.isEmpty())
                 && (provincia == null || provincia.isEmpty())) {
+
             // No se ingresaron criterios de búsqueda, obtener todos los inmuebles
             inmuebles = inmuebleServicio.listarTodosLosInmuebles();
         } else {
@@ -168,7 +169,7 @@ public class InmuebleControlador {
     @GetMapping("/detalle/{cuentaTributaria}")
     public String detalleInmueble(@PathVariable String cuentaTributaria, Model model) throws Exception {
         Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
-        RangoHorario rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
+        List<RangoHorario> rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
 
         if (inmueble != null) {
             // Realiza la conversión de la imagen a base64

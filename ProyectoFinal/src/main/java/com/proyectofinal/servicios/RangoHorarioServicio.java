@@ -76,14 +76,9 @@ public class RangoHorarioServicio {
         }
         throw new Exception("No se encontró el rango horario con ID: " + id);
     }
-
-    public RangoHorario obtenerRangoHorarioPorCuentaTributaria(String cuentaTributaria) throws Exception {
-        Optional<RangoHorario> rangoHorarioOptional = Optional.ofNullable(rangoHorarioRepositorio.findByCuentaTributaria(cuentaTributaria));
-        if (rangoHorarioOptional.isPresent()) {
-            return rangoHorarioOptional.get();
+    public List<RangoHorario> obtenerRangoHorarioPorCuentaTributaria(String cuentaTributaria) throws Exception {
+            return rangoHorarioRepositorio.findByCuentaTributaria(cuentaTributaria);
         }
-        throw new Exception("No se encontró el rango horario con Cuenta Tributaria: " + cuentaTributaria);
-    }
 
     public List<RangoHorario> obtenerTodosLosRangosHorarios() {
         return rangoHorarioRepositorio.findAll();
