@@ -147,6 +147,7 @@ public class InmuebleControlador {
                 && (tipoInmueble == null || tipoInmueble.isEmpty())
                 && (ciudad == null || ciudad.isEmpty())
                 && (provincia == null || provincia.isEmpty())) {
+
             // No se ingresaron criterios de búsqueda, obtener todos los inmuebles
             inmuebles = inmuebleServicio.listarTodosLosInmuebles();
         } else {

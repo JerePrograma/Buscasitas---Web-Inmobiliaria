@@ -1,6 +1,7 @@
 package com.proyectofinal.controladores;
 
 import com.proyectofinal.entidades.Usuario;
+import com.proyectofinal.enumeraciones.Rol;
 import com.proyectofinal.excepciones.MiExcepcion;
 import com.proyectofinal.servicios.UsuarioServicio;
 import java.util.List;
@@ -105,6 +106,7 @@ public class UsuarioControlador {
             @RequestParam("celular") String celular,
             @RequestParam("tipoPersona") String tipoPersona,
             @RequestParam("Rol") String rol,
+
             ModelMap modelo) {
         try {
             usuarioServicio.modificarUsuario(idCodigoTributario, direccion, ciudad, provincia,
