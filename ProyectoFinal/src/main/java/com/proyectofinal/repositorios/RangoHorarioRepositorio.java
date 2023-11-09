@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface RangoHorarioRepositorio extends JpaRepository<RangoHorario, Long> {
 
-    RangoHorario findById(String idHorario);
+    List<RangoHorario> findById(String idHorario);
 
     @Query("SELECT r FROM RangoHorario r WHERE r.inmueble.cuentaTributaria = :cuentaTributaria")
     List<RangoHorario> findByCuentaTributaria(@Param("cuentaTributaria") String cuentaTributaria);

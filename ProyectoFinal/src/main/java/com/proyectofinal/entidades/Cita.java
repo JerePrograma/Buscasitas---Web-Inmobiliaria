@@ -22,8 +22,8 @@ public class Cita implements Serializable {
     @ManyToOne
     private Usuario cliente;
 
-    @OneToMany
-    private List<RangoHorario> horario;
+    @ManyToOne
+    private RangoHorario horario;
 
     private String Nota;
 

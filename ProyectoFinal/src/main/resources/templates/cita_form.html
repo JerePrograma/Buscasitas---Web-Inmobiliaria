@@ -41,14 +41,24 @@
     >
       <input
         hidden
-        th:value="${inmueble.cuentaTributaria}"
+        th:value="${cuentaTributaria}"
         name="cuentaTributaria"
       />
+        <input
+               hidden
+               th:if="${usuario != null}"
+               th:value="${usuario.idCodigoTributario}"
+               name="idCliente"
+        />
+
       <input
-        hidden
-        th:value="${usuario.idCodigoTributario}"
-        name="idCodigoTributario"
+              hidden
+              th:if="${usuario != null}"
+              th:value="${usuario.idCodigoTributario}"
+              name="idEnte"
       />
+      <!-- Agrega este input oculto al formulario -->
+      <input type="hidden" id="idHorario" name="idHorario" />
 
       <label for="diaSemana">Horarios Disponibles</label>
       <select
@@ -63,47 +73,48 @@
         </th:block>
       </select>
 
-      <label for="horaInicio">Hora de inicio:</label>
-      <select class="controls" id="horaInicio" name="horaInicio" required>
+      <label for="horario">Hora de inicio:</label>
+      <select class="controls" id="horario" name="horario" required>
         <!-- Las opciones se llenarán dinámicamente -->
       </select>
+      <input
+              class="controls"
+              type="text"
+              id="nota"
+              name="nota"
+              placeholder="Nota de la Cita"
+      />
 
-      <label for="horaFin">Hora de fin:</label>
-      <select class="controls" id="horaFin" name="horaFin" required>
-        <!-- Las opciones se llenarán dinámicamente -->
-      </select>
+        <span th:text="${cuentaTributaria}"></span>
 
       <br />
 
       <button type="submit">Guardar Oferta</button>
     </form>
     <script>
-      // Función que se llama cuando el día de la semana cambia
-      function actualizarHorariosDisponibles(rangoId) {
-        // Obtén los selectores de hora de inicio y fin
-        var selectHoraInicio = document.getElementById("horaInicio");
-        var selectHoraFin = document.getElementById("horaFin");
+        // Función que se llama cuando el día de la semana cambia
+        function actualizarHorariosDisponibles(rangoId) {
+            // Obtén el selector de horario
+            var selectHorario = document.getElementById("horario");
+            var idRangoHorarioInput = document.getElementById("idHorario");
 
-        // Limpia las opciones existentes
-        selectHoraInicio.innerHTML = "";
-        selectHoraFin.innerHTML = "";
+            // Limpia las opciones existentes
+            selectHorario.innerHTML = "";
 
-        // Aquí suponemos que tienes una variable global o una forma de obtener los horarios disponibles
-        // Por ejemplo, podrías tener algo como una variable 'horariosPorRango' que contenga esta información
-        var horariosDisponibles = horariosPorRango[rangoId]; // Esta debe ser proporcionada de alguna manera
+            // Aquí suponemos que tienes una variable global o una forma de obtener los horarios disponibles
+            // Por ejemplo, podrías tener algo como una variable 'horariosPorRango' que contenga esta información
+            var horariosDisponibles = horariosPorRango[rangoId]; // Esta debe ser proporcionada de alguna manera
 
-        // Llena las opciones de hora de inicio y fin
-        horariosDisponibles.forEach(function (hora) {
-          var optionInicio = new Option(hora, hora);
-          var optionFin = new Option(hora, hora);
+            // Llena las opciones de horario
+            horariosDisponibles.forEach(function (hora) {
+                var option = new Option(hora, hora);
+                // Añade la opción al selector de horario
+                selectHorario.add(option);
+            });
 
-          // Añade las opciones al selector de hora de inicio
-          selectHoraInicio.add(optionInicio);
-
-          // Añade las opciones al selector de hora de fin
-          selectHoraFin.add(optionFin);
-        });
-      }
+            // Establece el valor del campo oculto con la ID del rangoHorario seleccionado
+            idRangoHorarioInput.value = rangoId;
+        }
     </script>
     <script th:inline="javascript">
       /*<![CDATA[*/

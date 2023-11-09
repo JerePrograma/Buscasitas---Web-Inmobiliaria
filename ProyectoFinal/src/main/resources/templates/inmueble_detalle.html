@@ -66,6 +66,17 @@
           </ul>
           <div class="text-center">
             <a
+                    href="#"
+                    th:href="@{/cita/registrar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+                    class="btn btn-primary"
+            >
+              <button class="btn btn-primary" id="aceptarOfertaButton">
+                Pedir una cita
+              </button>
+            </a>
+          </div>
+          <div class="text-center">
+            <a
               href="#"
               th:href="@{/oferta/enviar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
               class="btn btn-primary"

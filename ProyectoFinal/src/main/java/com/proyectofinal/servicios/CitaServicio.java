@@ -29,19 +29,32 @@ public class CitaServicio {
     RangoHorarioRepositorio rangoHorarioRepositorio;
 
     @Transactional
-    public void crearCita(String idEnte, String idCliente, String idHorario, String nota) {
-        ///  Validar(Usuario ente,Usuario cliente, RangoHorario horario);
+    public void crearCita(String idEnte, String idCliente, Long idHorario, String nota) {
+        try {
+            Optional<Usuario> enteOptional = usuarioRepositorio.findById(idEnte);
+            Optional<Usuario> clienteOptional = usuarioRepositorio.findById(idCliente);
+            Optional<RangoHorario> rangoHorarioOptional = rangoHorarioRepositorio.findById(idHorario);
 
-        Usuario ente = usuarioRepositorio.buscarPorEmail(idEnte);
-        Usuario cliente = usuarioRepositorio.buscarPorEmail(idCliente);
-        List<RangoHorario> horario = (List<RangoHorario>) rangoHorarioRepositorio.findById(idHorario);
+            if (rangoHorarioOptional.isPresent() && enteOptional.isPresent() && clienteOptional.isPresent() ) {
+                RangoHorario rangoHorario = rangoHorarioOptional.get();
+                Usuario ente = enteOptional.get();
+                Usuario cliente = clienteOptional.get();
 
-        Cita cita = new Cita();
-        cita.setCliente(cliente);
-        cita.setEnte(ente);
-        cita.setHorario(horario);
-        cita.setNota(nota);
-        citaRepositorio.save(cita);
+                Cita cita = new Cita();
+                cita.setCliente(cliente);
+                cita.setEnte(ente);
+                cita.setHorario(rangoHorario);  // Aquí deberías pasar el objeto RangoHorario, no una lista
+                cita.setNota(nota);
+
+                citaRepositorio.save(cita);
+            } else {
+                throw new IllegalArgumentException("El RangoHorario con ID " + idHorario + " no existe.");
+            }
+        } catch (Exception e) {
+            // Maneja la excepción apropiadamente, loguea o lanza una excepción específica si es necesario
+            e.printStackTrace();
+            throw new RuntimeException("Error al crear la cita.", e);
+        }
     }
 
     @Transactional
@@ -55,7 +68,7 @@ public class CitaServicio {
 
         Usuario ente = new Usuario();
         Usuario cliente = new Usuario();
-        List<RangoHorario> horario = (List<RangoHorario>) new RangoHorario();
+        RangoHorario horario = new RangoHorario();
 
         if (respuestaEnte.isPresent()) {
             ente = respuestaEnte.get();
@@ -64,7 +77,7 @@ public class CitaServicio {
             cliente = respuestaCliente.get();
         }
         if (respuestaHorario.isPresent()) {
-            horario = Collections.singletonList(respuestaHorario.get());
+            horario = respuestaHorario.get();
         }
         if (respuesta.isPresent()) {
 
