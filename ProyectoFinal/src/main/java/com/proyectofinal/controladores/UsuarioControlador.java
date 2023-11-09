@@ -29,7 +29,7 @@ public class UsuarioControlador {
 
     @GetMapping("/registrar")
     public String registrar() {
-        return "registro-form.html";
+        return "usuario_form.html";
     }
 
     //registroControlador
@@ -67,7 +67,7 @@ public class UsuarioControlador {
             modelo.put("contrasenia", contrasenia);
             modelo.put("contrasenia2", contrasenia2);
 
-            return "registro-form.html";
+            return "usuario_form.html";
         }
         return "redirect:/";
     }
@@ -91,7 +91,7 @@ public class UsuarioControlador {
 
         modelo.put("usuario", usuario);
 
-        return "perfil-modificar.html";
+        return "perfil_modificar.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE','ROLE_ADMIN','ROLE_ENTE')")
