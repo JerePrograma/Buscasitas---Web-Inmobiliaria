@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +29,7 @@ public class UsuarioControlador {
 
     @GetMapping("/registrar")
     public String registrar() {
-        return "registro-form.html";
+        return "usuario_form.html";
     }
 
     //registroControlador
@@ -68,12 +67,12 @@ public class UsuarioControlador {
             modelo.put("contrasenia", contrasenia);
             modelo.put("contrasenia2", contrasenia2);
 
-            return "registro-form.html";
+            return "usuario_form.html";
         }
         return "redirect:/";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_CLIENT','ROLE_ENTE')")
+    @PreAuthorize("hasAnyRole('ROLE_CLIENTE','ROLE_ADMIN','ROLE_ENTE')")
     @GetMapping("/perfil/{idCodigoTributario}")
     public String perfil(ModelMap modelo, HttpSession session) {
 
@@ -84,7 +83,7 @@ public class UsuarioControlador {
         return "perfil.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_CLIENT','ROLE_ENTE')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CLIENTE','ROLE_ENTE')")
     @GetMapping("/modificar/{idCodigoTributario}")
     public String modificar(ModelMap modelo, HttpSession session) {
 
@@ -92,10 +91,10 @@ public class UsuarioControlador {
 
         modelo.put("usuario", usuario);
 
-        return "perfil-modificar.html";
+        return "perfil_modificar.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_CLIENTE','ROLE_ADMIN','ROLE_ENTE')")
     @PostMapping("/modificar/{idCodigoTributario}")
     public String modificar(@PathVariable("idCodigoTributario") String idCodigoTributario,
             @RequestParam("direccion") String direccion,
@@ -105,10 +104,11 @@ public class UsuarioControlador {
             @RequestParam("email") String email,
             @RequestParam("celular") String celular,
             @RequestParam("tipoPersona") String tipoPersona,
+            @RequestParam("Rol") String rol,
             ModelMap modelo) {
         try {
             usuarioServicio.modificarUsuario(idCodigoTributario, direccion, ciudad, provincia,
-                    email, celular, tipoPersona);
+                    sexo, email, celular, tipoPersona, rol);
             modelo.put("exito", "Usuario actualizado correctamente!");
             return "index.html";
         } catch (MiExcepcion ex) {

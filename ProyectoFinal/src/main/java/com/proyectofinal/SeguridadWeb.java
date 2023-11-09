@@ -23,14 +23,13 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public UsuarioServicio usuarioServicio;
-    
+
 //    @Bean
 //    public UserDetailsService userDetailsService(){
 //        return new UserDetailsService(); 
 //    }
-    
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -45,8 +44,7 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/ente/**").hasRole("ENTE")
-                .antMatchers("/client/**").hasRole("CLIENT")
-                .antMatchers("/client/**").hasRole("USER")
+                .antMatchers("/cliente/**").hasRole("CLIENTE")
                 .antMatchers("/css/**", "/js/**", "/img/**", "/**").permitAll()
                 .and().formLogin()
                 .loginPage("/login")

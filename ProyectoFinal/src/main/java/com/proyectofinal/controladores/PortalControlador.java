@@ -15,14 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
 // PROYECTO FINAL - EQUIPO A - Buscasitas.com.ar
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
-    
+
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 

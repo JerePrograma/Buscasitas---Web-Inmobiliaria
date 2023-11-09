@@ -7,7 +7,6 @@
   text-decoration: none;
 }
 
-
 .body .main {
   background: url(../images/fondo_inmo.png);
 }
@@ -19,18 +18,18 @@
 }
 
 #logo {
-      width: auto;
-     padding-left: 1em;
-     fill: currentcolor;
-     color: white;
-     height: 5.8em;
-     object-fit: contain;
+  width: auto;
+  padding-left: 1em;
+  fill: currentcolor;
+  color: white;
+  height: 5.8em;
+  object-fit: contain;
 }
 .logo-text {
-    padding-top: 1em;
-    margin: auto !important;
-    padding-left: 1em;
-    background-image: linear-gradient(
+  padding-top: 1em;
+  margin: auto !important;
+  padding-left: 1em;
+  background-image: linear-gradient(
     45deg,
     blueviolet,
     lightblue
@@ -45,18 +44,19 @@
   background-color: lightblue;
   flex-basis: 60px;
 }
+
 nav {
   color: white;
   background-color: blueviolet;
- background-image: linear-gradient(150deg, #000, #0000ff, #fff);
- max-height: 6em;
+  background-image: linear-gradient(150deg, #000, #0000ff, #fff);
+  max-height: 6em;
 }
 
 .navbar-nav .nav-item .nav-link {
   color: white !important; /* Cambiar a blanco y usar !important para anular estilos previos */
   transition: color 1s;
-  
 }
+
 .btn-info,
 .btn-info:active {
   display: inline-block;
@@ -236,14 +236,14 @@ img {
   box-sizing: border-box;
   background-color: aliceblue;
   align-content: center;
-  justify-content : center;
+  justify-content: center;
 }
 .container-sm {
   padding-top: 5em;
   box-sizing: border-box;
   background-color: aliceblue;
   align-content: center;
-  justify-content : center;
+  justify-content: center;
 }
 
 .container-login {
@@ -623,7 +623,6 @@ main {
 }
 
 #hero {
-   
   height: 90vh;
   background-image: url("/images/login-cover.jpeg");
   background-repeat: no-repeat;
@@ -632,21 +631,21 @@ main {
 }
 
 #Neiboorhood {
-      width: 50%;
+  width: 50%;
   display: block;
-     margin-left: auto;
+  margin-left: auto;
   margin-right: auto;
-    max-width: 20em;
+  max-width: 20em;
   border-radius: 23%;
   filter: drop-shadow(0 0 0.55rem rgb(97, 39, 213));
 }
 
 #Neiboorhood2 {
-      width: 50%;
+  width: 50%;
   display: block;
-     margin-left: auto;
+  margin-left: auto;
   margin-right: auto;
-             max-width: 20em;
+  max-width: 20em;
   border-radius: 23%;
   filter: drop-shadow(0 0 0.55rem rgb(97, 39, 213));
 }

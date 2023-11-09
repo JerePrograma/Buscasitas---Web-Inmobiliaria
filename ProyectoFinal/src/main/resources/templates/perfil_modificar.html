@@ -16,7 +16,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
 
-    <link rel="stylesheet" th:href="@{/css/custom.css}" />
+    <link rel="stylesheet" th:href="@{/css/formulario.css}" />
 
     <link
       rel="shortcut icon"
@@ -161,6 +161,17 @@
             <small id="emailHelp" class="form-text text-muted"
               >Nunca compartiremos con nadie su datos personales.</small
             >
+          </div>
+          <div class="form-group col-md-5">
+            <label class="col-form-label" for="inputState">Cambio de Rol</label>
+            <br />
+            <select name="Rol" id="Rol" th:field="${usuario.Rol}">
+              <option value="CLIENTE">CLIENTE</option>
+              <option value="ENTE">ENTE</option>
+              <option disabled="true" selected="true" value="">
+                Seleccionar un Rol
+              </option>
+            </select>
           </div>
           <br />
           <br />

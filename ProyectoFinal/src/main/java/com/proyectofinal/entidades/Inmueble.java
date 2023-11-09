@@ -41,6 +41,4 @@ public class Inmueble implements Serializable {
     @JoinColumn(name = "usuario_administrador_id")
     private Usuario usuarioAdministrador;
 
-    
-
 }

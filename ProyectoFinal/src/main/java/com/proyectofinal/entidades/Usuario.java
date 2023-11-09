@@ -14,11 +14,8 @@ import javax.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Data
 @NoArgsConstructor
-@Getter
-@Setter
 @Entity
 public class Usuario implements Serializable {
 
@@ -37,7 +34,6 @@ public class Usuario implements Serializable {
     private String contrasenia;
     private String resetPwToken;
     private Boolean alta;
-    
 
     @Enumerated
     private Rol rol;
@@ -47,5 +43,5 @@ public class Usuario implements Serializable {
 
     @OneToOne
     private Imagen imagen;
-    
+
 }

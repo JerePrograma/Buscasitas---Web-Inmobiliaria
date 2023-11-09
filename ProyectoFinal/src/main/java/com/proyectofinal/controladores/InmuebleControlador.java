@@ -90,7 +90,7 @@ public class InmuebleControlador {
     @GetMapping("/modificar/{cuentaTributaria}")
     public String editarInmueble(@PathVariable String cuentaTributaria, ModelMap model) throws Exception {
         Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
-        RangoHorario rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
+        List<RangoHorario> rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
         model.put("inmueble", inmueble);
         model.put("rangoHorario", rangoHorario);
         model.addAttribute("cuentaTributaria", cuentaTributaria);
@@ -115,7 +115,7 @@ public class InmuebleControlador {
             Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
             inmuebleServicio.modificarInmueble(archivo, cuentaTributaria, tituloAnuncio, descripcionAnuncio, caracteristicaInmueble, estado);
             //Modificar RangoHorario
-            RangoHorario rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
+            RangoHorario rangoHorario = (RangoHorario) rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
             rangoHorarioServicio.actualizarRangoHorario(rangoHorario, diaSemanaList, horaInicioList, horaFinList);
 
             // Resto del código
@@ -141,22 +141,25 @@ public class InmuebleControlador {
             Model model
     ) {
         // Llama al servicio con los parámetros adecuados, incluyendo tipoInmueble como String.
-        List<Inmueble> inmuebles = inmuebleServicio.buscarInmueblesPorFiltros(ubicacion, transaccion, tipoInmueble, ciudad, provincia);
+        List<Inmueble> inmuebles;
+        if ((ubicacion == null || ubicacion.isEmpty())
+                && (transaccion == null || transaccion.isEmpty())
+                && (tipoInmueble == null || tipoInmueble.isEmpty())
+                && (ciudad == null || ciudad.isEmpty())
+                && (provincia == null || provincia.isEmpty())) {
 
-        // Agrega los resultados al modelo.
-        model.addAttribute("inmuebles", inmuebles);
-
-        return "busqueda_inmuebles";
-    }
-
-    @GetMapping("/buscar-inmuebles")
-    public String buscarUbicacionInmuebles(
-            @RequestParam(name = "ubicacion", required = false) String ubicacion,
-            Model model
-    ) {
-        // Llama al servicio con los parámetros adecuados, incluyendo ubicación como String.
-        List<Inmueble> inmuebles = inmuebleServicio.buscarPorUbicacion(ubicacion);
-
+            // No se ingresaron criterios de búsqueda, obtener todos los inmuebles
+            inmuebles = inmuebleServicio.listarTodosLosInmuebles();
+        } else {
+            // Realizar la búsqueda con los criterios ingresados
+            inmuebles = inmuebleServicio.buscarInmueblesPorFiltros(
+                    (ubicacion != null) ? ubicacion : "",
+                    (transaccion != null) ? transaccion : "",
+                    (tipoInmueble != null) ? tipoInmueble : "",
+                    (ciudad != null) ? ciudad : "",
+                    (provincia != null) ? provincia : ""
+            );
+        }
         // Agrega los resultados al modelo.
         model.addAttribute("inmuebles", inmuebles);
 
@@ -166,7 +169,7 @@ public class InmuebleControlador {
     @GetMapping("/detalle/{cuentaTributaria}")
     public String detalleInmueble(@PathVariable String cuentaTributaria, Model model) throws Exception {
         Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
-        RangoHorario rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
+        List<RangoHorario> rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
 
         if (inmueble != null) {
             // Realiza la conversión de la imagen a base64

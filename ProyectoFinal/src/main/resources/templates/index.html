@@ -10,7 +10,7 @@
     <!-- This is to make the Form Contents appear on the Image -->
     <main id="formulario">
       <form
-        th:action="@{/inmueble/buscar-inmuebles}"
+        th:action="@{/inmueble/busqueda}"
         method="get"
         class="container mt-5 mt-6 rounded mx-auto"
         style="
@@ -26,90 +26,28 @@
           Encuentra tu lugar, experiencias únicas.
         </h1>
         <div class="form-group" style="font-size: small">
-          <label>Transacción</label>
-          <div class="dropdown">
-            <button
-              class="btn btn-secondary dropdown-toggle"
-              type="button"
-              id="transaccionDropdown"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Seleccionar Transacción
-            </button>
-            <div class="dropdown-menu" aria-labelledby="transaccionDropdown">
-              <a
-                class="dropdown-item"
-                th:href="@{/inmueble/busqueda(transaccion='venta')}"
-                >Venta</a
-              >
-              <a
-                class="dropdown-item"
-                th:href="@{/inmueble/busqueda(transaccion='alquiler')}"
-                >Alquiler</a
-              >
-              <a
-                class="dropdown-item"
-                th:href="@{/inmueble/busqueda(transaccion='alquilerTemporal')}"
-                >Alquiler Temporal</a
-              >
-            </div>
-          </div>
+          <label for="transaccion">Transacción</label>
+          <select class="form-control" id="transaccion" name="transaccion">
+            <option value="">Seleccionar Transacción</option>
+            <option value="venta">Venta</option>
+            <option value="alquiler">Alquiler</option>
+            <option value="alquilerTemporal">Alquiler Temporal</option>
+          </select>
         </div>
 
         <div class="form-group" style="font-size: small">
-          <label>Tipo de Inmueble</label>
-          <div class="dropdown">
-            <button
-              class="btn btn-secondary dropdown-toggle"
-              type="button"
-              id="tipoInmuebleDropdown"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Seleccionar Tipo de Inmueble
-            </button>
-            <div class="dropdown-menu" aria-labelledby="tipoInmuebleDropdown">
-              <a
-                class="dropdown-item"
-                th:href="@{/inmueble/busqueda(tipoInmueble='casa')}"
-                >Casa</a
-              >
-              <a
-                class="dropdown-item"
-                th:href="@{/inmueble/busqueda(tipoInmueble='departamento')}"
-                >Departamento</a
-              >
-              <a
-                class="dropdown-item"
-                th:href="@{/inmueble/busqueda(tipoInmueble='ph')}"
-                >PH</a
-              >
-              <a
-                class="dropdown-item"
-                th:href="@{/inmueble/busqueda(tipoInmueble='terreno')}"
-                >Terreno</a
-              >
-              <a
-                class="dropdown-item"
-                th:href="@{/inmueble/busqueda(tipoInmueble='oficina')}"
-                >Oficina</a
-              >
-              <a
-                class="dropdown-item"
-                th:href="@{/inmueble/busqueda(tipoInmueble='local')}"
-                >Local</a
-              >
-              <a
-                class="dropdown-item"
-                th:href="@{/inmueble/busqueda(tipoInmueble='cochera')}"
-                >Cochera</a
-              >
-              <!-- Agrega más opciones según tus tipos de inmueble disponibles -->
-            </div>
-          </div>
+          <label for="tipoInmueble">Tipo de Inmueble</label>
+          <select class="form-control" id="tipoInmueble" name="tipoInmueble">
+            <option value="">Seleccionar Tipo de Inmueble</option>
+            <option value="casa">Casa</option>
+            <option value="departamento">Departamento</option>
+            <option value="ph">PH</option>
+            <option value="terreno">Terreno</option>
+            <option value="oficina">Oficina</option>
+            <option value="local">Local</option>
+            <option value="cochera">Cochera</option>
+            <!-- Agrega más opciones según tus tipos de inmueble disponibles -->
+          </select>
         </div>
         <div class="form-group" style="font-size: small">
           <label>Donde</label><br />
@@ -151,16 +89,16 @@
     <div th:replace="fragments/publicaciones :: publicaciones"></div>
     <hr />
     <!--
-    <div
-      class="container mt-5 mt-5 mx-auto"
-      style="
-        padding: 2px 100px;
-        font-size: 14px;
-        font-family: Helvetica;
-        position: relative;
-      "
-    >
-      <h3>Que reseñas nos dejan los huéspedes...</h3>
+<div
+  class="container mt-5 mt-5 mx-auto"
+  style="
+    padding: 2px 100px;
+    font-size: 14px;
+    font-family: Helvetica;
+    position: relative;
+  "
+>
+  <h3>Que reseñas nos dejan los huéspedes...</h3>
 
        SVG for particular Star Symbol -->
     <!--
