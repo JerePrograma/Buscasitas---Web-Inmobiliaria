@@ -6,7 +6,11 @@ import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.repositorios.CitaRepositorio;
 import com.proyectofinal.repositorios.RangoHorarioRepositorio;
 import com.proyectofinal.repositorios.UsuarioRepositorio;
+import java.time.LocalTime;
+import java.util.ArrayList;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,17 +34,14 @@ public class CitaServicio {
 
         Usuario ente = usuarioRepositorio.buscarPorEmail(idEnte);
         Usuario cliente = usuarioRepositorio.buscarPorEmail(idCliente);
-        RangoHorario horario = rangoHorarioRepositorio.findById(idHorario);
+        List<RangoHorario> horario = (List<RangoHorario>) rangoHorarioRepositorio.findById(idHorario);
 
         Cita cita = new Cita();
-
         cita.setCliente(cliente);
         cita.setEnte(ente);
         cita.setHorario(horario);
         cita.setNota(nota);
-
         citaRepositorio.save(cita);
-
     }
 
     @Transactional
@@ -50,11 +51,11 @@ public class CitaServicio {
         Optional<Cita> respuesta = citaRepositorio.findById(id);
         Optional<Usuario> respuestaEnte = usuarioRepositorio.findById(idEnte);
         Optional<Usuario> respuestaCliente = usuarioRepositorio.findById(idCliente);
-        Optional<RangoHorario> respuestaHorario = Optional.ofNullable(rangoHorarioRepositorio.findById(idHorario));
+        Optional<RangoHorario> respuestaHorario = Optional.ofNullable((RangoHorario) rangoHorarioRepositorio.findById(idHorario));
 
         Usuario ente = new Usuario();
         Usuario cliente = new Usuario();
-        RangoHorario horario = new RangoHorario();
+        List<RangoHorario> horario = (List<RangoHorario>) new RangoHorario();
 
         if (respuestaEnte.isPresent()) {
             ente = respuestaEnte.get();
@@ -63,7 +64,7 @@ public class CitaServicio {
             cliente = respuestaCliente.get();
         }
         if (respuestaHorario.isPresent()) {
-            horario = respuestaHorario.get();
+            horario = Collections.singletonList(respuestaHorario.get());
         }
         if (respuesta.isPresent()) {
 
@@ -76,5 +77,14 @@ public class CitaServicio {
 
             citaRepositorio.save(cita);
         }
+    }
+
+    public List<LocalTime> obtenerHorariosDisponibles(LocalTime inicio, LocalTime fin) {
+        List<LocalTime> horarios = new ArrayList<>();
+        while (inicio.isBefore(fin) || inicio.equals(fin)) {
+            horarios.add(inicio);
+            inicio = inicio.plusMinutes(30); // Incrementa en intervalos de 30 minutos
+        }
+        return horarios;
     }
 }
