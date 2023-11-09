@@ -76,9 +76,10 @@ public class RangoHorarioServicio {
         }
         throw new Exception("No se encontró el rango horario con ID: " + id);
     }
+
     public List<RangoHorario> obtenerRangoHorarioPorCuentaTributaria(String cuentaTributaria) throws Exception {
-            return rangoHorarioRepositorio.findByCuentaTributaria(cuentaTributaria);
-        }
+        return rangoHorarioRepositorio.findByCuentaTributaria(cuentaTributaria);
+    }
 
     public List<RangoHorario> obtenerTodosLosRangosHorarios() {
         return rangoHorarioRepositorio.findAll();
