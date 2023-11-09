@@ -37,7 +37,7 @@ public class OfertaControlador {
         modelo.put("inmueble", inmuebleServicio.getOne(cuentaTributaria));
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");//enviar la session del usuario logueado
         modelo.put("usuario", usuario);
-        return "form_oferta.html";
+        return "oferta_form.html";
     }
     //LOGUEAR ANTES DE USAR //
 
