@@ -4,7 +4,9 @@
 * {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
+  text-decoration: none;
 }
+
 
 .body .main {
   background: url(../images/fondo_inmo.png);
@@ -15,24 +17,20 @@
   flex-direction: column;
   height: 100vh;
 }
-.header,
-.main,
-.aside,
-.footer {
-  padding: 20px;
-}
+
 #logo {
-    padding-top:2em; 
-   width: 10em;
-  display: inline-block;
-  fill: currentcolor;
-  color: white;
-  z-index: 1;
+      width: auto;
+     padding-left: 1em;
+     fill: currentcolor;
+     color: white;
+     height: 5.8em;
+     object-fit: contain;
 }
 .logo-text {
-  padding-top: 1em;
-  padding-left: 0,5em;
-  background-image: linear-gradient(
+    padding-top: 1em;
+    margin: auto !important;
+    padding-left: 1em;
+    background-image: linear-gradient(
     45deg,
     blueviolet,
     lightblue
@@ -40,7 +38,6 @@
   -webkit-background-clip: text; /* Clip de fondo al texto para que el degradado solo afecte al texto en navegadores webkit (Safari, Chrome) */
   background-clip: text;
   color: transparent; /* Texto transparente para que se muestre el degradado de fondo */
-  display: inline-block;
   font-size: 36px;
   animation: colorChange 2s infinite; /* Animación de cambio de color infinita en 4 segundos */
 }
@@ -52,8 +49,7 @@ nav {
   color: white;
   background-color: blueviolet;
  background-image: linear-gradient(150deg, #000, #0000ff, #fff);
-/*  background-image: linear-gradient(150deg, #9500ff, #09f, #00ddff);*/
-  max-height: 6em;
+ max-height: 6em;
 }
 
 .navbar-nav .nav-item .nav-link {

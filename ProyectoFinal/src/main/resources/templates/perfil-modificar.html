@@ -129,25 +129,6 @@
           </div>
 
           <br />
-          <div class="form-row align-items-center">
-            <div class="col-auto my-1">
-              <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect"
-                >Preference</label
-              >
-              <select
-                name="sexo"
-                class="custom-select mr-sm-2"
-                id="inlineFormCustomSelect"
-                th:field="${usuario.sexo}"
-              >
-                <option value="" selected disabled hidden>Sexo...</option>
-                <option value="1">Femenino</option>
-                <option value="2">Masculino</option>
-                <option value="3">Otro</option>
-              </select>
-            </div>
-          </div>
-          <br />
           <br />
           <div class="form-group col-md-6">
             <label class="col-form-label" for="formGroupExampleInput"
@@ -186,33 +167,20 @@
           <button type="submit" class="btn btn-primary col-md-7">
             Actualizar Datos
           </button>
+           <a
+          type="button" class="btn btn-danger" style="margin-left: 15em"th:href="@{/usuario/eliminar/__${usuario.idCodigoTributario}__}">Eliminar mi cuenta</a>
         </div>
+        <br />
+        <br />
       </form>
+     
     </div>
-<<<<<<< HEAD
-         
-   
-        <br>
-    <hr/>
-     <form th:action="@{/eliminar-usuario}" method="post">
-    
-        <input style="visibility: hidden" th:value="${usuario.idCodigoTributario}" id="codigoTributario" name="codigoTributario">
-        <button type="submit">Eliminar mi cuenta</button>
-=======
 
     <br />
     <hr />
-    <form th:action="@{/eliminar-usuario}" method="post">
-      <input
-        style="visibility: hidden"
-        th:value="${usuario.idCodigoTributario}"
-        id="codigoTributario"
-        name="codigoTributario"
-        required
-      />
-      <button type="submit">Eliminar mi cuenta</button>
->>>>>>> 3df0b3b9f4a058d8ce73572f03d1f8ecb5aed11e
-    </form>
+    
+   
+    
     <div th:replace="fragments/footer :: footer"></div>
     <script>
       const $d = document;

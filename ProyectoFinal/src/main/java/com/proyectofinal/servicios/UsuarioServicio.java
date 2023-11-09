@@ -81,8 +81,8 @@ public class UsuarioServicio implements UserDetailsService {
             usuarioRepositorio.save(usuario);
         }
     }
-//  Implementar este método cuando se aplique el registro de usuarios
-//    @Override
+
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -147,12 +147,6 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
-//
-//    public String sendEmail() {
-//        
-//        //TODO método email-autogenerado
-//        return ;
-//    } 
     public void updateResetPwToken(String token, String email) throws UsuarioNoEncontradoExcepcion {
 
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
