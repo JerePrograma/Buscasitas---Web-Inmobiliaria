@@ -40,5 +40,4 @@ public class Inmueble implements Serializable {
     @ManyToOne
     @JoinColumn(name = "usuario_administrador_id")
     private Usuario usuarioAdministrador;
-
 }
