@@ -24,30 +24,24 @@
   <body class="loging-body">
     <!-- This is to display the Navbar of the website. -->
     <nav th:replace="fragments/navbar :: nav"></nav>
-
+    <br>
     <!-- This is to make the Form Contents appear on the Image -->
-    <div class="container emp-profile">
-      <form method="post">
-        <div class="row">
-          <div class="col-md-4">
-            <div class="profile-img">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="150"
-                height="150"
-                fill="currentColor"
-                class="bi bi-person"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"
-                />
-              </svg>
-              <div class="file btn btn-sm btn-primary">
-                <input type="file" name="file" />
+    <div class="emp-profile">
+       <h2>Subir Imagen</h2>
+
+<form th:action="@{/perfil/__${idCodigoTributario}__}" method="post" enctype="multipart/form-data" th:object="${usuario}">
+    <input type="hidden" th:name="idCodigoTributario" th:value="${idCodigoTributario}" />
+    <div>
+        <label for="archivo">Seleccionar Archivo:</label>
+        <input type="file" id="archivo" name="archivo" accept="image/*" />
+    </div>
+    <button type="submit">Subir Imagen</button>
+</form>
+             
               </div>
             </div>
           </div>
+        </form>
           <div class="col-md-6">
             <div class="profile-head">
               <h5

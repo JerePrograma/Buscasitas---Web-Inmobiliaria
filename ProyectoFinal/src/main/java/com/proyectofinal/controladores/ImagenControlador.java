@@ -2,6 +2,7 @@ package com.proyectofinal.controladores;
 
 import com.proyectofinal.entidades.Imagen;
 import com.proyectofinal.entidades.Inmueble;
+import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,20 @@ public class ImagenControlador {
 
     @Autowired
     InmuebleServicio inmuebleServicio;
+    
+     @GetMapping("/perfil/{idCodigoTributario}")
+    public ResponseEntity<byte[]> imagenUsuario(@PathVariable String idCodigoTributario) {
+        Usuario usuario = usuarioServicio.getOne(idCodigoTributario);
+
+        byte[] imagen = usuario.getImagen().getContenido();
+        
+        HttpHeaders headers = new HttpHeaders();
+        
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        
+        
+        return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
+    }
 
     @GetMapping("/inmueble/{cuentaTributaria}/principal")
     public ResponseEntity<byte[]> imagenPrincipalInmueble(@PathVariable String cuentaTributaria) {

@@ -1,10 +1,11 @@
 package com.proyectofinal.servicios;
-
+import com.proyectofinal.entidades.Imagen;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.enumeraciones.Rol;
 import com.proyectofinal.excepciones.MiExcepcion;
 import com.proyectofinal.excepciones.UsuarioNoEncontradoExcepcion;
 import com.proyectofinal.repositorios.UsuarioRepositorio;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Transactional
@@ -34,9 +36,12 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
     JavaMailSender javaMailSender;
+    
+    @Autowired
+    private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrarUsuario(String idCodigoTributario, String nombre, String apellido, String direccion, String ciudad, String provincia, String DNI, String sexo, String email, String celular, String tipoPersona, String contrasenia, String contrasenia2) throws MiExcepcion {
+    public void registrarUsuario(String idCodigoTributario, String nombre, String apellido, String direccion, String ciudad, String provincia, String DNI, String sexo, String email, String celular, String tipoPersona, String contrasenia, String contrasenia2) throws MiExcepcion, Exception {
 
         validarDatos(idCodigoTributario, nombre, direccion, ciudad, provincia, email, celular, tipoPersona, contrasenia, contrasenia2);
 
@@ -57,13 +62,13 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setContrasenia(new BCryptPasswordEncoder().encode(contrasenia));
 
         usuario.setRol(Rol.CLIENTE);
-
+        
         usuarioRepositorio.save(usuario);
     }
 
     @Transactional
-    public void modificarUsuario(String idCodigoTributario, String direccion, String ciudad, String provincia,
-            String sexo, String email, String celular, String tipoPersona, String rol) throws MiExcepcion {
+    public void modificarUsuario(MultipartFile archivo,String idCodigoTributario, String direccion, String ciudad, String provincia,
+            String sexo, String email, String celular, String tipoPersona, String rol) throws MiExcepcion, Exception {
 
         validarDatos(idCodigoTributario, direccion, ciudad, provincia,
                 email, celular, tipoPersona);
@@ -79,11 +84,34 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setCelular(celular);
             usuario.setTipoPersona(tipoPersona);
             usuario.setRol(Rol.valueOf(rol));
+            String idImagen = null;
+            
+              if (usuario.getImagen() != null) {
+                idImagen = usuario.getImagen().getId();
+            }
+            Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+            usuario.setImagen(imagen);
             usuarioRepositorio.save(usuario);
         }
     }
-//  Implementar este método cuando se aplique el registro de usuarios
-//    @Override
+
+
+       @Transactional
+    public void setImagenUsuario(MultipartFile archivo, String idCodigoTributario) throws Exception {
+        Usuario usuario = usuarioRepositorio.buscarPorIdCodigoTributario(idCodigoTributario);
+
+        if (usuario == null) {
+            System.out.println("error"); // Manejar el caso en el que no se encuentre el usuario con el código tributario dado.
+            return;
+        }
+
+        Imagen imagen = imagenServicio.guardarImagen(archivo);// Manejar errores de lectura de bytes de la imagen
+        
+        usuario.setImagen(imagen);
+        // Guardar el usuario actualizado
+        usuarioRepositorio.save(usuario);
+    }
+    
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -104,6 +132,8 @@ public class UsuarioServicio implements UserDetailsService {
 
         return new User(usuario.getEmail(), usuario.getContrasenia(), permisos);
     }
+    
+    
 
     @Transactional(readOnly = true)
     public Usuario getOne(String idCodigoTributario) {
@@ -147,7 +177,6 @@ public class UsuarioServicio implements UserDetailsService {
             usuarioRepositorio.delete(usuario);
         }
     }
-
     @Transactional(readOnly = true)
     public Usuario obtenerUsuarioPorUsername(String username) throws MiExcepcion {
         Usuario usuario = usuarioRepositorio.buscarPorEmail(username);
