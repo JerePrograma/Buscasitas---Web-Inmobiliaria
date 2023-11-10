@@ -60,50 +60,54 @@ public class OfertaServicio {
         return ofertaRepositorio.getOne(idOferta);
     }
 
-    public void aceptarOferta(String cuentaTributaria, String idOferta, Date fechaOferta, Integer valorOferta) {
-        // Aceptación de oferta debe tener un plazo, por ejemplo, 3 días.
-
-        Optional<Inmueble> respuestaInmueble = inmuebleRepositorio.findById(cuentaTributaria);
-        Optional<Oferta> respuestaOferta = ofertaRepositorio.findById(idOferta);
-
-        if (respuestaInmueble.isPresent() && respuestaOferta.isPresent()) {
-            Inmueble inmueble = respuestaInmueble.get(); // Obtengo inmueble.
-            Oferta oferta = respuestaOferta.get(); // Obtengo oferta.
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(fechaOferta);
-            calendar.add(Calendar.DAY_OF_MONTH, 3); // Añadimos 3 días a la fecha de oferta para obtener la validez.
-            Date validezOferta = calendar.getTime();
-
-            oferta.setFechaOferta(fechaOferta);
-            Date fechaAceptacionHoy = new Date();
-
-            if (fechaAceptacionHoy.before(validezOferta)) {
-                oferta.setEstadoOferta("Aceptada"); // Oferta aceptada.
-                oferta.setFechaAceptacion(fechaAceptacionHoy);
-                ofertaRepositorio.save(oferta);
-                System.out.println("La oferta fue aceptada");
-            } else {
-                oferta.setEstadoOferta("Vencida"); // Oferta caducada.
-                ofertaRepositorio.save(oferta);
-                System.out.println("La oferta ha caducado");
-            }
-        }
-    }
+    
+    
+    
+    
+//    public void aceptarOferta(String cuentaTributaria, String idOferta, Date fechaOferta, Integer valorOferta) {
+//        // Aceptación de oferta debe tener un plazo, por ejemplo, 3 días.
+//
+//        Optional<Inmueble> respuestaInmueble = inmuebleRepositorio.findById(cuentaTributaria);
+//        Optional<Oferta> respuestaOferta = ofertaRepositorio.findById(idOferta);
+//
+//        if (respuestaInmueble.isPresent() && respuestaOferta.isPresent()) {
+//            Inmueble inmueble = respuestaInmueble.get(); // Obtengo inmueble.
+//            Oferta oferta = respuestaOferta.get(); // Obtengo oferta.
+//
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.setTime(fechaOferta);
+//            calendar.add(Calendar.DAY_OF_MONTH, 10); // Añadimos 10 días a la fecha de oferta para obtener la validez.
+//            Date validezOferta = calendar.getTime();
+//
+//            oferta.setFechaOferta(fechaOferta);
+//            Date fechaAceptacionHoy = new Date();
+//
+//            if (fechaAceptacionHoy.before(validezOferta)) {
+//                oferta.setEstadoOferta("Aceptada"); // Oferta aceptada.
+//                oferta.setFechaAceptacion(fechaAceptacionHoy);
+//                ofertaRepositorio.save(oferta);
+//                System.out.println("La oferta fue aceptada");
+//            } else {
+//                oferta.setEstadoOferta("Vencida"); // Oferta caducada.
+//                ofertaRepositorio.save(oferta);
+//                System.out.println("La oferta ha caducado");
+//            }
+//        }
+//    }
 
 // va en el Perfil de usuario Dentro de Oferta, Podria hacer ofertas enviadas, aceptadas, revocadas, caducas.
     @Transactional(readOnly = true)
-    public List<Oferta> mostrarOfertasPorInmueble() {
-        return ofertaRepositorio.findAll();
+    public List<Oferta> mostrarOfertasPorInmueble(String cuentaTributaria) {
+        return ofertaRepositorio.buscarPorIdCuentaTributaria(cuentaTributaria);
     }
 
     // elimina la oferta del repositorio al clickear REVOCAR OFERTA. PODRIA SER OFERTA IRREVOCABLES Y NO TENDRIAMOS ESTE
     //METODO.
     @Transactional
-    public void revocarOferta(String cuentaTributaria, String idOferta, Integer valorOferta, Date fechaRevocacion) {
+    public void revocarOferta(String idOferta, Integer valorOferta) {
 
-        Optional<Inmueble> respuestaInmueble = inmuebleRepositorio.findById(cuentaTributaria);
         Optional<Oferta> respuestaOferta = ofertaRepositorio.findById(idOferta);
+        Date fechaRevocacion = new Date();
 
         // No es necesario comprobar si el inmueble está presente
         // si no se va a hacer nada con él en este método.

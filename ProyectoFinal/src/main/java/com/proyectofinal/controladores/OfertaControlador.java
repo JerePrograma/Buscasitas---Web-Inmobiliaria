@@ -1,10 +1,12 @@
 package com.proyectofinal.controladores;
 
+import com.proyectofinal.entidades.Oferta;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.OfertaServicio;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -67,35 +69,37 @@ public class OfertaControlador {
         }
 
     }
-//   @PostMapping("/revocar")
-//   public String revocarOferta (
-//           @PathVariable ("idOferta")String idOferta,
-//           @RequestParam ("cuentaTributaria") String cuentaTributaria,
-//           @RequestParam ("valorOferta") Integer valorOferta,
-//           @RequestParam ("fechaOferta") LocalDate fechaOferta,
-//           @RequestParam ("fechaAceptacion") LocalDate fechaAceptacion, 
-//           @RequestParam ("fechaRevocacion") LocalDate fechaRevocacion, 
-//           
-//           ModelMap modelo){
-//    try{
-//           ofertaServicio.revocarOferta(cuentaTributaria, idOferta, valorOferta,  fechaAceptacion);
-//           modelo.put("exito", "La oferta fue revocada por el Cliente");
-//       return "form_oferta"; //se puede usar el mismo formulario de enviar oferta?
-//       
-//       } catch (Exception ex) {
-//         modelo.put("error", ex.getMessage());  
-//               
-//        return "redirect:/";
-//   }
+   @PostMapping("/revocar")
+   public String revocarOferta (
+           @PathVariable ("idOferta")String idOferta,
+           @RequestParam ("cuentaTributaria") String cuentaTributaria,
+           @RequestParam ("valorOferta") Integer valorOferta,
+           @RequestParam ("fechaOferta") Date fechaOferta,
+           @RequestParam ("fechaAceptacion") Date fechaAceptacion, 
+           @RequestParam ("fechaRevocacion")Date fechaRevocacion, 
+           
+           ModelMap modelo){
+    try{
+           ofertaServicio.revocarOferta(idOferta, valorOferta);
+           modelo.put("exito", "La oferta fue revocada por el Cliente");
+       return "form_oferta"; //se puede usar el mismo formulario de enviar oferta?
+       
+       } catch (Exception ex) {
+         modelo.put("error", ex.getMessage());  
+               
+        return "redirect:/";
+   }
+   }
 
-//   }
-    // buscar oferta por la cuenta tributaria del inmueble.
-//    @GetMapping("/mostrar")
-//    public String listarOfertas(ModelMap modelo) {
-//        List<Oferta> ofertas = ofertaServicio.mostrarOfertasPorInmueble();
-//
-//        modelo.addAttribute("ofertas", ofertas);
-//
-//        return "oferta_lista";
-//    }
+//   
+//     buscar oferta por la cuenta tributaria del inmueble.
+    @GetMapping("/lista/{cuentaTributaria}")
+    public String listarOfertas(@PathVariable String cuentaTributaria,
+            ModelMap modelo) {
+        List<Oferta> ofertas = ofertaServicio.mostrarOfertasPorInmueble(cuentaTributaria);
+        modelo.addAttribute("ofertas", ofertas);
+
+        return "oferta_lista";
+    }
 }
+   
