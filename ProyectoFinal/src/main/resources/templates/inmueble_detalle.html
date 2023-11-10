@@ -103,6 +103,14 @@
             >
               <button class="btn btn-primary">Ofertar</button>
             </a>
+            <!-- Botón para usuarios no logueados -->
+            <a
+              th:if="${!#authorization.expression('isAuthenticated()')}"
+              th:href="@{/login}"
+              class="btn btn-primary"
+            >
+              Ofertar
+            </a>
 
             <!-- Botón para usuarios con rol CLIENTE y que no son propietarios -->
             <a

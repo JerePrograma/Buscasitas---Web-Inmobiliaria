@@ -173,15 +173,21 @@ public class InmuebleControlador {
         // Agrega los resultados al modelo.
         model.addAttribute("inmuebles", inmuebles);
 
-        return "busqueda_inmuebles";
+        return "inmueble_busqueda.html";
     }
 
     @GetMapping("/detalle/{cuentaTributaria}")
     public String detalleInmueble(@PathVariable String cuentaTributaria, Model model, Principal principal) throws Exception {
         Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
-        Usuario usuarioActual = usuarioServicio.obtenerUsuarioPorUsername(principal.getName());
-        boolean esPropietario = inmueble != null && usuarioActual.getPropiedades().stream()
-                .anyMatch(propiedad -> propiedad.getCuentaTributaria().equals(cuentaTributaria));
+
+        Usuario usuarioActual = null;
+        boolean esPropietario = false;
+
+        if (principal != null) {
+            usuarioActual = usuarioServicio.obtenerUsuarioPorUsername(principal.getName());
+            esPropietario = inmueble != null && usuarioActual.getPropiedades().stream()
+                    .anyMatch(propiedad -> propiedad.getCuentaTributaria().equals(cuentaTributaria));
+        }
 
         if (inmueble != null) {
             List<Imagen> imagenes = inmueble.getImagenesSecundarias();
@@ -196,16 +202,14 @@ public class InmuebleControlador {
                 imagenesInfo.add(imageData);
             }
 
-            // Agrega la lista de imágenes en base64 y su mime al modelo
             model.addAttribute("imagenesInfo", imagenesInfo);
             model.addAttribute("inmueble", inmueble);
             model.addAttribute("rangoHorario", inmueble.getRangosHorarios());
-            model.addAttribute("esPropietario", esPropietario); // Indica si el usuario actual es el propietario
+            model.addAttribute("esPropietario", esPropietario);
 
             return "inmueble_detalle";
         } else {
-            // Manejar el caso en el que no se encuentra el inmueble
-            return "error"; // Puedes crear una vista específica para errores.
+            return "error";
         }
     }
 
