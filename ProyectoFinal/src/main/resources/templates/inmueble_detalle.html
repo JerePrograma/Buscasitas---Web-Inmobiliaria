@@ -8,65 +8,95 @@
 
     <div class="container">
       <h2>Detalles del Inmueble</h2>
-      <div class="inmueble-details">
-        <div class="inmueble-image">
-          <img
-            th:src="|data:${inmueble.imagen.mime};base64,${imagenBase64}|"
-            alt="Imagen del Inmueble"
-            style="max-width: 100%; max-height: 300px; object-fit: cover"
-          />
+
+      <!-- Galería de imágenes -->
+      <div id="image-gallery" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li
+            th:each="imageInfo, indexStat : ${imagenesInfo}"
+            data-target="#image-gallery"
+            th:data-slide-to="${indexStat.index}"
+            th:class="${indexStat.index == 0} ? 'active' : ''"
+          ></li>
+        </ol>
+        <div class="carousel-inner">
+          <div
+            th:each="imageInfo, indexStat : ${imagenesInfo}"
+            th:class="${indexStat.index == 0} ? 'carousel-item active' : 'carousel-item'"
+          >
+            <img
+              th:src="|data:${imageInfo.mime};base64,${imageInfo.base64}|"
+              alt="Imagen Secundaria del Inmueble"
+              style="max-width: 100%; max-height: 300px; object-fit: cover"
+            />
+          </div>
         </div>
-        <div class="inmueble-info">
-          <h3 th:text="${inmueble.tituloAnuncio}"></h3>
-          <p th:text="${inmueble.descripcionAnuncio}"></p>
-          <ul>
-            <li>
-              <strong>Tipo de Inmueble:</strong>
-              <span th:text="${inmueble.tipoInmueble}"></span>
-            </li>
-            <li>
-              <strong>Provincia:</strong>
-              <span th:text="${inmueble.provincia}"></span>
-            </li>
-            <li>
-              <strong>Ciudad:</strong>
-              <span th:text="${inmueble.ciudad}"></span>
-            </li>
-            <li>
-              <strong>Dirección:</strong>
-              <span th:text="${inmueble.direccion}"></span>
-            </li>
-            <li>
-              <strong>Oferta:</strong>
-              <span th:text="${inmueble.transaccion}"></span>
-            </li>
-            <li>
-              <strong>Características del Inmueble:</strong>
-              <span th:text="${inmueble.caracteristicaInmueble}"></span>
-            </li>
-            <li>
-              <strong>Valor del Inmueble: $</strong>
-              <span th:text="${inmueble.precioAlquilerVenta}"></span>
-            </li>
-            <li>
-              <strong>Horarios Disponibles:</strong>
-            </li>
-            <li>
-              <span th:each="rangoHorarios : ${rangoHorario}">
-                <span
-                  th:utext="${rangoHorarios.diaSemana + ' Desde: ' + rangoHorarios.horaInicio + ' Hasta: ' + rangoHorarios.horaFin}"
-                ></span>
-                <br />
-              </span>
-            </li>
-            <li>
-              <strong>Estado:</strong>
-              <span th:text="${inmueble.estado}"></span>
-            </li>
-          </ul>
+        <a
+          class="carousel-control-prev"
+          href="#image-gallery"
+          role="button"
+          data-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Anterior</span>
+        </a>
+        <a
+          class="carousel-control-next"
+          href="#image-gallery"
+          role="button"
+          data-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Siguiente</span>
+        </a>
+      </div>
+
+      <!-- Información del inmueble -->
+      <div class="inmueble-info">
+        <h3 th:text="${inmueble.tituloAnuncio}"></h3>
+        <p th:text="${inmueble.descripcionAnuncio}"></p>
+        <ul>
+          <li>
+            <strong>Tipo de Inmueble:</strong>
+            <span th:text="${inmueble.tipoInmueble}"></span>
+          </li>
+          <li>
+            <strong>Provincia:</strong>
+            <span th:text="${inmueble.provincia}"></span>
+          </li>
+          <li>
+            <strong>Ciudad:</strong>
+            <span th:text="${inmueble.ciudad}"></span>
+          </li>
+          <li>
+            <strong>Dirección:</strong>
+            <span th:text="${inmueble.direccion}"></span>
+          </li>
+          <li>
+            <strong>Oferta:</strong>
+            <span th:text="${inmueble.transaccion}"></span>
+          </li>
+          <li>
+            <strong>Características del Inmueble:</strong>
+            <span th:text="${inmueble.caracteristicaInmueble}"></span>
+          </li>
+          <li>
+            <strong>Horarios Disponibles:</strong>
+            <span
+              th:each="rangoHorario : ${inmueble.rangosHorarios}"
+              th:text="${rangoHorario.diaSemana + ' Desde: ' + rangoHorario.horaInicio + ' Hasta: ' + rangoHorario.horaFin}"
+            ></span>
+          </li>
+          <li>
+            <strong>Valor del Inmueble: $</strong>
+            <span th:text="${inmueble.precioAlquilerVenta}"></span>
+          </li>
+          <p>
+            <strong>Estado:</strong> <span th:text="${inmueble.estado}"></span>
+          </p>
           <div class="text-center">
             <a
-              href="#"
+              th:if="${#authorization.expression('hasRole(''CLIENTE'')')}"
               th:href="@{/oferta/enviar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
               class="btn btn-primary"
             >
@@ -74,19 +104,38 @@
                 Ofertar
               </button>
             </a>
+
+            <!-- Botón para usuarios con rol CLIENTE -->
+            <a
+              th:if="${#authorization.expression('hasRole(''CLIENTE'')')}"
+              th:href="@{/reclamo/reclamar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+              class="btn btn-primary"
+            >
+              <button class="btn btn-primary">Reclamar</button>
+            </a>
+
+            <!-- Botón para usuarios con rol ADMIN o ENTE -->
+            <a
+              sec:authorize="hasAnyRole('ADMIN', 'ENTE')"
+              th:href="@{/reclamo/lista/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+              class="btn btn-primary"
+            >
+              <button class="btn btn-primary">Listar Reclamos</button>
+            </a>
           </div>
+
           <section class="text-center container">
             <div class="row mt-3">
               <div class="divVolver">
                 <a
                   th:href="@{/}"
                   class="btn btn-secondary my-2 botonVolver botones"
-                  >Inicio</a
-                >
+                  >Inicio
+                </a>
               </div>
             </div>
           </section>
-        </div>
+        </ul>
       </div>
     </div>
 

@@ -1,7 +1,6 @@
 package com.proyectofinal.entidades;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.*;
 
 import lombok.Data;
@@ -22,8 +21,8 @@ public class Cita implements Serializable {
     @ManyToOne
     private Usuario cliente;
 
-    @OneToMany
-    private List<RangoHorario> horario;
+    @ManyToOne
+    private RangoHorario horario;
 
     private String Nota;
 
