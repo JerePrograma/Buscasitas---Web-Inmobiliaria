@@ -173,11 +173,12 @@ public class InmuebleControlador {
 
         if (inmueble != null) {
             // Realiza la conversión de la imagen a base64
-            byte[] imagenContenido = inmueble.getImagen().getContenido();
-            String imagenBase64 = Base64.getEncoder().encodeToString(imagenContenido);
+      
+           // byte[] imagenContenido = inmueble.getImagen().getContenido();
+            //String imagenBase64 = Base64.getEncoder().encodeToString(imagenContenido);
 
 //             Agrega la imagen base64 al modelo
-            model.addAttribute("imagenBase64", imagenBase64);
+         //   model.addAttribute("imagenBase64", imagenBase64);
             // Agrega el inmueble al modelo
             model.addAttribute("inmueble", inmueble);
             model.addAttribute("rangoHorario", rangoHorario);

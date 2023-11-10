@@ -15,26 +15,21 @@ public class ImagenServicio {
     @Autowired
     private ImagenRepositorio imagenRepositorio;
 
-    public Imagen guardarImagen(MultipartFile archivo) throws Exception {
-        if (archivo != null) {
-            try {
+    public Imagen guardarImagen(MultipartFile contenido) throws Exception {
+        
 
                 Imagen imagen = new Imagen();
 
-                imagen.setMime(archivo.getContentType());
+                imagen.setMime(contenido.getContentType());
 
-                imagen.setNombre(archivo.getName());
+                imagen.setNombre(contenido.getName());
 
-                imagen.setContenido(archivo.getBytes());
+                imagen.setContenido(contenido.getBytes());
 
                 return imagenRepositorio.save(imagen);
 
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
-        }
-        return null;
     }
+       
 
     public Imagen actualizar(MultipartFile archivo, String idImagen) throws Exception {
         if (archivo != null) {

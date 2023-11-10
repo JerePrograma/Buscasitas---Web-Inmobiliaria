@@ -10,9 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 @NoArgsConstructor
@@ -35,13 +34,16 @@ public class Usuario implements Serializable {
     private String resetPwToken;
     private Boolean alta;
 
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "imagen_id")
+    private Imagen imagen;
+    
     @Enumerated
     private Rol rol;
 
     @OneToMany
     private List<Inmueble> propiedades;
 
-    @OneToOne
-    private Imagen imagen;
+    
 
 }
