@@ -6,7 +6,7 @@
   <body>
     <div th:replace="fragments/navbar :: navbar"></div>
 
-    <div class="container">
+    <div class="container-custom">
       <h2>Detalles del Inmueble</h2>
 
       <!-- Galería de imágenes -->
@@ -95,28 +95,27 @@
             <strong>Estado:</strong> <span th:text="${inmueble.estado}"></span>
           </p>
           <div class="text-center">
+            <!-- Botón para usuarios con rol CLIENTE y que no son propietarios -->
             <a
-              th:if="${#authorization.expression('hasRole(''CLIENTE'')')}"
+              th:if="${#authorization.expression('hasRole(''CLIENTE'')') and !esPropietario}"
               th:href="@{/oferta/enviar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
               class="btn btn-primary"
             >
-              <button class="btn btn-primary" id="aceptarOfertaButton">
-                Ofertar
-              </button>
+              <button class="btn btn-primary">Ofertar</button>
             </a>
 
-            <!-- Botón para usuarios con rol CLIENTE -->
+            <!-- Botón para usuarios con rol CLIENTE y que no son propietarios -->
             <a
-              th:if="${#authorization.expression('hasRole(''CLIENTE'')')}"
+              th:if="${#authorization.expression('hasRole(''CLIENTE'')') and !esPropietario}"
               th:href="@{/reclamo/reclamar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
               class="btn btn-primary"
             >
               <button class="btn btn-primary">Reclamar</button>
             </a>
 
-            <!-- Botón para usuarios con rol ADMIN o ENTE -->
+            <!-- Botón para usuarios con rol ADMIN, ENTE o que son propietarios del inmueble -->
             <a
-              sec:authorize="hasAnyRole('ADMIN', 'ENTE')"
+              th:if="${#authorization.expression('hasAnyRole(''ADMIN'', ''ENTE'')') or esPropietario}"
               th:href="@{/reclamo/lista/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
               class="btn btn-primary"
             >
