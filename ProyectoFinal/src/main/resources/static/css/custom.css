@@ -69,7 +69,14 @@ nav {
   color: white !important; /* Cambiar a blanco y usar !important para anular estilos previos */
   transition: color 1s;
 }
-
+.container-custom {
+  padding-top: 10em;
+  padding-left: 30em;
+  box-sizing: border-box;
+  background-color: aliceblue;
+  align-content: center;
+  justify-content: center;
+}
 .btn-info,
 .btn-info:active {
   display: inline-block;

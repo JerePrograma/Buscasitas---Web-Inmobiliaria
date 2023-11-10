@@ -3,9 +3,12 @@ package com.proyectofinal.controladores;
 import com.proyectofinal.entidades.Imagen;
 import com.proyectofinal.entidades.Inmueble;
 import com.proyectofinal.entidades.RangoHorario;
+import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.servicios.ImagenServicio;
 import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.RangoHorarioServicio;
+import com.proyectofinal.servicios.UsuarioServicio;
+import java.security.Principal;
 import java.util.ArrayList;
 
 import java.util.Base64;
@@ -26,6 +29,9 @@ import java.util.Map;
 public class InmuebleControlador {
 
     private final InmuebleServicio inmuebleServicio;
+
+    @Autowired
+    private UsuarioServicio usuarioServicio;
 
     @Autowired
     public InmuebleControlador(@Lazy InmuebleServicio inmuebleServicio) {
@@ -171,9 +177,11 @@ public class InmuebleControlador {
     }
 
     @GetMapping("/detalle/{cuentaTributaria}")
-    public String detalleInmueble(@PathVariable String cuentaTributaria, Model model) throws Exception {
+    public String detalleInmueble(@PathVariable String cuentaTributaria, Model model, Principal principal) throws Exception {
         Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
-        List<RangoHorario> rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
+        Usuario usuarioActual = usuarioServicio.obtenerUsuarioPorUsername(principal.getName());
+        boolean esPropietario = inmueble != null && usuarioActual.getPropiedades().stream()
+                .anyMatch(propiedad -> propiedad.getCuentaTributaria().equals(cuentaTributaria));
 
         if (inmueble != null) {
             List<Imagen> imagenes = inmueble.getImagenesSecundarias();
@@ -190,10 +198,9 @@ public class InmuebleControlador {
 
             // Agrega la lista de imágenes en base64 y su mime al modelo
             model.addAttribute("imagenesInfo", imagenesInfo);
-
-            // Agrega el inmueble y el rango horario al modelo
             model.addAttribute("inmueble", inmueble);
-            model.addAttribute("rangoHorario", rangoHorario);
+            model.addAttribute("rangoHorario", inmueble.getRangosHorarios());
+            model.addAttribute("esPropietario", esPropietario); // Indica si el usuario actual es el propietario
 
             return "inmueble_detalle";
         } else {
