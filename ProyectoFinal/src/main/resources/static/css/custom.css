@@ -652,3 +652,20 @@ main {
   border-radius: 23%;
   filter: drop-shadow(0 0 0.55rem rgb(97, 39, 213));
 }
+
+#Conteinererror {
+  padding-top: 150px; 
+  align-items: center; 
+  flex-direction: column;
+}
+/*.mainerror{
+  padding-top: 150px;
+ 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+  
+
+  height: 70vh;
+  margin-top: 40px;
+}*/
