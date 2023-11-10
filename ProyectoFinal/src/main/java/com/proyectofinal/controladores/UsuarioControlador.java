@@ -36,6 +36,7 @@ public class UsuarioControlador {
     //registroControlador
     @PostMapping("/registrar")
     public String registro(@RequestParam("idCodigoTributario") String idCodigoTributario,
+            @RequestParam("archivo") MultipartFile archivo,
             @RequestParam("nombre") String nombre,
             @RequestParam("apellido") String apellido,
             @RequestParam("direccion") String direccion,
@@ -50,7 +51,8 @@ public class UsuarioControlador {
             @RequestParam("contrasenia2") String contrasenia2,
             ModelMap modelo) throws Exception {
         try {
-            usuarioServicio.registrarUsuario(idCodigoTributario, nombre, apellido, direccion, ciudad, provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
+            usuarioServicio.registrarUsuario(idCodigoTributario, nombre, apellido, archivo, direccion, ciudad,
+                    provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
             modelo.put("exito", "Usuario registrado correctamente");
 
         } catch (MiExcepcion ex) {
@@ -81,9 +83,9 @@ public class UsuarioControlador {
 
         modelo.put("usuario", usuario);
 
-        return "perfil.html";
+        return "usuario_perfil.html";
     }
-   
+
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_ADMIN', 'ROLE_ENTE')")
     @PostMapping("/perfil/{idCodigoTributario}")
     public String subirFoto(
@@ -97,9 +99,8 @@ public class UsuarioControlador {
         } catch (Exception e) {
             modelo.put("error", "Error al subir la imagen: " + e.getMessage());
         }
-        return "perfil.html";
+        return "usuario_perfil.html";
     }
-
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CLIENTE','ROLE_ENTE')")
     @GetMapping("/modificar/{idCodigoTributario}")
@@ -109,12 +110,15 @@ public class UsuarioControlador {
 
         modelo.put("usuario", usuario);
 
-        return "perfil_modificar.html";
+        return "usuario_modificar.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE','ROLE_ADMIN','ROLE_ENTE')")
     @PostMapping("/modificar/{idCodigoTributario}")
-    public String modificar(@RequestParam(required = false) MultipartFile archivo, @PathVariable("idCodigoTributario") String idCodigoTributario,
+
+    public String modificar(
+            @PathVariable("idCodigoTributario") String idCodigoTributario,
+            @RequestParam(required = false) MultipartFile archivo,
             @RequestParam("direccion") String direccion,
             @RequestParam("ciudad") String ciudad,
             @RequestParam("provincia") String provincia,
@@ -125,13 +129,15 @@ public class UsuarioControlador {
             @RequestParam("Rol") String rol,
             ModelMap modelo) throws Exception {
         try {
+            usuarioServicio.modificarUsuario(archivo, idCodigoTributario, direccion, ciudad, provincia,
+                    sexo, email, celular, tipoPersona, rol);
             usuarioServicio.modificarUsuario(archivo, idCodigoTributario, direccion, ciudad, provincia, sexo, email, celular, tipoPersona, rol);
             modelo.put("exito", "Usuario actualizado correctamente!");
             return "index.html";
         } catch (MiExcepcion ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("email", email);
-            return "perfil-modificar.html";
+            return "usuario_modificar.html";
         }
     }
 

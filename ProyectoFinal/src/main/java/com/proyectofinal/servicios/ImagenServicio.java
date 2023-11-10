@@ -1,7 +1,9 @@
 package com.proyectofinal.servicios;
 
 import com.proyectofinal.entidades.Imagen;
+import com.proyectofinal.excepciones.MiExcepcion;
 import com.proyectofinal.repositorios.ImagenRepositorio;
+import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +16,9 @@ public class ImagenServicio {
 
     @Autowired
     private ImagenRepositorio imagenRepositorio;
- 
+
     @Transactional
-    public Imagen guardarImagen(MultipartFile archivo) throws Exception {
+    public Imagen guardarImagen(MultipartFile archivo) throws MiExcepcion, IOException {
         if (archivo == null || archivo.isEmpty()) {
             throw new IllegalArgumentException("El archivo de imagen no puede ser nulo o estar vacío");
         }
@@ -32,12 +34,10 @@ public class ImagenServicio {
         // Guardar la imagen sin asociarla al inmueble
         return imagenRepositorio.save(imagen);
     }
-       
 
     public Imagen actualizar(MultipartFile archivo, String idImagen) throws Exception {
         if (archivo != null) {
             try {
-
                 Imagen imagen = new Imagen();
 
                 if (idImagen != null) {
@@ -47,11 +47,8 @@ public class ImagenServicio {
                     }
 
                 }
-
                 imagen.setMime(archivo.getContentType());
-
                 imagen.setNombre(archivo.getName());
-
                 imagen.setContenido(archivo.getBytes());
 
                 return imagenRepositorio.save(imagen);

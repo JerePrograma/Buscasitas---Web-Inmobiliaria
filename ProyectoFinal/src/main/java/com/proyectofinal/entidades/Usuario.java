@@ -26,9 +26,9 @@ public class Usuario implements Serializable {
     private String direccion;
     private String ciudad;
     private String provincia;
-    private String sexo; 
+    private String sexo;
     private String email;
-    private String celular; 
+    private String celular;
     private String tipoPersona;
     private String contrasenia;
     private String resetPwToken;
@@ -36,14 +36,12 @@ public class Usuario implements Serializable {
 
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "imagen_id")
-    private Imagen imagen;
-    
+    private Imagen fotoPerfil;
+
     @Enumerated
     private Rol rol;
 
     @OneToMany
     private List<Inmueble> propiedades;
-
-    
 
 }

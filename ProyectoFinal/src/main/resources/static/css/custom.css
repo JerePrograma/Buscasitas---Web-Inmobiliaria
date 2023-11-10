@@ -56,7 +56,14 @@ nav {
   color: white !important; /* Cambiar a blanco y usar !important para anular estilos previos */
   transition: color 1s;
 }
-
+.container-custom {
+  padding-top: 10em;
+  padding-left: 30em;
+  box-sizing: border-box;
+  background-color: aliceblue;
+  align-content: center;
+  justify-content: center;
+}
 .btn-info,
 .btn-info:active {
   display: inline-block;
@@ -537,21 +544,20 @@ main {
   border-radius: 0.5rem;
   background: #fff;
 }
-.profile-control{
-    
+.profile-control {
 }
 .profile-img {
   width: 400px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-      text-align: center;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
 }
 .profile-img img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 /*.profile-img .file {
   position: relative;
@@ -564,13 +570,13 @@ main {
   background: #212529b8;
 }*/
 .profile-img .file input {
-      margin-top: 10px;
-      padding: 8px 16px;
-      background-color: #6c757d;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 .profile-head h5 {
   color: #333;
