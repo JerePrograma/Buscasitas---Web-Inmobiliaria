@@ -7,7 +7,6 @@ import com.proyectofinal.servicios.CitaServicio;
 import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.RangoHorarioServicio;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,7 +47,7 @@ public class CitaControlador {
         model.put("rangoHorario", rangoHorario);
         model.put("usuario", usuario);
         model.addAttribute("cuentaTributaria", cuentaTributaria);
-        citaServicio.registrarCita(idEnte, idCliente, idCliente, idEnte);
+        citaServicio.crearCita(idEnte, idCliente, Long.MIN_VALUE, idEnte);
         return "cita_form.html";
     }
 

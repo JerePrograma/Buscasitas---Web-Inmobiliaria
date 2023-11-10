@@ -24,9 +24,6 @@ public class InmuebleServicio {
     private ImagenServicio imagenServicio;
 
     @Autowired
-    private RangoHorarioServicio rangoHorarioServicio;
-
-    @Autowired
     private ImagenRepositorio imagenRepositorio;
 
     @Transactional

@@ -1,7 +1,6 @@
 package com.proyectofinal.servicios;
 
 import com.proyectofinal.entidades.Imagen;
-import com.proyectofinal.entidades.Inmueble;
 import com.proyectofinal.repositorios.ImagenRepositorio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

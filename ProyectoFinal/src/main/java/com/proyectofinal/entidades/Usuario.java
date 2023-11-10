@@ -11,8 +11,6 @@ import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.OneToOne;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 @NoArgsConstructor
