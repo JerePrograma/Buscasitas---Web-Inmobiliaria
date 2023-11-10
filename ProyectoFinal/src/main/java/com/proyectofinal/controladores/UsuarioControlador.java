@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/usuario")
@@ -47,7 +48,7 @@ public class UsuarioControlador {
             @RequestParam("tipoPersona") String tipoPersona,
             @RequestParam("contrasenia") String contrasenia,
             @RequestParam("contrasenia2") String contrasenia2,
-            ModelMap modelo) {
+            ModelMap modelo) throws Exception {
         try {
             usuarioServicio.registrarUsuario(idCodigoTributario, nombre, apellido, direccion, ciudad, provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
             modelo.put("exito", "Usuario registrado correctamente");
@@ -82,6 +83,23 @@ public class UsuarioControlador {
 
         return "perfil.html";
     }
+   
+    @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_ADMIN', 'ROLE_ENTE')")
+    @PostMapping("/perfil/{idCodigoTributario}")
+    public String subirFoto(
+            @RequestParam("archivo") MultipartFile archivo,
+            @RequestParam("idCodigoTributario") String idCodigoTributario,
+            ModelMap modelo
+    ) {
+        try {
+            usuarioServicio.setImagenUsuario(archivo, idCodigoTributario);
+            modelo.put("exito", "Su imagen se subió correctamente!");
+        } catch (Exception e) {
+            modelo.put("error", "Error al subir la imagen: " + e.getMessage());
+        }
+        return "perfil.html";
+    }
+
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CLIENTE','ROLE_ENTE')")
     @GetMapping("/modificar/{idCodigoTributario}")
@@ -96,7 +114,7 @@ public class UsuarioControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE','ROLE_ADMIN','ROLE_ENTE')")
     @PostMapping("/modificar/{idCodigoTributario}")
-    public String modificar(@PathVariable("idCodigoTributario") String idCodigoTributario,
+    public String modificar(@RequestParam(required = false) MultipartFile archivo, @PathVariable("idCodigoTributario") String idCodigoTributario,
             @RequestParam("direccion") String direccion,
             @RequestParam("ciudad") String ciudad,
             @RequestParam("provincia") String provincia,
@@ -105,10 +123,9 @@ public class UsuarioControlador {
             @RequestParam("celular") String celular,
             @RequestParam("tipoPersona") String tipoPersona,
             @RequestParam("Rol") String rol,
-            ModelMap modelo) {
+            ModelMap modelo) throws Exception {
         try {
-            usuarioServicio.modificarUsuario(idCodigoTributario, direccion, ciudad, provincia,
-                    sexo, email, celular, tipoPersona, rol);
+            usuarioServicio.modificarUsuario(archivo, idCodigoTributario, direccion, ciudad, provincia, sexo, email, celular, tipoPersona, rol);
             modelo.put("exito", "Usuario actualizado correctamente!");
             return "index.html";
         } catch (MiExcepcion ex) {
