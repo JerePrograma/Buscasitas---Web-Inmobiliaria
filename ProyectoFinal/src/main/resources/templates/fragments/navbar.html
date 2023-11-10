@@ -1,58 +1,57 @@
 <nav
   th:fragment="navbar"
-  class="navbar navbar-expand-lg navbar-light fixed-top"
+  class="navbar navbar-expand navbar-light fixed-top"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 >
-  <div class="collapse navbar-collapse">
-    <div class="containerImg">
-      <a href="/" class="d-inline-block">
-        <img
-          id="logo"
-          th:src=" @{/images/buscasitasGold.png}"
-          alt="Buscasita.com.ar"
-        />
-      </a>
-      <a href="/" class="d-inline-block">
-        <p class="logo-text">Buscasitas.com.ar</p>
-      </a>
-    </div>
+  <a href="/">
+    <img
+      id="logo"
+      th:src=" @{/images/buscasitasGold.png}"
+      alt="Buscasita.com.ar"
+    />
+  </a>
 
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-        <a class="btn btn-info" th:href="@{/usuario/lista}">Expo Usuarios</a>
-      </li>
-      <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ENTE')">
-        <a class="btn btn-info" th:href="@{/inmueble/registrar}"
-          >Vende o alquila</a
-        >
-      </li>
+  <!--        <p class="logo-text d-inline-block">Buscasitas.com.ar</p>-->
 
-      <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ENTE')">
-        <a class="btn btn-info" th:href="@{/inmueble/lista}">Expo Inmuebles</a>
-      </li>
-      <li
-        th:if="${T(com.proyectofinal.SeguridadWeb).isAuthenticated()}"
-        class="nav-item"
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item"><a class="btn btn-info" th:href="@{/}">Home</a></li>
+    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+      <a class="btn btn-info" th:href="@{/usuario/lista}">Expo Usuarios</a>
+    </li>
+
+    <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ENTE')">
+      <a class="btn btn-info" th:href="@{/inmueble/lista}">Expo Inmuebles</a>
+    </li>
+    <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ENTE')">
+      <a class="btn btn-info" th:href="@{/inmueble/registrar}"
+        >Vende o alquila</a
       >
-        <a
-          class="btn btn-info"
-          th:href="@{/usuario/perfil/{idCodigoTributario}}"
-          >Perfil</a
-        >
-      </li>
-      <li class="nav-item"><a class="btn btn-info" th:href="@{/}">Home</a></li>
-      <li class="nav-item" sec:authorize="!isAuthenticated()">
-        <a class="btn btn-info" th:href="@{/usuario/registrar}">Regístrate!</a>
-      </li>
-      <li class="nav-item" sec:authorize="!isAuthenticated()">
-        <a class="btn btn-info" th:href="@{/login}">Inicia Sesión</a>
-      </li>
-      <li>
-        <a class="btn btn-info" sec:authorize="isAuthenticated()" href="/logout"
-          >Salir</a
-        >
-      </li>
-    </ul>
-  </div>
+    </li>
+    <li
+      th:if="${T(com.proyectofinal.SeguridadWeb).isAuthenticated()}"
+      class="nav-item"
+    >
+      <a class="btn btn-info" th:href="@{/mapa}">Ubicaciones</a>
+    </li>
+    <li class="nav-item" sec:authorize="!isAuthenticated()">
+      <a class="btn btn-info" th:href="@{/usuario/registrar}">Regístrate!</a>
+    </li>
+    <li class="nav-item" sec:authorize="!isAuthenticated()">
+      <a class="btn btn-info" th:href="@{/login}">Inicia Sesión</a>
+    </li>
+    <li
+      th:if="${T(com.proyectofinal.SeguridadWeb).isAuthenticated()}"
+      class="nav-item"
+    >
+      <a class="btn btn-info" th:href="@{/usuario/perfil/{idCodigoTributario}}"
+        >Perfil</a
+      >
+    </li>
+    <li>
+      <a class="btn btn-info" sec:authorize="isAuthenticated()" href="/logout"
+        >Salir</a
+      >
+    </li>
+  </ul>
 </nav>

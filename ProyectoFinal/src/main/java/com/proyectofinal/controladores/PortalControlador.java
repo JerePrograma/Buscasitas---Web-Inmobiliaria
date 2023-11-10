@@ -48,9 +48,15 @@ public class PortalControlador {
         }
         return "login.html";
     }
+    
+     @GetMapping("/mapa")
+    public String mapa(@RequestParam(required = false) String error, ModelMap modelo) {
+        
+        return "mapa.html";
+    }
 
+     
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ENTE','ROLE_CLIENT', 'ROLE_ADMIN')")
-
     @GetMapping("/inicio")
     public String inicio(ModelMap modelo, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");

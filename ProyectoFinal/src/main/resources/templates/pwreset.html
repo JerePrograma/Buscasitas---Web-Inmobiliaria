@@ -43,34 +43,29 @@
           <div class="col-md-8 col-lg-7 col-xl-6">
             <br />
             <img
+
               src="/images/Neiboorhood.jpeg"
-              class="img-fluid"
+             
               alt="Phone image"
               id="Neiboorhood"
             />
 
-            <br />
-            <br />
-            <div th:if="${error != null}">
-              <p class="text-danger">[[${error}]]</p>
-            </div>
-            <div th:if="${mensaje != null}">
-              <p class="text-warning">[[${mensaje}]]</p>
-            </div>
-
-            <form
-              th:action="@{/pwreset}"
-              method="post"
-              style="max-width: 420px; margin: 0 auto"
-            >
-              <div>
-                <label class="form-label"
-                  ><small class="form-text text-muted"
-                    >Verificaremos su direccón de correo electrónico. Si posee
-                    un usuario validado, recibirá un link de un solo uso.
-                    Ingrese y restablesca su contraseña.</small
-                  ></label
-                >
+       
+       <br/>
+ <br>
+     
+<div th:if="${error != null}">
+    <p class="text-danger">[[${error}]]</p>
+</div>
+<div th:if="${mensaje != null}">
+    <p class="text-warning">[[${mensaje}]]</p>
+</div>
+         
+<form th:action="@{/pwreset}" method="post" style="max-width: 420px; margin: 0 auto;">
+<div>
+    <div>
+           
+              <label class="form-label"><small class="form-text text-muted">Verificaremos su direccón de correo electrónico. Si posee un usuario validado, recibirá un link de un solo uso. Ingrese y restablesca su contraseña.</small></label> 
                 <input
                   name="email"
                   type="email"
