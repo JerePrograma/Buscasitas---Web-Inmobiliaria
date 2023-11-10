@@ -38,6 +38,7 @@
         class="formulario"
         th:action="@{/usuario/modificar/__${session.usuariosession.idCodigoTributario}__}"
         method="POST"
+        enctype="multipart/form-data"
       >
         <input
           hidden
@@ -72,6 +73,10 @@
             <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect"
               >Preference</label
             >
+            <div>
+              <label for="archivo">Seleccionar Archivo:</label>
+              <input type="file" id="archivo" name="archivo" accept="image/*" />
+            </div>
             <select
               name="tipoPersona"
               class="custom-select mr-sm-2"
@@ -127,7 +132,23 @@
               </option>
             </select>
           </div>
-
+          <div class="form-row align-items-center" id="sexo">
+            <div class="col-auto my-1" style="padding-top: 1.5em">
+              <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect"
+                >Preference</label
+              >
+              <select
+                name="sexo"
+                class="custom-select mr-sm-2"
+                th:value="${sexo}"
+              >
+                <option selected>Sexo...</option>
+                <option value="1">Femenino</option>
+                <option value="2">Masculino</option>
+                <option value="3">Otro</option>
+              </select>
+            </div>
+          </div>
           <br />
           <br />
           <div class="form-group col-md-6">
@@ -178,20 +199,21 @@
           <button type="submit" class="btn btn-primary col-md-7">
             Actualizar Datos
           </button>
-           <a
-          type="button" class="btn btn-danger" style="margin-left: 15em"th:href="@{/usuario/eliminar/__${usuario.idCodigoTributario}__}">Eliminar mi cuenta</a>
+          <a
+            type="button"
+            class="btn btn-danger"
+            style="margin-left: 15em"
+            th:href="@{/usuario/eliminar/__${usuario.idCodigoTributario}__}"
+            >Eliminar mi cuenta</a
+          >
         </div>
         <br />
         <br />
       </form>
-     
     </div>
 
     <br />
     <hr />
-    
-   
-    
     <div th:replace="fragments/footer :: footer"></div>
     <script>
       const $d = document;

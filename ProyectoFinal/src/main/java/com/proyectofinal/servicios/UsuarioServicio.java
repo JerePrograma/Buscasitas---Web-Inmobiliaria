@@ -1,11 +1,11 @@
 package com.proyectofinal.servicios;
+
 import com.proyectofinal.entidades.Imagen;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.enumeraciones.Rol;
 import com.proyectofinal.excepciones.MiExcepcion;
 import com.proyectofinal.excepciones.UsuarioNoEncontradoExcepcion;
 import com.proyectofinal.repositorios.UsuarioRepositorio;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,12 +36,13 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
     JavaMailSender javaMailSender;
-    
+
     @Autowired
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrarUsuario(String idCodigoTributario, String nombre, String apellido, String direccion, String ciudad, String provincia, String DNI, String sexo, String email, String celular, String tipoPersona, String contrasenia, String contrasenia2) throws MiExcepcion, Exception {
+    public void registrarUsuario(String idCodigoTributario, String nombre, String apellido, MultipartFile archivo,
+            String direccion, String ciudad, String provincia, String DNI, String sexo, String email, String celular, String tipoPersona, String contrasenia, String contrasenia2) throws MiExcepcion, Exception {
 
         validarDatos(idCodigoTributario, nombre, direccion, ciudad, provincia, email, celular, tipoPersona, contrasenia, contrasenia2);
 
@@ -62,41 +63,39 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setContrasenia(new BCryptPasswordEncoder().encode(contrasenia));
 
         usuario.setRol(Rol.CLIENTE);
-        
+
+        if (!archivo.isEmpty()) {
+            Imagen fotoPerfil = imagenServicio.guardarImagen(archivo);
+            usuario.setFotoPerfil(fotoPerfil);
+        }
         usuarioRepositorio.save(usuario);
+
     }
 
     @Transactional
-    public void modificarUsuario(MultipartFile archivo,String idCodigoTributario, String direccion, String ciudad, String provincia,
+    public void modificarUsuario(MultipartFile archivo, String idCodigoTributario, String direccion, String ciudad, String provincia,
             String sexo, String email, String celular, String tipoPersona, String rol) throws MiExcepcion, Exception {
-
         validarDatos(idCodigoTributario, direccion, ciudad, provincia,
                 email, celular, tipoPersona);
-
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(idCodigoTributario);
-        if (respuesta.isPresent()) {
-
-            Usuario usuario = respuesta.get();
-            usuario.setDireccion(direccion);
-            usuario.setCiudad(ciudad);
-            usuario.setProvincia(provincia);
-            usuario.setEmail(email);
-            usuario.setCelular(celular);
-            usuario.setTipoPersona(tipoPersona);
-            usuario.setRol(Rol.valueOf(rol));
-            String idImagen = null;
-            
-              if (usuario.getImagen() != null) {
-                idImagen = usuario.getImagen().getId();
-            }
-            Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
-            usuario.setImagen(imagen);
-            usuarioRepositorio.save(usuario);
+        Usuario usuario = getOne(idCodigoTributario);
+        usuario.setDireccion(direccion);
+        usuario.setCiudad(ciudad);
+        usuario.setProvincia(provincia);
+        usuario.setEmail(email);
+        usuario.setCelular(celular);
+        usuario.setTipoPersona(tipoPersona);
+        usuario.setRol(Rol.valueOf(rol));
+        String idImagen = null;
+        if (usuario.getFotoPerfil() != null) {
+            idImagen = usuario.getFotoPerfil().getId();
         }
+        Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+        setImagenUsuario(archivo, idCodigoTributario);
+        usuarioRepositorio.save(usuario);
+
     }
 
-
-       @Transactional
+    @Transactional
     public void setImagenUsuario(MultipartFile archivo, String idCodigoTributario) throws Exception {
         Usuario usuario = usuarioRepositorio.buscarPorIdCodigoTributario(idCodigoTributario);
 
@@ -106,14 +105,14 @@ public class UsuarioServicio implements UserDetailsService {
         }
 
         Imagen imagen = imagenServicio.guardarImagen(archivo);// Manejar errores de lectura de bytes de la imagen
-        
-        usuario.setImagen(imagen);
+
+        usuario.setFotoPerfil(imagen);
         // Guardar el usuario actualizado
         usuarioRepositorio.save(usuario);
     }
-    
 
     @Override
+
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
@@ -132,8 +131,6 @@ public class UsuarioServicio implements UserDetailsService {
 
         return new User(usuario.getEmail(), usuario.getContrasenia(), permisos);
     }
-    
-    
 
     @Transactional(readOnly = true)
     public Usuario getOne(String idCodigoTributario) {
@@ -177,6 +174,7 @@ public class UsuarioServicio implements UserDetailsService {
             usuarioRepositorio.delete(usuario);
         }
     }
+
     @Transactional(readOnly = true)
     public Usuario obtenerUsuarioPorUsername(String username) throws MiExcepcion {
         Usuario usuario = usuarioRepositorio.buscarPorEmail(username);

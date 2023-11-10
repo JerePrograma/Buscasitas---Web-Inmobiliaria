@@ -27,26 +27,12 @@
     <br />
     <!-- This is to make the Form Contents appear on the Image -->
     <div class="emp-profile">
-      <h2>Subir Imagen</h2>
-
-      <form
-        th:action="@{/perfil/__${idCodigoTributario}__}"
-        method="post"
-        enctype="multipart/form-data"
-        th:object="${usuario}"
-      >
-        <input
-          type="hidden"
-          th:name="idCodigoTributario"
-          th:value="${idCodigoTributario}"
-        />
-        <div>
-          <label for="archivo">Seleccionar Archivo:</label>
-          <input type="file" id="archivo" name="archivo" accept="image/*" />
-        </div>
-        <button type="submit">Subir Imagen</button>
-      </form>
-
+      <img
+        th:src="@{/imagen/perfil/__${usuario.idCodigoTributario}__}"
+        alt=""
+        height="200"
+        width="200"
+      />
       <div class="col-md-6">
         <div class="profile-head">
           <h5
@@ -92,21 +78,21 @@
           >Editar</a
         >
       </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="profile-work">
-            <p>Alquileres favoritos</p>
-            <a href="">Cabaña Esquel</a><br />
-            <a href="">Chalet (5hab)</a><br />
-            <a href="">Puerto Madero</a>
-            <p></p>
-            <p>En Venta favoritos</p>
-            <a href="">Terreno 8000m2</a><br />
-            <a href="">Isla en Tigre</a><br />
-            <a href="">Dpto.Costa..</a><br />
-            <a href="">Dpto.Miramar</a><br />
-            <a href="">PH Colegiales</a><br />
-          </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="profile-work">
+          <p>Alquileres favoritos</p>
+          <a href="">Cabaña Esquel</a><br />
+          <a href="">Chalet (5hab)</a><br />
+          <a href="">Puerto Madero</a>
+          <p></p>
+          <p>En Venta favoritos</p>
+          <a href="">Terreno 8000m2</a><br />
+          <a href="">Isla en Tigre</a><br />
+          <a href="">Dpto.Costa..</a><br />
+          <a href="">Dpto.Miramar</a><br />
+          <a href="">PH Colegiales</a><br />
         </div>
       </div>
       <div class="col-md-8">
