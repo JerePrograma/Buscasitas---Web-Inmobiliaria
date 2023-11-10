@@ -14,17 +14,7 @@ public class ImagenServicio {
 
     @Autowired
     private ImagenRepositorio imagenRepositorio;
-
-    public Imagen guardarImagen(MultipartFile contenido) throws Exception {
-        
-
-                Imagen imagen = new Imagen();
-
-                imagen.setMime(contenido.getContentType());
-
-                imagen.setNombre(contenido.getName());
-
-                imagen.setContenido(contenido.getBytes());
+ 
     @Transactional
     public Imagen guardarImagen(MultipartFile archivo) throws Exception {
         if (archivo == null || archivo.isEmpty()) {
