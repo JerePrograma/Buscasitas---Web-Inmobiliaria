@@ -10,10 +10,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OfertaRepositorio extends JpaRepository<Oferta, String> {
 
-   // buscar oferta por inmueble
+    // buscar oferta por inmueble
     @Query("SELECT o FROM Oferta o WHERE o.inmueble.cuentaTributaria =  :idcuentaTributaria")
     public List<Oferta> buscarPorIdCuentaTributaria(@Param("idcuentaTributaria") String idcuentaTributaria);
-    
-    
-}
 
+}

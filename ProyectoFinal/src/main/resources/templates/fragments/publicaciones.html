@@ -25,10 +25,13 @@
         th:href="@{/inmueble/detalle/{cuentaTributaria}(cuentaTributaria=${inmueble.cuentaTributaria})}"
       >
         <div class="meta">
-          <div
-            class="photo"
-            th:style="'background-image: url(\'' + @{/imagen/inmueble/} + ${inmueble.cuentaTributaria} + '\')'"
-          ></div>
+          <img
+            th:src="@{/imagen/inmueble/__${inmueble.cuentaTributaria}__/principal}"
+            alt=""
+            height="200"
+            width="200"
+          />
+
           <ul class="details">
             <li class="author"><a href="#">Autor</a></li>
             <li class="date">Aug. 24, 2015</li>

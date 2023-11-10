@@ -7,10 +7,8 @@ import com.proyectofinal.servicios.ReclamoServicio;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 
@@ -19,9 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 
 @Controller
 @RequestMapping("/reclamo")
@@ -47,7 +42,7 @@ public class ReclamoControlador {
         return "form_reclamo.html";
     }
 
-   // @PreAuthorize("hasRole('ROLE_CLIENT')") // SOLO CLIENTE PUEDE RECLAMAR
+    // @PreAuthorize("hasRole('ROLE_CLIENT')") // SOLO CLIENTE PUEDE RECLAMAR
     @PostMapping("/reclamar/{cuentaTributaria}")
     public String reclamo(
             @PathVariable("cuentaTributaria") String cuentaTributaria,
@@ -61,7 +56,7 @@ public class ReclamoControlador {
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             Date fecha = formato.parse(fechaReclamo);// transformar date en string
 
-          reclamoServicio.crearReclamo(cuentaTributaria, idUsuario, reclamoDescrip, fecha);
+            reclamoServicio.crearReclamo(cuentaTributaria, idUsuario, reclamoDescrip, fecha);
 
             modelo.put("exito", "Reclamo registrado correctamente");
             return "redirect:/";
@@ -74,42 +69,39 @@ public class ReclamoControlador {
 
     }
 
-     @GetMapping("/lista/{cuentaTributaria}")
-    public String listarReclamo(@PathVariable String cuentaTributaria,ModelMap modelo) throws Exception {
+    @GetMapping("/lista/{cuentaTributaria}")
+    public String listarReclamo(@PathVariable String cuentaTributaria, ModelMap modelo) throws Exception {
         List<Reclamo> reclamos = reclamoServicio.listarReclamo(cuentaTributaria);
-        
-        
+
         modelo.addAttribute("reclamos", reclamos);
 
         return "reclamo_lista.html";
     }
-    
+
     @GetMapping("/respuesta/{idReclamo}")
-    public String contestacionReclamo(@PathVariable String idReclamo, ModelMap modelo) throws Exception{
+    public String contestacionReclamo(@PathVariable String idReclamo, ModelMap modelo) throws Exception {
         modelo.put("reclamo", reclamoServicio.getOne(idReclamo));
         Reclamo reclamo = reclamoServicio.getOne(idReclamo);
         String cuentaTributaria = reclamo.getInmueble().getCuentaTributaria();
         modelo.put("cuentaTributaria", cuentaTributaria);
-        
+
         return "contestacionReclamo.html";
     }
-    
-    
+
     @PostMapping("/respuesta/{idReclamo}")
     public String respuestaReclamo(@PathVariable String idReclamo,
             @RequestParam String respuesta,
             @RequestParam String cuentaTributaria,
-            ModelMap modelo) throws Exception{
-        try{
-        reclamoServicio.contestarReclamo(idReclamo, respuesta);
-        
-        return "redirect:/reclamo/lista/"+cuentaTributaria;
-                    
-        } catch(Exception ex){
-        return "contestacionReclamo.html";
-        
-        } 
-        
-        
+            ModelMap modelo) throws Exception {
+        try {
+            reclamoServicio.contestarReclamo(idReclamo, respuesta);
+
+            return "redirect:/reclamo/lista/" + cuentaTributaria;
+
+        } catch (Exception ex) {
+            return "contestacionReclamo.html";
+
+        }
+
     }
 }

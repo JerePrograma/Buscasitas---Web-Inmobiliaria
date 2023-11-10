@@ -1,22 +1,19 @@
-
 package com.proyectofinal.entidades;
 
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-
 @Entity
 @Data
 @NoArgsConstructor
 public class Reclamo {
-  
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -25,14 +22,12 @@ public class Reclamo {
     private Date fechaReclamo;
     private String respuesta;
     private String estado;
-    
+
     @ManyToOne
-   //@JoinColumn(name = "usuario_cliente_id")
+    //@JoinColumn(name = "usuario_cliente_id")
     private Usuario usuario;
-    
+
     @ManyToOne
     private Inmueble inmueble;
-    
-    
-    
+
 }

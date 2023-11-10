@@ -6,7 +6,10 @@ import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.repositorios.CitaRepositorio;
 import com.proyectofinal.repositorios.RangoHorarioRepositorio;
 import com.proyectofinal.repositorios.UsuarioRepositorio;
+import java.time.LocalTime;
+import java.util.ArrayList;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,22 +28,32 @@ public class CitaServicio {
     RangoHorarioRepositorio rangoHorarioRepositorio;
 
     @Transactional
-    public void crearCita(String idEnte, String idCliente, String idHorario, String nota) {
-        ///  Validar(Usuario ente,Usuario cliente, RangoHorario horario);
+    public void crearCita(String idEnte, String idCliente, Long idHorario, String nota) {
+        try {
+            Optional<Usuario> enteOptional = usuarioRepositorio.findById(idEnte);
+            Optional<Usuario> clienteOptional = usuarioRepositorio.findById(idCliente);
+            Optional<RangoHorario> rangoHorarioOptional = rangoHorarioRepositorio.findById(idHorario);
 
-        Usuario ente = usuarioRepositorio.buscarPorEmail(idEnte);
-        Usuario cliente = usuarioRepositorio.buscarPorEmail(idCliente);
-        RangoHorario horario = rangoHorarioRepositorio.findById(idHorario);
+            if (rangoHorarioOptional.isPresent() && enteOptional.isPresent() && clienteOptional.isPresent()) {
+                RangoHorario rangoHorario = rangoHorarioOptional.get();
+                Usuario ente = enteOptional.get();
+                Usuario cliente = clienteOptional.get();
 
-        Cita cita = new Cita();
+                Cita cita = new Cita();
+                cita.setCliente(cliente);
+                cita.setEnte(ente);
+                cita.setHorario(rangoHorario);  // Aquí deberías pasar el objeto RangoHorario, no una lista
+                cita.setNota(nota);
 
-        cita.setCliente(cliente);
-        cita.setEnte(ente);
-        cita.setHorario(horario);
-        cita.setNota(nota);
-
-        citaRepositorio.save(cita);
-
+                citaRepositorio.save(cita);
+            } else {
+                throw new IllegalArgumentException("El RangoHorario con ID " + idHorario + " no existe.");
+            }
+        } catch (Exception e) {
+            // Maneja la excepción apropiadamente, loguea o lanza una excepción específica si es necesario
+            e.printStackTrace();
+            throw new RuntimeException("Error al crear la cita.", e);
+        }
     }
 
     @Transactional
@@ -50,7 +63,7 @@ public class CitaServicio {
         Optional<Cita> respuesta = citaRepositorio.findById(id);
         Optional<Usuario> respuestaEnte = usuarioRepositorio.findById(idEnte);
         Optional<Usuario> respuestaCliente = usuarioRepositorio.findById(idCliente);
-        Optional<RangoHorario> respuestaHorario = Optional.ofNullable(rangoHorarioRepositorio.findById(idHorario));
+        Optional<RangoHorario> respuestaHorario = Optional.ofNullable((RangoHorario) rangoHorarioRepositorio.findById(idHorario));
 
         Usuario ente = new Usuario();
         Usuario cliente = new Usuario();
@@ -76,5 +89,14 @@ public class CitaServicio {
 
             citaRepositorio.save(cita);
         }
+    }
+
+    public List<LocalTime> obtenerHorariosDisponibles(LocalTime inicio, LocalTime fin) {
+        List<LocalTime> horarios = new ArrayList<>();
+        while (inicio.isBefore(fin) || inicio.equals(fin)) {
+            horarios.add(inicio);
+            inicio = inicio.plusMinutes(30); // Incrementa en intervalos de 30 minutos
+        }
+        return horarios;
     }
 }

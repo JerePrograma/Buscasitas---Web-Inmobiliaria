@@ -6,7 +6,6 @@ import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.repositorios.InmuebleRepositorio;
 import com.proyectofinal.repositorios.OfertaRepositorio;
 import com.proyectofinal.repositorios.UsuarioRepositorio;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -60,10 +59,6 @@ public class OfertaServicio {
         return ofertaRepositorio.getOne(idOferta);
     }
 
-    
-    
-    
-    
 //    public void aceptarOferta(String cuentaTributaria, String idOferta, Date fechaOferta, Integer valorOferta) {
 //        // Aceptación de oferta debe tener un plazo, por ejemplo, 3 días.
 //
@@ -94,7 +89,6 @@ public class OfertaServicio {
 //            }
 //        }
 //    }
-
 // va en el Perfil de usuario Dentro de Oferta, Podria hacer ofertas enviadas, aceptadas, revocadas, caducas.
     @Transactional(readOnly = true)
     public List<Oferta> mostrarOfertasPorInmueble(String cuentaTributaria) {

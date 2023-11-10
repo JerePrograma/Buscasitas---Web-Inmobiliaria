@@ -25,6 +25,7 @@
       type="image/x-icon"
       th:href="@{images/logoInmobiliaria2.png}"
     />
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
   </head>
   <head th:replace="fragments/head :: head"> </head>
 
@@ -83,13 +84,24 @@
         placeholder="Provincia"
       />
 
-      <label for="archivo">Imagen del Inmueble</label>
+      <label for="archivoPrincipal">Imagen de Portada:</label>
       <input
         class="controls"
         type="file"
-        id="archivo"
-        name="archivo"
+        id="archivoPrincipal"
+        name="archivoPrincipal"
         accept="image/*"
+        required
+      />
+      <label for="archivosSecundarios">Imágenes Secundarias:</label>
+      <input
+        class="controls"
+        type="file"
+        id="archivosSecundarios"
+        name="archivosSecundarios"
+        accept="image/*"
+        multiple
+        required
       />
 
       <label for="transaccion">Transacción</label>
@@ -151,28 +163,26 @@
       <br />
 
       <label for="horaInicio">Hora de inicio:</label>
-      <input
+      <select
         class="controls"
-        type="time"
         id="horaInicio"
         name="horaInicio"
         required
-      />
+      ></select>
 
       <label for="horaFin">Hora de fin:</label>
-      <input
-        class="controls"
-        type="time"
-        id="horaFin"
-        name="horaFin"
-        required
-      />
+      <select class="controls" id="horaFin" name="horaFin" required></select>
 
       <br />
+      <button class="botons" type="button" id="agregarRangoHorario">
+        Agregar Rango Horario
+      </button>
+
+      <div id="rangoHorarioContainer">
+        <!-- Las secciones de rango horario agregadas dinámicamente aparecerán aquí -->
+      </div>
 
       <button class="botons" type="submit">Guardar Inmueble</button>
     </form>
-
-    <script th:src="@{/js/script.js}" type="text/javascript"></script>
   </body>
 </html>

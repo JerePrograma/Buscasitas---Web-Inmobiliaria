@@ -22,16 +22,16 @@
   padding: 20px;
 }
 #logo {
-    padding-top:2em; 
-   width: 10em;
-  display: inline-block;
-  fill: currentcolor;
-  color: white;
-  z-index: 1;
+  width: auto; /* o una medida específica que prefieras */
+  height: 100%; /* Esto hará que el logo tome la altura completa del navbar, pero necesitas asegurarte de que la imagen tenga aspect ratio correcto */
+  max-height: 5em; /* Esto limitará la altura del logo, ajusta según sea necesario */
+  display: block; /* Esto remplaza 'inline-block' por 'block', lo que puede ayudar con el control de altura y anchura */
+  padding: 0; /* Elimina el padding superior para evitar empujar el contenido */
+  object-fit: contain; /* Esto asegurará que la imagen del logo se escale adecuadamente dentro de las dimensiones dadas */
 }
 .logo-text {
   padding-top: 1em;
-  padding-left: 0,5em;
+  padding-left: 0, 5em;
   background-image: linear-gradient(
     45deg,
     blueviolet,
@@ -48,19 +48,28 @@
   background-color: lightblue;
   flex-basis: 60px;
 }
+
 nav {
   color: white;
   background-color: blueviolet;
- background-image: linear-gradient(150deg, #000, #0000ff, #fff);
-/*  background-image: linear-gradient(150deg, #9500ff, #09f, #00ddff);*/
-  max-height: 6em;
+  background-image: linear-gradient(150deg, #000, #0000ff, #fff);
+  display: flex; /* Esto asegurará que los hijos de nav se alineen en línea y te permitirá alinearlos verticalmente */
+  align-items: center; /* Esto centrará verticalmente los hijos de nav */
+  justify-content: space-between; /* Esto separa el logo y los elementos del menú */
+  padding: 0 1em; /* Añade un poco de padding horizontal para que el contenido no toque los bordes */
+  max-height: 6em; /* Si el contenido interno es más grande, puedes ajustar esto */
+}
+.containerImg {
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 .navbar-nav .nav-item .nav-link {
   color: white !important; /* Cambiar a blanco y usar !important para anular estilos previos */
   transition: color 1s;
-  
 }
+
 .btn-info,
 .btn-info:active {
   display: inline-block;
@@ -240,14 +249,14 @@ img {
   box-sizing: border-box;
   background-color: aliceblue;
   align-content: center;
-  justify-content : center;
+  justify-content: center;
 }
 .container-sm {
   padding-top: 5em;
   box-sizing: border-box;
   background-color: aliceblue;
   align-content: center;
-  justify-content : center;
+  justify-content: center;
 }
 
 .container-login {
