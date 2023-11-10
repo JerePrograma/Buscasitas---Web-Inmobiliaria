@@ -1,5 +1,6 @@
 package com.proyectofinal.controladores;
 
+import com.proyectofinal.entidades.Imagen;
 import com.proyectofinal.entidades.Inmueble;
 import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.UsuarioServicio;
@@ -23,18 +24,37 @@ public class ImagenControlador {
     @Autowired
     InmuebleServicio inmuebleServicio;
 
-    @GetMapping("/inmueble/{cuentaTributaria}")
-    public ResponseEntity<byte[]> imagenInmueble(@PathVariable String cuentaTributaria) {
-        Inmueble inmueble = inmuebleServicio.getOne(cuentaTributaria);
+    @GetMapping("/inmueble/{cuentaTributaria}/principal")
+    public ResponseEntity<byte[]> imagenPrincipalInmueble(@PathVariable String cuentaTributaria) {
+        Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
+        Imagen imagen = inmueble.getImagenPrincipal();
 
-        byte[] imagen = inmueble.getImagen().getContenido();
+        if (imagen != null) {
+            byte[] imagenData = imagen.getContenido();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.parseMediaType(imagen.getMime()));
+            return new ResponseEntity<>(imagenData, headers, HttpStatus.OK);
+        }
 
-        HttpHeaders headers = new HttpHeaders();
-
-        headers.setContentType(MediaType.IMAGE_JPEG);
-
-        return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
-
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/inmueble/{cuentaTributaria}/secundaria/{imagenId}")
+    public ResponseEntity<byte[]> imagenSecundariaInmueble(
+            @PathVariable String cuentaTributaria,
+            @PathVariable String imagenId) {
+
+        Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
+
+        for (Imagen imagen : inmueble.getImagenesSecundarias()) {
+            if (imagen.getId().equals(imagenId)) {
+                byte[] imagenData = imagen.getContenido();
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.parseMediaType(imagen.getMime()));
+                return new ResponseEntity<>(imagenData, headers, HttpStatus.OK);
+            }
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
