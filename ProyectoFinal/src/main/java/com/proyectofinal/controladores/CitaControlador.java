@@ -7,6 +7,7 @@ import com.proyectofinal.servicios.CitaServicio;
 import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.RangoHorarioServicio;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,7 +45,7 @@ public class CitaControlador {
         }
 
         model.put("horariosDisponiblesMap", horariosDisponiblesMap);
-        model.put("rangoHorario", rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria));
+        model.put("rangoHorario", rangoHorario);
         model.put("usuario", usuario);
         model.addAttribute("cuentaTributaria", cuentaTributaria);
         citaServicio.registrarCita(idEnte, idCliente, idCliente, idEnte);
@@ -52,15 +53,17 @@ public class CitaControlador {
     }
 
     @PostMapping("/registrar/{cuentaTributaria}")
-    public String registrarCita(@RequestParam String idEnte, @RequestParam String idCliente, @RequestParam String idHorario,
+    public String registrarCita(@RequestParam String idEnte, @RequestParam String idCliente, @RequestParam Long idHorario,
             @RequestParam(required = false) String nota, ModelMap modelo) {
         try {
-            citaServicio.registrarCita(idEnte, idCliente, idHorario, nota);
+            citaServicio.crearCita(idEnte, idCliente, idHorario, nota);
             modelo.put("exito", "la cita fue cargada correctamente");
         } catch (Exception e) {
+            System.out.println(e);
+            return "cita_form";
         }
 
-        return "index.html";
+        return "redirect:/";
     }
 
 }

@@ -42,7 +42,6 @@ public class Inmueble implements Serializable {
     @ManyToOne
     @JoinColumn(name = "usuario_administrador_id")
     private Usuario usuarioAdministrador;
-
     @OneToMany(mappedBy = "inmueble")
     private List<RangoHorario> rangosHorarios;
 

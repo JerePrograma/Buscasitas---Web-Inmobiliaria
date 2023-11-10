@@ -30,7 +30,6 @@
               style="max-width: 100%; max-height: 300px; object-fit: cover"
             />
           </div>
-          <!-- Cierra cada item del carrusel -->
         </div>
         <a
           class="carousel-control-prev"
@@ -87,8 +86,7 @@
           </li>
           <li>
             <strong>Horarios Disponibles:</strong>
-            <span
-              th:each="rangoHorario : ${inmueble.rangosHorarios}"
+            <span th:each="rangoHorario : ${inmueble.rangosHorarios}"
               th:text="${rangoHorario.diaSemana + ' Desde: ' + rangoHorario.horaInicio + ' Hasta: ' + rangoHorario.horaFin}"
             ></span>
           </li>
@@ -106,10 +104,8 @@
           <span th:text="${inmueble.estado}"></span>
         </p>
         <div class="text-center">
-          <a
-            th:href="@{/oferta/enviar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
-            class="btn btn-primary"
-          >
+          <a th:href="@{/oferta/enviar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+            class="btn btn-primary">
             <button class="btn btn-primary" id="aceptarOfertaButton">
               Ofertar
             </button>
@@ -120,9 +116,9 @@
       <section class="text-center container">
         <div class="row mt-3">
           <div class="divVolver">
-            <a th:href="@{/}" class="btn btn-secondary my-2 botonVolver botones"
-              >Inicio</a
-            >
+            <a th:href="@{/}" class="btn btn-secondary my-2 botonVolver botones">
+              Inicio
+            </a>
           </div>
         </div>
       </section>
