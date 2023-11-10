@@ -76,6 +76,27 @@
                 Ofertar
               </button>
             </a>
+              
+            <a
+              href="#"
+              th:href="@{/reclamo/reclamar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+              class="btn btn-primary"
+            >
+              <button class="btn btn-primary" id="aceptarOfertaButton">
+                Reclamar
+              </button>
+            </a>
+                   
+              <a
+              href="#"
+              th:href="@{/reclamo/lista/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+              class="btn btn-primary"
+            >
+              <button class="btn btn-primary" id="aceptarOfertaButton">
+                Listar Reclamos
+              </button>
+              </a>
+              
           </div>
           <section class="text-center container">
             <div class="row mt-3">

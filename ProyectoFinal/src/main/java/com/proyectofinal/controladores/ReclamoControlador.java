@@ -62,12 +62,6 @@ public class ReclamoControlador {
             Date fecha = formato.parse(fechaReclamo);// transformar date en string
 
           reclamoServicio.crearReclamo(cuentaTributaria, idUsuario, reclamoDescrip, fecha);
-//            MimeMessage message = emailSender.createMimeMessage();
-//            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-//            helper.setTo(email);
-//            helper.setSubject("Asunto del correo electrónico");
-//            helper.setText("Contenido del correo electrónico", true); // Puedes usar HTML aquí
-//            emailSender.send(message);
 
             modelo.put("exito", "Reclamo registrado correctamente");
             return "redirect:/";
@@ -93,17 +87,23 @@ public class ReclamoControlador {
     @GetMapping("/respuesta/{idReclamo}")
     public String contestacionReclamo(@PathVariable String idReclamo, ModelMap modelo) throws Exception{
         modelo.put("reclamo", reclamoServicio.getOne(idReclamo));
+        Reclamo reclamo = reclamoServicio.getOne(idReclamo);
+        String cuentaTributaria = reclamo.getInmueble().getCuentaTributaria();
+        modelo.put("cuentaTributaria", cuentaTributaria);
         
         return "contestacionReclamo.html";
     }
     
+    
     @PostMapping("/respuesta/{idReclamo}")
     public String respuestaReclamo(@PathVariable String idReclamo,
-            @RequestParam String respuesta, 
+            @RequestParam String respuesta,
+            @RequestParam String cuentaTributaria,
             ModelMap modelo) throws Exception{
         try{
-        reclamoServicio.contestarReclamo(idReclamo, respuesta);  
-        return "reclamo_lista.html}";
+        reclamoServicio.contestarReclamo(idReclamo, respuesta);
+        
+        return "redirect:/reclamo/lista/"+cuentaTributaria;
                     
         } catch(Exception ex){
         return "contestacionReclamo.html";

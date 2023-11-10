@@ -17,24 +17,24 @@
 
 <body>
     <nav th:replace="fragments/navbar :: nav"></nav>
-
+ 
     <div class="align-center">
         <h1>Formulario Contestacion de Reclamo</h1>
     </div>
     <form class="form-register" th:action="@{/reclamo/respuesta/__${idReclamo}__}" method="post" enctype="multipart/form-data">
         <input hidden th:value="${idReclamo}" name="idReclamo" />
-       <!--
-        <div style="margin-top: 8px;">
-            <div class="form-group col-md-8">
-                <label class="col-form-label" for="formGroupExampleInput">Ingrese fecha de su Reclamo</label>
-                <input class="controls" type="date" id="fechaReclamo" name="fechaReclamo" placeholder="Fecha del Reclamo" />
-            </div>
+        <input
+        hidden
+        th:value="${reclamo.inmueble.cuentaTributaria}"
+        name="cuentaTributaria"
+      />
+ 
+        <div>
+            <label> Su reclamo fue:
+            <td th:text="${reclamo.reclamoDescrip}"></td>
+            </label>
         </div>
-        <br>
         
-             <br>
-            <br>
-           -->     
             <div>
             <label class="col-form-label" for="formGroupExampleInput">Respuesta al Reclamo</label>
             <textarea class="controls" id="respuesta" name="respuesta" rows="10" cols="150" placeholder="Escriba la respuesta al Reclamo"></textarea>

@@ -8,6 +8,8 @@
   <body>
     <div th:replace="fragments/navbar :: navbar"></div>
 
+    
+     
     <div class="container-sm">
       <table class="table table-dark table table-hover">
         <thead>
@@ -34,7 +36,14 @@
             <td th:text="${reclamo.usuario.apellido}"></td>
             <td th:text="${reclamo.fechaReclamo}"></td>
             <td th:text="${reclamo.reclamoDescrip}"></td>
-           
+            <td th:text="${reclamo.respuesta}"></td>
+           <td th:text="${reclamo.estado}"></td>
+            <td >
+                <a th:if="${reclamo.estado.equals('Pendiente')}" th:href="@{/reclamo/respuesta/__${reclamo.idReclamo}__}">
+    Responder
+</a>
+                
+            </td>
           </tr>
         </tbody>
       </table>
