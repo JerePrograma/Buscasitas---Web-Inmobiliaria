@@ -39,7 +39,7 @@ public class ReclamoControlador {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");//enviar la session del usuario logueado
         modelo.put("usuario", usuario);
 
-        return "form_reclamo.html";
+        return "reclamo_form.html";
     }
 
     // @PreAuthorize("hasRole('ROLE_CLIENT')") // SOLO CLIENTE PUEDE RECLAMAR
@@ -85,7 +85,7 @@ public class ReclamoControlador {
         String cuentaTributaria = reclamo.getInmueble().getCuentaTributaria();
         modelo.put("cuentaTributaria", cuentaTributaria);
 
-        return "contestacionReclamo.html";
+        return "reclamo_respuesta.html";
     }
 
     @PostMapping("/respuesta/{idReclamo}")
@@ -99,7 +99,7 @@ public class ReclamoControlador {
             return "redirect:/reclamo/lista/" + cuentaTributaria;
 
         } catch (Exception ex) {
-            return "contestacionReclamo.html";
+            return "reclamo_respuesta.html";
 
         }
 

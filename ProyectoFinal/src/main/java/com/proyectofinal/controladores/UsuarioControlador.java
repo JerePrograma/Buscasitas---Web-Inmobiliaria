@@ -115,7 +115,9 @@ public class UsuarioControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE','ROLE_ADMIN','ROLE_ENTE')")
     @PostMapping("/modificar/{idCodigoTributario}")
-    public String modificar(@PathVariable("idCodigoTributario") String idCodigoTributario,
+
+    public String modificar(
+            @PathVariable("idCodigoTributario") String idCodigoTributario,
             @RequestParam(required = false) MultipartFile archivo,
             @RequestParam("direccion") String direccion,
             @RequestParam("ciudad") String ciudad,
@@ -129,6 +131,7 @@ public class UsuarioControlador {
         try {
             usuarioServicio.modificarUsuario(archivo, idCodigoTributario, direccion, ciudad, provincia,
                     sexo, email, celular, tipoPersona, rol);
+            usuarioServicio.modificarUsuario(archivo, idCodigoTributario, direccion, ciudad, provincia, sexo, email, celular, tipoPersona, rol);
             modelo.put("exito", "Usuario actualizado correctamente!");
             return "index.html";
         } catch (MiExcepcion ex) {

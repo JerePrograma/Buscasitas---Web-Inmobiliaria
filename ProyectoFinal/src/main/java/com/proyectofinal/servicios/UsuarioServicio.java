@@ -63,6 +63,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setContrasenia(new BCryptPasswordEncoder().encode(contrasenia));
 
         usuario.setRol(Rol.CLIENTE);
+
         if (!archivo.isEmpty()) {
             Imagen fotoPerfil = imagenServicio.guardarImagen(archivo);
             usuario.setFotoPerfil(fotoPerfil);
@@ -74,10 +75,8 @@ public class UsuarioServicio implements UserDetailsService {
     @Transactional
     public void modificarUsuario(MultipartFile archivo, String idCodigoTributario, String direccion, String ciudad, String provincia,
             String sexo, String email, String celular, String tipoPersona, String rol) throws MiExcepcion, Exception {
-
         validarDatos(idCodigoTributario, direccion, ciudad, provincia,
                 email, celular, tipoPersona);
-
         Usuario usuario = getOne(idCodigoTributario);
         usuario.setDireccion(direccion);
         usuario.setCiudad(ciudad);
@@ -87,7 +86,6 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setTipoPersona(tipoPersona);
         usuario.setRol(Rol.valueOf(rol));
         String idImagen = null;
-
         if (usuario.getFotoPerfil() != null) {
             idImagen = usuario.getFotoPerfil().getId();
         }
@@ -114,6 +112,7 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Override
+
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
@@ -176,6 +175,7 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
+    @Transactional(readOnly = true)
     public Usuario obtenerUsuarioPorUsername(String username) throws MiExcepcion {
         Usuario usuario = usuarioRepositorio.buscarPorEmail(username);
         if (usuario == null) {
