@@ -84,13 +84,24 @@
         placeholder="Provincia"
       />
 
-      <label for="archivo">Imagen del Inmueble</label>
+      <label for="archivoPrincipal">Imagen de Portada:</label>
       <input
         class="controls"
         type="file"
-        id="archivo"
-        name="archivo"
+        id="archivoPrincipal"
+        name="archivoPrincipal"
         accept="image/*"
+        required
+      />
+      <label for="archivosSecundarios">Imágenes Secundarias:</label>
+      <input
+        class="controls"
+        type="file"
+        id="archivosSecundarios"
+        name="archivosSecundarios"
+        accept="image/*"
+        multiple
+        required
       />
 
       <label for="transaccion">Transacción</label>

@@ -1,6 +1,5 @@
 package com.proyectofinal.controladores;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyectofinal.entidades.Inmueble;
 import com.proyectofinal.entidades.RangoHorario;
 import com.proyectofinal.entidades.Usuario;
@@ -32,7 +31,7 @@ public class CitaControlador {
     private InmuebleServicio inmuebleServicio;
 
     @GetMapping("/registrar/{cuentaTributaria}")
-    public String registrarCita(@PathVariable("cuentaTributaria") String cuentaTributaria,
+    public String registrarCita(@PathVariable("cuentaTributaria") String cuentaTributaria, String idEnte, String idCliente,
             ModelMap model, HttpSession session) throws Exception {
         Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
         List<RangoHorario> rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
@@ -48,6 +47,7 @@ public class CitaControlador {
         model.put("rangoHorario", rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria));
         model.put("usuario", usuario);
         model.addAttribute("cuentaTributaria", cuentaTributaria);
+        citaServicio.registrarCita(idEnte, idCliente, idCliente, idEnte);
         return "cita_form.html";
     }
 
@@ -55,7 +55,7 @@ public class CitaControlador {
     public String registrarCita(@RequestParam String idEnte, @RequestParam String idCliente, @RequestParam String idHorario,
             @RequestParam(required = false) String nota, ModelMap modelo) {
         try {
-            citaServicio.crearCita(idEnte, idCliente, idHorario, nota);
+            citaServicio.registrarCita(idEnte, idCliente, idHorario, nota);
             modelo.put("exito", "la cita fue cargada correctamente");
         } catch (Exception e) {
         }

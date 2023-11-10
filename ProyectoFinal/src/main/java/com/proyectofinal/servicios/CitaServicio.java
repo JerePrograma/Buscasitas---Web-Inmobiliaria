@@ -29,7 +29,7 @@ public class CitaServicio {
     RangoHorarioRepositorio rangoHorarioRepositorio;
 
     @Transactional
-    public void crearCita(String idEnte, String idCliente, String idHorario, String nota) {
+    public void registrarCita(String idEnte, String idCliente, String idHorario, String nota) {
         ///  Validar(Usuario ente,Usuario cliente, RangoHorario horario);
 
         Usuario ente = usuarioRepositorio.buscarPorEmail(idEnte);
