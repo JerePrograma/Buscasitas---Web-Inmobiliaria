@@ -67,8 +67,16 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void modificarUsuario(MultipartFile archivo,String idCodigoTributario, String direccion, String ciudad, String provincia,
-            String sexo, String email, String celular, String tipoPersona, String rol) throws MiExcepcion, Exception {
+    public void modificarUsuario(MultipartFile archivo,
+            String idCodigoTributario,
+            String direccion, 
+            String ciudad,
+            String provincia,
+            String sexo, 
+            String email, 
+            String celular, 
+            String tipoPersona, 
+            String rol) throws MiExcepcion, Exception {
 
         validarDatos(idCodigoTributario, direccion, ciudad, provincia,
                 email, celular, tipoPersona);
