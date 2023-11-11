@@ -147,6 +147,13 @@ public class UsuarioServicio implements UserDetailsService {
             usuarioRepositorio.delete(usuario);
         }
     }
+
+    public boolean existeUsuarioConDNI(String DNI) {
+        // Implementa la lógica para buscar un usuario por su DNI en la base de datos
+        // Retorna true si el usuario con ese DNI existe, de lo contrario, retorna false
+        return usuarioRepositorio.existsByDNI(DNI); // Ajusta según tu modelo y repositorio
+    }
+
 //
 //    public String sendEmail() {
 //        
