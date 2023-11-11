@@ -63,6 +63,7 @@ nav {
   display: flex;
   align-items: center;
   height: 100%;
+
 }
 
 .navbar-nav .nav-item .nav-link {
@@ -253,6 +254,14 @@ img {
 }
 .container-sm {
   padding-top: 5em;
+  box-sizing: border-box;
+  background-color: aliceblue;
+  align-content: center;
+  justify-content: center;
+}
+.container-custom {
+  padding-top: 10em;
+  padding-left: 20em;
   box-sizing: border-box;
   background-color: aliceblue;
   align-content: center;

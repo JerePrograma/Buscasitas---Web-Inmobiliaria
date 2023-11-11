@@ -6,7 +6,7 @@
   <body>
     <div th:replace="fragments/navbar :: navbar"></div>
 
-    <div class="container">
+    <div class="container-custom">
       <h2>Detalles del Inmueble</h2>
 
       <!-- Galería de imágenes -->
@@ -94,6 +94,18 @@
           <p>
             <strong>Estado:</strong> <span th:text="${inmueble.estado}"></span>
           </p>
+          <div class="text-center">
+            <a
+                    href="#"
+                    th:href="@{/cita/registrar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+                    class="btn btn-primary"
+            >
+              <button class="btn btn-primary" id="aceptarOfertaButton">
+                Pedir una cita
+              </button>
+            </a>
+          </div>
+
           <div class="text-center">
             <a
               th:if="${#authorization.expression('hasRole(''CLIENTE'')')}"
