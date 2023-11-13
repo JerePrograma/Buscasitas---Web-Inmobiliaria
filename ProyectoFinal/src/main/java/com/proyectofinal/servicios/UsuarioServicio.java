@@ -44,7 +44,7 @@ public class UsuarioServicio implements UserDetailsService {
     public void registrarUsuario(String idCodigoTributario, String nombre, String apellido, MultipartFile archivo,
             String direccion, String ciudad, String provincia, String DNI, String sexo, String email, String celular, String tipoPersona, String contrasenia, String contrasenia2) throws MiExcepcion, Exception {
 
-        validarDatos(idCodigoTributario, nombre, direccion, ciudad, provincia, email, celular, tipoPersona, contrasenia, contrasenia2);
+        validarDatos(idCodigoTributario, nombre, direccion, ciudad, provincia, DNI, email, celular, tipoPersona, contrasenia, contrasenia2);
 
         Usuario usuario = new Usuario();
 
@@ -227,7 +227,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.save(usuario);
     }
 
-    public void validarDatos(String idCodigoTributario, String nombre, String direccion, String ciudad, String provincia,
+    public void validarDatos(String idCodigoTributario, String nombre, String direccion, String ciudad, String provincia, String DNI,
             String email, String celular, String tipoPersona, String contrasenia, String contrasenia2) throws MiExcepcion {
         if (idCodigoTributario == null || idCodigoTributario.isEmpty()) {
             throw new MiExcepcion("El código tributario no puede estar vacío o ser nulo");
@@ -253,6 +253,16 @@ public class UsuarioServicio implements UserDetailsService {
         if (tipoPersona == null || tipoPersona.isEmpty()) {
             throw new MiExcepcion("El tipoPersona no puede estar vacío o ser nulo");
         }
+       if (tipoPersona.equals("1")) {
+    if (DNI == null) {
+        throw new MiExcepcion("El DNI no puede estar vacío y debe contener solo números (sin puntos), <br> y debe ser de al menos 7 dígitos.");
+    } else if (!DNI.matches("\\d{7,9}")) {
+        throw new MiExcepcion("El DNI debe ser de al menos 7 dígitos.");
+    }
+}
+
+   
+
         if (contrasenia == null || contrasenia.isEmpty() || contrasenia.length() <= 5) {
             throw new MiExcepcion("La contraseña no puede estar vacía, y debe tener más de 5 dígitos");
         }

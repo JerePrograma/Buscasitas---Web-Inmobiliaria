@@ -26,13 +26,19 @@
     <nav th:replace="fragments/navbar :: nav"></nav>
     <br />
     <!-- This is to make the Form Contents appear on the Image -->
-    <div class="emp-profile">
+    <div class="container emp-profile">
+        <div class="row">
+                    <div class= "col-md-4">
+                        <div class= "profile-img">
       <img
         th:src="@{/imagen/perfil/__${usuario.idCodigoTributario}__}"
         alt=""
-        height="200"
-        width="200"
+        height="150px"
+        width="150px"
       />
+       
+                        </div>
+                    </div>
       <div class="col-md-6">
         <div class="profile-head">
           <h5
