@@ -69,6 +69,18 @@ public class ReclamoControlador {
 
     }
 
+    @GetMapping("/lista")
+    public String listarReclamos(ModelMap modelo, HttpSession session) throws Exception {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+//        if(usuario.getRol().toString().equals("ENTE")){
+//            
+//        }
+        List<Reclamo> reclamos = reclamoServicio.listarReclamos();
+        modelo.addAttribute("reclamos", reclamos);
+
+        return "reclamo_lista.html";
+    }
+
     @GetMapping("/lista/{cuentaTributaria}")
     public String listarReclamo(@PathVariable String cuentaTributaria, ModelMap modelo) throws Exception {
         List<Reclamo> reclamos = reclamoServicio.listarReclamo(cuentaTributaria);

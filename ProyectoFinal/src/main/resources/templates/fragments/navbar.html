@@ -16,10 +16,12 @@
 
   <ul class="navbar-nav ml-auto">
     <li class="nav-item"><a class="btn btn-info" th:href="@{/}">Home</a></li>
+    <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ENTE')">
+      <a class="btn btn-info" th:href="@{/reclamo/lista}">Expo Reclamos</a>
+    </li>
     <li class="nav-item" sec:authorize="hasRole('ADMIN')">
       <a class="btn btn-info" th:href="@{/usuario/lista}">Expo Usuarios</a>
     </li>
-
     <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ENTE')">
       <a class="btn btn-info" th:href="@{/inmueble/lista}">Expo Inmuebles</a>
     </li>
