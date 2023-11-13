@@ -175,12 +175,12 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
-<<<<<<< HEAD
     public boolean existeUsuarioConDNI(String DNI) {
         // Implementa la lógica para buscar un usuario por su DNI en la base de datos
         // Retorna true si el usuario con ese DNI existe, de lo contrario, retorna false
         return usuarioRepositorio.existsByDNI(DNI); // Ajusta según tu modelo y repositorio
-=======
+    }
+
     @Transactional(readOnly = true)
     public Usuario obtenerUsuarioPorUsername(String username) throws MiExcepcion {
         Usuario usuario = usuarioRepositorio.buscarPorEmail(username);
@@ -188,7 +188,6 @@ public class UsuarioServicio implements UserDetailsService {
             throw new MiExcepcion("No se encontró un usuario con el username: " + username);
         }
         return usuario;
->>>>>>> 36e417311d0847b0621ddd9dee5cc357817baa99
     }
 
 //
