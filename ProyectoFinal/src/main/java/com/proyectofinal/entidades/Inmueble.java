@@ -24,7 +24,12 @@ public class Inmueble implements Serializable {
     private String tituloAnuncio;
     private String descripcionAnuncio;
     private Integer precioAlquilerVenta;
-    private String caracteristicaInmueble;
+    // Caracteristicas
+    private int cantidadHabitaciones;
+    private int banios;
+    private int cantidadAmbientes;
+    private int altura; //Ambos en metros cuadrados
+    private int largo; //
     private Boolean alta;
     private String tipoInmueble;
     private String estado;
@@ -38,8 +43,8 @@ public class Inmueble implements Serializable {
     @OneToMany(mappedBy = "inmueble")
     private List<Imagen> imagenesSecundarias;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_administrador_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_administrador")
     private Usuario usuarioAdministrador;
     @OneToMany(mappedBy = "inmueble")
     private List<RangoHorario> rangosHorarios;

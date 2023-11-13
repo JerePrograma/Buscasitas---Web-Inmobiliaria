@@ -78,7 +78,11 @@
             </li>
             <li>
                 <strong>Características del Inmueble:</strong>
-                <span th:text="${inmueble.caracteristicaInmueble}"></span>
+            <span th:text="${'Habitaciones: ' + inmueble.cantidadHabitaciones}"></span>
+            <span th:text="${'Baños: ' + inmueble.banios}"></span>
+            <span th:text="${'Ambientes: ' + inmueble.cantidadAmbientes}"></span>
+            <span th:text="${'Altura: ' + inmueble.altura}"></span>
+            <span th:text="${'Largo: ' + inmueble.largo}"></span>
             </li>
             <li>
                 <strong>Horarios Disponibles:</strong>

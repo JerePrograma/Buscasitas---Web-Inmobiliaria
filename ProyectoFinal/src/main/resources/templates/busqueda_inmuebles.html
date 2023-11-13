@@ -26,14 +26,11 @@
     <!-- Container for Search Results -->
     <div>
       <div class="blog-card" th:each="inmueble : ${inmuebles}">
-        <a
-          th:href="@{/inmueble/detalle/{cuentaTributaria}(cuentaTributaria=${inmueble.cuentaTributaria})}"
-        >
+        <a th:href="@{/inmueble/detalle/{cuentaTributaria}/principal(cuentaTributaria=${inmueble.cuentaTributaria})}">
           <div class="meta">
             <div
-              class="photo"
-              th:style="'background-image: url(\'' + @{/imagen/inmueble/} + ${inmueble.cuentaTributaria} + '\')'"
-            ></div>
+                 class="photo"
+                 th:style="'background-image: url(\'' + '/imagen/inmueble/' + ${inmueble.cuentaTributaria} + '/principal' + '\')'"></div>
             <ul class="details">
               <li class="author"><a href="#">Autor</a></li>
               <li class="date">Aug. 24, 2015</li>

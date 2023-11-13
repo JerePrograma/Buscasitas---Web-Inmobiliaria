@@ -4,13 +4,9 @@ import com.proyectofinal.enumeraciones.Rol;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.OneToOne;
 
 @Data
 @NoArgsConstructor
