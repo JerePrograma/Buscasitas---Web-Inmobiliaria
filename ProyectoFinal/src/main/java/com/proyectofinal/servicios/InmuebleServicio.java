@@ -65,7 +65,7 @@ public class InmuebleServicio {
         // Guardar la imagen principal y asociarla con el inmueble
         if (!archivoPrincipal.isEmpty()) {
             Imagen imagenPrincipal = imagenServicio.guardarImagen(archivoPrincipal);
-            imagenPrincipal.setInmueble(inmueble);
+            //      imagenPrincipal.setInmueble(inmueble);
             imagenPrincipal = imagenRepositorio.save(imagenPrincipal);
             inmueble.setImagenPrincipal(imagenPrincipal);
         }
@@ -75,7 +75,7 @@ public class InmuebleServicio {
         for (MultipartFile archivoSecundario : archivosSecundarios) {
             if (!archivoSecundario.isEmpty()) {
                 Imagen imagenSecundaria = imagenServicio.guardarImagen(archivoSecundario);
-                imagenSecundaria.setInmueble(inmueble);
+                //     imagenSecundaria.setInmueble(inmueble);
                 imagenSecundaria = imagenRepositorio.save(imagenSecundaria);
                 imagenesSecundarias.add(imagenSecundaria);
             }
@@ -105,7 +105,7 @@ public class InmuebleServicio {
                 // Eliminar las imágenes secundarias antiguas
                 List<Imagen> imagenesAntiguas = inmueble.getImagenesSecundarias();
                 for (Imagen imagenAntigua : imagenesAntiguas) {
-                    imagenServicio.eliminarImagen(imagenAntigua.getId());
+                    //    imagenServicio.eliminarImagen(imagenAntigua.getId());
                 }
 
                 // Guardar las nuevas imágenes secundarias

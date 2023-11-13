@@ -2,6 +2,7 @@ package com.proyectofinal.controladores;
 
 import com.proyectofinal.entidades.Imagen;
 import com.proyectofinal.entidades.Inmueble;
+import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,22 @@ public class ImagenControlador {
 
     @Autowired
     InmuebleServicio inmuebleServicio;
+
+    @GetMapping("/perfil/{idCodigoTributario}")
+    public ResponseEntity<byte[]> imagenUsuario(@PathVariable String idCodigoTributario) {
+        Usuario usuario = usuarioServicio.getOne(idCodigoTributario);
+
+        if (usuario != null && usuario.getFotoPerfil() != null) {
+            byte[] imagen = usuario.getFotoPerfil().getContenido();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_JPEG);
+            return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
+        } else {
+            // Manejar el caso en que el usuario o la foto de perfil sea null
+            // Por ejemplo, devolver una imagen por defecto o un mensaje de error
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     @GetMapping("/inmueble/{cuentaTributaria}/principal")
     public ResponseEntity<byte[]> imagenPrincipalInmueble(@PathVariable String cuentaTributaria) {

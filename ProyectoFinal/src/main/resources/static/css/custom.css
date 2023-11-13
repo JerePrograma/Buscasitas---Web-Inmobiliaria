@@ -4,6 +4,7 @@
 * {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
+  text-decoration: none;
 }
 
 .body .main {
@@ -15,19 +16,14 @@
   flex-direction: column;
   height: 100vh;
 }
-.header,
-.main,
-.aside,
-.footer {
-  padding: 20px;
-}
+
 #logo {
-  width: auto; /* o una medida específica que prefieras */
-  height: 100%; /* Esto hará que el logo tome la altura completa del navbar, pero necesitas asegurarte de que la imagen tenga aspect ratio correcto */
-  max-height: 5em; /* Esto limitará la altura del logo, ajusta según sea necesario */
-  display: block; /* Esto remplaza 'inline-block' por 'block', lo que puede ayudar con el control de altura y anchura */
-  padding: 0; /* Elimina el padding superior para evitar empujar el contenido */
-  object-fit: contain; /* Esto asegurará que la imagen del logo se escale adecuadamente dentro de las dimensiones dadas */
+  width: auto;
+  padding-left: 1em;
+  fill: currentcolor;
+  color: white;
+  height: 5.8em;
+  object-fit: contain;
 }
 #logo-container {
   display: flex; /* Agrega display: flex al contenedor del logo y el texto */
@@ -36,6 +32,7 @@
 
 .logo-text {
   padding-top: 1em;
+<<<<<<< HEAD
   padding-left: 0.5em;
   background-image: linear-gradient(45deg, blueviolet, lightblue);
   -webkit-background-clip: text;
@@ -44,6 +41,20 @@
   display: inline-block;
   font-size: 24px;
   animation: colorChange 2s infinite;
+=======
+  margin: auto !important;
+  padding-left: 1em;
+  background-image: linear-gradient(
+    45deg,
+    blueviolet,
+    lightblue
+  ); /* Degradado de blueviolet a lightblue */
+  -webkit-background-clip: text; /* Clip de fondo al texto para que el degradado solo afecte al texto en navegadores webkit (Safari, Chrome) */
+  background-clip: text;
+  color: transparent; /* Texto transparente para que se muestre el degradado de fondo */
+  font-size: 36px;
+  animation: colorChange 2s infinite; /* Animación de cambio de color infinita en 4 segundos */
+>>>>>>> 36e417311d0847b0621ddd9dee5cc357817baa99
 }
 .header {
   background-color: lightblue;
@@ -54,6 +65,7 @@ nav {
   color: white;
   background-color: blueviolet;
   background-image: linear-gradient(150deg, #000, #0000ff, #fff);
+<<<<<<< HEAD
   display: flex; /* Esto asegurará que los hijos de nav se alineen en línea y te permitirá alinearlos verticalmente */
   align-items: center; /* Esto centrará verticalmente los hijos de nav */
   justify-content: space-between; /* Esto separa el logo y los elementos del menú */
@@ -66,13 +78,23 @@ nav {
   align-items: center;
   height: 100%;
 
+=======
+  max-height: 6em;
+>>>>>>> 36e417311d0847b0621ddd9dee5cc357817baa99
 }
 
 .navbar-nav .nav-item .nav-link {
   color: white !important; /* Cambiar a blanco y usar !important para anular estilos previos */
   transition: color 1s;
 }
-
+.container-custom {
+  padding-top: 10em;
+  padding-left: 30em;
+  box-sizing: border-box;
+  background-color: aliceblue;
+  align-content: center;
+  justify-content: center;
+}
 .btn-info,
 .btn-info:active {
   display: inline-block;
@@ -555,19 +577,28 @@ main {
 }
 .emp-profile {
   padding: 3%;
+  padding-top: 10em;
   margin-top: 3%;
   margin-bottom: 3%;
   border-radius: 0.5rem;
   background: #fff;
 }
+.profile-control {
+}
 .profile-img {
+  width: 400px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   text-align: center;
 }
 .profile-img img {
-  width: 70%;
-  height: 100%;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
 }
-.profile-img .file {
+/*.profile-img .file {
   position: relative;
   overflow: hidden;
   margin-top: -20%;
@@ -576,12 +607,15 @@ main {
   border-radius: 0;
   font-size: 15px;
   background: #212529b8;
-}
+}*/
 .profile-img .file input {
-  position: absolute;
-  opacity: 0;
-  right: 0;
-  top: 0;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 .profile-head h5 {
   color: #333;
@@ -655,11 +689,21 @@ main {
 }
 
 #Neiboorhood {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 20em;
   border-radius: 23%;
   filter: drop-shadow(0 0 0.55rem rgb(97, 39, 213));
 }
 
 #Neiboorhood2 {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 20em;
   border-radius: 23%;
   filter: drop-shadow(0 0 0.55rem rgb(97, 39, 213));
 }

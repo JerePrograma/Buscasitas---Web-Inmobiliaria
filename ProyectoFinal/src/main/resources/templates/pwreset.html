@@ -44,13 +44,13 @@
             <br />
             <img
               src="/images/Neiboorhood.jpeg"
-              class="img-fluid"
               alt="Phone image"
               id="Neiboorhood"
             />
 
             <br />
             <br />
+
             <div th:if="${error != null}">
               <p class="text-danger">[[${error}]]</p>
             </div>
@@ -64,36 +64,38 @@
               style="max-width: 420px; margin: 0 auto"
             >
               <div>
-                <label class="form-label"
-                  ><small class="form-text text-muted"
-                    >Verificaremos su direccón de correo electrónico. Si posee
-                    un usuario validado, recibirá un link de un solo uso.
-                    Ingrese y restablesca su contraseña.</small
-                  ></label
+                <div>
+                  <label class="form-label"
+                    ><small class="form-text text-muted"
+                      >Verificaremos su direccón de correo electrónico. Si posee
+                      un usuario validado, recibirá un link de un solo uso.
+                      Ingrese y restablesca su contraseña.</small
+                    ></label
+                  >
+                  <input
+                    name="email"
+                    type="email"
+                    id="form1Example13"
+                    th:value="${email}"
+                    class="form-control form-control-lg"
+                    placeholder="Ingrese su email"
+                  />
+                  <small id="emailHelp" class="form-text text-muted"
+                    >* Nunca compartiremos con nadie su datos personales.</small
+                  >
+                </div>
+                <!-- Submit button -->
+                <br />
+                <button
+                  type="submit"
+                  value="send"
+                  class="btn btn-primary btn-lg btn-block"
                 >
-                <input
-                  name="email"
-                  type="email"
-                  id="form1Example13"
-                  th:value="${email}"
-                  class="form-control form-control-lg"
-                  placeholder="Ingrese su email"
-                />
-                <small id="emailHelp" class="form-text text-muted"
-                  >* Nunca compartiremos con nadie su datos personales.</small
-                >
-              </div>
-              <!-- Submit button -->
-              <br />
-              <button
-                type="submit"
-                value="send"
-                class="btn btn-primary btn-lg btn-block"
-              >
-                Enviar
-              </button>
+                  Enviar
+                </button>
 
-              <div class="divider d-flex align-items-center my-4"></div>
+                <div class="divider d-flex align-items-center my-4"></div>
+              </div>
             </form>
             <section class="text-center container">
               <div class="row mt-3">

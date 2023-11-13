@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Data
 @NoArgsConstructor
@@ -14,28 +16,29 @@ import java.util.List;
 public class Usuario implements Serializable {
 
     @Id
-    private String idCodigoTributario;//formulario select CUIL o CUIT. HECHO
+    private String idCodigoTributario;
     private String nombre;
     private String apellido;
     private String DNI;
     private String direccion;
     private String ciudad;
     private String provincia;
-    private String sexo; //formulario femenino o masculino. HECHO
+    private String sexo;
     private String email;
-    private String celular; // separar en codigo pais, provincia, numero?. HACE FALTA?
-    private String tipoPersona; // formulario select persona humana o persona juridica. HECHO
+    private String celular;
+    private String tipoPersona;
     private String contrasenia;
     private String resetPwToken;
     private Boolean alta;
+
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "imagen_id")
+    private Imagen fotoPerfil;
 
     @Enumerated
     private Rol rol;
 
     @OneToMany
     private List<Inmueble> propiedades;
-
-    @OneToOne
-    private Imagen imagen;
 
 }

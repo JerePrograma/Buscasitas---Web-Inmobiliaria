@@ -1,12 +1,29 @@
-<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light fixed-top" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<nav
+  th:fragment="navbar"
+  class="navbar navbar-expand-lg navbar-light fixed-top"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
   <a class="navbar-brand" href="/">
     <div id="logo-container">
-      <img id="logo" th:src="@{/images/buscasitasGold.png}" alt="Buscasita.com.ar"/>
+      <img
+        id="logo"
+        th:src="@{/images/buscasitasGold.png}"
+        alt="Buscasita.com.ar"
+      />
       <p class="logo-text">Buscasitas.com.ar</p>
     </div>
   </a>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -16,13 +33,22 @@
         <a class="btn btn-info" th:href="@{/usuario/lista}">Expo Usuarios</a>
       </li>
       <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ENTE')">
-        <a class="btn btn-info" th:href="@{/inmueble/registrar}">Vende o alquila</a>
+        <a class="btn btn-info" th:href="@{/inmueble/registrar}"
+          >Vende o alquila</a
+        >
       </li>
       <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ENTE')">
         <a class="btn btn-info" th:href="@{/inmueble/lista}">Expo Inmuebles</a>
       </li>
-      <li th:if="${T(com.proyectofinal.SeguridadWeb).isAuthenticated()}" class="nav-item">
-        <a class="btn btn-info" th:href="@{/usuario/perfil/{idCodigoTributario}}">Perfil</a>
+      <li
+        th:if="${T(com.proyectofinal.SeguridadWeb).isAuthenticated()}"
+        class="nav-item"
+      >
+        <a
+          class="btn btn-info"
+          th:href="@{/usuario/perfil/{idCodigoTributario}}"
+          >Perfil</a
+        >
       </li>
       <li class="nav-item">
         <a class="btn btn-info" th:href="@{/}">Home</a>
@@ -34,7 +60,9 @@
         <a class="btn btn-info" th:href="@{/login}">Inicia Sesión</a>
       </li>
       <li class="nav-item">
-        <a class="btn btn-info" sec:authorize="isAuthenticated()" href="/logout">Salir</a>
+        <a class="btn btn-info" sec:authorize="isAuthenticated()" href="/logout"
+          >Salir</a
+        >
       </li>
     </ul>
   </div>

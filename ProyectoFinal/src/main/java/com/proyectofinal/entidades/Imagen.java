@@ -13,9 +13,9 @@ import javax.persistence.ManyToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @NoArgsConstructor
+@Entity
 public class Imagen implements Serializable {
 
     @Id

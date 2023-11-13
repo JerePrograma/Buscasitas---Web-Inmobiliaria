@@ -7,6 +7,8 @@ import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.servicios.ImagenServicio;
 import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.RangoHorarioServicio;
+import com.proyectofinal.servicios.UsuarioServicio;
+import java.security.Principal;
 import java.util.ArrayList;
 
 import java.util.Base64;
@@ -28,6 +30,9 @@ import java.util.Map;
 public class InmuebleControlador {
 
     private final InmuebleServicio inmuebleServicio;
+
+    @Autowired
+    private UsuarioServicio usuarioServicio;
 
     @Autowired
     public InmuebleControlador(@Lazy InmuebleServicio inmuebleServicio) {
@@ -177,13 +182,21 @@ public class InmuebleControlador {
         // Agrega los resultados al modelo.
         model.addAttribute("inmuebles", inmuebles);
 
-        return "busqueda_inmuebles";
+        return "inmueble_busqueda.html";
     }
 
     @GetMapping("/detalle/{cuentaTributaria}")
-    public String detalleInmueble(@PathVariable String cuentaTributaria, Model model) throws Exception {
+    public String detalleInmueble(@PathVariable String cuentaTributaria, Model model, Principal principal) throws Exception {
         Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
-        List<RangoHorario> rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
+
+        Usuario usuarioActual = null;
+        boolean esPropietario = false;
+
+        if (principal != null) {
+            usuarioActual = usuarioServicio.obtenerUsuarioPorUsername(principal.getName());
+            esPropietario = inmueble != null && usuarioActual.getPropiedades().stream()
+                    .anyMatch(propiedad -> propiedad.getCuentaTributaria().equals(cuentaTributaria));
+        }
 
         if (inmueble != null) {
             List<Imagen> imagenes = inmueble.getImagenesSecundarias();
@@ -198,17 +211,14 @@ public class InmuebleControlador {
                 imagenesInfo.add(imageData);
             }
 
-            // Agrega la lista de imágenes en base64 y su mime al modelo
             model.addAttribute("imagenesInfo", imagenesInfo);
-
-            // Agrega el inmueble y el rango horario al modelo
             model.addAttribute("inmueble", inmueble);
-            model.addAttribute("rangoHorario", rangoHorario);
+            model.addAttribute("rangoHorario", inmueble.getRangosHorarios());
+            model.addAttribute("esPropietario", esPropietario);
 
             return "inmueble_detalle";
         } else {
-            // Manejar el caso en el que no se encuentra el inmueble
-            return "error"; // Puedes crear una vista específica para errores.
+            return "error";
         }
     }
 

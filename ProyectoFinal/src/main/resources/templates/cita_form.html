@@ -25,7 +25,6 @@
       type="image/x-icon"
       th:href="@{images/logoInmobiliaria2.png}"
     />
-
   </head>
   <body>
     <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
@@ -39,23 +38,19 @@
       method="post"
       enctype="multipart/form-data"
     >
+      <input hidden th:value="${cuentaTributaria}" name="cuentaTributaria" />
       <input
         hidden
-        th:value="${cuentaTributaria}"
-        name="cuentaTributaria"
+        th:if="${usuario != null}"
+        th:value="${usuario.idCodigoTributario}"
+        name="idCliente"
       />
-        <input
-               hidden
-               th:if="${usuario != null}"
-               th:value="${usuario.idCodigoTributario}"
-               name="idCliente"
-        />
 
       <input
-              hidden
-              th:if="${usuario != null}"
-              th:value="${usuario.idCodigoTributario}"
-              name="idEnte"
+        hidden
+        th:if="${usuario != null}"
+        th:value="${usuario.idCodigoTributario}"
+        name="idEnte"
       />
       <!-- Agrega este input oculto al formulario -->
       <input type="hidden" id="idHorario" name="idHorario" />
@@ -78,14 +73,14 @@
         <!-- Las opciones se llenarán dinámicamente -->
       </select>
       <input
-              class="controls"
-              type="text"
-              id="nota"
-              name="nota"
-              placeholder="Nota de la Cita"
+        class="controls"
+        type="text"
+        id="nota"
+        name="nota"
+        placeholder="Nota de la Cita"
       />
 
-        <span th:text="${cuentaTributaria}"></span>
+      <span th:text="${cuentaTributaria}"></span>
 
       <br />
 
@@ -93,29 +88,29 @@
     </form>
     <script src="/js/script.js"></script>
     <script>
-        // Función que se llama cuando el día de la semana cambia
-        function actualizarHorariosDisponibles(rangoId) {
-            // Obtén el selector de horario
-            var selectHorario = document.getElementById("horario");
-            var idRangoHorarioInput = document.getElementById("idHorario");
+      // Función que se llama cuando el día de la semana cambia
+      function actualizarHorariosDisponibles(rangoId) {
+        // Obtén el selector de horario
+        var selectHorario = document.getElementById("horario");
+        var idRangoHorarioInput = document.getElementById("idHorario");
 
-            // Limpia las opciones existentes
-            selectHorario.innerHTML = "";
+        // Limpia las opciones existentes
+        selectHorario.innerHTML = "";
 
-            // Aquí suponemos que tienes una variable global o una forma de obtener los horarios disponibles
-            // Por ejemplo, podrías tener algo como una variable 'horariosPorRango' que contenga esta información
-            var horariosDisponibles = horariosPorRango[rangoId]; // Esta debe ser proporcionada de alguna manera
+        // Aquí suponemos que tienes una variable global o una forma de obtener los horarios disponibles
+        // Por ejemplo, podrías tener algo como una variable 'horariosPorRango' que contenga esta información
+        var horariosDisponibles = horariosPorRango[rangoId]; // Esta debe ser proporcionada de alguna manera
 
-            // Llena las opciones de horario
-            horariosDisponibles.forEach(function (hora) {
-                var option = new Option(hora, hora);
-                // Añade la opción al selector de horario
-                selectHorario.add(option);
-            });
+        // Llena las opciones de horario
+        horariosDisponibles.forEach(function (hora) {
+          var option = new Option(hora, hora);
+          // Añade la opción al selector de horario
+          selectHorario.add(option);
+        });
 
-            // Establece el valor del campo oculto con la ID del rangoHorario seleccionado
-            idRangoHorarioInput.value = rangoId;
-        }
+        // Establece el valor del campo oculto con la ID del rangoHorario seleccionado
+        idRangoHorarioInput.value = rangoId;
+      }
     </script>
     <script th:inline="javascript">
       /*<![CDATA[*/
