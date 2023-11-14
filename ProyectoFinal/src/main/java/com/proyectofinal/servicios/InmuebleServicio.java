@@ -2,8 +2,11 @@ package com.proyectofinal.servicios;
 
 import com.proyectofinal.entidades.Imagen;
 import com.proyectofinal.entidades.Inmueble;
+import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.excepciones.MiExcepcion;
+import com.proyectofinal.repositorios.ImagenRepositorio;
 import com.proyectofinal.repositorios.InmuebleRepositorio;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,15 +25,22 @@ public class InmuebleServicio {
     private ImagenServicio imagenServicio;
 
     @Autowired
-    RangoHorarioServicio rangoHorarioServicio;
+    private ImagenRepositorio imagenRepositorio;
 
     @Transactional
-    public void registrarInmueble(MultipartFile archivo, String cuentaTributaria, String direccion, String ciudad, String provincia,
+    public Inmueble registrarInmueble(MultipartFile archivoPrincipal, MultipartFile[] archivosSecundarios,
+            String cuentaTributaria, String direccion, String ciudad, String provincia,
             String transaccion, String tipoInmueble, String tituloAnuncio,
-            String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, String estado) throws Exception {
-        validarDatos(archivo, cuentaTributaria, direccion, ciudad, provincia, transaccion, tipoInmueble, tituloAnuncio, descripcionAnuncio, precioAlquilerVenta, caracteristicaInmueble, estado);
-        Inmueble inmueble = new Inmueble();
+            String descripcionAnuncio, Integer precioAlquilerVenta,
+            int cantidadAmbientes, int banios, int cantidadHabitaciones,
+            int altura, int largo, Usuario usuario) throws Exception {
 
+        // Validar datos de entrada
+        validarDatos(archivoPrincipal, cuentaTributaria, direccion, ciudad, provincia, transaccion, tipoInmueble,
+                tituloAnuncio, descripcionAnuncio, precioAlquilerVenta);
+
+        // Crear y configurar el inmueble
+        Inmueble inmueble = new Inmueble();
         inmueble.setCuentaTributaria(cuentaTributaria);
         inmueble.setDireccion(direccion);
         inmueble.setCiudad(ciudad);
@@ -39,52 +49,82 @@ public class InmuebleServicio {
         inmueble.setTipoInmueble(tipoInmueble);
         inmueble.setDescripcionAnuncio(descripcionAnuncio);
         inmueble.setPrecioAlquilerVenta(precioAlquilerVenta);
-        inmueble.setCaracteristicaInmueble(caracteristicaInmueble);
-        inmueble.setEstado(estado);
+        inmueble.setCantidadHabitaciones(cantidadHabitaciones);
+        inmueble.setBanios(banios);
+        inmueble.setCantidadAmbientes(cantidadAmbientes);
+        inmueble.setAltura(altura);
+        inmueble.setLargo(largo);
+        inmueble.setEstado("Disponible");
         inmueble.setTituloAnuncio(tituloAnuncio);
         inmueble.setAlta(true);
+        inmueble.setUsuarioAdministrador(usuario);
 
-        Imagen imagen = imagenServicio.guardarImagen(archivo);
+        // Guardar el inmueble para generar su ID
+        inmueble = inmuebleRepositorio.save(inmueble);
 
-        inmueble.setImagen(imagen);
+        // Guardar la imagen principal y asociarla con el inmueble
+        if (!archivoPrincipal.isEmpty()) {
+            Imagen imagenPrincipal = imagenServicio.guardarImagen(archivoPrincipal);
+            //      imagenPrincipal.setInmueble(inmueble);
+            imagenPrincipal = imagenRepositorio.save(imagenPrincipal);
+            inmueble.setImagenPrincipal(imagenPrincipal);
+        }
 
-        // Asignar el rango horario al inmueble
-        inmuebleRepositorio.save(inmueble);
+        // Guardar las imágenes secundarias y asociarlas con el inmueble
+        List<Imagen> imagenesSecundarias = new ArrayList<>();
+        for (MultipartFile archivoSecundario : archivosSecundarios) {
+            if (!archivoSecundario.isEmpty()) {
+                Imagen imagenSecundaria = imagenServicio.guardarImagen(archivoSecundario);
+                //     imagenSecundaria.setInmueble(inmueble);
+                imagenSecundaria = imagenRepositorio.save(imagenSecundaria);
+                imagenesSecundarias.add(imagenSecundaria);
+            }
+        }
+        inmueble.setImagenesSecundarias(imagenesSecundarias);
+
+        // No es necesario guardar de nuevo el inmueble si los métodos de guardarImagen ya realizan el guardado
+        return inmueble; // Devolver el inmueble guardado con las relaciones establecidas
     }
 
     @Transactional
-    public void modificarInmueble(MultipartFile archivo, String cuentaTributaria,
-            String tituloAnuncio, String descripcionAnuncio,
-            String caracteristicaInmueble, String estado) throws Exception {
-        // Verifica si el inmueble ya existe en la base de datos
-
+    public void modificarInmueble(String cuentaTributaria, MultipartFile archivoPrincipal, MultipartFile[] archivosSecundarios,
+            String tituloAnuncio, String descripcionAnuncio, String caracteristicaInmueble, String estado) throws Exception {
         validarDatosModificar(cuentaTributaria, tituloAnuncio, descripcionAnuncio, caracteristicaInmueble, estado);
 
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(cuentaTributaria);
         if (respuesta.isPresent()) {
             Inmueble inmueble = respuesta.get();
 
-            if (archivo != null) {
-                String idImagen = null;
+            if (archivoPrincipal != null) {
+                // Guardar la nueva imagen principal
+                Imagen nuevaImagenPrincipal = imagenServicio.guardarImagen(archivoPrincipal);
+                inmueble.setImagenPrincipal(nuevaImagenPrincipal);
+            }
 
-                idImagen = inmueble.getImagen().getId();
+            if (archivosSecundarios != null) {
+                // Eliminar las imágenes secundarias antiguas
+                List<Imagen> imagenesAntiguas = inmueble.getImagenesSecundarias();
+                for (Imagen imagenAntigua : imagenesAntiguas) {
+                    //    imagenServicio.eliminarImagen(imagenAntigua.getId());
+                }
 
-                Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
-
-                inmueble.setImagen(imagen);
+                // Guardar las nuevas imágenes secundarias
+                List<Imagen> imagenesNuevas = new ArrayList<>();
+                for (MultipartFile archivo : archivosSecundarios) {
+                    Imagen imagen = imagenServicio.guardarImagen(archivoPrincipal);
+                    imagenesNuevas.add(imagen);
+                }
+                inmueble.setImagenesSecundarias(imagenesNuevas);
             }
 
             inmueble.setTituloAnuncio(tituloAnuncio);
-
             inmueble.setDescripcionAnuncio(descripcionAnuncio);
-            inmueble.setCaracteristicaInmueble(caracteristicaInmueble);
             inmueble.setEstado(estado);
 
             inmuebleRepositorio.save(inmueble);
         } else {
-            System.out.println("No se ha encontrado una cuenta tributaria");
+            throw new MiExcepcion("No se ha encontrado un inmueble con la cuenta tributaria proporcionada.");
         }
-
     }
 
     public Inmueble getOne(String cuentaTributaria) {
@@ -97,11 +137,23 @@ public class InmuebleServicio {
         return inmuebleRepositorio.findAll();
     }
 
+    @Transactional
     public void darBajaInmueble(String cuentaTributaria) {
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(cuentaTributaria);
         if (respuesta.isPresent()) {
             Inmueble inmueble = respuesta.get();
             inmueble.setAlta(false);
+
+            inmuebleRepositorio.save(inmueble);
+        }
+    }
+
+    @Transactional
+    public void darAltaInmueble(String cuentaTributaria) {
+        Optional<Inmueble> respuesta = inmuebleRepositorio.findById(cuentaTributaria);
+        if (respuesta.isPresent()) {
+            Inmueble inmueble = respuesta.get();
+            inmueble.setAlta(true);
 
             inmuebleRepositorio.save(inmueble);
         }
@@ -126,14 +178,9 @@ public class InmuebleServicio {
         return inmuebleRepositorio.findById(cuentaTributaria).orElse(null);
     }
 
-    @Transactional(readOnly = true)
-    public List<Inmueble> buscarPorUbicacion(String ubicacion) {
-        return inmuebleRepositorio.buscarPorUbicacion(ubicacion);
-    }
-
     public void validarDatos(MultipartFile archivo, String cuentaTributaria, String direccion, String ciudad, String provincia,
             String transaccion, String tipoInmueble, String tituloAnuncio,
-            String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, String estado) throws MiExcepcion {
+            String descripcionAnuncio, Integer precioAlquilerVenta) throws MiExcepcion {
         if (archivo == null || archivo.isEmpty()) {
             throw new MiExcepcion("La imagen no puede estar vacío o ser nulo");
         }
@@ -164,12 +211,6 @@ public class InmuebleServicio {
 
         if (precioAlquilerVenta == null || precioAlquilerVenta <= 0) {
             throw new MiExcepcion("El tituloAnuncio no puede estar vacío o ser nulo");
-        }
-        if (caracteristicaInmueble == null || caracteristicaInmueble.isEmpty()) {
-            throw new MiExcepcion("El caracteristicaInmueble no puede estar vacío o ser nulo");
-        }
-        if (estado == null) {
-            throw new MiExcepcion("El estado no puede estar vacío o ser nulo");
         }
     }
 

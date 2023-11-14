@@ -1,91 +1,348 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="/fragments/head :: head">
-    <link rel="stylesheet" th:href="@{/css/custom.css}" />
-  </head>
-  <body>
-    <div th:replace="fragments/navbar :: navbar"></div>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="/fragments/head :: head">
+    <link rel="stylesheet" th:href="@{/css/custom.css}"/>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
 
-    <div class="container">
+<<<<<<< HEAD
+<div class="container-custom">
+    <h2>Detalles del Inmueble</h2>
+=======
+    <div class="container-custom">
       <h2>Detalles del Inmueble</h2>
-      <div class="inmueble-details">
-        <div class="inmueble-image">
-          <img
-            th:src="|data:${inmueble.imagen.mime};base64,${imagenBase64}|"
-            alt="Imagen del Inmueble"
-            style="max-width: 100%; max-height: 300px; object-fit: cover"
-          />
+>>>>>>> 36e417311d0847b0621ddd9dee5cc357817baa99
+
+    <!-- Galería de imágenes -->
+    <div id="image-gallery" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li
+                    th:each="imageInfo, indexStat : ${imagenesInfo}"
+                    data-target="#image-gallery"
+                    th:data-slide-to="${indexStat.index}"
+                    th:class="${indexStat.index == 0} ? 'active' : ''"
+            ></li>
+        </ol>
+        <div class="carousel-inner">
+            <div
+                    th:each="imageInfo, indexStat : ${imagenesInfo}"
+                    th:class="${indexStat.index == 0} ? 'carousel-item active' : 'carousel-item'"
+            >
+                <img
+                        th:src="|data:${imageInfo.mime};base64,${imageInfo.base64}|"
+                        alt="Imagen Secundaria del Inmueble"
+                        style="max-width: 100%; max-height: 300px; object-fit: cover"
+                />
+            </div>
         </div>
-        <div class="inmueble-info">
-          <h3 th:text="${inmueble.tituloAnuncio}"></h3>
-          <p th:text="${inmueble.descripcionAnuncio}"></p>
-          <ul>
+        <a
+                class="carousel-control-prev"
+                href="#image-gallery"
+                role="button"
+                data-slide="prev"
+        >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Anterior</span>
+        </a>
+        <a
+                class="carousel-control-next"
+                href="#image-gallery"
+                role="button"
+                data-slide="next"
+        >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Siguiente</span>
+        </a>
+    </div>
+
+    <!-- Información del inmueble -->
+    <div class="inmueble-info">
+        <h3 th:text="${inmueble.tituloAnuncio}"></h3>
+        <p th:text="${inmueble.descripcionAnuncio}"></p>
+        <ul>
+<<<<<<< HEAD
             <li>
-              <strong>Tipo de Inmueble:</strong>
-              <span th:text="${inmueble.tipoInmueble}"></span>
+                <strong>Tipo de Inmueble:</strong>
+                <span th:text="${inmueble.tipoInmueble}"></span>
             </li>
             <li>
-              <strong>Provincia:</strong>
-              <span th:text="${inmueble.provincia}"></span>
+                <strong>Provincia:</strong>
+                <span th:text="${inmueble.provincia}"></span>
             </li>
             <li>
-              <strong>Ciudad:</strong>
-              <span th:text="${inmueble.ciudad}"></span>
+                <strong>Ciudad:</strong>
+                <span th:text="${inmueble.ciudad}"></span>
             </li>
             <li>
-              <strong>Dirección:</strong>
-              <span th:text="${inmueble.direccion}"></span>
+                <strong>Dirección:</strong>
+                <span th:text="${inmueble.direccion}"></span>
             </li>
             <li>
-              <strong>Oferta:</strong>
-              <span th:text="${inmueble.transaccion}"></span>
+                <strong>Oferta:</strong>
+                <span th:text="${inmueble.transaccion}"></span>
             </li>
             <li>
-              <strong>Características del Inmueble:</strong>
-              <span th:text="${inmueble.caracteristicaInmueble}"></span>
+                <strong>Características del Inmueble:</strong>
+            <span th:text="${'Habitaciones: ' + inmueble.cantidadHabitaciones}"></span>
+            <span th:text="${'Baños: ' + inmueble.banios}"></span>
+            <span th:text="${'Ambientes: ' + inmueble.cantidadAmbientes}"></span>
+            <span th:text="${'Altura: ' + inmueble.altura}"></span>
+            <span th:text="${'Largo: ' + inmueble.largo}"></span>
             </li>
-          </ul>
-          <p>
+            <li>
+                <strong>Horarios Disponibles:</strong>
+                <span
+                        th:each="rangoHorario : ${inmueble.rangosHorarios}"
+                        th:text="${rangoHorario.diaSemana + ' Desde: ' + rangoHorario.horaInicio + ' Hasta: ' + rangoHorario.horaFin}"
+                ></span>
+            </li>
+            <li>
+                <strong>Valor del Inmueble: $</strong>
+                <span th:text="${inmueble.precioAlquilerVenta}"></span>
+            </li>
+            <p>
+                <strong>Estado:</strong> <span th:text="${inmueble.estado}"></span>
+            </p>
+            <div class="text-center">
+=======
+          <li>
+            <strong>Tipo de Inmueble:</strong>
+            <span th:text="${inmueble.tipoInmueble}"></span>
+          </li>
+          <li>
+            <strong>Provincia:</strong>
+            <span th:text="${inmueble.provincia}"></span>
+          </li>
+          <li>
+            <strong>Ciudad:</strong>
+            <span th:text="${inmueble.ciudad}"></span>
+          </li>
+          <li>
+            <strong>Dirección:</strong>
+            <span th:text="${inmueble.direccion}"></span>
+          </li>
+          <li>
+            <strong>Oferta:</strong>
+            <span th:text="${inmueble.transaccion}"></span>
+          </li>
+          <li>
+            <strong>Características del Inmueble:</strong>
+            <span th:text="${inmueble.caracteristicaInmueble}"></span>
+          </li>
+          <li>
+            <strong>Horarios Disponibles:</strong>
+            <span
+              th:each="rangoHorario : ${inmueble.rangosHorarios}"
+              th:text="${rangoHorario.diaSemana + ' Desde: ' + rangoHorario.horaInicio + ' Hasta: ' + rangoHorario.horaFin}"
+            ></span>
+          </li>
+          <li>
             <strong>Valor del Inmueble: $</strong>
             <span th:text="${inmueble.precioAlquilerVenta}"></span>
-          </p>
+          </li>
           <p>
             <strong>Estado:</strong> <span th:text="${inmueble.estado}"></span>
           </p>
           <div class="text-center">
-            <button class="btn btn-primary" id="aceptarOfertaButton">
+            <!-- Botón para usuarios con rol CLIENTE y que no son propietarios -->
+            <a
+              th:if="${#authorization.expression('hasRole(''CLIENTE'')') and !esPropietario}"
+              th:href="@{/oferta/enviar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+              class="btn btn-primary"
+            >
+              <button class="btn btn-primary">Ofertar</button>
+            </a>
+            <!-- Botón para usuarios no logueados -->
+            <a
+              th:if="${!#authorization.expression('isAuthenticated()')}"
+              th:href="@{/login}"
+              class="btn btn-primary"
+            >
               Ofertar
-            </button>
+            </a>
+
+            <!-- Botón para usuarios con rol CLIENTE y que no son propietarios -->
+            <a
+              th:if="${#authorization.expression('hasRole(''CLIENTE'')') and !esPropietario}"
+              th:href="@{/reclamo/reclamar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+              class="btn btn-primary"
+            >
+              <button class="btn btn-primary">Reclamar</button>
+            </a>
+
+            <!-- Botón para usuarios con rol ADMIN, ENTE o que son propietarios del inmueble -->
+            <a
+              th:if="${#authorization.expression('hasAnyRole(''ADMIN'', ''ENTE'')') or esPropietario}"
+              th:href="@{/reclamo/lista/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+              class="btn btn-primary"
+            >
+              <button class="btn btn-primary">Listar Reclamos</button>
+            </a>
           </div>
+
           <section class="text-center container">
             <div class="row mt-3">
               <div class="divVolver">
+>>>>>>> 36e417311d0847b0621ddd9dee5cc357817baa99
                 <a
-                  th:href="@{/inmueble/lista}"
-                  class="btn btn-secondary my-2 botonVolver botones"
-                  >Volver</a
+                        href="#"
+                        th:href="@{/cita/registrar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+                        class="btn btn-primary"
                 >
-              </div>
+                    <button class="btn btn-primary" id="pedirCitaButton">
+                        Pedir una cita
+                    </button>
+                </a>
             </div>
-          </section>
-        </div>
-      </div>
-    </div>
 
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
-      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
-      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+            <div class="text-center">
+                <!-- Solicitar DNI ya deberia cumplir con la funcion de la autorización (creo)
+                  th:if="${#authorization.expression('hasRole(''CLIENTE'')')}" -->
+                <a
+                        th:href="@{/oferta/enviar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+                        class="btn btn-primary"
+                >
+                    <button class="btn btn-primary" id="ofertarButton">
+                        Ofertar
+                    </button>
+                </a>
+
+                <!-- Botón para usuarios con rol CLIENTE -->
+                <a
+                        th:if="${#authorization.expression('hasRole(''CLIENTE'')')}"
+                        th:href="@{/reclamo/reclamar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+                        class="btn btn-primary"
+                >
+                    <button class="btn btn-primary">Reclamar</button>
+                </a>
+
+                <!-- Botón para usuarios con rol ADMIN o ENTE -->
+                <a
+                        sec:authorize="hasAnyRole('ADMIN', 'ENTE')"
+                        th:href="@{/reclamo/lista/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+                        class="btn btn-primary"
+                >
+                    <button class="btn btn-primary">Listar Reclamos</button>
+                </a>
+            </div>
+
+            <section class="text-center container">
+                <div class="row mt-3">
+                    <div class="divVolver">
+                        <a
+                                th:href="@{/}"
+                                class="btn btn-secondary my-2 botonVolver botones"
+                        >Inicio
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </ul>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"
+></script>
+
+<!-- Script para solicitar DNI -->
+
+<script th:unless="${#authorization.expression('isAuthenticated')}">
+    document.addEventListener('DOMContentLoaded', function () {
+        // Función para solicitar DNI
+        function solicitarDNI(accion) {
+            var dni;
+
+            if (accion === 'cita') {
+                dni = prompt("Por favor, ingrese su DNI para solicitar una cita:");
+            } else if (accion === 'ofertar') {
+                dni = prompt("Por favor, ingrese su DNI para ofertar:");
+            }
+
+            if (dni != null) {
+                // Realiza una llamada al backend para verificar el DNI
+                verificarDNIEnBackend(dni, accion);
+            }
+        }
+
+        // Función para verificar el DNI en el backend
+        function verificarDNIEnBackend(dni, accion) {
+            console.log("Entró a la funcion VerificarDNIenBack");
+            $.ajax({
+                type: 'GET',
+                url: '/usuario/verificarDNI',
+                data: { DNI: dni },
+                success: function (response) {
+                    console.log(response); // Aquí puedes manejar la respuesta
+
+                    // Ejemplo de manejo de respuesta JSON
+                    if (response === 'DNI encontrado') {
+                        alert('El DNI fue encontrado. Puedes redirigir al usuario o realizar otras acciones.');
+                        window.location.href = '/login';
+                    } else {
+                        alert('El DNI no fue encontrado. Puedes mostrar un mensaje al usuario o realizar otras acciones.');
+                    }
+                },
+                error: function () {
+                    // Manejar errores de la solicitud AJAX
+                    console.log(dni)
+                    alert('Error al verificar el DNI. Por favor, inténtelo de nuevo.');
+                    window.location.href = '/usuario/registrar';
+                }
+            });
+        }
+
+        // Asociar la función a los botones (asegúrate de que estos elementos existan en tu HTML)
+        var pedirCitaButton = document.getElementById('pedirCitaButton');
+        var ofertarButton = document.getElementById('ofertarButton');
+
+        if (pedirCitaButton) {
+            pedirCitaButton.addEventListener('click', function () {
+                solicitarDNI('cita');
+            });
+        }
+
+        if (ofertarButton) {
+            ofertarButton.addEventListener('click', function () {
+                solicitarDNI('ofertar');
+            });
+        }
+    });
+</script>
+
+<!-- <script th:unless="${#authorization.expression('isAuthenticated')}">>
+  function solicitarDNI() {
+      // Obtener el DNI del usuario de la página (ajusta esto según la estructura de tu página)
+      var dniUsuario = document.getElementById("dniUsuario").innerText;
+
+      // Comprobar si el DNI del usuario está presente
+      if (dniUsuario) {
+          // Lista de DNIs existentes (puedes obtenerla desde tu backend o definirla aquí)
+          var dnisValidos = ["12345678", "87654321", "55555555"];
+
+          // Comprobar si el DNI del usuario está en la lista
+          if (dnisValidos.includes(dniUsuario)) {
+              // Redirigir a la página de inicio de sesión
+              window.location.href = "/login";
+          } else {
+              // Redirigir a la página de registro
+              window.location.href = "/registro";
+          }
+      } else {
+          // Aquí puedes manejar el caso en el que el DNI del usuario no está presente en la página
+          alert("No se puede obtener el DNI del usuario.");
+      }
+  }
+</script> -->
+
+</body>
 </html>

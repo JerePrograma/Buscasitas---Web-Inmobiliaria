@@ -25,14 +25,14 @@
     </div>
     <!-- Container for Search Results -->
     <div>
-      <div class="container" style="padding: 5px">
-        <!-- Display Search Results -->
-        <!-- Use th:each to iterate through a list of inmuebles -->
-        <div class="blog-card" th:each="inmueble : ${inmuebles}">
+      <div class="blog-card" th:each="inmueble : ${inmuebles}">
+        <a
+          th:href="@{/inmueble/detalle/{cuentaTributaria}/principal(cuentaTributaria=${inmueble.cuentaTributaria})}"
+        >
           <div class="meta">
             <div
               class="photo"
-              th:style="'background-image: url(\'' + @{/imagen/inmueble/} + ${inmueble.cuentaTributaria} + '\')'"
+              th:style="'background-image: url(\'' + '/imagen/inmueble/' + ${inmueble.cuentaTributaria} + '/principal' + '\')'"
             ></div>
             <ul class="details">
               <li class="author"><a href="#">Autor</a></li>
@@ -43,16 +43,23 @@
                 </ul>
               </li>
             </ul>
-          </div>
+          </div></a
+        >
+        <a
+          th:href="@{/inmueble/detalle/{cuentaTributaria}(cuentaTributaria=${inmueble.cuentaTributaria})}"
+        >
           <div class="description">
             <h1 th:text="${inmueble.tituloAnuncio}"></h1>
             <h2 th:text="${inmueble.direccion}" +></h2>
             <p th:text="${inmueble.descripcionAnuncio}"></p>
             <p class="read-more">
-              <a href="#">Read More</a>
+              <a
+                th:href="@{/inmueble/detalle/{cuentaTributaria}(cuentaTributaria=${inmueble.cuentaTributaria})}"
+                >Leer más</a
+              >
             </p>
           </div>
-        </div>
+        </a>
       </div>
       <!-- Repeat the above structure for each inmueble -->
     </div>

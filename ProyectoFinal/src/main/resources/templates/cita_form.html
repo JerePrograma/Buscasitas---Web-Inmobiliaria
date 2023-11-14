@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Registrar Inmueble</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link rel="stylesheet" th:href="@{/css/formulario.css}" />
+
+    <link
+      rel="shortcut icon"
+      sizes="76x76"
+      type="image/x-icon"
+      th:href="@{images/logoInmobiliaria2.png}"
+    />
+  </head>
+  <body>
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <nav th:replace="fragments/navbar :: nav"></nav>
+
+    <div class="align-center">
+      <h1>Registrar Oferta</h1>
+    </div>
+    <form
+      th:action="@{/cita/registrar/__${cuentaTributaria}__}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <input hidden th:value="${cuentaTributaria}" name="cuentaTributaria" />
+      <input
+        hidden
+        th:if="${usuario != null}"
+        th:value="${usuario.idCodigoTributario}"
+        name="idCliente"
+      />
+
+      <input
+        hidden
+        th:if="${usuario != null}"
+        th:value="${usuario.idCodigoTributario}"
+        name="idEnte"
+      />
+      <!-- Agrega este input oculto al formulario -->
+      <input type="hidden" id="idHorario" name="idHorario" />
+
+      <label for="diaSemana">Horarios Disponibles</label>
+      <select
+        class="controls"
+        id="diaSemana"
+        name="diaSemana"
+        th:onchange="actualizarHorariosDisponibles(this.value)"
+      >
+        <option value="" selected>Selecciona un día</option>
+        <th:block th:each="rango : ${rangoHorario}">
+          <option th:value="${rango.id}" th:text="${rango.diaSemana}"></option>
+        </th:block>
+      </select>
+
+      <label for="horario">Hora de inicio:</label>
+      <select class="controls" id="horario" name="horario" required>
+        <!-- Las opciones se llenarán dinámicamente -->
+      </select>
+      <input
+        class="controls"
+        type="text"
+        id="nota"
+        name="nota"
+        placeholder="Nota de la Cita"
+      />
+
+      <span th:text="${cuentaTributaria}"></span>
+
+      <br />
+
+      <button type="submit">Guardar Cita</button>
+    </form>
+    <script src="/js/script.js"></script>
+    <script>
+      // Función que se llama cuando el día de la semana cambia
+      function actualizarHorariosDisponibles(rangoId) {
+        // Obtén el selector de horario
+        var selectHorario = document.getElementById("horario");
+        var idRangoHorarioInput = document.getElementById("idHorario");
+
+        // Limpia las opciones existentes
+        selectHorario.innerHTML = "";
+
+        // Aquí suponemos que tienes una variable global o una forma de obtener los horarios disponibles
+        // Por ejemplo, podrías tener algo como una variable 'horariosPorRango' que contenga esta información
+        var horariosDisponibles = horariosPorRango[rangoId]; // Esta debe ser proporcionada de alguna manera
+
+        // Llena las opciones de horario
+        horariosDisponibles.forEach(function (hora) {
+          var option = new Option(hora, hora);
+          // Añade la opción al selector de horario
+          selectHorario.add(option);
+        });
+
+        // Establece el valor del campo oculto con la ID del rangoHorario seleccionado
+        idRangoHorarioInput.value = rangoId;
+      }
+    </script>
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      // Inicializa la variable en el alcance global
+      var horariosPorRango = /*[[${horariosDisponiblesMap}]]*/ {};
+
+      document.addEventListener("DOMContentLoaded", (event) => {
+        // La página está completamente cargada, ahora puedes asegurarte de que
+        // horariosPorRango esté disponible para tu función actualizarHorariosDisponibles
+      });
+      /*]]>*/
+    </script>
+  </body>
+</html>
