@@ -29,17 +29,18 @@
     <div class="container emp-profile">
         <div class="row">
                     <div class= "col-md-4">
-                        <div id="preview" class= "profile-img">
+                        <div id="preview" class= "profile-img" th:style='|background-image:url(@{/images/profileDefault.svg})|'
+>
       <img
         th:src="@{/imagen/perfil/__${usuario.idCodigoTributario}__}"
         alt=""
         height="150px"
         width="150px"
-        onchange="getImagePreview(event)"
-      />
+       />
        
                         </div>
                     </div>
+                        
       <div class="col-md-6">
         <div class="profile-head">
           <h5
