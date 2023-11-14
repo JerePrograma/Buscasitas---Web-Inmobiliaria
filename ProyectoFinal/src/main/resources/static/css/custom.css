@@ -11,6 +11,15 @@
   background: url(../images/fondo_inmo.png);
 }
 
+.imagenFondoIndex {
+    background: url(../images/dfp-alquiler.jpg);
+    width: 100%;
+    height: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 1px solid red;
+}
+
 .content {
   display: flex;
   flex-direction: column;
@@ -32,7 +41,6 @@
 
 .logo-text {
   padding-top: 1em;
-<<<<<<< HEAD
   padding-left: 0.5em;
   background-image: linear-gradient(45deg, blueviolet, lightblue);
   -webkit-background-clip: text;
@@ -41,20 +49,6 @@
   display: inline-block;
   font-size: 24px;
   animation: colorChange 2s infinite;
-=======
-  margin: auto !important;
-  padding-left: 1em;
-  background-image: linear-gradient(
-    45deg,
-    blueviolet,
-    lightblue
-  ); /* Degradado de blueviolet a lightblue */
-  -webkit-background-clip: text; /* Clip de fondo al texto para que el degradado solo afecte al texto en navegadores webkit (Safari, Chrome) */
-  background-clip: text;
-  color: transparent; /* Texto transparente para que se muestre el degradado de fondo */
-  font-size: 36px;
-  animation: colorChange 2s infinite; /* Animación de cambio de color infinita en 4 segundos */
->>>>>>> 36e417311d0847b0621ddd9dee5cc357817baa99
 }
 .header {
   background-color: lightblue;
@@ -65,7 +59,6 @@ nav {
   color: white;
   background-color: blueviolet;
   background-image: linear-gradient(150deg, #000, #0000ff, #fff);
-<<<<<<< HEAD
   display: flex; /* Esto asegurará que los hijos de nav se alineen en línea y te permitirá alinearlos verticalmente */
   align-items: center; /* Esto centrará verticalmente los hijos de nav */
   justify-content: space-between; /* Esto separa el logo y los elementos del menú */
@@ -77,15 +70,18 @@ nav {
   display: flex;
   align-items: center;
   height: 100%;
-
-=======
-  max-height: 6em;
->>>>>>> 36e417311d0847b0621ddd9dee5cc357817baa99
 }
 
 .navbar-nav .nav-item .nav-link {
   color: white !important; /* Cambiar a blanco y usar !important para anular estilos previos */
   transition: color 1s;
+}
+.container-index {
+  padding-top: 10em;
+  padding-left: 30em;
+  box-sizing: border-box;
+  align-content: center;
+  justify-content: center;
 }
 .container-custom {
   padding-top: 10em;
@@ -339,7 +335,6 @@ img {
 /* Agregar estilos adicionales según sea necesario */
 
 #Blog Cards body {
-  background: #f1f1f1;
   display: flex;
   flex-direction: column;
   font-size: 1rem;
@@ -567,13 +562,7 @@ img {
 }
 main {
   padding-top: 2em;
-  background: url(../images/dfp-alquiler.jpg);
-  background-size: auto;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  height: 70vh;
-  margin-top: 40px;
+  margin-top: 5em;
 }
 .emp-profile {
   padding: 3%;

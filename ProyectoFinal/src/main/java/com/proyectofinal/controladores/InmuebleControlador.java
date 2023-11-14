@@ -156,31 +156,34 @@ public class InmuebleControlador {
             @RequestParam(name = "tipoInmueble", required = false) String tipoInmueble,
             @RequestParam(name = "ciudad", required = false) String ciudad,
             @RequestParam(name = "provincia", required = false) String provincia,
+            @RequestParam(name = "precioMinimo", required = false) Integer precioMinimo,
+            @RequestParam(name = "precioMaximo", required = false) Integer precioMaximo,
+            @RequestParam(name = "habitacionesMinimas", required = false) Integer habitacionesMinimas,
+            @RequestParam(name = "habitacionesMaximas", required = false) Integer habitacionesMaximas,
+            @RequestParam(name = "baniosMinimos", required = false) Integer baniosMinimos,
+            @RequestParam(name = "baniosMaximos", required = false) Integer baniosMaximos,
+            @RequestParam(name = "largoMinimo", required = false) Integer largoMinimo,
+            @RequestParam(name = "largoMaximo", required = false) Integer largoMaximo,
+            @RequestParam(name = "alturaMinima", required = false) Integer alturaMinima,
+            @RequestParam(name = "alturaMaxima", required = false) Integer alturaMaxima,
             @RequestParam(name = "archivo", required = false) MultipartFile archivo,
             Model model
     ) {
         // Llama al servicio con los parámetros adecuados, incluyendo tipoInmueble como String.
-        List<Inmueble> inmuebles;
-        if ((ubicacion == null || ubicacion.isEmpty())
-                && (transaccion == null || transaccion.isEmpty())
-                && (tipoInmueble == null || tipoInmueble.isEmpty())
-                && (ciudad == null || ciudad.isEmpty())
-                && (provincia == null || provincia.isEmpty())) {
+        try {
+            // Llama al servicio con los parámetros adecuados
+            List<Inmueble> inmuebles = inmuebleServicio.buscarInmueblesPorFiltros(
+                    ubicacion, transaccion, tipoInmueble, ciudad, provincia,
+                    precioMinimo, precioMaximo, habitacionesMinimas, habitacionesMaximas,
+                    baniosMinimos, baniosMaximos, largoMinimo, largoMaximo, alturaMinima, alturaMaxima);
 
-            // No se ingresaron criterios de búsqueda, obtener todos los inmuebles
-            inmuebles = inmuebleServicio.listarTodosLosInmuebles();
-        } else {
-            // Realizar la búsqueda con los criterios ingresados
-            inmuebles = inmuebleServicio.buscarInmueblesPorFiltros(
-                    (ubicacion != null) ? ubicacion : "",
-                    (transaccion != null) ? transaccion : "",
-                    (tipoInmueble != null) ? tipoInmueble : "",
-                    (ciudad != null) ? ciudad : "",
-                    (provincia != null) ? provincia : ""
-            );
+            // Agrega los resultados al modelo.
+            model.addAttribute("inmuebles", inmuebles);
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "redirect/";
         }
-        // Agrega los resultados al modelo.
-        model.addAttribute("inmuebles", inmuebles);
+
 
         return "inmueble_busqueda.html";
     }
