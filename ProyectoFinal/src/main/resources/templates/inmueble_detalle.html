@@ -93,8 +93,9 @@
                 ></span>
             </li>
             <li>
-                <strong>Valor del Inmueble: $</strong>
+                <strong>Valor del Inmueble:</strong>
                 <span th:text="${inmueble.precio}"></span>
+                <span th:text="${inmueble.moneda == 'dolar' ? 'USD' : 'ARS'}"></span>
             </li>
             <p>
                 <strong>Estado:</strong> <span th:text="${inmueble.estado}"></span>

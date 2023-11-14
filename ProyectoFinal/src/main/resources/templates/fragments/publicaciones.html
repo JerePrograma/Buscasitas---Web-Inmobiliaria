@@ -62,6 +62,11 @@
           <h1 th:text="${inmueble.tituloAnuncio}"></h1>
           <h2 th:text="${inmueble.direccion}" +></h2>
           <p th:text="${inmueble.descripcionAnuncio}"></p>
+
+          <h1 class="custom-title">
+            <span th:text="${inmueble.precio}"></span>
+            <span th:text="${inmueble.moneda == 'dolar' ? 'USD' : 'ARS'}"></span>
+          </h1>
           <p class="read-more">
             <a
               th:href="@{/inmueble/detalle/{cuentaTributaria}(cuentaTributaria=${inmueble.cuentaTributaria})}"
