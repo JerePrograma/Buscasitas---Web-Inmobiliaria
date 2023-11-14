@@ -56,7 +56,9 @@ public class UsuarioControlador {
             usuarioServicio.registrarUsuario(idCodigoTributario, nombre, apellido, archivo, direccion, ciudad,
                     provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
             modelo.put("exito", "Usuario registrado correctamente");
-
+            
+          
+            
         } catch (MiExcepcion ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("idCodigoTributario", idCodigoTributario);
@@ -74,7 +76,7 @@ public class UsuarioControlador {
 
             return "usuario_form.html";
         }
-        return "redirect:/";
+        return "usuario_form_exito.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE','ROLE_ADMIN','ROLE_ENTE')")
