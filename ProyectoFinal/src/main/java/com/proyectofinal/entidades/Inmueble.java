@@ -23,7 +23,8 @@ public class Inmueble implements Serializable {
     private String transaccion; // input compra, venta, alquiler anual, alquiler temporario
     private String tituloAnuncio;
     private String descripcionAnuncio;
-    private Integer precioAlquilerVenta;
+    private String moneda;
+    private Integer precio;
     // Caracteristicas
     private int cantidadHabitaciones;
     private int banios;
