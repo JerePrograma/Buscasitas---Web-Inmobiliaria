@@ -128,13 +128,24 @@
         placeholder="Descripción del Anuncio"
       ></textarea>
 
+
+
+      <!-- Sección de Precio -->
+      <label for = "precio">Precio</label>
       <input
-        class="controls"
-        type="number"
-        id="precioAlquilerVenta"
-        name="precioAlquilerVenta"
-        placeholder="Precio del Alquiler o Venta"
+              class="controls"
+              type="number"
+              id="precio"
+              name="precio"
+              placeholder="Precio del Alquiler o Venta"
       />
+
+      <label for = "moneda">Moneda</label>
+      <select class="controls" id="moneda" name="moneda">
+        <option value="peso">Pesos</option>
+        <option value="dolar">Dolares</option>
+        <!-- Otras opciones -->
+      </select>
 
       <label for="cantidadHabitaciones">Caracteristicas del inmueble:</label>
       <br>

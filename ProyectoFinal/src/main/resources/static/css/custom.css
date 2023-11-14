@@ -11,6 +11,15 @@
   background: url(../images/fondo_inmo.png);
 }
 
+.imagenFondoIndex {
+    background: url(../images/dfp-alquiler.jpg);
+    width: 100%;
+    height: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 1px solid red;
+}
+
 .content {
   display: flex;
   flex-direction: column;
@@ -69,6 +78,13 @@ nav {
 .navbar-nav .nav-item .nav-link {
   color: white !important; /* Cambiar a blanco y usar !important para anular estilos previos */
   transition: color 1s;
+}
+.container-index {
+  padding-top: 10em;
+  padding-left: 30em;
+  box-sizing: border-box;
+  align-content: center;
+  justify-content: center;
 }
 .container-custom {
   padding-top: 10em;
@@ -322,7 +338,6 @@ img {
 /* Agregar estilos adicionales según sea necesario */
 
 #Blog Cards body {
-  background: #f1f1f1;
   display: flex;
   flex-direction: column;
   font-size: 1rem;
@@ -557,13 +572,7 @@ img {
 
 main {
   padding-top: 2em;
-  background: url(../images/dfp-alquiler.jpg);
-  background-size: auto;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  height: 70vh;
-  margin-top: 40px;
+  margin-top: 5em;
 }
 .emp-profile {
   padding: 3%;

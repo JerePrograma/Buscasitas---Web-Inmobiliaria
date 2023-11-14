@@ -5,6 +5,8 @@
     <!-- This is to display the Navbar of the website. -->
     <nav th:replace="fragments/navbar :: nav"></nav>
     <!-- End of NavBar -->
+    <br>
+    <br>
     <div
       class="container mt-5 rounded mx-auto"
       style="
@@ -27,26 +29,41 @@
     <div>
       <div class="blog-card" th:each="inmueble : ${inmuebles}">
         <a
-          th:href="@{/inmueble/detalle/{cuentaTributaria}/principal(cuentaTributaria=${inmueble.cuentaTributaria})}"
+                th:href="@{/inmueble/detalle/{cuentaTributaria}/principal(cuentaTributaria=${inmueble.cuentaTributaria})}"
         >
           <div class="meta">
             <div
-              class="photo"
-              th:style="'background-image: url(\'' + '/imagen/inmueble/' + ${inmueble.cuentaTributaria} + '/principal' + '\')'"
+                    class="photo"
+                    th:style="'background-image: url(\'' + '/imagen/inmueble/' + ${inmueble.cuentaTributaria} + '/principal' + '\')'"
             ></div>
             <ul class="details">
-              <li class="author"><a href="#">Autor</a></li>
+              <li class="author">
+                <a
+                        th:text="${inmueble.usuarioAdministrador.nombre} + ' ' + ${inmueble.usuarioAdministrador.apellido}"
+                ></a>
+              </li>
               <li class="date">Aug. 24, 2015</li>
               <li class="tags">
                 <ul>
-                  <li><a href="#">Etiquetas</a></li>
+                  <li>
+                  <span
+                          th:text="${'Habitaciones: ' + inmueble.cantidadHabitaciones}"
+                  ></span>
+                  </li>
+                  <li><span th:text="${'Baños: ' + inmueble.banios}"></span></li>
+                  <li>
+                  <span
+                          th:text="${'Ambientes: ' + inmueble.cantidadAmbientes}"
+                  ></span>
+                  </li>
+                  <li><span th:text="${'Altura: ' + inmueble.altura}"></span></li>
+                  <li><span th:text="${'Largo: ' + inmueble.largo}"></span></li>
                 </ul>
               </li>
-            </ul>
-          </div></a
-        >
+            </ul></div
+          ></a>
         <a
-          th:href="@{/inmueble/detalle/{cuentaTributaria}(cuentaTributaria=${inmueble.cuentaTributaria})}"
+                th:href="@{/inmueble/detalle/{cuentaTributaria}(cuentaTributaria=${inmueble.cuentaTributaria})}"
         >
           <div class="description">
             <h1 th:text="${inmueble.tituloAnuncio}"></h1>
@@ -54,8 +71,8 @@
             <p th:text="${inmueble.descripcionAnuncio}"></p>
             <p class="read-more">
               <a
-                th:href="@{/inmueble/detalle/{cuentaTributaria}(cuentaTributaria=${inmueble.cuentaTributaria})}"
-                >Leer más</a
+                      th:href="@{/inmueble/detalle/{cuentaTributaria}(cuentaTributaria=${inmueble.cuentaTributaria})}"
+              >Leer más</a
               >
             </p>
           </div>

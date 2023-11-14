@@ -64,7 +64,8 @@ public class InmuebleControlador {
             @RequestParam("tipoInmueble") String tipoInmueble,
             @RequestParam("tituloAnuncio") String tituloAnuncio,
             @RequestParam("descripcionAnuncio") String descripcionAnuncio,
-            @RequestParam("precioAlquilerVenta") Integer precioAlquilerVenta,
+            @RequestParam("moneda") String moneda,
+            @RequestParam("precio") Integer precio,
             @RequestParam("cantidadHabitaciones") Integer cantidadHabitaciones,
             @RequestParam("banios") Integer banios,
             @RequestParam("cantidadAmbientes") Integer cantidadAmbientes,
@@ -81,8 +82,8 @@ public class InmuebleControlador {
             // Guardar el inmueble y capturar la instancia guardada
             Inmueble inmuebleGuardado = inmuebleServicio.registrarInmueble(
                     archivoPrincipal, archivosSecundarios, cuentaTributaria, direccion, ciudad, provincia,
-                    transaccion, tipoInmueble, tituloAnuncio, descripcionAnuncio,
-                    precioAlquilerVenta, cantidadHabitaciones, banios, cantidadAmbientes,
+                    transaccion, tipoInmueble, tituloAnuncio, descripcionAnuncio, moneda,
+                    precio, cantidadHabitaciones, banios, cantidadAmbientes,
                     altura, largo, usuario);
 
             // Establecer los rangos horarios con el inmueble guardado
@@ -137,7 +138,12 @@ public class InmuebleControlador {
             // Modificar inmueble
             inmuebleServicio.modificarInmueble(cuentaTributaria, archivoPrincipal, archivosSecundarios, tituloAnuncio, descripcionAnuncio, estado);
 
+<<<<<<< HEAD
             rangoHorarioServicio.actualizarRangoHorario(diaSemanaList, horaInicioList, horaFinList);
+=======
+            RangoHorario rangoHorario = (RangoHorario) rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
+            rangoHorarioServicio.actualizarRangoHorario(rangoHorario, diaSemanaList, horaInicioList, horaFinList);
+>>>>>>> 972d3ad559b0c96b94177a5f404be2808ea3273a
 
             model.put("exito", "Los cambios fueron guardados correctamente!");
             return "redirect:/"; // Redirige a la página principal o la página de éxito, según sea necesario
@@ -159,6 +165,7 @@ public class InmuebleControlador {
             @RequestParam(name = "precioMinimo", required = false) Integer precioMinimo,
             @RequestParam(name = "precioMaximo", required = false) Integer precioMaximo,
             @RequestParam(name = "habitacionesMinimas", required = false) Integer habitacionesMinimas,
+<<<<<<< HEAD
             @RequestParam(name = "banosMinimos", required = false) Integer banosMinimos,
             Model model
     ) {
@@ -179,6 +186,33 @@ public class InmuebleControlador {
 
         // Agrega los resultados al modelo
         model.addAttribute("inmuebles", inmuebles);
+=======
+            @RequestParam(name = "habitacionesMaximas", required = false) Integer habitacionesMaximas,
+            @RequestParam(name = "baniosMinimos", required = false) Integer baniosMinimos,
+            @RequestParam(name = "baniosMaximos", required = false) Integer baniosMaximos,
+            @RequestParam(name = "largoMinimo", required = false) Integer largoMinimo,
+            @RequestParam(name = "largoMaximo", required = false) Integer largoMaximo,
+            @RequestParam(name = "alturaMinima", required = false) Integer alturaMinima,
+            @RequestParam(name = "alturaMaxima", required = false) Integer alturaMaxima,
+            @RequestParam(name = "archivo", required = false) MultipartFile archivo,
+            Model model
+    ) {
+        // Llama al servicio con los parámetros adecuados, incluyendo tipoInmueble como String.
+        try {
+            // Llama al servicio con los parámetros adecuados
+            List<Inmueble> inmuebles = inmuebleServicio.buscarInmueblesPorFiltros(
+                    ubicacion, transaccion, tipoInmueble, ciudad, provincia,
+                    precioMinimo, precioMaximo, habitacionesMinimas, habitacionesMaximas,
+                    baniosMinimos, baniosMaximos, largoMinimo, largoMaximo, alturaMinima, alturaMaxima);
+
+            // Agrega los resultados al modelo.
+            model.addAttribute("inmuebles", inmuebles);
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "redirect/";
+        }
+
+>>>>>>> 972d3ad559b0c96b94177a5f404be2808ea3273a
 
         return "inmueble_busqueda.html";
     }
