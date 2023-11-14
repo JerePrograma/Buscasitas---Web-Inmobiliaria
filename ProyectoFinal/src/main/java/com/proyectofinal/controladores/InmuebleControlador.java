@@ -10,6 +10,7 @@ import com.proyectofinal.servicios.RangoHorarioServicio;
 import com.proyectofinal.servicios.UsuarioServicio;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import java.util.Base64;
 import java.util.HashMap;
@@ -21,8 +22,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/inmueble")
@@ -51,7 +54,6 @@ public class InmuebleControlador {
 
     @PostMapping("/registrar")
     public String registrarInmueble(ModelMap modelo,
-            @RequestParam("estado") String estado,
             @RequestParam("archivoPrincipal") MultipartFile archivoPrincipal,
             @RequestParam("archivosSecundarios") MultipartFile[] archivosSecundarios,
             @RequestParam("cuentaTributaria") String cuentaTributaria,
@@ -63,16 +65,25 @@ public class InmuebleControlador {
             @RequestParam("tituloAnuncio") String tituloAnuncio,
             @RequestParam("descripcionAnuncio") String descripcionAnuncio,
             @RequestParam("precioAlquilerVenta") Integer precioAlquilerVenta,
-            @RequestParam("caracteristicaInmueble") String caracteristicaInmueble,
+            @RequestParam("cantidadHabitaciones") Integer cantidadHabitaciones,
+            @RequestParam("banios") Integer banios,
+            @RequestParam("cantidadAmbientes") Integer cantidadAmbientes,
+            @RequestParam("altura") int altura,
+            @RequestParam("largo") int largo,
             @RequestParam("diaSemana") List<String> diaSemanaList,
             @RequestParam("horaInicio") List<String> horaInicioList,
-            @RequestParam("horaFin") List<String> horaFinList) {
+            @RequestParam("horaFin") List<String> horaFinList, HttpSession session) {
+
+        // Obtener el usuario de la sesión
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+
         try {
             // Guardar el inmueble y capturar la instancia guardada
             Inmueble inmuebleGuardado = inmuebleServicio.registrarInmueble(
                     archivoPrincipal, archivosSecundarios, cuentaTributaria, direccion, ciudad, provincia,
                     transaccion, tipoInmueble, tituloAnuncio, descripcionAnuncio,
-                    precioAlquilerVenta, caracteristicaInmueble, estado);
+                    precioAlquilerVenta, cantidadHabitaciones, banios, cantidadAmbientes,
+                    altura, largo, usuario);
 
             // Establecer los rangos horarios con el inmueble guardado
             rangoHorarioServicio.establecerRangoHorarios(diaSemanaList, horaInicioList, horaFinList, inmuebleGuardado);
@@ -104,10 +115,11 @@ public class InmuebleControlador {
     public String editarInmueble(@PathVariable String cuentaTributaria, ModelMap model) throws Exception {
         Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
         List<RangoHorario> rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
-        model.put("inmueble", inmueble);
         model.put("rangoHorario", rangoHorario);
+
+        model.addAttribute("inmueble", inmueble);
         model.addAttribute("cuentaTributaria", cuentaTributaria);
-        return "inmueble_modificar"; // Crea una página HTML para la edición del inmueble
+        return "inmueble_modificar";
     }
 
     @PostMapping("/modificar/{cuentaTributaria}")
@@ -116,7 +128,6 @@ public class InmuebleControlador {
             @RequestParam("archivos") MultipartFile[] archivosSecundarios,
             @RequestParam("tituloAnuncio") String tituloAnuncio,
             @RequestParam("descripcionAnuncio") String descripcionAnuncio,
-            @RequestParam("caracteristicaInmueble") String caracteristicaInmueble,
             @RequestParam("estado") String estado,
             @RequestParam("diaSemana") List<String> diaSemanaList,
             @RequestParam("horaInicio") List<String> horaInicioList,
@@ -124,19 +135,17 @@ public class InmuebleControlador {
             ModelMap model) {
         try {
             // Modificar inmueble
-            inmuebleServicio.modificarInmueble(cuentaTributaria, archivoPrincipal, archivosSecundarios, tituloAnuncio, descripcionAnuncio, caracteristicaInmueble, estado);
+            inmuebleServicio.modificarInmueble(cuentaTributaria, archivoPrincipal, archivosSecundarios, tituloAnuncio, descripcionAnuncio, estado);
 
-            // Modificar RangoHorario
-            RangoHorario rangoHorario = (RangoHorario) rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
-            rangoHorarioServicio.actualizarRangoHorario(rangoHorario, diaSemanaList, horaInicioList, horaFinList);
+            rangoHorarioServicio.actualizarRangoHorario(diaSemanaList, horaInicioList, horaFinList);
 
             model.put("exito", "Los cambios fueron guardados correctamente!");
             return "redirect:/"; // Redirige a la página principal o la página de éxito, según sea necesario
         } catch (Exception ex) {
+            Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
+            model.put("inmueble", inmueble);
             model.put("error", ex.getMessage());
-            System.out.println("error" + ex.getMessage());
-            System.out.println(cuentaTributaria);
-            return "inmueble_modificar"; // Permanece en la página de edición y muestra el mensaje de error
+            return "inmueble_modificar";// Permanece en la página de edición y muestra el mensaje de error
         }
     }
 
@@ -147,38 +156,42 @@ public class InmuebleControlador {
             @RequestParam(name = "tipoInmueble", required = false) String tipoInmueble,
             @RequestParam(name = "ciudad", required = false) String ciudad,
             @RequestParam(name = "provincia", required = false) String provincia,
-            @RequestParam(name = "archivo", required = false) MultipartFile archivo,
+            @RequestParam(name = "precioMinimo", required = false) Integer precioMinimo,
+            @RequestParam(name = "precioMaximo", required = false) Integer precioMaximo,
+            @RequestParam(name = "habitacionesMinimas", required = false) Integer habitacionesMinimas,
+            @RequestParam(name = "banosMinimos", required = false) Integer banosMinimos,
             Model model
     ) {
-        // Llama al servicio con los parámetros adecuados, incluyendo tipoInmueble como String.
         List<Inmueble> inmuebles;
-        if ((ubicacion == null || ubicacion.isEmpty())
-                && (transaccion == null || transaccion.isEmpty())
-                && (tipoInmueble == null || tipoInmueble.isEmpty())
-                && (ciudad == null || ciudad.isEmpty())
-                && (provincia == null || provincia.isEmpty())) {
 
+        // Verifica si se han ingresado criterios de búsqueda
+        if (isNullOrEmpty(ubicacion) && isNullOrEmpty(transaccion) && isNullOrEmpty(tipoInmueble)
+                && isNullOrEmpty(ciudad) && isNullOrEmpty(provincia)
+                && precioMinimo == null && precioMaximo == null
+                && habitacionesMinimas == null && banosMinimos == null) {
             // No se ingresaron criterios de búsqueda, obtener todos los inmuebles
             inmuebles = inmuebleServicio.listarTodosLosInmuebles();
         } else {
             // Realizar la búsqueda con los criterios ingresados
             inmuebles = inmuebleServicio.buscarInmueblesPorFiltros(
-                    (ubicacion != null) ? ubicacion : "",
-                    (transaccion != null) ? transaccion : "",
-                    (tipoInmueble != null) ? tipoInmueble : "",
-                    (ciudad != null) ? ciudad : "",
-                    (provincia != null) ? provincia : ""
-            );
+                    ubicacion, transaccion, tipoInmueble, ciudad, provincia, precioMinimo, precioMaximo, habitacionesMinimas, banosMinimos);
         }
-        // Agrega los resultados al modelo.
+
+        // Agrega los resultados al modelo
         model.addAttribute("inmuebles", inmuebles);
 
         return "inmueble_busqueda.html";
     }
 
+// Método auxiliar para verificar si un String es nulo o vacío
+    private boolean isNullOrEmpty(String str) {
+        return str == null || str.isEmpty();
+    }
+
     @GetMapping("/detalle/{cuentaTributaria}")
     public String detalleInmueble(@PathVariable String cuentaTributaria, Model model, Principal principal) throws Exception {
         Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
+        List<RangoHorario> rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
 
         Usuario usuarioActual = null;
         boolean esPropietario = false;
@@ -188,7 +201,6 @@ public class InmuebleControlador {
             esPropietario = inmueble != null && usuarioActual.getPropiedades().stream()
                     .anyMatch(propiedad -> propiedad.getCuentaTributaria().equals(cuentaTributaria));
         }
-
         if (inmueble != null) {
             List<Imagen> imagenes = inmueble.getImagenesSecundarias();
             List<Map<String, String>> imagenesInfo = new ArrayList<>();
@@ -206,10 +218,10 @@ public class InmuebleControlador {
             model.addAttribute("inmueble", inmueble);
             model.addAttribute("rangoHorario", inmueble.getRangosHorarios());
             model.addAttribute("esPropietario", esPropietario);
-
             return "inmueble_detalle";
         } else {
-            return "error";
+            // Manejar el caso en el que no se encuentra el inmueble
+            return "error"; // Puedes crear una vista específica para errores.
         }
     }
 

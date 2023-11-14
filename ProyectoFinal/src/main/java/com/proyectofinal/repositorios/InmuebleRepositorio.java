@@ -16,11 +16,19 @@ public interface InmuebleRepositorio extends JpaRepository<Inmueble, String> {
             + "AND (:transaccion IS NULL OR LOWER(i.transaccion) LIKE LOWER(CONCAT('%', :transaccion, '%'))) "
             + "AND (:tipoInmueble IS NULL OR LOWER(i.tipoInmueble) LIKE LOWER(CONCAT('%', :tipoInmueble, '%'))) "
             + "AND (:ciudad IS NULL OR LOWER(i.ciudad) LIKE LOWER(CONCAT('%', :ciudad, '%'))) "
-            + "AND (:provincia IS NULL OR LOWER(i.provincia) LIKE LOWER(CONCAT('%', :provincia, '%')))")
+            + "AND (:provincia IS NULL OR LOWER(i.provincia) LIKE LOWER(CONCAT('%', :provincia, '%'))) "
+            + "AND (:precioMinimo IS NULL OR i.precioAlquilerVenta >= :precioMinimo) "
+            + "AND (:precioMaximo IS NULL OR i.precioAlquilerVenta <= :precioMaximo) "
+            + "AND (:habitacionesMinimas IS NULL OR i.cantidadHabitaciones >= :habitacionesMinimas) "
+            + "AND (:banosMinimos IS NULL OR i.banios >= :banosMinimos)")
     List<Inmueble> findInmueblesByFiltros(@Param("ubicacion") String ubicacion,
             @Param("transaccion") String transaccion,
             @Param("tipoInmueble") String tipoInmueble,
             @Param("ciudad") String ciudad,
-            @Param("provincia") String provincia);
+            @Param("provincia") String provincia,
+            @Param("precioMinimo") Integer precioMinimo,
+            @Param("precioMaximo") Integer precioMaximo,
+            @Param("habitacionesMinimas") Integer habitacionesMinimas,
+            @Param("banosMinimos") Integer banosMinimos);
 
 }

@@ -47,19 +47,16 @@ public class RangoHorarioServicio {
     }
 
     @Transactional
-    public RangoHorario actualizarRangoHorario(RangoHorario rangoHorario, List<String> diaSemanaList, List<String> horaInicioList, List<String> horaFinList) {
-        if (rangoHorario != null) {
-            List<RangoHorario> rangosHorarios = new ArrayList<>();
-            for (int i = 0; i < diaSemanaList.size(); i++) {
-                LocalTime horaInicio = LocalTime.parse(horaInicioList.get(i));
-                LocalTime horaFin = LocalTime.parse(horaFinList.get(i));
-                rangoHorario.setDiaSemana(String.valueOf(diaSemanaList));
-                rangoHorario.setHoraInicio(horaInicio);
-                rangoHorario.setHoraFin(horaFin);
-                return rangoHorarioRepositorio.save(rangoHorario);
-            }
+    public List<RangoHorario> actualizarRangoHorario(List<String> diaSemanaList, List<String> horaInicioList, List<String> horaFinList) {
+        List<RangoHorario> rangosHorariosActualizados = new ArrayList<>();
+        for (int i = 0; i < diaSemanaList.size(); i++) {
+            RangoHorario rangoHorario = new RangoHorario();
+            rangoHorario.setDiaSemana(diaSemanaList.get(i));
+            rangoHorario.setHoraInicio(LocalTime.parse(horaInicioList.get(i)));
+            rangoHorario.setHoraFin(LocalTime.parse(horaFinList.get(i)));
+            rangosHorariosActualizados.add(rangoHorarioRepositorio.save(rangoHorario));
         }
-        throw new IllegalArgumentException("El rango horario proporcionado es nulo.");
+        return rangosHorariosActualizados;
     }
 
     @Transactional
