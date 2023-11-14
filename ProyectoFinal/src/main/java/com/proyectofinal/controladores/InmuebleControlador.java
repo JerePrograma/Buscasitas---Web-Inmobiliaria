@@ -21,6 +21,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +52,6 @@ public class InmuebleControlador {
 
     @PostMapping("/registrar")
     public String registrarInmueble(ModelMap modelo,
-            @RequestParam("estado") String estado,
             @RequestParam("archivoPrincipal") MultipartFile archivoPrincipal,
             @RequestParam("archivosSecundarios") MultipartFile[] archivosSecundarios,
             @RequestParam("cuentaTributaria") String cuentaTributaria,
@@ -63,16 +63,25 @@ public class InmuebleControlador {
             @RequestParam("tituloAnuncio") String tituloAnuncio,
             @RequestParam("descripcionAnuncio") String descripcionAnuncio,
             @RequestParam("precioAlquilerVenta") Integer precioAlquilerVenta,
-            @RequestParam("caracteristicaInmueble") String caracteristicaInmueble,
+            @RequestParam("cantidadHabitaciones") Integer cantidadHabitaciones,
+            @RequestParam("banios") Integer banios,
+            @RequestParam("cantidadAmbientes") Integer cantidadAmbientes,
+            @RequestParam("altura") int altura,
+            @RequestParam("largo") int largo,
             @RequestParam("diaSemana") List<String> diaSemanaList,
             @RequestParam("horaInicio") List<String> horaInicioList,
-            @RequestParam("horaFin") List<String> horaFinList) {
+            @RequestParam("horaFin") List<String> horaFinList, HttpSession session) {
+
+        // Obtener el usuario de la sesión
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+
         try {
             // Guardar el inmueble y capturar la instancia guardada
             Inmueble inmuebleGuardado = inmuebleServicio.registrarInmueble(
                     archivoPrincipal, archivosSecundarios, cuentaTributaria, direccion, ciudad, provincia,
                     transaccion, tipoInmueble, tituloAnuncio, descripcionAnuncio,
-                    precioAlquilerVenta, caracteristicaInmueble, estado);
+                    precioAlquilerVenta, cantidadHabitaciones, banios, cantidadAmbientes,
+                    altura, largo, usuario);
 
             // Establecer los rangos horarios con el inmueble guardado
             rangoHorarioServicio.establecerRangoHorarios(diaSemanaList, horaInicioList, horaFinList, inmuebleGuardado);

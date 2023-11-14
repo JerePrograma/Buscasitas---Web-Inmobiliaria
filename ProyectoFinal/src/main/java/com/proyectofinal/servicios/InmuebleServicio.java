@@ -2,6 +2,7 @@ package com.proyectofinal.servicios;
 
 import com.proyectofinal.entidades.Imagen;
 import com.proyectofinal.entidades.Inmueble;
+import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.excepciones.MiExcepcion;
 import com.proyectofinal.repositorios.ImagenRepositorio;
 import com.proyectofinal.repositorios.InmuebleRepositorio;
@@ -31,11 +32,12 @@ public class InmuebleServicio {
             String cuentaTributaria, String direccion, String ciudad, String provincia,
             String transaccion, String tipoInmueble, String tituloAnuncio,
             String descripcionAnuncio, Integer precioAlquilerVenta,
-            String caracteristicaInmueble, String estado) throws Exception {
+            int cantidadAmbientes, int banios, int cantidadHabitaciones,
+            int altura, int largo, Usuario usuario) throws Exception {
 
         // Validar datos de entrada
         validarDatos(archivoPrincipal, cuentaTributaria, direccion, ciudad, provincia, transaccion, tipoInmueble,
-                tituloAnuncio, descripcionAnuncio, precioAlquilerVenta, caracteristicaInmueble, estado);
+                tituloAnuncio, descripcionAnuncio, precioAlquilerVenta);
 
         // Crear y configurar el inmueble
         Inmueble inmueble = new Inmueble();
@@ -47,10 +49,15 @@ public class InmuebleServicio {
         inmueble.setTipoInmueble(tipoInmueble);
         inmueble.setDescripcionAnuncio(descripcionAnuncio);
         inmueble.setPrecioAlquilerVenta(precioAlquilerVenta);
-        inmueble.setCaracteristicaInmueble(caracteristicaInmueble);
-        inmueble.setEstado(estado);
+        inmueble.setCantidadHabitaciones(cantidadHabitaciones);
+        inmueble.setBanios(banios);
+        inmueble.setCantidadAmbientes(cantidadAmbientes);
+        inmueble.setAltura(altura);
+        inmueble.setLargo(largo);
+        inmueble.setEstado("Disponible");
         inmueble.setTituloAnuncio(tituloAnuncio);
         inmueble.setAlta(true);
+        inmueble.setUsuarioAdministrador(usuario);
 
         // Guardar el inmueble para generar su ID
         inmueble = inmuebleRepositorio.save(inmueble);
@@ -112,7 +119,6 @@ public class InmuebleServicio {
 
             inmueble.setTituloAnuncio(tituloAnuncio);
             inmueble.setDescripcionAnuncio(descripcionAnuncio);
-            inmueble.setCaracteristicaInmueble(caracteristicaInmueble);
             inmueble.setEstado(estado);
 
             inmuebleRepositorio.save(inmueble);
@@ -174,7 +180,7 @@ public class InmuebleServicio {
 
     public void validarDatos(MultipartFile archivo, String cuentaTributaria, String direccion, String ciudad, String provincia,
             String transaccion, String tipoInmueble, String tituloAnuncio,
-            String descripcionAnuncio, Integer precioAlquilerVenta, String caracteristicaInmueble, String estado) throws MiExcepcion {
+            String descripcionAnuncio, Integer precioAlquilerVenta) throws MiExcepcion {
         if (archivo == null || archivo.isEmpty()) {
             throw new MiExcepcion("La imagen no puede estar vacío o ser nulo");
         }
@@ -205,12 +211,6 @@ public class InmuebleServicio {
 
         if (precioAlquilerVenta == null || precioAlquilerVenta <= 0) {
             throw new MiExcepcion("El tituloAnuncio no puede estar vacío o ser nulo");
-        }
-        if (caracteristicaInmueble == null || caracteristicaInmueble.isEmpty()) {
-            throw new MiExcepcion("El caracteristicaInmueble no puede estar vacío o ser nulo");
-        }
-        if (estado == null) {
-            throw new MiExcepcion("El estado no puede estar vacío o ser nulo");
         }
     }
 
