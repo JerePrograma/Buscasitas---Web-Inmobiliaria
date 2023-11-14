@@ -53,7 +53,20 @@
           <span class="sr-only">Siguiente</span>
         </a>
       </div>
-
+      <!-- Contenedor de Miniaturas -->
+      <div class="carousel-thumbnails">
+        <div class="row">
+          <div th:each="imageInfo, indexStat : ${imagenesInfo}" class="col">
+            <img
+              th:src="|data:${imageInfo.mime};base64,${imageInfo.base64}|"
+              alt="Miniatura"
+              class="img-thumbnail"
+              th:onclick="'javascript:goToSlide(' + ${indexStat.index} + ');'"
+              style="cursor: pointer; max-height: 100px; object-fit: cover"
+            />
+          </div>
+        </div>
+      </div>
       <!-- Información del inmueble -->
       <div class="inmueble-info">
         <h3 th:text="${inmueble.tituloAnuncio}"></h3>
@@ -241,6 +254,10 @@
           });
         }
       });
+      // Función para navegar a un slide específico en el carrusel
+      function goToSlide(index) {
+        $("#image-gallery").carousel(index);
+      }
     </script>
 
     <!-- <script th:unless="${#authorization.expression('isAuthenticated')}">>

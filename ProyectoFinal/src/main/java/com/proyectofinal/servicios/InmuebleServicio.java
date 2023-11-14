@@ -97,10 +97,10 @@ public class InmuebleServicio {
         if (respuesta.isPresent()) {
             Inmueble inmueble = respuesta.get();
 
-            if (archivoPrincipal != null) {
-                // Guardar la nueva imagen principal
-                Imagen nuevaImagenPrincipal = imagenServicio.guardarImagen(archivoPrincipal);
-                inmueble.setImagenPrincipal(nuevaImagenPrincipal);
+            // Actualizar imagen principal
+            if (archivoPrincipal != null && !archivoPrincipal.isEmpty()) {
+                Imagen imagenPrincipalActualizada = imagenServicio.guardarImagen(archivoPrincipal);
+                inmueble.setImagenPrincipal(imagenPrincipalActualizada);
             }
 
             if (archivosSecundarios != null) {
