@@ -21,7 +21,6 @@
             <th scope="col">Título de Anuncio</th>
             <th scope="col">Descripción de Anuncio</th>
             <th scope="col">Precio Alquiler/Venta</th>
-            <th scope="col">Característica del Inmueble</th>
             <th scope="col">Horarios</th>
             <th scope="col">Estado</th>
             <th scope="col" sec:authorize="hasRole('ADMIN')">Alta</th>
@@ -45,8 +44,7 @@
             <td th:text="${inmueble.transaccion}"></td>
             <td th:text="${inmueble.tituloAnuncio}"></td>
             <td th:text="${inmueble.descripcionAnuncio}"></td>
-            <td th:text="${inmueble.precioAlquilerVenta}"></td>
-            <td th:text="${inmueble.caracteristicaInmueble}"></td>
+            <td th:text="${inmueble.precio}"></td>
             <td>
               <span
                 th:if="${iterStat.index >= 0 && iterStat.index < inmueble.rangosHorarios.size()}"

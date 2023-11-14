@@ -6,13 +6,9 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 
-<<<<<<< HEAD
+
 <div class="container-custom">
     <h2>Detalles del Inmueble</h2>
-=======
-    <div class="container-custom">
-      <h2>Detalles del Inmueble</h2>
->>>>>>> 36e417311d0847b0621ddd9dee5cc357817baa99
 
     <!-- Galería de imágenes -->
     <div id="image-gallery" class="carousel slide" data-ride="carousel">
@@ -61,7 +57,6 @@
         <h3 th:text="${inmueble.tituloAnuncio}"></h3>
         <p th:text="${inmueble.descripcionAnuncio}"></p>
         <ul>
-<<<<<<< HEAD
             <li>
                 <strong>Tipo de Inmueble:</strong>
                 <span th:text="${inmueble.tipoInmueble}"></span>
@@ -99,92 +94,12 @@
             </li>
             <li>
                 <strong>Valor del Inmueble: $</strong>
-                <span th:text="${inmueble.precioAlquilerVenta}"></span>
+                <span th:text="${inmueble.precio}"></span>
             </li>
             <p>
                 <strong>Estado:</strong> <span th:text="${inmueble.estado}"></span>
             </p>
             <div class="text-center">
-=======
-          <li>
-            <strong>Tipo de Inmueble:</strong>
-            <span th:text="${inmueble.tipoInmueble}"></span>
-          </li>
-          <li>
-            <strong>Provincia:</strong>
-            <span th:text="${inmueble.provincia}"></span>
-          </li>
-          <li>
-            <strong>Ciudad:</strong>
-            <span th:text="${inmueble.ciudad}"></span>
-          </li>
-          <li>
-            <strong>Dirección:</strong>
-            <span th:text="${inmueble.direccion}"></span>
-          </li>
-          <li>
-            <strong>Oferta:</strong>
-            <span th:text="${inmueble.transaccion}"></span>
-          </li>
-          <li>
-            <strong>Características del Inmueble:</strong>
-            <span th:text="${inmueble.caracteristicaInmueble}"></span>
-          </li>
-          <li>
-            <strong>Horarios Disponibles:</strong>
-            <span
-              th:each="rangoHorario : ${inmueble.rangosHorarios}"
-              th:text="${rangoHorario.diaSemana + ' Desde: ' + rangoHorario.horaInicio + ' Hasta: ' + rangoHorario.horaFin}"
-            ></span>
-          </li>
-          <li>
-            <strong>Valor del Inmueble: $</strong>
-            <span th:text="${inmueble.precioAlquilerVenta}"></span>
-          </li>
-          <p>
-            <strong>Estado:</strong> <span th:text="${inmueble.estado}"></span>
-          </p>
-          <div class="text-center">
-            <!-- Botón para usuarios con rol CLIENTE y que no son propietarios -->
-            <a
-              th:if="${#authorization.expression('hasRole(''CLIENTE'')') and !esPropietario}"
-              th:href="@{/oferta/enviar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
-              class="btn btn-primary"
-            >
-              <button class="btn btn-primary">Ofertar</button>
-            </a>
-            <!-- Botón para usuarios no logueados -->
-            <a
-              th:if="${!#authorization.expression('isAuthenticated()')}"
-              th:href="@{/login}"
-              class="btn btn-primary"
-            >
-              Ofertar
-            </a>
-
-            <!-- Botón para usuarios con rol CLIENTE y que no son propietarios -->
-            <a
-              th:if="${#authorization.expression('hasRole(''CLIENTE'')') and !esPropietario}"
-              th:href="@{/reclamo/reclamar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
-              class="btn btn-primary"
-            >
-              <button class="btn btn-primary">Reclamar</button>
-            </a>
-
-            <!-- Botón para usuarios con rol ADMIN, ENTE o que son propietarios del inmueble -->
-            <a
-              th:if="${#authorization.expression('hasAnyRole(''ADMIN'', ''ENTE'')') or esPropietario}"
-              th:href="@{/reclamo/lista/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
-              class="btn btn-primary"
-            >
-              <button class="btn btn-primary">Listar Reclamos</button>
-            </a>
-          </div>
-
-          <section class="text-center container">
-            <div class="row mt-3">
-              <div class="divVolver">
->>>>>>> 36e417311d0847b0621ddd9dee5cc357817baa99
                 <a
                         href="#"
                         th:href="@{/cita/registrar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
