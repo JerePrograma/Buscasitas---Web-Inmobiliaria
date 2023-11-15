@@ -6,6 +6,7 @@ import com.proyectofinal.servicios.UsuarioServicio;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -56,9 +57,8 @@ public class UsuarioControlador {
             usuarioServicio.registrarUsuario(idCodigoTributario, nombre, apellido, archivo, direccion, ciudad,
                     provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
             modelo.put("exito", "Usuario registrado correctamente");
-            
+             
           
-            
         } catch (MiExcepcion ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("idCodigoTributario", idCodigoTributario);
@@ -136,6 +136,10 @@ public class UsuarioControlador {
                     sexo, email, celular, tipoPersona, rol);
                     modelo.put("exito", "Usuario actualizado correctamente!");
             return "usuario_form_exito.html";
+            } catch (DataIntegrityViolationException e) {
+        //} catch (DataIntegrityViolationException e) Manejar la excepción de violación de unicidad (ID duplicado)
+        modelo.addAttribute("error", "Ya existe una entidad con ese ID");
+        return "usuario_form.html";
         } catch (MiExcepcion ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("email", email);
@@ -186,4 +190,19 @@ public class UsuarioControlador {
 
         return "index.html";
     }
+    /*
+    Evaluando la incorporacion de este metodo para optimizar el codigo de las validaciones. ->  Emi
+    
+    private ResponseEntity<?> validation(BindingResult result) {
+                Map<String, String> errors = new HashMap<>();
+
+        result.getFieldErrors().forEach(err -> {
+            errors.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
+        });
+        return ResponseEntity.badRequest().body(errors);
+    }
+update(@Valid @RequestBody UserRequest user, BindingResult result, @PathVariable Long id)
+if(result.hasErrors()){
+            return validation(result);
+        }*/
 }
