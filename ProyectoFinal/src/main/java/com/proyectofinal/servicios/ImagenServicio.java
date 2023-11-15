@@ -19,9 +19,6 @@ public class ImagenServicio {
 
     @Transactional
     public Imagen guardarImagen(MultipartFile archivo) throws MiExcepcion, IOException {
-        if (archivo == null || archivo.isEmpty()) {
-            throw new IllegalArgumentException("El archivo de imagen no puede ser nulo o estar vacío");
-        }
 
         Imagen imagen = new Imagen();
         imagen.setMime(archivo.getContentType());
@@ -35,7 +32,7 @@ public class ImagenServicio {
         return imagenRepositorio.save(imagen);
     }
 
-    public Imagen actualizar(MultipartFile archivo, String idImagen) throws Exception {
+    public Imagen actualizar(MultipartFile archivo, String idImagen) {
         if (archivo != null) {
             try {
                 Imagen imagen = new Imagen();
@@ -82,4 +79,14 @@ public class ImagenServicio {
             }
         }
     }
+
+    @Transactional
+    public Imagen guardarImagenRuta(String rutaImagen) throws MiExcepcion {
+        Imagen imagen = new Imagen();
+        imagen.setRutaImagen(rutaImagen);
+        // Omitir guardar el contenido de la imagen
+        // Solo guarda la ruta de la imagen
+        return imagenRepositorio.save(imagen);
+    }
+
 }

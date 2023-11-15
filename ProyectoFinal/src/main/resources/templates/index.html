@@ -80,6 +80,19 @@
             </div>
           </div>
 
+          <div class="form-group row" style="font-size: small">
+            <label class="col-sm-3 col-form-label" for="moneda"
+              >Tipo de Moneda</label
+            >
+            <div class="col-sm-9">
+              <select class="form-control" id="moneda" name="moneda">
+                <option value="">Seleccionar Moneda</option>
+                <option value="peso">Pesos</option>
+                <option value="dolar">Dolares</option>
+              </select>
+            </div>
+          </div>
+
           <!-- Sección de Habitaciones Mínimas -->
           <div class="form-group row" style="font-size: small">
             <label class="col-sm-3 col-form-label" for="habitacionesMinimas"
@@ -92,84 +105,81 @@
                 name="habitacionesMinimas"
               />
             </div>
-            <label class="col-sm-3 col-form-label" for="habitacionesMaximas"
-              >Habitaciones Maximas</label
-            >
-            <div class="col-sm-3">
-              <input
-                class="form-control"
-                type="number"
-                name="habitacionesMaximas"
-              />
-            </div>
-          </div>
 
-          <!-- Sección de Baños Mínimos -->
-          <div class="form-group row" style="font-size: small">
-            <label class="col-sm-3 col-form-label" for="baniosMinimos"
-              >Baños Minimos</label
-            >
-            <div class="col-sm-3">
-              <input class="form-control" type="number" name="baniosMinimos" />
+            <!-- Sección de Baños Mínimos -->
+            <div class="form-group row" style="font-size: small">
+              <label class="col-sm-3 col-form-label" for="baniosMinimos"
+                >Baños Minimos</label
+              >
+              <div class="col-sm-3">
+                <input
+                  class="form-control"
+                  type="number"
+                  name="baniosMinimos"
+                />
+              </div>
+              <label class="col-sm-3 col-form-label" for="baniosMaximos"
+                >Baños Máximos</label
+              >
+              <div class="col-sm-3">
+                <input
+                  class="form-control"
+                  type="number"
+                  name="baniosMaximos"
+                />
+              </div>
             </div>
-            <label class="col-sm-3 col-form-label" for="baniosMaximos"
-              >Baños Máximos</label
-            >
-            <div class="col-sm-3">
-              <input class="form-control" type="number" name="baniosMaximos" />
-            </div>
-          </div>
 
-          <!-- Sección de medidas -->
-          <!-- Largo -->
+            <!-- Sección de medidas -->
+            <!-- Largo -->
 
-          <div class="form-group row" style="font-size: small">
-            <label class="col-sm-3 col-form-label" for="largoMinimo"
-              >Largo Minimo</label
-            >
-            <div class="col-sm-3">
-              <input class="form-control" type="number" name="largoMinimo" />
+            <div class="form-group row" style="font-size: small">
+              <label class="col-sm-3 col-form-label" for="largoMinimo"
+                >Largo Minimo</label
+              >
+              <div class="col-sm-3">
+                <input class="form-control" type="number" name="largoMinimo" />
+              </div>
+              <label class="col-sm-3 col-form-label" for="largoMaximo"
+                >Largo Máximo</label
+              >
+              <div class="col-sm-3">
+                <input class="form-control" type="number" name="largoMaximo" />
+              </div>
             </div>
-            <label class="col-sm-3 col-form-label" for="largoMaximo"
-              >Largo Máximo</label
-            >
-            <div class="col-sm-3">
-              <input class="form-control" type="number" name="largoMaximo" />
-            </div>
-          </div>
 
-          <!-- Altura -->
+            <!-- Altura -->
 
-          <div class="form-group row" style="font-size: small">
-            <label class="col-sm-3 col-form-label" for="alturaMinima"
-              >Altura Minima</label
-            >
-            <div class="col-sm-3">
-              <input class="form-control" type="number" name="alturaMinima" />
+            <div class="form-group row" style="font-size: small">
+              <label class="col-sm-3 col-form-label" for="alturaMinima"
+                >Altura Minima</label
+              >
+              <div class="col-sm-3">
+                <input class="form-control" type="number" name="alturaMinima" />
+              </div>
+              <label class="col-sm-3 col-form-label" for="alturaMaxima"
+                >Altura Maxima</label
+              >
+              <div class="col-sm-3">
+                <input class="form-control" type="number" name="alturaMaxima" />
+              </div>
             </div>
-            <label class="col-sm-3 col-form-label" for="alturaMaxima"
-              >Altura Maxima</label
-            >
-            <div class="col-sm-3">
-              <input class="form-control" type="number" name="alturaMaxima" />
-            </div>
-          </div>
 
-          <!-- Sección de Barra de Búsqueda -->
-          <div class="form-group row" style="font-size: small">
-            <label class="col-sm-3 col-form-label" for="ubicacion"
-              >Buscar</label
-            >
-            <div class="col-sm-9">
-              <input
-                class="form-control"
-                type="text"
-                placeholder="Cualquier lugar"
-                name="ubicacion"
-              />
+            <!-- Sección de Barra de Búsqueda -->
+            <div class="form-group row" style="font-size: small">
+              <label class="col-sm-3 col-form-label" for="ubicacion"
+                >Buscar</label
+              >
+              <div class="col-sm-9">
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Cualquier lugar"
+                  name="ubicacion"
+                />
+              </div>
             </div>
-          </div>
-          <!--<div class="input-group-prepend" style=" font-size: small;">
+            <!--<div class="input-group-prepend" style=" font-size: small;">
                         <label>Fecha de ingreso</label> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
                         <label>Fecha de egreso</label><br>
                 </div>
@@ -177,15 +187,16 @@
                         <input class="form-control" type="date" placeholder="dd-mm-aaaa" name="checkin" />
                         <input class="form-control" type="date" placeholder="dd-mm-aaaa" name="checkout" />
                 </div> -->
-          <br />
-          <div class="form-group">
-            <button
-              type="submit"
-              class="btn btn-primary btn-lg"
-              style="float: right"
-            >
-              Buscar
-            </button>
+            <br />
+            <div class="form-group">
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg"
+                style="float: right"
+              >
+                Buscar
+              </button>
+            </div>
           </div>
         </form>
       </main>

@@ -168,13 +168,13 @@ public class InmuebleServicio {
     }
 
     public List<Inmueble> buscarInmueblesPorFiltros(String ubicacion, String transaccion, String tipoInmueble, String ciudad, String provincia,
-            Integer precioMaximo, Integer precioMinimo, Integer habitacionesMinimas, Integer habitacionesMaximas,
-            Integer baniosMinimos, Integer baniosMaximos, Integer largoMinimo, Integer largoMaximo,
-            Integer alturaMinima, Integer alturaMaxima) {
+            String moneda, Integer precioMaximo, Integer precioMinimo, Integer habitacionesMinimas,
+            Integer habitacionesMaximas, Integer baniosMinimos, Integer baniosMaximos, Integer largoMinimo,
+            Integer largoMaximo, Integer alturaMinima, Integer alturaMaxima) {
 
         // Verificar si al menos un parámetro de búsqueda está presente
         if (ubicacion == null && transaccion == null && tipoInmueble == null && ciudad == null && provincia == null
-                && precioMaximo == null && precioMinimo == null && habitacionesMinimas == null && habitacionesMaximas == null
+                && moneda == null && precioMaximo == null && precioMinimo == null && habitacionesMinimas == null && habitacionesMaximas == null
                 && baniosMinimos == null && baniosMaximos == null && largoMinimo == null && largoMaximo == null
                 && alturaMinima == null && alturaMaxima == null) {
             // Si no hay parámetros de búsqueda, devolver todos los inmuebles
@@ -188,6 +188,7 @@ public class InmuebleServicio {
                 (tipoInmueble != null && !tipoInmueble.isEmpty()) ? tipoInmueble : null,
                 (ciudad != null && !ciudad.isEmpty()) ? ciudad : null,
                 (provincia != null && !provincia.isEmpty()) ? provincia : null,
+                (moneda != null && !moneda.isEmpty()) ? moneda : null,
                 (precioMaximo != null && precioMaximo > 0) ? precioMaximo : null,
                 (precioMinimo != null && precioMinimo > 0) ? precioMinimo : null,
                 (habitacionesMinimas != null && habitacionesMinimas > 0) ? habitacionesMinimas : null,

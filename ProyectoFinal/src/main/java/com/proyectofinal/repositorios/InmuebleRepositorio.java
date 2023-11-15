@@ -19,6 +19,7 @@ public interface InmuebleRepositorio extends JpaRepository<Inmueble, String> {
             + "AND (:provincia IS NULL OR LOWER(i.provincia) LIKE LOWER(CONCAT('%', :provincia, '%'))) "
             + "AND (:precioMinimo IS NULL OR i.precio  >= :precioMinimo) "
             + "AND (:precioMaximo IS NULL OR i.precio <= :precioMaximo) "
+            + "AND (:moneda IS NULL OR LOWER(i.moneda) LIKE LOWER(CONCAT('%', :moneda, '%'))) "
             + "AND (:habitacionesMinimas IS NULL OR i.cantidadHabitaciones >= :habitacionesMinimas) "
             + "AND (:habitacionesMaximas IS NULL OR i.cantidadHabitaciones <= :habitacionesMaximas) "
             + "AND (:baniosMinimos IS NULL OR i.banios >= :baniosMinimos)"
@@ -32,6 +33,7 @@ public interface InmuebleRepositorio extends JpaRepository<Inmueble, String> {
             @Param("tipoInmueble") String tipoInmueble,
             @Param("ciudad") String ciudad,
             @Param("provincia") String provincia,
+            @Param("moneda") String moneda,
             @Param("precioMinimo") Integer precioMinimo,
             @Param("precioMaximo") Integer precioMaximo,
             @Param("habitacionesMinimas") Integer habitacionesMinimas,

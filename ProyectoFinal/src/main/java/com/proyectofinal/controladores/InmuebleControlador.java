@@ -154,6 +154,7 @@ public class InmuebleControlador {
             @RequestParam(name = "tipoInmueble", required = false) String tipoInmueble,
             @RequestParam(name = "ciudad", required = false) String ciudad,
             @RequestParam(name = "provincia", required = false) String provincia,
+            @RequestParam(name = "moneda", required = false) String moneda,
             @RequestParam(name = "precioMinimo", required = false) Integer precioMinimo,
             @RequestParam(name = "precioMaximo", required = false) Integer precioMaximo,
             @RequestParam(name = "habitacionesMinimas", required = false) Integer habitacionesMinimas,
@@ -170,11 +171,9 @@ public class InmuebleControlador {
         // Llama al servicio con los parámetros adecuados, incluyendo tipoInmueble como String.
         try {
             // Llama al servicio con los parámetros adecuados
-            List<Inmueble> inmuebles = inmuebleServicio.buscarInmueblesPorFiltros(
-                    ubicacion, transaccion, tipoInmueble, ciudad, provincia,
-                    precioMinimo, precioMaximo, habitacionesMinimas, habitacionesMaximas,
-                    baniosMinimos, baniosMaximos, largoMinimo, largoMaximo, alturaMinima, alturaMaxima);
-
+            List<Inmueble> inmuebles = inmuebleServicio.buscarInmueblesPorFiltros(ubicacion, transaccion, tipoInmueble,
+                    ciudad, provincia, moneda, precioMaximo, precioMinimo, habitacionesMinimas,
+                    habitacionesMaximas, baniosMinimos, baniosMaximos, largoMinimo, largoMaximo, alturaMinima, alturaMaxima);
             // Agrega los resultados al modelo.
             model.addAttribute("inmuebles", inmuebles);
         } catch (Exception e) {

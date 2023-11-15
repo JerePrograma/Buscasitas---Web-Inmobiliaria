@@ -64,6 +64,7 @@
         <h1><span class="badge badge-primary">Regístrate</span></h1>
         <br />
         <!-- Panel de Selección de Imagen de Perfil -->
+        <!-- Botón para abrir el modal y seleccionar una imagen predefinida -->
         <button
           type="button"
           class="btn btn-primary"
@@ -72,6 +73,28 @@
         >
           Seleccionar Imagen de Perfil
         </button>
+
+        <!-- Campo para cargar una imagen -->
+        <div class="form-group">
+          <label for="archivo">Cargar Imagen de Perfil</label>
+          <input
+            type="file"
+            class="form-control-file"
+            id="archivo"
+            name="archivo"
+            onchange="imagenCargada()"
+          />
+        </div>
+
+        <!-- Contenedor para la vista previa de la imagen -->
+        <div id="imagenPreviewContainer" style="margin-top: 10px">
+          <img
+            id="imagenPreview"
+            src="#"
+            alt="Imagen de Perfil"
+            style="max-width: 200px; max-height: 200px; display: none"
+          />
+        </div>
 
         <div
           class="modal fade"
@@ -87,16 +110,6 @@
                 <h5 class="modal-title" id="seleccionImagenModalLabel">
                   Selecciona una Imagen de Perfil
                 </h5>
-                <div class="form-group">
-                  <label for="archivo">Cargar Imagen de Perfil</label>
-                  <input
-                    type="file"
-                    class="form-control-file"
-                    id="archivo"
-                    name="archivo"
-                    onchange="imagenCargada()"
-                  />
-                </div>
 
                 <button
                   type="button"
@@ -481,16 +494,23 @@
     </script>
     <script>
       function setSelectedImage(imagePath) {
-        // Configura el valor del campo oculto con la ruta de la imagen seleccionada
         document.getElementById("selectedImagePath").value = imagePath;
-
-        // Limpia cualquier archivo que haya sido seleccionado anteriormente
         document.getElementById("archivo").value = "";
+        document.getElementById("imagenPreview").src = imagePath;
+        document.getElementById("imagenPreview").style.display = "block";
         $("#seleccionImagenModal").modal("hide");
       }
 
       function imagenCargada() {
-        // Cuando se carga una nueva imagen, borra la selección de la imagen precargada
+        var archivoInput = document.getElementById("archivo");
+        if (archivoInput.files && archivoInput.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            document.getElementById("imagenPreview").src = e.target.result;
+            document.getElementById("imagenPreview").style.display = "block";
+          };
+          reader.readAsDataURL(archivoInput.files[0]);
+        }
         document.getElementById("selectedImagePath").value = "";
       }
     </script>

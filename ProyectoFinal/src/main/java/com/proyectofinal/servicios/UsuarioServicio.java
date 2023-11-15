@@ -42,7 +42,8 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Transactional
     public void registrarUsuario(String idCodigoTributario, String nombre, String apellido, MultipartFile archivo,
-            String direccion, String ciudad, String provincia, String DNI, String sexo, String email, String celular, String tipoPersona, String contrasenia, String contrasenia2) throws MiExcepcion, Exception {
+            String direccion, String ciudad, String provincia, String DNI, String sexo, String email,
+            String celular, String tipoPersona, String contrasenia, String contrasenia2, String selectedImagePath) throws MiExcepcion, Exception {
 
         validarDatos(idCodigoTributario, nombre, direccion, ciudad, provincia, DNI, email, celular, tipoPersona, contrasenia, contrasenia2);
 
@@ -67,6 +68,9 @@ public class UsuarioServicio implements UserDetailsService {
         if (!archivo.isEmpty()) {
             Imagen fotoPerfil = imagenServicio.guardarImagen(archivo);
             usuario.setFotoPerfil(fotoPerfil);
+        } else if (!selectedImagePath.isEmpty()) {
+            // Procesa y guarda la ruta de la imagen pre-cargada
+            imagenServicio.guardarImagenRuta(selectedImagePath);
         }
         usuarioRepositorio.save(usuario);
 
@@ -266,13 +270,11 @@ public class UsuarioServicio implements UserDetailsService {
                 throw new MiExcepcion("El DNI debe ser de al menos 7 dígitos y debe contener solo números (sin puntos).");
             }
         }
-
         if (idCodigoTributario == null) {
             throw new MiExcepcion("El Codigo tributario no puede estar vacío y debe contener solo números (sin puntos), <br> y debe ser de al menos 7 dígitos.");
         } else if (!idCodigoTributario.matches("\\d{10,12}")) {
             throw new MiExcepcion("El Codigo tributario debe ser de 11 dígitos y debe contener solo números (sin puntos).");
         }
-
         if (contrasenia == null || contrasenia.isEmpty() || contrasenia.length() <= 5) {
             throw new MiExcepcion("La contraseña no puede estar vacía, y debe tener más de 5 dígitos");
         }
