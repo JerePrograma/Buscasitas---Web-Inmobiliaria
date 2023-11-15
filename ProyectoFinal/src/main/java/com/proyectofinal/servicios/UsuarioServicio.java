@@ -266,16 +266,11 @@ public class UsuarioServicio implements UserDetailsService {
         throw new MiExcepcion("El DNI debe ser de al menos 7 dígitos y debe contener solo números (sin puntos).");
             }
         }
-       
-      
-        if (idCodigoTributario == null) {
+       if (idCodigoTributario == null) {
         throw new MiExcepcion("El Codigo tributario no puede estar vacío y debe contener solo números (sin puntos), <br> y debe ser de al menos 7 dígitos.");
         } else if (!idCodigoTributario.matches("\\d{10,12}")) {
         throw new MiExcepcion("El Codigo tributario debe ser de 11 dígitos y debe contener solo números (sin puntos).");
             }
-       
-       
-       
         if (contrasenia == null || contrasenia.isEmpty() || contrasenia.length() <= 5) {
             throw new MiExcepcion("La contraseña no puede estar vacía, y debe tener más de 5 dígitos");
         }
