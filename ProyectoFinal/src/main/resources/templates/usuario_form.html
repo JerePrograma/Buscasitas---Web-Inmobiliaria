@@ -38,8 +38,9 @@
         method="post"
         enctype="multipart/form-data"
       >
+        <input type="hidden" id="selectedImagePath" name="selectedImagePath" />
         <br />
-        
+
         <div
           th:if="${error != null}"
           class="card text-white bg-danger mb-3 mensajeError"
@@ -52,7 +53,7 @@
         <div
           th:if="${exito != null}"
           class="card text-white bg-success mb-3 mt-3 mensajeExito"
-          style="position:fixed; padding:50% 50% 0 0"
+          style="position: fixed; padding: 50% 50% 0 0"
         >
           <div class="card-body">
             <h5 class="card-title">Exito!</h5>
@@ -62,20 +63,84 @@
         <br />
         <h1><span class="badge badge-primary">Regístrate</span></h1>
         <br />
-        <div>
-          <label for="archivo">Seleccionar Archivo:</label>
-          <input type="file" id="archivo" name="archivo" accept="image/*" />
+        <!-- Panel de Selección de Imagen de Perfil -->
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#seleccionImagenModal"
+        >
+          Seleccionar Imagen de Perfil
+        </button>
+
+        <div
+          class="modal fade"
+          id="seleccionImagenModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="seleccionImagenModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="seleccionImagenModalLabel">
+                  Selecciona una Imagen de Perfil
+                </h5>
+                <div class="form-group">
+                  <label for="archivo">Cargar Imagen de Perfil</label>
+                  <input
+                    type="file"
+                    class="form-control-file"
+                    id="archivo"
+                    name="archivo"
+                    onchange="imagenCargada()"
+                  />
+                </div>
+
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div
+                    th:each="imagePath : ${imagenesPreCargadas}"
+                    class="col-md-4"
+                  >
+                    <img
+                      th:src="${imagePath}"
+                      alt="Imagen de Perfil"
+                      class="img-thumbnail"
+                      onclick="setSelectedImage(this.src); $('#seleccionImagenModal').modal('hide');"
+                      style="
+                        cursor: pointer;
+                        max-width: 100%;
+                        max-height: 200px;
+                        object-fit: cover;
+                      "
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="form-row align-items-center">
           <div class="col-auto my-1">
-            <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect"
+            <label class="mr-sm-2 sr-only" for="tipoPersonaValidacion"
               >Preference</label
             >
             <select
               name="tipoPersona"
               class="custom-select mr-sm-2"
-              id="inlineFormCustomSelect"
+              id="tipoPersonaValidacion"
               th:value="${tipoPersona}"
               onchange="toggleFields(this.value);"
               required
@@ -96,7 +161,6 @@
               class="form-control"
               placeholder="Ingrese su nombre"
               th:value="${nombre}"
-             
             />
           </div>
           <div class="form-group col-md-5" id="apellido">
@@ -243,7 +307,7 @@
           <br />
 
           <div class="form-group col-md-6">
-            <label class="col-form-label" for="exampleInputEmail1"
+            <label class="col-form-label" for="InputEmail1"
               >Dirección de correo electrónico</label
             >
             <input
@@ -259,28 +323,28 @@
           </div>
           <br />
           <div class="form-group col-md-6">
-            <label class="col-form-label" for="exampleInputPassword1"
+            <!-- Contraseña -->
+            <label class="col-form-label" for="InputPassword1"
               >Ingrese su Contraseña</label
             >
             <input
               name="contrasenia"
               type="password"
               class="form-control"
-              th:value="${contrasenia}"
               id="InputPassword1"
               required
             />
           </div>
           <br />
           <div class="form-group col-md-6">
-            <label class="col-form-label" for="exampleInputPassword1"
+            <!-- Repetición de la Contraseña -->
+            <label class="col-form-label" for="InputPassword2"
               >Repita su Contraseña</label
             >
             <input
               name="contrasenia2"
               type="password"
               class="form-control"
-              th:value="${contrasenia2}"
               id="InputPassword2"
               required
             />
@@ -415,5 +479,23 @@
         });
       }
     </script>
+    <script>
+      function setSelectedImage(imagePath) {
+        // Configura el valor del campo oculto con la ruta de la imagen seleccionada
+        document.getElementById("selectedImagePath").value = imagePath;
+
+        // Limpia cualquier archivo que haya sido seleccionado anteriormente
+        document.getElementById("archivo").value = "";
+        $("#seleccionImagenModal").modal("hide");
+      }
+
+      function imagenCargada() {
+        // Cuando se carga una nueva imagen, borra la selección de la imagen precargada
+        document.getElementById("selectedImagePath").value = "";
+      }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>

@@ -3,6 +3,7 @@ package com.proyectofinal.controladores;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.excepciones.MiExcepcion;
 import com.proyectofinal.servicios.UsuarioServicio;
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,13 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/registrar")
-    public String registrar() {
+    public String registrar(ModelMap modelo) {
+        List<String> rutasImagenes = Arrays.asList(
+                "/images/perfil/fotoperfil1.jpeg",
+                "/images/perfil/fotoperfil2.jpeg",
+                "/images/perfil/fotoperfil3.jpeg"
+        );
+        modelo.addAttribute("imagenesPreCargadas", rutasImagenes);
         return "usuario_form.html";
     }
 
@@ -56,9 +63,7 @@ public class UsuarioControlador {
             usuarioServicio.registrarUsuario(idCodigoTributario, nombre, apellido, archivo, direccion, ciudad,
                     provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
             modelo.put("exito", "Usuario registrado correctamente");
-            
-          
-            
+
         } catch (MiExcepcion ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("idCodigoTributario", idCodigoTributario);

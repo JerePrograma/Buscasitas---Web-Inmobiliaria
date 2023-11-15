@@ -37,7 +37,7 @@ public class InmuebleServicio {
 
         // Validar datos de entrada
         validarDatos(archivoPrincipal, cuentaTributaria, direccion, ciudad, provincia, transaccion, tipoInmueble,
-                tituloAnuncio, descripcionAnuncio,moneda, precio);
+                tituloAnuncio, descripcionAnuncio, moneda, precio);
 
         // Crear y configurar el inmueble
         Inmueble inmueble = new Inmueble();
@@ -88,19 +88,10 @@ public class InmuebleServicio {
     }
 
     @Transactional
-<<<<<<< HEAD
-    public void modificarInmueble(String cuentaTributaria,
-            MultipartFile archivoPrincipal, MultipartFile[] archivosSecundarios,
-            String tituloAnuncio,
-            String descripcionAnuncio,
-            String estado) throws Exception {
-        validarDatosModificar(cuentaTributaria, tituloAnuncio, descripcionAnuncio, estado);
-=======
-    public void modificarInmueble(String cuentaTributaria, MultipartFile archivoPrincipal, MultipartFile[] archivosSecundarios,
-                                  String tituloAnuncio, String descripcionAnuncio, String estado) throws Exception {
-        validarDatosModificar(cuentaTributaria, tituloAnuncio, descripcionAnuncio, estado);
 
->>>>>>> 972d3ad559b0c96b94177a5f404be2808ea3273a
+    public void modificarInmueble(String cuentaTributaria, MultipartFile archivoPrincipal, MultipartFile[] archivosSecundarios,
+            String tituloAnuncio, String descripcionAnuncio, String estado) throws Exception {
+        validarDatosModificar(cuentaTributaria, tituloAnuncio, descripcionAnuncio, estado);
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(cuentaTributaria);
         if (respuesta.isPresent()) {
             Inmueble inmueble = respuesta.get();
@@ -176,23 +167,10 @@ public class InmuebleServicio {
         inmuebleRepositorio.deleteById(cuentaTributaria);
     }
 
-<<<<<<< HEAD
-    public List<Inmueble> buscarInmueblesPorFiltros(String ubicacion,
-            String transaccion,
-            String tipoInmueble,
-            String ciudad,
-            String provincia,
-            Integer precioMinimo,
-            Integer precioMaximo,
-            Integer habitacionesMinimas,
-            Integer banosMinimos) {
-        // Aquí se llama al método del repositorio con los parámetros adecuados
-        return inmuebleRepositorio.findInmueblesByFiltros(ubicacion, transaccion, tipoInmueble, ciudad, provincia, precioMinimo, precioMaximo, habitacionesMinimas, banosMinimos);
-=======
     public List<Inmueble> buscarInmueblesPorFiltros(String ubicacion, String transaccion, String tipoInmueble, String ciudad, String provincia,
-                                                    Integer precioMaximo, Integer precioMinimo, Integer habitacionesMinimas, Integer habitacionesMaximas,
-                                                    Integer baniosMinimos, Integer baniosMaximos, Integer largoMinimo, Integer largoMaximo,
-                                                    Integer alturaMinima, Integer alturaMaxima) {
+            Integer precioMaximo, Integer precioMinimo, Integer habitacionesMinimas, Integer habitacionesMaximas,
+            Integer baniosMinimos, Integer baniosMaximos, Integer largoMinimo, Integer largoMaximo,
+            Integer alturaMinima, Integer alturaMaxima) {
 
         // Verificar si al menos un parámetro de búsqueda está presente
         if (ubicacion == null && transaccion == null && tipoInmueble == null && ciudad == null && provincia == null
@@ -220,7 +198,6 @@ public class InmuebleServicio {
                 (largoMaximo != null && largoMaximo > 0) ? largoMaximo : null,
                 (alturaMinima != null && alturaMinima > 0) ? alturaMinima : null,
                 (alturaMaxima != null && alturaMaxima > 0) ? alturaMaxima : null);
->>>>>>> 972d3ad559b0c96b94177a5f404be2808ea3273a
     }
 
     public Inmueble obtenerInmueblePorCuentaTributaria(String cuentaTributaria) {
@@ -237,12 +214,8 @@ public class InmuebleServicio {
             String tipoInmueble,
             String tituloAnuncio,
             String descripcionAnuncio,
-<<<<<<< HEAD
-            Integer precioAlquilerVenta) throws MiExcepcion {
-=======
             String moneda,
             Integer precio) throws MiExcepcion {
->>>>>>> 972d3ad559b0c96b94177a5f404be2808ea3273a
         if (archivo == null || archivo.isEmpty()) {
             throw new MiExcepcion("La imagen no puede estar vacío o ser nulo");
         }
@@ -279,11 +252,8 @@ public class InmuebleServicio {
     }
 
     public void validarDatosModificar(String cuentaTributaria,
-<<<<<<< HEAD
-            String tituloAnuncio, String descripcionAnuncio, String estado) throws MiExcepcion {
-=======
-                                      String tituloAnuncio, String descripcionAnuncio, String estado) throws MiExcepcion {
->>>>>>> 972d3ad559b0c96b94177a5f404be2808ea3273a
+            String tituloAnuncio,
+            String descripcionAnuncio, String estado) throws MiExcepcion {
         if (cuentaTributaria == null || cuentaTributaria.isEmpty()) {
             throw new MiExcepcion("El cuentaTributaria no puede estar vacío o ser nulo");
         }

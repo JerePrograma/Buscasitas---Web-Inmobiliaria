@@ -5,9 +5,12 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" i
-          ntegrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-          crossorigin="anonymous"
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      i
+      ntegrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
     />
 
     <link
@@ -39,7 +42,11 @@
       method="post"
       enctype="multipart/form-data"
     >
-      <input hidden name="idCodigoTributario" th:value="${idCodigoTributario}" />
+      <input
+        hidden
+        name="idCodigoTributario"
+        th:value="${idCodigoTributario}"
+      />
       <input
         class="controls"
         type="text"
@@ -119,7 +126,6 @@
         placeholder="Titulo del Anuncio"
       />
 
-
       <label for="descripcionAnuncio">Descripcion breve del inmueble: </label>
       <textarea
         class="controls"
@@ -128,19 +134,17 @@
         placeholder="Descripción del Anuncio"
       ></textarea>
 
-
-
       <!-- Sección de Precio -->
-      <label for = "precio">Precio</label>
+      <label for="precio">Precio</label>
       <input
-              class="controls"
-              type="number"
-              id="precio"
-              name="precio"
-              placeholder="Precio del Alquiler o Venta"
+        class="controls"
+        type="number"
+        id="precio"
+        name="precio"
+        placeholder="Precio del Alquiler o Venta"
       />
 
-      <label for = "moneda">Moneda</label>
+      <label for="moneda">Moneda</label>
       <select class="controls" id="moneda" name="moneda">
         <option value="peso">Pesos</option>
         <option value="dolar">Dolares</option>
@@ -148,49 +152,49 @@
       </select>
 
       <label for="cantidadHabitaciones">Caracteristicas del inmueble:</label>
-      <br>
-      <br>
+      <br />
+      <br />
       <label for="cantidadHabitaciones">Cantidad de Habitaciones</label>
       <input
-              class="controls"
-              type="number"
-              id="cantidadHabitaciones"
-              name="cantidadHabitaciones"
-              placeholder="Cantidad de Habitaciones"
+        class="controls"
+        type="number"
+        id="cantidadHabitaciones"
+        name="cantidadHabitaciones"
+        placeholder="Cantidad de Habitaciones"
       />
 
       <label for="banios">Baños</label>
       <input
-              class="controls"
-              type="number"
-              id="banios"
-              name="banios"
-              placeholder="Baños"
+        class="controls"
+        type="number"
+        id="banios"
+        name="banios"
+        placeholder="Baños"
       />
 
       <label for="cantidadAmbientes">Cantidad de Ambientes</label>
       <input
-              class="controls"
-              type="number"
-              id="cantidadAmbientes"
-              name="cantidadAmbientes"
-              placeholder="Cantidad de Ambientes"
+        class="controls"
+        type="number"
+        id="cantidadAmbientes"
+        name="cantidadAmbientes"
+        placeholder="Cantidad de Ambientes"
       />
       <label for="altura">Altura(m²)</label>
       <input
-              class="controls"
-              type="number"
-              id="altura"
-              name="altura"
-              placeholder="Altura"
+        class="controls"
+        type="number"
+        id="altura"
+        name="altura"
+        placeholder="Altura"
       />
       <label for="largo">Largo(m²)</label>
       <input
-              class="controls"
-              type="number"
-              id="largo"
-              name="largo"
-              placeholder="largo"
+        class="controls"
+        type="number"
+        id="largo"
+        name="largo"
+        placeholder="largo"
       />
 
       <label for="diaSemana">Horarios Disponibles</label>

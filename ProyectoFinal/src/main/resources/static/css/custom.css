@@ -12,12 +12,12 @@
 }
 
 .imagenFondoIndex {
-    background: url(../images/dfp-alquiler.jpg);
-    width: 100%;
-    height: auto;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border: 1px solid red;
+  background: url(../images/dfp-alquiler.jpg);
+  width: 100%;
+  height: auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 1px solid red;
 }
 
 .content {

@@ -10,7 +10,6 @@ import com.proyectofinal.servicios.RangoHorarioServicio;
 import com.proyectofinal.servicios.UsuarioServicio;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import java.util.Base64;
 import java.util.HashMap;
@@ -25,7 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Controller
 @RequestMapping("/inmueble")
@@ -138,13 +136,7 @@ public class InmuebleControlador {
             // Modificar inmueble
             inmuebleServicio.modificarInmueble(cuentaTributaria, archivoPrincipal, archivosSecundarios, tituloAnuncio, descripcionAnuncio, estado);
 
-<<<<<<< HEAD
             rangoHorarioServicio.actualizarRangoHorario(diaSemanaList, horaInicioList, horaFinList);
-=======
-            RangoHorario rangoHorario = (RangoHorario) rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
-            rangoHorarioServicio.actualizarRangoHorario(rangoHorario, diaSemanaList, horaInicioList, horaFinList);
->>>>>>> 972d3ad559b0c96b94177a5f404be2808ea3273a
-
             model.put("exito", "Los cambios fueron guardados correctamente!");
             return "redirect:/"; // Redirige a la página principal o la página de éxito, según sea necesario
         } catch (Exception ex) {
@@ -165,28 +157,6 @@ public class InmuebleControlador {
             @RequestParam(name = "precioMinimo", required = false) Integer precioMinimo,
             @RequestParam(name = "precioMaximo", required = false) Integer precioMaximo,
             @RequestParam(name = "habitacionesMinimas", required = false) Integer habitacionesMinimas,
-<<<<<<< HEAD
-            @RequestParam(name = "banosMinimos", required = false) Integer banosMinimos,
-            Model model
-    ) {
-        List<Inmueble> inmuebles;
-
-        // Verifica si se han ingresado criterios de búsqueda
-        if (isNullOrEmpty(ubicacion) && isNullOrEmpty(transaccion) && isNullOrEmpty(tipoInmueble)
-                && isNullOrEmpty(ciudad) && isNullOrEmpty(provincia)
-                && precioMinimo == null && precioMaximo == null
-                && habitacionesMinimas == null && banosMinimos == null) {
-            // No se ingresaron criterios de búsqueda, obtener todos los inmuebles
-            inmuebles = inmuebleServicio.listarTodosLosInmuebles();
-        } else {
-            // Realizar la búsqueda con los criterios ingresados
-            inmuebles = inmuebleServicio.buscarInmueblesPorFiltros(
-                    ubicacion, transaccion, tipoInmueble, ciudad, provincia, precioMinimo, precioMaximo, habitacionesMinimas, banosMinimos);
-        }
-
-        // Agrega los resultados al modelo
-        model.addAttribute("inmuebles", inmuebles);
-=======
             @RequestParam(name = "habitacionesMaximas", required = false) Integer habitacionesMaximas,
             @RequestParam(name = "baniosMinimos", required = false) Integer baniosMinimos,
             @RequestParam(name = "baniosMaximos", required = false) Integer baniosMaximos,
@@ -212,12 +182,10 @@ public class InmuebleControlador {
             return "redirect/";
         }
 
->>>>>>> 972d3ad559b0c96b94177a5f404be2808ea3273a
-
         return "inmueble_busqueda.html";
     }
+    // Método auxiliar para verificar si un String es nulo o vacío
 
-// Método auxiliar para verificar si un String es nulo o vacío
     private boolean isNullOrEmpty(String str) {
         return str == null || str.isEmpty();
     }
