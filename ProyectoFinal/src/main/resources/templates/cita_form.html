@@ -25,6 +25,16 @@
       type="image/x-icon"
       th:href="@{images/logoInmobiliaria2.png}"
     />
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- jQuery UI -->
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   </head>
   <body>
     <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
@@ -55,6 +65,7 @@
       <!-- Agrega este input oculto al formulario -->
       <input type="hidden" id="idHorario" name="idHorario" />
 
+      <!-- Rango Horario por dia de la semana
       <label for="diaSemana">Horarios Disponibles</label>
       <select
         class="controls"
@@ -70,8 +81,16 @@
 
       <label for="horario">Hora de inicio:</label>
       <select class="controls" id="horario" name="horario" required>
-        <!-- Las opciones se llenarán dinámicamente -->
+        Las opciones se llenarán dinámicamente
       </select>
+      -->
+
+      <label for="fecha">Fecha:</label>
+      <input class="controls" type="text" id="fecha" name="fecha" required />
+
+      <label for="horario">Hora de la Cita:</label>
+      <select class="controls" id="horario" name="horario" required></select>
+
       <input
         class="controls"
         type="text"
@@ -86,10 +105,9 @@
 
       <button type="submit">Guardar Cita</button>
     </form>
-    <script src="/js/script.js"></script>
     <script>
       // Función que se llama cuando el día de la semana cambia
-      function actualizarHorariosDisponibles(rangoId) {
+      function actualizarHorariosPorRango(rangoId) {
         // Obtén el selector de horario
         var selectHorario = document.getElementById("horario");
         var idRangoHorarioInput = document.getElementById("idHorario");
@@ -122,6 +140,91 @@
         // horariosPorRango esté disponible para tu función actualizarHorariosDisponibles
       });
       /*]]>*/
+    </script>
+
+    <!-- Script para fechas -->
+
+    <script>
+      // Declarar la variable cuentaTributaria fuera de la función cargarFechasDisponibles
+      var cuentaTributaria;
+
+      // Función para cargar dinámicamente las fechas y horas disponibles
+      function cargarFechasDisponibles() {
+        // Obtener las fechas y horas disponibles usando cuentaTributaria
+        $.ajax({
+          url: "/cita/horarios-disponibles/" + cuentaTributaria,
+          method: "GET",
+          success: function (fechasYHorasDisponibles) {
+            console.log("Fechas y Horas Disponibles:", fechasYHorasDisponibles);
+
+            // Añade estos logs para asegurarte de que estás recibiendo los datos esperados
+            console.log(
+              "Fechas en la respuesta:",
+              fechasYHorasDisponibles.fechas
+            );
+            console.log(
+              "Horas en la respuesta:",
+              fechasYHorasDisponibles.horas
+            );
+
+            // Llamar a la función para actualizar las horas disponibles
+            actualizarHorariosDisponibles(fechasYHorasDisponibles);
+          },
+          error: function () {
+            // Manejar el error si es necesario
+          },
+        });
+      }
+
+      // Función que se llama cuando el día de la semana cambia
+      function actualizarHorariosDisponibles(fechasYHorasDisponibles) {
+        // Obtén el selector de horario
+        var selectHorario = $("#horario");
+        selectHorario.empty(); // Limpiar opciones existentes
+
+        // Obtén las fechas y horas disponibles
+
+        let fechasDisponibles = fechasYHorasDisponibles.fechas;
+        console.log(fechasDisponibles);
+        var horasDisponibles = fechasYHorasDisponibles.horas; // Cambia el nombre de la propiedad a 'horas'
+
+        // Asegúrate de que las fechas y horas no sean undefined
+        if (fechasDisponibles === undefined) {
+          console.error("Error: Fechas no definidas.");
+          return;
+        }
+        if (!horasDisponibles) {
+          console.error("Error: Horas no definidas."); // Cambia el mensaje de error a 'Horas'
+          return;
+        }
+
+        // Inicializar el calendario con las fechas disponibles
+        $("#fecha").datepicker({
+          dateFormat: "yy-mm-dd",
+          beforeShowDay: function (date) {
+            var stringDate = $.datepicker.formatDate("yy-mm-dd", date);
+            return [fechasDisponibles.includes(stringDate)];
+          },
+          onSelect: function (dateText) {
+            // Filtrar las horas disponibles según la fecha seleccionada
+            var horasFiltradas = horasDisponibles.filter(function (hora) {
+              // Comprobar si la hora comienza con la fecha seleccionada
+              return hora.startsWith(dateText);
+            });
+
+            // Llamar a la función para actualizar las horas disponibles
+            actualizarHorariosDisponibles(horasFiltradas);
+          },
+        });
+      }
+
+      // Obtener cuentaTributaria en algún lugar de tu código JavaScript
+      cuentaTributaria = $('input[name="cuentaTributaria"]').val();
+
+      // Llamar a la función al cargar la página
+      $(document).ready(function () {
+        cargarFechasDisponibles();
+      });
     </script>
   </body>
 </html>
