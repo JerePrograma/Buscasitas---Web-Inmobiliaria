@@ -5,11 +5,14 @@ import com.proyectofinal.entidades.Oferta;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.OfertaServicio;
+import com.proyectofinal.servicios.UsuarioDetalles;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,13 +77,42 @@ public class OfertaControlador {
 
 //   
 //     buscar oferta por la cuenta tributaria del inmueble.
-    @GetMapping("/lista/{cuentaTributaria}")
-    public String listarOfertas(@PathVariable String cuentaTributaria,
+    @GetMapping("/recibidas/{cuentaTributaria}")
+    public String listarOfertasPorInmueble(@PathVariable String cuentaTributaria,
             ModelMap modelo) {
         List<Oferta> ofertas = ofertaServicio.mostrarOfertasPorInmueble(cuentaTributaria);
         modelo.addAttribute("ofertas", ofertas);
 
+        return "oferta_lista_por_inmueble.html";
+    }
+
+    @GetMapping("/realizadas/{idCodigoTributario}")
+    public String listarOfertasPorUsuario(@PathVariable String idCodigoTributario,
+            ModelMap modelo,
+            Principal principal) {
+        String idCodigoTributarioAutenticado = obtenerIdCodigoTributarioDelPrincipal(principal);
+
+        if (idCodigoTributarioAutenticado != null && idCodigoTributarioAutenticado.equals(idCodigoTributario)) {
+            List<Oferta> ofertas = ofertaServicio.mostrarOfertasPorUsuario(idCodigoTributario);
+            modelo.addAttribute("ofertas", ofertas);
+            modelo.addAttribute("idCodigoTributarioAutenticado", idCodigoTributarioAutenticado);
+        } else {
+            return "redirect:/error";
+        }
+
         return "oferta_lista.html";
+    }
+
+    private String obtenerIdCodigoTributarioDelPrincipal(Principal principal) {
+        if (principal != null && principal instanceof Authentication) {
+            Authentication authentication = (Authentication) principal;
+            Object principalObj = authentication.getPrincipal();
+
+            if (principalObj instanceof UsuarioDetalles) {
+                return ((UsuarioDetalles) principalObj).getIdCodigoTributario();
+            }
+        }
+        return null;
     }
 
     @GetMapping("/respuesta/{idOferta}")

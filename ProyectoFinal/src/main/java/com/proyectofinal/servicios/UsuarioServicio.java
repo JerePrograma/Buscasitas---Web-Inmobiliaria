@@ -41,7 +41,7 @@ public class UsuarioServicio implements UserDetailsService {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrarUsuario(String idCodigoTributario, String nombre, String apellido, MultipartFile archivo,
+    public Usuario registrarUsuario(String idCodigoTributario, String nombre, String apellido, MultipartFile archivo,
             String direccion, String ciudad, String provincia, String DNI, String sexo, String email,
             String celular, String tipoPersona, String contrasenia, String contrasenia2, String selectedImagePath) throws MiExcepcion, Exception {
 
@@ -75,6 +75,7 @@ public class UsuarioServicio implements UserDetailsService {
 
         usuarioRepositorio.save(usuario);
 
+        return usuario;
     }
 
     @Transactional
@@ -143,7 +144,12 @@ public class UsuarioServicio implements UserDetailsService {
         HttpSession session = attr.getRequest().getSession(true);
         session.setAttribute("usuariosession", usuario);
 
-        return new User(usuario.getEmail(), usuario.getContrasenia(), permisos);
+        return new UsuarioDetalles(
+                usuario.getEmail(),
+                usuario.getContrasenia(),
+                permisos,
+                usuario.getIdCodigoTributario()
+        );
     }
 
     @Transactional(readOnly = true)
@@ -267,6 +273,10 @@ public class UsuarioServicio implements UserDetailsService {
         }
         if (tipoPersona == null || tipoPersona.isEmpty()) {
             throw new MiExcepcion("El tipo de persona no puede estar vacío o ser nulo.");
+        }
+        validarContrasenia(contrasenia);
+        if (!contrasenia.equals(contrasenia2)) {
+            throw new MiExcepcion("Las contraseñas ingresadas deben ser iguales");
         }
         if (tipoPersona.equals("1")) {
         if (DNI == null) {

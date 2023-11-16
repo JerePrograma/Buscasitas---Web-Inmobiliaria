@@ -32,6 +32,15 @@ public class ImagenServicio {
         return imagenRepositorio.save(imagen);
     }
 
+    @Transactional
+    public Imagen guardarImagenRuta(String rutaImagen) throws MiExcepcion {
+        Imagen imagen = new Imagen();
+        imagen.setRutaImagen(rutaImagen);
+        // Omitir guardar el contenido de la imagen
+        // Solo guarda la ruta de la imagen
+        return imagenRepositorio.save(imagen);
+    }
+
     public Imagen actualizar(MultipartFile archivo, String idImagen) {
         if (archivo != null) {
             try {
@@ -78,15 +87,6 @@ public class ImagenServicio {
                 }
             }
         }
-    }
-
-    @Transactional
-    public Imagen guardarImagenRuta(String rutaImagen) throws MiExcepcion {
-        Imagen imagen = new Imagen();
-        imagen.setRutaImagen(rutaImagen);
-        // Omitir guardar el contenido de la imagen
-        // Solo guarda la ruta de la imagen
-        return imagenRepositorio.save(imagen);
     }
 
 }

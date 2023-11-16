@@ -65,6 +65,7 @@ public class UsuarioControlador {
             usuarioServicio.registrarUsuario(idCodigoTributario, nombre, apellido, archivo, direccion, ciudad,
                     provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2, selectedImagePath);
             modelo.put("exito", "Usuario registrado correctamente");
+            return "redirect:/login";
         } catch (MiExcepcion ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("idCodigoTributario", idCodigoTributario);
@@ -82,7 +83,6 @@ public class UsuarioControlador {
 
             return "usuario_form.html";
         }
-        return "usuario_form_exito.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE','ROLE_ADMIN','ROLE_ENTE')")
@@ -117,7 +117,12 @@ public class UsuarioControlador {
     public String modificar(ModelMap modelo, HttpSession session) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-
+        List<String> rutasImagenes = Arrays.asList(
+                "/images/perfil/fotoperfil1.jpeg",
+                "/images/perfil/fotoperfil2.jpeg",
+                "/images/perfil/fotoperfil3.jpeg"
+        );
+        modelo.addAttribute("imagenesPreCargadas", rutasImagenes);
         modelo.put("usuario", usuario);
 
         return "usuario_modificar.html";
