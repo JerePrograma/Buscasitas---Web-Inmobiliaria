@@ -26,7 +26,7 @@
         </thead>
         <tbody
           th:each="reclamo: ${reclamos}"
-          th:if="${session.usuariosession.idCodigoTributario} == inmueble."
+          th:if="${session.usuariosession.idCodigoTributario} == inmueble.usuario_administrador"
         >
           <tr>
             <td th:text="${reclamo.inmueble.cuentaTributaria}"></td>

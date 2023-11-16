@@ -38,6 +38,7 @@
               <form
                 th:action="@{/oferta/respuesta/{idOferta}(idOferta=${oferta.idOferta})}"
                 method="post"
+                th:if="${oferta.usuario.idCodigoTributario != idCodigoTributarioAutenticado}"
               >
                 <select
                   class="custom-select mr-sm-2"

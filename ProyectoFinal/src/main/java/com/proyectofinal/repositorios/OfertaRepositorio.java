@@ -14,4 +14,7 @@ public interface OfertaRepositorio extends JpaRepository<Oferta, String> {
     @Query("SELECT o FROM Oferta o WHERE o.inmueble.cuentaTributaria =  :idcuentaTributaria")
     public List<Oferta> buscarPorIdCuentaTributaria(@Param("idcuentaTributaria") String idcuentaTributaria);
 
+    @Query("SELECT o FROM Oferta o WHERE o.usuario.idCodigoTributario =  :idCodigoTributario")
+    public List<Oferta> buscarPorIdCodigoTributario(@Param("idCodigoTributario") String idCodigoTributario);
+
 }
