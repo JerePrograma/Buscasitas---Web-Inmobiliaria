@@ -10,7 +10,6 @@ import java.util.List;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-
 @Data
 @NoArgsConstructor
 @Entity
