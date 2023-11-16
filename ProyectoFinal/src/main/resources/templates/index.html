@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head th:replace="fragments/head :: head"> </head>
-  <body class="background_img">
+  <body style="position: absolute display: flex;" class="background_img">
     <!-- This is to display the Navbar of the website. -->
     <div class="imagenFondoIndex">
       <nav th:replace="fragments/navbar :: nav"></nav>
@@ -208,6 +208,7 @@
 
       <!-- Reviews and Feedbacks which uses Bootstrap Grid property, includes images  -->
 
+     
       <div th:replace="fragments/publicaciones :: publicaciones"></div>
       <hr />
       <!--
@@ -247,9 +248,10 @@
       </p>
       
     </div>
-    --></div>
-    <div th:replace="fragments/footer :: footer"></div>
-
+    -->
+    
+    <div style="display:flex position: relative;"       th:replace="fragments/footer :: footer"></div>
+  
     <!--JavaScript-->
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
