@@ -195,6 +195,7 @@
         placeholder="largo"
       />
 
+      <!-- Rango Horario respaldo
       <label for="diaSemana">Horarios Disponibles</label>
       <br />
       <label for="diaSemana">Día de la semana:</label>
@@ -220,6 +221,40 @@
       <select class="controls" id="horaFin" name="horaFin" required></select>
 
       <br />
+      <button class="botons" type="button" id="agregarRangoHorario">
+        Agregar Rango Horario
+      </button>
+
+      <div id="rangoHorarioContainer">
+        Las secciones de rango horario agregadas dinámicamente aparecerán aquí
+      </div>
+      -->
+
+      <p style = "font-size: 90%;">Fechas Disponibles:</p>
+
+      <label for="fecha">Fecha:</label>
+      <input class="controls" type="date" id="fecha" name="fecha" required />
+
+      <br />
+      <label for="diaSemana">Dias Disponibles:</label>
+      <select class="controls" id="diaSemana" name="diaSemana">
+        <option value="Lunes">Lunes</option>
+        <option value="Martes">Martes</option>
+        <option value="Miercoles">Miercoles</option>
+        <option value="Jueves">Jueves</option>
+        <option value="Viernes">Viernes</option>
+        <option value="Sabado">Sabado</option>
+        <option value="Domingo">Domingo</option>
+      </select>
+
+      <label for="horaInicio">Horarios Disponibles</label>
+      <br>
+      <label for="horaInicio">Hora de inicio:</label>
+      <select class="controls" id="horaInicio" name="horaInicio" required></select>
+
+      <label for="horaFin">Hora de fin:</label>
+      <select class="controls" id="horaFin" name="horaFin" required></select>
+
       <button class="botons" type="button" id="agregarRangoHorario">
         Agregar Rango Horario
       </button>
