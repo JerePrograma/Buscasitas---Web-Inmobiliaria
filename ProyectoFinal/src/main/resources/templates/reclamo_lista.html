@@ -24,7 +24,10 @@
             <th scope="col" sec:authorize="hasRole('ENTE')">Acciones</th>
           </tr>
         </thead>
-        <tbody th:each="reclamo: ${reclamos}">
+        <tbody
+          th:each="reclamo: ${reclamos}"
+          th:if="${session.usuariosession.idCodigoTributario} == inmueble."
+        >
           <tr>
             <td th:text="${reclamo.inmueble.cuentaTributaria}"></td>
             <td th:text="${reclamo.usuario.idCodigoTributario}"></td>

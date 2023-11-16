@@ -19,7 +19,7 @@ public class ImagenServicio {
 
     @Transactional
     public Imagen guardarImagen(MultipartFile archivo) throws MiExcepcion, IOException {
-       
+
         Imagen imagen = new Imagen();
         imagen.setMime(archivo.getContentType());
         imagen.setNombre(archivo.getOriginalFilename()); // Cambiado de getName() a getOriginalFilename()
@@ -32,7 +32,7 @@ public class ImagenServicio {
         return imagenRepositorio.save(imagen);
     }
 
-    public Imagen actualizar(MultipartFile archivo, String idImagen)  {
+    public Imagen actualizar(MultipartFile archivo, String idImagen) {
         if (archivo != null) {
             try {
                 Imagen imagen = new Imagen();
@@ -79,4 +79,14 @@ public class ImagenServicio {
             }
         }
     }
+
+    @Transactional
+    public Imagen guardarImagenRuta(String rutaImagen) throws MiExcepcion {
+        Imagen imagen = new Imagen();
+        imagen.setRutaImagen(rutaImagen);
+        // Omitir guardar el contenido de la imagen
+        // Solo guarda la ruta de la imagen
+        return imagenRepositorio.save(imagen);
+    }
+
 }

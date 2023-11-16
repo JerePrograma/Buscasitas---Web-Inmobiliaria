@@ -37,7 +37,7 @@ public class InmuebleServicio {
 
         // Validar datos de entrada
         validarDatos(archivoPrincipal, cuentaTributaria, direccion, ciudad, provincia, transaccion, tipoInmueble,
-                tituloAnuncio, descripcionAnuncio,moneda, precio);
+                tituloAnuncio, descripcionAnuncio, moneda, precio);
 
         // Crear y configurar el inmueble
         Inmueble inmueble = new Inmueble();
@@ -88,18 +88,18 @@ public class InmuebleServicio {
     }
 
     @Transactional
-    public void modificarInmueble(String cuentaTributaria, MultipartFile archivoPrincipal, MultipartFile[] archivosSecundarios,
-                                  String tituloAnuncio, String descripcionAnuncio, String estado) throws Exception {
-        validarDatosModificar(cuentaTributaria, tituloAnuncio, descripcionAnuncio, estado);
 
+    public void modificarInmueble(String cuentaTributaria, MultipartFile archivoPrincipal, MultipartFile[] archivosSecundarios,
+            String tituloAnuncio, String descripcionAnuncio, String estado) throws Exception {
+        validarDatosModificar(cuentaTributaria, tituloAnuncio, descripcionAnuncio, estado);
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(cuentaTributaria);
         if (respuesta.isPresent()) {
             Inmueble inmueble = respuesta.get();
 
-            if (archivoPrincipal != null) {
-                // Guardar la nueva imagen principal
-                Imagen nuevaImagenPrincipal = imagenServicio.guardarImagen(archivoPrincipal);
-                inmueble.setImagenPrincipal(nuevaImagenPrincipal);
+            // Actualizar imagen principal
+            if (archivoPrincipal != null && !archivoPrincipal.isEmpty()) {
+                Imagen imagenPrincipalActualizada = imagenServicio.guardarImagen(archivoPrincipal);
+                inmueble.setImagenPrincipal(imagenPrincipalActualizada);
             }
 
             if (archivosSecundarios != null) {
@@ -112,7 +112,7 @@ public class InmuebleServicio {
                 // Guardar las nuevas imágenes secundarias
                 List<Imagen> imagenesNuevas = new ArrayList<>();
                 for (MultipartFile archivo : archivosSecundarios) {
-                    Imagen imagen = imagenServicio.guardarImagen(archivoPrincipal);
+                    Imagen imagen = imagenServicio.guardarImagen(archivo);
                     imagenesNuevas.add(imagen);
                 }
                 inmueble.setImagenesSecundarias(imagenesNuevas);
@@ -126,6 +126,7 @@ public class InmuebleServicio {
         } else {
             throw new MiExcepcion("No se ha encontrado un inmueble con la cuenta tributaria proporcionada.");
         }
+
     }
 
     public Inmueble getOne(String cuentaTributaria) {
@@ -167,9 +168,9 @@ public class InmuebleServicio {
     }
 
     public List<Inmueble> buscarInmueblesPorFiltros(String ubicacion, String transaccion, String tipoInmueble, String ciudad, String provincia,
-                                                    String moneda, Integer precioMaximo, Integer precioMinimo, Integer habitacionesMinimas,
-                                                    Integer habitacionesMaximas, Integer baniosMinimos, Integer baniosMaximos, Integer largoMinimo,
-                                                    Integer largoMaximo, Integer alturaMinima, Integer alturaMaxima) {
+            String moneda, Integer precioMaximo, Integer precioMinimo, Integer habitacionesMinimas,
+            Integer habitacionesMaximas, Integer baniosMinimos, Integer baniosMaximos, Integer largoMinimo,
+            Integer largoMaximo, Integer alturaMinima, Integer alturaMaxima) {
 
         // Verificar si al menos un parámetro de búsqueda está presente
         if (ubicacion == null && transaccion == null && tipoInmueble == null && ciudad == null && provincia == null
@@ -252,7 +253,8 @@ public class InmuebleServicio {
     }
 
     public void validarDatosModificar(String cuentaTributaria,
-                                      String tituloAnuncio, String descripcionAnuncio, String estado) throws MiExcepcion {
+            String tituloAnuncio,
+            String descripcionAnuncio, String estado) throws MiExcepcion {
         if (cuentaTributaria == null || cuentaTributaria.isEmpty()) {
             throw new MiExcepcion("El cuentaTributaria no puede estar vacío o ser nulo");
         }
