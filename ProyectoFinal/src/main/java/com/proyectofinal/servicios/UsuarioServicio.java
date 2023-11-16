@@ -204,12 +204,6 @@ public class UsuarioServicio implements UserDetailsService {
         return usuario;
     }
 
-//
-//    public String sendEmail() {
-//        
-//        //TODO método email-autogenerado
-//        return ;
-//    } 
     public void updateResetPwToken(String token, String email) throws UsuarioNoEncontradoExcepcion {
 
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
@@ -260,6 +254,12 @@ public class UsuarioServicio implements UserDetailsService {
             throw new MiExcepcion("El DNI no puede estar vacío o ser nulo.");
         }
         if (email == null || email.isEmpty()) {
+            throw new MiExcepcion("El email no puede estar vacío, ni haber sido registrado anteriormente");
+        }
+        if (celular == null || celular.isEmpty()) {
+            throw new MiExcepcion("El celular no puede estar vacío, ni haber sido registrado anteriormente");
+        }
+        if (email == null || email.isEmpty()) {
             throw new MiExcepcion("El email no puede estar vacío o ser nulo.");
         }
         if (celular == null || celular.isEmpty()) {
@@ -267,6 +267,21 @@ public class UsuarioServicio implements UserDetailsService {
         }
         if (tipoPersona == null || tipoPersona.isEmpty()) {
             throw new MiExcepcion("El tipo de persona no puede estar vacío o ser nulo.");
+        }
+        if (tipoPersona.equals("1")) {
+        if (DNI == null) {
+        throw new MiExcepcion("El DNI no puede estar vacío y debe contener solo números (sin puntos), <br> y debe ser de al menos 7 dígitos.");
+        } else if (!DNI.matches("\\d{7,9}")) {
+        throw new MiExcepcion("El DNI debe ser de al menos 7 dígitos y debe contener solo números (sin puntos).");
+            }
+        }
+        if (idCodigoTributario == null) {
+        throw new MiExcepcion("El Codigo tributario no puede estar vacío y debe contener solo números (sin puntos), <br> y debe ser de 11 dígitos.");
+        } else if (!idCodigoTributario.matches("\\d{10,12}")) {
+        throw new MiExcepcion("El Codigo tributario debe ser de 11 dígitos y debe contener solo números (sin puntos).");
+            }
+        if (contrasenia == null || contrasenia.isEmpty() || contrasenia.length() <= 5) {
+            throw new MiExcepcion("La contraseña no puede estar vacía, y debe tener más de 5 dígitos");
         }
         if (contrasenia == null || contrasenia.isEmpty()) {
             throw new MiExcepcion("La contraseña no puede estar vacía o ser nula.");
@@ -289,6 +304,8 @@ public class UsuarioServicio implements UserDetailsService {
 
     public void validarDatos(String idCodigoTributario, String direccion, String ciudad, String provincia, String email,
             String celular, String tipoPersona) throws MiExcepcion {
+     
+       
         if (idCodigoTributario == null || idCodigoTributario.isEmpty()) {
             throw new MiExcepcion("El código tributario no puede estar vacío o ser nulo");
         }
@@ -301,8 +318,8 @@ public class UsuarioServicio implements UserDetailsService {
         if (provincia == null || provincia.isEmpty()) {
             throw new MiExcepcion("El código no puede estar vacío o ser nulo");
         }
-        if (email == null || email.isEmpty()) {
-            throw new MiExcepcion("El email no puede estar vacío o ser nulo");
+       if (email == null || email.isEmpty()) {
+            throw new MiExcepcion("El email no puede estar vacío, ni haber sido registrado anteriormente");
         }
         if (celular == null || celular.isEmpty()) {
             throw new MiExcepcion("El celular no puede estar vacío o ser nulo");
@@ -318,4 +335,5 @@ public class UsuarioServicio implements UserDetailsService {
         }
 
     }
+ 
 }
