@@ -74,4 +74,11 @@ public class ReclamoServicio {
         return reclamoRepositorio.buscarPorIdCuentaTributaria(idcuentaTributaria);
 
     }
+
+    @Transactional(readOnly = true)
+    public List<Reclamo> listarReclamos() {
+
+        return reclamoRepositorio.findAll();
+
+    }
 }

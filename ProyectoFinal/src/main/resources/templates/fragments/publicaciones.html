@@ -65,7 +65,9 @@
 
           <h1 class="custom-title">
             <span th:text="${inmueble.precio}"></span>
-            <span th:text="${inmueble.moneda == 'dolar' ? 'USD' : 'ARS'}"></span>
+            <span
+              th:text="${inmueble.moneda == 'dolar' ? 'USD' : 'ARS'}"
+            ></span>
           </h1>
           <p class="read-more">
             <a

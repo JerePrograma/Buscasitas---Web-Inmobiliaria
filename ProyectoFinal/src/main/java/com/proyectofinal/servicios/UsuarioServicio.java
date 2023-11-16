@@ -42,9 +42,10 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Transactional
     public void registrarUsuario(String idCodigoTributario, String nombre, String apellido, MultipartFile archivo,
-            String direccion, String ciudad, String provincia, String DNI, String sexo, String email, String celular, String tipoPersona, String contrasenia, String contrasenia2) throws MiExcepcion, Exception {
+            String direccion, String ciudad, String provincia, String DNI, String sexo, String email,
+            String celular, String tipoPersona, String contrasenia, String contrasenia2, String selectedImagePath) throws MiExcepcion, Exception {
 
-        validarDatos(idCodigoTributario, nombre, direccion, ciudad, provincia, DNI, email, celular, tipoPersona, contrasenia, contrasenia2);
+        validarDatosRegistro(idCodigoTributario, nombre, direccion, ciudad, provincia, DNI, email, celular, tipoPersona, contrasenia, contrasenia2);
 
         Usuario usuario = new Usuario();
 
@@ -67,7 +68,11 @@ public class UsuarioServicio implements UserDetailsService {
         if (!archivo.isEmpty()) {
             Imagen fotoPerfil = imagenServicio.guardarImagen(archivo);
             usuario.setFotoPerfil(fotoPerfil);
+        } else if (!selectedImagePath.isEmpty()) {
+            Imagen fotoPerfil = imagenServicio.guardarImagenRuta(selectedImagePath);
+            usuario.setFotoPerfil(fotoPerfil);
         }
+
         usuarioRepositorio.save(usuario);
 
     }
@@ -75,13 +80,13 @@ public class UsuarioServicio implements UserDetailsService {
     @Transactional
     public void modificarUsuario(MultipartFile archivo,
             String idCodigoTributario,
-            String direccion, 
+            String direccion,
             String ciudad,
             String provincia,
-            String sexo, 
-            String email, 
-            String celular, 
-            String tipoPersona, 
+            String sexo,
+            String email,
+            String celular,
+            String tipoPersona,
             String rol) throws MiExcepcion, Exception {
 
         validarDatos(idCodigoTributario, direccion, ciudad, provincia,
@@ -227,38 +232,40 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.save(usuario);
     }
 
-    public void validarDatos(String idCodigoTributario, String nombre, String direccion, String ciudad, String provincia, String DNI,
-        
-        String email, String celular, String tipoPersona, String contrasenia, String contrasenia2) throws MiExcepcion {
-        Usuario usuario = usuarioRepositorio.buscarPorIdCodigoTributario(idCodigoTributario);
-       
-        String codigoTributario = usuario.getIdCodigoTributario();
-        String emailUsuario = usuario.getEmail();
-        String celularUsuario = usuario.getCelular();
-        
-        if (idCodigoTributario == null || idCodigoTributario.isEmpty() || codigoTributario.equals(idCodigoTributario)) {
-            throw new MiExcepcion("El código tributario no puede estar vacío, ni pertenecer a un usuario existente.");
+    public void validarDatosRegistro(String idCodigoTributario, String nombre, String direccion, String ciudad, String provincia, String DNI,
+            String email, String celular, String tipoPersona, String contrasenia, String contrasenia2) throws MiExcepcion {
+
+        if (idCodigoTributario == null || idCodigoTributario.isEmpty()) {
+            throw new MiExcepcion("El código tributario no puede estar vacío o ser nulo.");
         }
         if (nombre == null || nombre.isEmpty()) {
-            throw new MiExcepcion("El nombre no puede estar vacío o ser nulo");
+            throw new MiExcepcion("El nombre no puede estar vacío o ser nulo.");
         }
         if (direccion == null || direccion.isEmpty()) {
-            throw new MiExcepcion("El direccion no puede estar vacío o ser nulo");
+            throw new MiExcepcion("La dirección no puede estar vacía o ser nula.");
         }
         if (ciudad == null || ciudad.isEmpty()) {
-            throw new MiExcepcion("El ciudad no puede estar vacío o ser nulo");
+            throw new MiExcepcion("La ciudad no puede estar vacía o ser nula.");
         }
         if (provincia == null || provincia.isEmpty()) {
-            throw new MiExcepcion("El código no puede estar vacío o ser nulo");
+            throw new MiExcepcion("La provincia no puede estar vacía o ser nula.");
+        }
+        if (DNI == null || DNI.isEmpty()) {
+            throw new MiExcepcion("El DNI no puede estar vacío o ser nulo.");
         }
         if (email == null || email.isEmpty() || emailUsuario.equals(email)) {
             throw new MiExcepcion("El email no puede estar vacío, ni haber sido registrado anteriormente");
         }
         if (celular == null || celular.isEmpty() || celularUsuario.equals(celular)) {
             throw new MiExcepcion("El celular no puede estar vacío, ni haber sido registrado anteriormente");
+        if (email == null || email.isEmpty()) {
+            throw new MiExcepcion("El email no puede estar vacío o ser nulo.");
+        }
+        if (celular == null || celular.isEmpty()) {
+            throw new MiExcepcion("El celular no puede estar vacío o ser nulo.");
         }
         if (tipoPersona == null || tipoPersona.isEmpty()) {
-            throw new MiExcepcion("El tipoPersona no puede estar vacío o ser nulo");
+            throw new MiExcepcion("El tipo de persona no puede estar vacío o ser nulo.");
         }
         if (tipoPersona.equals("1")) {
         if (DNI == null) {
@@ -274,9 +281,22 @@ public class UsuarioServicio implements UserDetailsService {
             }
         if (contrasenia == null || contrasenia.isEmpty() || contrasenia.length() <= 5) {
             throw new MiExcepcion("La contraseña no puede estar vacía, y debe tener más de 5 dígitos");
+        if (contrasenia == null || contrasenia.isEmpty()) {
+            throw new MiExcepcion("La contraseña no puede estar vacía o ser nula.");
         }
-        if (!contrasenia.equals(contrasenia2)) {
-            throw new MiExcepcion("Las contraseñas ingresadas deben ser iguales");
+        if (contrasenia2 == null || contrasenia2.isEmpty()) {
+            throw new MiExcepcion("La confirmación de la contraseña no puede estar vacía o ser nula.");
+        }
+        Usuario usuarioExistentePorCodigo = usuarioRepositorio.buscarPorIdCodigoTributario(idCodigoTributario);
+        if (usuarioExistentePorCodigo != null) {
+            throw new MiExcepcion("Ya existe un usuario con el código tributario " + idCodigoTributario + ".");
+        }
+        if (usuarioRepositorio.existsByDNI(DNI)) {
+            throw new MiExcepcion("Ya existe un usuario con el DNI " + DNI + ".");
+        }
+        Usuario usuarioExistentePorMail = usuarioRepositorio.buscarPorEmail(email);
+        if (usuarioExistentePorMail != null) {
+            throw new MiExcepcion("Ya existe un usuario registrado con el email " + email + ".");
         }
     }
 

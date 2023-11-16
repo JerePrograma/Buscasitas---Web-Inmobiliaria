@@ -29,21 +29,20 @@ public interface InmuebleRepositorio extends JpaRepository<Inmueble, String> {
             + "AND (:alturaMinima IS NULL OR i.altura >= :alturaMinima)"
             + "AND (:alturaMaxima IS NULL OR i.altura <= :alturaMaxima) ")
     List<Inmueble> findInmueblesByFiltros(@Param("ubicacion") String ubicacion,
-                                          @Param("transaccion") String transaccion,
-                                          @Param("tipoInmueble") String tipoInmueble,
-                                          @Param("ciudad") String ciudad,
-                                          @Param("provincia") String provincia,
-                                          @Param("moneda") String moneda,
-                                          @Param("precioMinimo") Integer precioMinimo,
-                                          @Param("precioMaximo") Integer precioMaximo,
-                                          @Param("habitacionesMinimas") Integer habitacionesMinimas,
-                                          @Param("habitacionesMaximas") Integer habitacionesMaximas,
-                                          @Param("baniosMinimos") Integer baniosMinimos,
-                                          @Param("baniosMaximos") Integer baniosMaximos,
-                                          @Param("largoMinimo") Integer largoMinimo,
-                                          @Param("largoMaximo") Integer largoMaximo,
-                                          @Param("alturaMinima") Integer alturaMinima,
-                                          @Param("alturaMaxima") Integer alturaMaxima);
-
+            @Param("transaccion") String transaccion,
+            @Param("tipoInmueble") String tipoInmueble,
+            @Param("ciudad") String ciudad,
+            @Param("provincia") String provincia,
+            @Param("moneda") String moneda,
+            @Param("precioMinimo") Integer precioMinimo,
+            @Param("precioMaximo") Integer precioMaximo,
+            @Param("habitacionesMinimas") Integer habitacionesMinimas,
+            @Param("habitacionesMaximas") Integer habitacionesMaximas,
+            @Param("baniosMinimos") Integer baniosMinimos,
+            @Param("baniosMaximos") Integer baniosMaximos,
+            @Param("largoMinimo") Integer largoMinimo,
+            @Param("largoMaximo") Integer largoMaximo,
+            @Param("alturaMinima") Integer alturaMinima,
+            @Param("alturaMaxima") Integer alturaMaxima);
 
 }

@@ -3,6 +3,7 @@ package com.proyectofinal.controladores;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.excepciones.MiExcepcion;
 import com.proyectofinal.servicios.UsuarioServicio;
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,13 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/registrar")
-    public String registrar() {
+    public String registrar(ModelMap modelo) {
+        List<String> rutasImagenes = Arrays.asList(
+                "/images/perfil/fotoperfil1.jpeg",
+                "/images/perfil/fotoperfil2.jpeg",
+                "/images/perfil/fotoperfil3.jpeg"
+        );
+        modelo.addAttribute("imagenesPreCargadas", rutasImagenes);
         return "usuario_form.html";
     }
 
@@ -52,13 +59,12 @@ public class UsuarioControlador {
             @RequestParam("tipoPersona") String tipoPersona,
             @RequestParam("contrasenia") String contrasenia,
             @RequestParam("contrasenia2") String contrasenia2,
+            @RequestParam("selectedImagePath") String selectedImagePath,
             ModelMap modelo) throws Exception {
         try {
             usuarioServicio.registrarUsuario(idCodigoTributario, nombre, apellido, archivo, direccion, ciudad,
-                    provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2);
+                    provincia, DNI, sexo, email, celular, tipoPersona, contrasenia, contrasenia2, selectedImagePath);
             modelo.put("exito", "Usuario registrado correctamente");
-             
-          
         } catch (MiExcepcion ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("idCodigoTributario", idCodigoTributario);
@@ -134,7 +140,7 @@ public class UsuarioControlador {
         try {
             usuarioServicio.modificarUsuario(archivo, idCodigoTributario, direccion, ciudad, provincia,
                     sexo, email, celular, tipoPersona, rol);
-                    modelo.put("exito", "Usuario actualizado correctamente!");
+            modelo.put("exito", "Usuario actualizado correctamente!");
             return "usuario_form_exito.html";
             } catch (DataIntegrityViolationException e) {
         //} catch (DataIntegrityViolationException e) Manejar la excepción de violación de unicidad (ID duplicado)

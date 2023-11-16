@@ -10,7 +10,6 @@ import com.proyectofinal.servicios.RangoHorarioServicio;
 import com.proyectofinal.servicios.UsuarioServicio;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import java.util.Base64;
 import java.util.HashMap;
@@ -25,7 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Controller
 @RequestMapping("/inmueble")
@@ -73,7 +71,8 @@ public class InmuebleControlador {
             @RequestParam("largo") int largo,
             @RequestParam("diaSemana") List<String> diaSemanaList,
             @RequestParam("horaInicio") List<String> horaInicioList,
-            @RequestParam("horaFin") List<String> horaFinList, HttpSession session) {
+            @RequestParam("horaFin") List<String> horaFinList,
+            HttpSession session) {
 
         // Obtener el usuario de la sesión
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
@@ -138,9 +137,7 @@ public class InmuebleControlador {
             // Modificar inmueble
             inmuebleServicio.modificarInmueble(cuentaTributaria, archivoPrincipal, archivosSecundarios, tituloAnuncio, descripcionAnuncio, estado);
 
-            RangoHorario rangoHorario = (RangoHorario) rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
-            rangoHorarioServicio.actualizarRangoHorario(rangoHorario, diaSemanaList, horaInicioList, horaFinList);
-
+            rangoHorarioServicio.actualizarRangoHorario(diaSemanaList, horaInicioList, horaFinList);
             model.put("exito", "Los cambios fueron guardados correctamente!");
             return "redirect:/"; // Redirige a la página principal o la página de éxito, según sea necesario
         } catch (Exception ex) {
@@ -175,18 +172,15 @@ public class InmuebleControlador {
         // Llama al servicio con los parámetros adecuados, incluyendo tipoInmueble como String.
         try {
             // Llama al servicio con los parámetros adecuados
-            List<Inmueble> inmuebles = inmuebleServicio.buscarInmueblesPorFiltros(
-                    ubicacion, transaccion, tipoInmueble, ciudad, provincia, moneda, precioMinimo, precioMaximo,
-                    habitacionesMinimas, habitacionesMaximas, baniosMinimos, baniosMaximos, largoMinimo,
-                    largoMaximo, alturaMinima, alturaMaxima);
-
+            List<Inmueble> inmuebles = inmuebleServicio.buscarInmueblesPorFiltros(ubicacion, transaccion, tipoInmueble,
+                    ciudad, provincia, moneda, precioMaximo, precioMinimo, habitacionesMinimas,
+                    habitacionesMaximas, baniosMinimos, baniosMaximos, largoMinimo, largoMaximo, alturaMinima, alturaMaxima);
             // Agrega los resultados al modelo.
             model.addAttribute("inmuebles", inmuebles);
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
             return "redirect/";
         }
-
 
         return "inmueble_busqueda.html";
     }
