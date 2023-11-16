@@ -12,8 +12,8 @@
 
     <div class="container-custom">
       <h2>Galería de imágenes</h2>
-      <hr>
-      <br>
+      <hr />
+      <br />
       <!-- Galería de imágenes -->
       <div id="image-gallery" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -32,7 +32,12 @@
             <img
               th:src="|data:${imageInfo.mime};base64,${imageInfo.base64}|"
               alt="Imagen Secundaria del Inmueble"
-              style="max-width: 100%; max-height: 300px; object-fit: cover; border-radius: 1.5rem"
+              style="
+                max-width: 100%;
+                max-height: 300px;
+                object-fit: cover;
+                border-radius: 1.5rem;
+              "
             />
           </div>
         </div>
@@ -64,204 +69,220 @@
               alt="Miniatura"
               class="img-thumbnail"
               th:onclick="'javascript:goToSlide(' + ${indexStat.index} + ');'"
-              style="cursor: pointer; max-height: 100px; object-fit: cover; border-radius: 1.5rem"
+              style="
+                cursor: pointer;
+                max-height: 100px;
+                object-fit: cover;
+                border-radius: 1.5rem;
+              "
             />
           </div>
         </div>
       </div>
 
+      <style>
+        @import url("https://fonts.googleapis.com/css?family=Oswald:300|Roboto:300,500");
+        html,
+        body {
+          min-height: 100%;
+        }
 
-      
+        html {
+          overflow-y: scroll;
+          font-size: 18px;
+        }
 
-<style>
+        body {
+          font-size: 1rem;
+          font-weight: 300;
+          font-family: Roboto, sans-serif;
+          line-height: 1.4;
+          color: #546e7a;
+          background-color: #eceff1;
+        }
 
-@import url("https://fonts.googleapis.com/css?family=Oswald:300|Roboto:300,500");
-html, body {
-  min-height: 100%;
-}
+        p,
+        ul,
+        li {
+          margin: 0;
+          padding: 0;
+          margin-bottom: 24px;
+        }
+        p:last-child,
+        ul:last-child,
+        li:last-child {
+          margin-bottom: 0;
+        }
 
-html {
-  overflow-y: scroll;
-  font-size: 18px;
-}
+        a {
+          color: #00acc1;
+        }
 
-body {
-  font-size: 1rem;
-  font-weight: 300;
-  font-family: Roboto, sans-serif;
-  line-height: 1.4;
-  color: #546E7A;
-  background-color: #ECEFF1;
-}
+        code {
+          background: #eceff1;
+        }
 
-p, ul, li {
-  margin: 0;
-  padding: 0;
-  margin-bottom: 24px;
-}
-p:last-child, ul:last-child, li:last-child {
-  margin-bottom: 0;
-}
+        .wrapper {
+          max-width: 640px;
+          margin-left: auto;
+          margin-right: auto;
+          padding: 48px;
+        }
 
-a {
-  color: #00ACC1;
-}
+        .details-group {
+          border: 1px solid #cfd8dc;
+          border-radius: 5px;
+          background-color: white;
+        }
 
-code {
-  background: #ECEFF1;
-}
+        .details {
+          overflow: hidden;
+          border-bottom: 1px solid #cfd8dc;
+          transition: height 300ms ease-in-out;
+        }
+        .details:last-child {
+          border-bottom: 0;
+        }
+        .details__summary,
+        .details__content {
+          padding: 24px;
+        }
+        .details__summary {
+          position: relative;
+          list-style: none;
+          padding-left: 48px;
+          outline: 0;
+          cursor: pointer;
+          font-size: 1.4rem;
+          font-family: Oswald;
+          text-transform: uppercase;
+          transition: color 300ms ease-in-out;
+        }
+        [open] > .details__summary {
+          color: #00acc1;
+        }
+        .details__summary::-webkit-details-marker {
+          display: none;
+        }
+        .details__summary:before,
+        .details__summary:after {
+          content: "";
+          position: absolute;
+        }
+        .details__summary:before {
+          left: 20px;
+          top: 50%;
+          height: 2px;
+          margin-top: -1px;
+          width: 16px;
+          background: #00acc1;
+        }
+        .details__summary:after {
+          left: 28px;
+          top: 50%;
+          height: 16px;
+          margin-top: -8px;
+          width: 2px;
+          margin-left: -1px;
+          background: #00acc1;
+          transition: all 300ms ease-in-out;
+        }
+        [open] .details__summary:after {
+          opacity: 0;
+          transform: translateY(25%);
+        }
+        .details__content {
+          padding-top: 0;
+          padding-left: 48px;
+        }
+      </style>
+      <div class="wrapper">
+        <section class="details-group">
+          <details class="details" open>
+            <summary class="details__summary">Detalle</summary>
+            <div class="details__content">
+              <h5 th:text="${inmueble.tituloAnuncio}"></h5>
+              <p th:text="${inmueble.descripcionAnuncio}"></p>
+            </div>
+          </details>
 
-.wrapper {
-  max-width: 640px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 48px;
-}
+          <details class="details">
+            <summary class="details__summary">Ubicación</summary>
+            <div class="details__content">
+              <ul>
+                <li>
+                  <strong>Tipo:</strong>
+                  <span th:text="${inmueble.tipoInmueble}"></span>
+                </li>
+                <li>
+                  <strong>Provincia:</strong>
+                  <span th:text="${inmueble.provincia}"></span>
+                </li>
+                <li>
+                  <strong>Ciudad:</strong>
+                  <span th:text="${inmueble.ciudad}"></span>
+                </li>
+                <li>
+                  <strong>Dirección:</strong>
+                  <span th:text="${inmueble.direccion}"></span>
+                </li>
+              </ul>
+            </div>
+          </details>
 
-.details-group {
-  border: 1px solid #CFD8DC;
-  border-radius: 5px;
-  background-color: white;
-}
-
-.details {
-  overflow: hidden;
-  border-bottom: 1px solid #CFD8DC;
-  transition: height 300ms ease-in-out;
-}
-.details:last-child {
-  border-bottom: 0;
-}
-.details__summary, .details__content {
-  padding: 24px;
-}
-.details__summary {
-  position: relative;
-  list-style: none;
-  padding-left: 48px;
-  outline: 0;
-  cursor: pointer;
-  font-size: 1.4rem;
-  font-family: Oswald;
-  text-transform: uppercase;
-  transition: color 300ms ease-in-out;
-}
-[open] > .details__summary {
-  color: #00ACC1;
-}
-.details__summary::-webkit-details-marker {
-  display: none;
-}
-.details__summary:before, .details__summary:after {
-  content: "";
-  position: absolute;
-}
-.details__summary:before {
-  left: 20px;
-  top: 50%;
-  height: 2px;
-  margin-top: -1px;
-  width: 16px;
-  background: #00ACC1;
-}
-.details__summary:after {
-  left: 28px;
-  top: 50%;
-  height: 16px;
-  margin-top: -8px;
-  width: 2px;
-  margin-left: -1px;
-  background: #00ACC1;
-  transition: all 300ms ease-in-out;
-}
-[open] .details__summary:after {
-  opacity: 0;
-  transform: translateY(25%);
-}
-.details__content {
-  padding-top: 0;
-  padding-left: 48px;
-}
-</style>
-        <div class="wrapper">
-          <section class="details-group">
-            <details class="details" open>
-              <summary class="details__summary">
-                Detalle
-              </summary>
-              <div class="details__content">
-                <h5 th:text="${inmueble.tituloAnuncio}"></h5>
-                <p th:text="${inmueble.descripcionAnuncio}"></p>
-              </div>
-            </details>
-        
-            <details class="details">
-              <summary class="details__summary">Ubicación</summary>
-              <div class="details__content">
-                <ul>
-                  <li>
-                    <strong>Tipo:</strong>
-                    <span th:text="${inmueble.tipoInmueble}"></span>
-                  </li>
-                  <li>
-                    <strong>Provincia:</strong>
-                    <span th:text="${inmueble.provincia}"></span>
-                  </li>
-                  <li>
-                    <strong>Ciudad:</strong>
-                    <span th:text="${inmueble.ciudad}"></span>
-                  </li>
-                  <li>
-                    <strong>Dirección:</strong>
-                    <span th:text="${inmueble.direccion}"></span>
-                  </li>
-                </ul>  
-                  </div>
-            </details>
-        
-            <details class="details">
-              <summary class="details__summary">Características</summary>
-              <div class="details__content">
-                <li><span
-                  th:text="${'Habitaciones: ' + inmueble.cantidadHabitaciones}"
-                ></span></li>
-               <li> <span th:text="${'Baños: ' + inmueble.banios}"></span></li>
-                <li><span
-                  th:text="${'Ambientes: ' + inmueble.cantidadAmbientes}"
-                ></span></li>
-                <li><span th:text="${'Altura: ' + inmueble.altura}"></span></li>
-                <li><span th:text="${'Largo: ' + inmueble.largo}"></span>
-              </li>
-                </ul>
-              </div>
-            </details>
-        
-            <details class="details">
-              <summary class="details__summary">Horarios</summary>
-              <div class="details__content">
+          <details class="details">
+            <summary class="details__summary">Características</summary>
+            <div class="details__content">
+              <li>
                 <span
+                  th:text="${'Habitaciones: ' + inmueble.cantidadHabitaciones}"
+                ></span>
+              </li>
+              <li><span th:text="${'Baños: ' + inmueble.banios}"></span></li>
+              <li>
+                <span
+                  th:text="${'Ambientes: ' + inmueble.cantidadAmbientes}"
+                ></span>
+              </li>
+              <li><span th:text="${'Altura: ' + inmueble.altura}"></span></li>
+              <li><span th:text="${'Largo: ' + inmueble.largo}"></span></li>
+            </div>
+          </details>
+
+          <details class="details">
+            <summary class="details__summary">Horarios</summary>
+            <div class="details__content">
+              <span
                 th:each="rangoHorario : ${inmueble.rangosHorarios}"
                 th:text="${rangoHorario.diaSemana + ' Desde: ' + rangoHorario.horaInicio + ' Hasta: ' + rangoHorario.horaFin}"
-              ></span> </div>
-            </details>
-            <details class="details">
-              <summary class="details__summary">Valoración</summary>
-              <div class="details__content">
+              ></span>
+            </div>
+          </details>
+          <details class="details">
+            <summary class="details__summary">Valoración</summary>
+            <div class="details__content">
               <ul>
-                <li><span th:text="${inmueble.precio}"></span>
-              <span
-              th:text="${inmueble.moneda == 'dolar' ? 'USD' : 'ARS'}"
-            ></span></li>
-        
-          <li><p>
-            <strong>Estado:</strong> <span th:text="${inmueble.estado}"></span>
-          </p></li> </div>
-            </details>
-          </section>
-         </div>
+                <li>
+                  <span th:text="${inmueble.precio}"></span>
+                  <span
+                    th:text="${inmueble.moneda == 'dolar' ? 'USD' : 'ARS'}"
+                  ></span>
+                </li>
 
-          <!-- Información del inmueble -->
-          <!-- <div class="inmueble-info">
+                <li>
+                  <p>
+                    <strong>Estado:</strong>
+                    <span th:text="${inmueble.estado}"></span>
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </details>
+        </section>
+      </div>
+
+      <!-- Información del inmueble -->
+      <!-- <div class="inmueble-info">
           <h3 th:text="${inmueble.tituloAnuncio}"></h3>
           <p th:text="${inmueble.descripcionAnuncio}"></p>
         <ul>
@@ -315,60 +336,54 @@ code {
             <strong>Estado:</strong> <span th:text="${inmueble.estado}"></span>
           </p>
           <div class="text-center"> -->
-            <div id="detalleInmueble-button">
-            <ul class="navbar-nav margin-left text-center">
-            <a
-              href="#"
-              th:href="@{/cita/registrar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
-              class="btn btn-primary"
-            >
-              <button class="btn btn-primary" id="pedirCitaButton">
-                Pedir una cita
-              </button>
-            </a>
-          </div>
+      <div id="detalleInmueble-button">
+        <a
+          href="#"
+          th:href="@{/cita/registrar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+          class="btn btn-primary"
+        >
+          <button class="btn btn-primary" id="pedirCitaButton">
+            Pedir una cita
+          </button>
+        </a>
+      </div>
 
-          <div class="text-center">
-            <!-- Solicitar DNI ya deberia cumplir con la funcion de la autorización (creo)
+      <div class="text-center">
+        <!-- Solicitar DNI ya deberia cumplir con la funcion de la autorización (creo)
                   th:if="${#authorization.expression('hasRole(''CLIENTE'')')}" -->
-            <a
-              th:href="@{/oferta/enviar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
-              class="btn btn-primary"
-            >
-              <button class="btn btn-primary" id="ofertarButton">
-                Ofertar
-              </button>
-            </a>
+        <a
+          th:href="@{/oferta/enviar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+          class="btn btn-primary"
+        >
+          <button class="btn btn-primary" id="ofertarButton">Ofertar</button>
+        </a>
 
-            <!-- Botón para usuarios con rol CLIENTE -->
-            <a
-              th:if="${#authorization.expression('hasRole(''CLIENTE'')')}"
-              th:href="@{/reclamo/reclamar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
-              class="btn btn-primary"
-            >
-              <button class="btn btn-primary">Reclamar</button>
-            </a>
+        <!-- Botón para usuarios con rol CLIENTE -->
+        <a
+          th:if="${#authorization.expression('hasRole(''CLIENTE'')')}"
+          th:href="@{/reclamo/reclamar/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+          class="btn btn-primary"
+        >
+          <button class="btn btn-primary">Reclamar</button>
+        </a>
 
-            <!-- Botón para usuarios con rol ADMIN o ENTE -->
-            <a
-              sec:authorize="hasAnyRole('ADMIN', 'ENTE')"
-              th:href="@{/reclamo/lista/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
-              class="btn btn-primary"
-            >
-              <button class="btn btn-primary">Listar Reclamos</button>
-            </a>
-          </div>
+        <!-- Botón para usuarios con rol ADMIN o ENTE -->
+        <a
+          sec:authorize="hasAnyRole('ADMIN', 'ENTE')"
+          th:href="@{/reclamo/lista/{cuentaTributaria}(cuentaTributaria=${cuentaTributaria})}"
+          class="btn btn-primary"
+        >
+          <button class="btn btn-primary">Listar Reclamos</button>
+        </a>
+      </div>
 
-          <section class="text-center container">
-            <div class="row mt-3">
-              <div class="divVolver">
-                <a
-                  th:href="@{/}"
-                  class="btn btn-secondary my-2 botonVolver botones"
-                  >Inicio
-                </a>
-           
-          </div>
+      <div class="row mt-3">
+        <div class="divVolver">
+          <a th:href="@{/}" class="btn btn-secondary my-2 botonVolver botones"
+            >Inicio
+          </a>
+        </div>
+      </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -460,119 +475,123 @@ code {
       }
 
       class Details {
-  constructor(el, settings) {
-    this.group    = el;
-    this.details  = this.group.getElementsByClassName("details");
-    this.toggles  = this.group.getElementsByClassName("details__summary");
-    this.contents = this.group.getElementsByClassName("details__content");    
-    
-    // Set default settings if necessary
-    this.settings = Object.assign({
-      speed: 300,
-      one_visible: false
-    }, settings);
-    
-    // Setup inital positions
-    for (let i = 0; i < this.details.length; i++) {
-      const detail  = this.details[i];
-      const toggle  = this.toggles[i];
-      const content = this.contents[i];
-      
-      // Set transition-duration to match JS setting
-      detail.style.transitionDuration = this.settings.speed + "ms";
-      
-      // Set initial height to transition from
-      if (!detail.hasAttribute("open")) {
-        detail.style.height = toggle.clientHeight + "px";
-      } else {
-        detail.style.height = toggle.clientHeight + content.clientHeight + "px";
-      }
-    }
-    
-    // Setup click handler
-    this.group.addEventListener("click", (e) => {      
-      if (e.target.classList.contains("details__summary")) {
-        e.preventDefault();
-        
-        let num = 0;
-        for (let i = 0; i < this.toggles.length; i++) {
-          if (this.toggles[i] === e.target) {
-            num = i;
-            break;
-          }
-        }
-        
-        if (!e.target.parentNode.hasAttribute("open")) {
-          this.open(num);
-        } else {
-          this.close(num);
-        }
-      }
-    });
-  }
-  
-  open(i) {
-    const detail = this.details[i];
-    const toggle = this.toggles[i];
-    const content = this.contents[i];
-    
-    // If applicable, hide all the other details first
-    if (this.settings.one_visible) {
-      for (let a = 0; a < this.toggles.length; a++) {
-        if (i !== a) this.close(a);
-      }
-    }
-    
-    // Update class
-    detail.classList.remove("is-closing");
-    
-    // Get height of toggle
-    const toggle_height = toggle.clientHeight;
-    
-    // Momentarily show the contents just to get the height
-    detail.setAttribute("open", true);
-    const content_height = content.clientHeight;
-    detail.removeAttribute("open");
-    
-    // Set the correct height and let CSS transition it
-    detail.style.height = toggle_height + content_height + "px";
-    
-    // Finally set the open attr
-    detail.setAttribute("open", true);
-  }
-  
-  close(i) {
-    const detail = this.details[i];
-    const toggle = this.toggles[i];
-    
-    // Update class
-    detail.classList.add("is-closing");
-    
-    // Get height of toggle
-    const toggle_height = toggle.clientHeight;
-    
-    // Set the height so only the toggle is visible
-    detail.style.height = toggle_height + "px";
-    
-    setTimeout(() => {
-      // Check if still closing
-      if (detail.classList.contains("is-closing"))
-        detail.removeAttribute("open");
-        detail.classList.remove("is-closing");
-    }, this.settings.speed);
-  }
-}
+        constructor(el, settings) {
+          this.group = el;
+          this.details = this.group.getElementsByClassName("details");
+          this.toggles = this.group.getElementsByClassName("details__summary");
+          this.contents = this.group.getElementsByClassName("details__content");
 
-(() => {
-  const els = document.getElementsByClassName("details-group");
-  
-  for (let i = 0; i < els.length; i++) {
-    const details = new Details(els[i], {
-      speed: 500,
-      one_visible: true
-    });
-  }
-})();
+          // Set default settings if necessary
+          this.settings = Object.assign(
+            {
+              speed: 300,
+              one_visible: false,
+            },
+            settings
+          );
+
+          // Setup inital positions
+          for (let i = 0; i < this.details.length; i++) {
+            const detail = this.details[i];
+            const toggle = this.toggles[i];
+            const content = this.contents[i];
+
+            // Set transition-duration to match JS setting
+            detail.style.transitionDuration = this.settings.speed + "ms";
+
+            // Set initial height to transition from
+            if (!detail.hasAttribute("open")) {
+              detail.style.height = toggle.clientHeight + "px";
+            } else {
+              detail.style.height =
+                toggle.clientHeight + content.clientHeight + "px";
+            }
+          }
+
+          // Setup click handler
+          this.group.addEventListener("click", (e) => {
+            if (e.target.classList.contains("details__summary")) {
+              e.preventDefault();
+
+              let num = 0;
+              for (let i = 0; i < this.toggles.length; i++) {
+                if (this.toggles[i] === e.target) {
+                  num = i;
+                  break;
+                }
+              }
+
+              if (!e.target.parentNode.hasAttribute("open")) {
+                this.open(num);
+              } else {
+                this.close(num);
+              }
+            }
+          });
+        }
+
+        open(i) {
+          const detail = this.details[i];
+          const toggle = this.toggles[i];
+          const content = this.contents[i];
+
+          // If applicable, hide all the other details first
+          if (this.settings.one_visible) {
+            for (let a = 0; a < this.toggles.length; a++) {
+              if (i !== a) this.close(a);
+            }
+          }
+
+          // Update class
+          detail.classList.remove("is-closing");
+
+          // Get height of toggle
+          const toggle_height = toggle.clientHeight;
+
+          // Momentarily show the contents just to get the height
+          detail.setAttribute("open", true);
+          const content_height = content.clientHeight;
+          detail.removeAttribute("open");
+
+          // Set the correct height and let CSS transition it
+          detail.style.height = toggle_height + content_height + "px";
+
+          // Finally set the open attr
+          detail.setAttribute("open", true);
+        }
+
+        close(i) {
+          const detail = this.details[i];
+          const toggle = this.toggles[i];
+
+          // Update class
+          detail.classList.add("is-closing");
+
+          // Get height of toggle
+          const toggle_height = toggle.clientHeight;
+
+          // Set the height so only the toggle is visible
+          detail.style.height = toggle_height + "px";
+
+          setTimeout(() => {
+            // Check if still closing
+            if (detail.classList.contains("is-closing"))
+              detail.removeAttribute("open");
+            detail.classList.remove("is-closing");
+          }, this.settings.speed);
+        }
+      }
+
+      (() => {
+        const els = document.getElementsByClassName("details-group");
+
+        for (let i = 0; i < els.length; i++) {
+          const details = new Details(els[i], {
+            speed: 500,
+            one_visible: true,
+          });
+        }
+      })();
     </script>
 
     <!-- <script th:unless="${#authorization.expression('isAuthenticated')}">>
@@ -599,6 +618,9 @@ code {
       }
   }
 </script> -->
-<div style="display:flex position: relative;"       th:replace="fragments/footer :: footer"></div>
+    <div
+      style="display: flex; position: relative"
+      th:replace="fragments/footer :: footer"
+    ></div>
   </body>
 </html>
