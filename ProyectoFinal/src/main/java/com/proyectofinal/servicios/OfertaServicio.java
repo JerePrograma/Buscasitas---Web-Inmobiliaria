@@ -54,7 +54,7 @@ public class OfertaServicio {
         oferta.setFechaOferta(fechaOferta);//se fija la fecha oferta
         oferta.setValorOferta(valorOferta);//se establece el valor oferta que puede ser o no igual al solicitado por Ente o duenio
         oferta.setEstadoOferta("Enviada");// aqui el estado seria enviada.
-        
+
         ofertaRepositorio.save(oferta);
 
     }
@@ -103,6 +103,11 @@ public class OfertaServicio {
     @Transactional(readOnly = true)
     public List<Oferta> mostrarOfertasPorInmueble(String cuentaTributaria) {
         return ofertaRepositorio.buscarPorIdCuentaTributaria(cuentaTributaria);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Oferta> mostrarOfertasPorUsuario(String idCodigoTributario) {
+        return ofertaRepositorio.buscarPorIdCodigoTributario(idCodigoTributario);
     }
 
     // elimina la oferta del repositorio al clickear REVOCAR OFERTA. PODRIA SER OFERTA IRREVOCABLES Y NO TENDRIAMOS ESTE

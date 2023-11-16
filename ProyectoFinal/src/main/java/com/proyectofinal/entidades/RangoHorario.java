@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
@@ -16,6 +17,8 @@ public class RangoHorario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private LocalDate fecha;
 
     private String diaSemana; // Día de la semana (por ejemplo, "Lunes", "Martes", etc.)
 

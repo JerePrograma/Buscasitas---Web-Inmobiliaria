@@ -11,4 +11,7 @@ public interface CitaRepositorio extends CrudRepository<Cita, String> {
 
     @Query("SELECT r FROM RangoHorario r WHERE r.inmueble.cuentaTributaria = :cuentaTributaria")
     List<RangoHorario> findByCuentaTributaria(@Param("cuentaTributaria") String cuentaTributaria);
+
+    @Query("SELECT c FROM Cita c WHERE c.horario = :rangoHorario")
+    List<Cita> findByHorario(@Param("rangoHorario") RangoHorario rangoHorario);
 }

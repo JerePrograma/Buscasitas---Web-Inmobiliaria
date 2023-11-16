@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,9 @@ public class RangoHorarioServicio {
     private RangoHorarioRepositorio rangoHorarioRepositorio;
 
     @Transactional
-    public RangoHorario crearRangoHorario(String diaSemana, LocalTime horaInicio, LocalTime horaFin, Inmueble inmueble) {
+    public RangoHorario crearRangoHorario(LocalDate fecha, String diaSemana, LocalTime horaInicio, LocalTime horaFin, Inmueble inmueble) {
         RangoHorario rangoHorario = new RangoHorario();
+        rangoHorario.setFecha(fecha);
         rangoHorario.setDiaSemana(diaSemana);
         rangoHorario.setHoraInicio(horaInicio);
         rangoHorario.setHoraFin(horaFin);
@@ -28,16 +30,14 @@ public class RangoHorarioServicio {
         return rangoHorarioRepositorio.save(rangoHorario);
     }
 
-    public List<RangoHorario> establecerRangoHorarios(List<String> diaSemanaList, List<String> horaInicioList, List<String> horaFinList, Inmueble inmueble) {
+    public List<RangoHorario> establecerRangoHorarios(List<LocalDate> fechas, List<String> diaSemanaList, List<String> horaInicioList, List<String> horaFinList, Inmueble inmueble) {
         List<RangoHorario> rangosHorarios = new ArrayList<>();
-        for (int i = 0; i < diaSemanaList.size(); i++) {
+        for (int i = 0; i < fechas.size(); i++) {
+            LocalDate fecha = fechas.get(i);
             LocalTime horaInicio = LocalTime.parse(horaInicioList.get(i));
             LocalTime horaFin = LocalTime.parse(horaFinList.get(i));
 
-            RangoHorario rangoHorario = crearRangoHorario(diaSemanaList.get(i), horaInicio, horaFin, inmueble);
-
-            // Establece la relación con la instancia de Inmueble que ya ha sido guardada
-            rangoHorario.setInmueble(inmueble);
+            RangoHorario rangoHorario = crearRangoHorario(fecha, diaSemanaList.get(i), horaInicio, horaFin, inmueble);
 
             System.out.println("Asignando rangoHorario a Inmueble: " + rangoHorario);
 
@@ -76,6 +76,11 @@ public class RangoHorarioServicio {
 
     public List<RangoHorario> obtenerRangoHorarioPorCuentaTributaria(String cuentaTributaria) throws Exception {
         return rangoHorarioRepositorio.findByCuentaTributaria(cuentaTributaria);
+    }
+
+    public List<RangoHorario> obtenerRangosPorFecha(LocalDate fecha) {
+        // Implementa la lógica según tus necesidades
+        return rangoHorarioRepositorio.findByFecha(fecha);
     }
 
     public List<RangoHorario> obtenerTodosLosRangosHorarios() {

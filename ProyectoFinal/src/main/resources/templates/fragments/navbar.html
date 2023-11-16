@@ -41,13 +41,35 @@
       <li class="nav-item" sec:authorize="hasRole('ADMIN')">
         <a class="btn btn-info" th:href="@{/usuario/lista}"><i class="fa-brands fa-searchengin" style="color: #b4966a"></i>Expo Usuarios</a>
       </li>
-
       <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ENTE')">
         <a class="btn btn-info" th:href="@{/inmueble/lista}"><i class="fa-brands fa-searchengin" style="color: #b4966a"></i>Expo Inmuebles</a>
       </li>
       <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ENTE')">
         <a class="btn btn-info" th:href="@{/inmueble/registrar}"
           ><i class="fa-solid fa-shop" style="color: #d4b285"></i>Vende o alquila</a
+        >
+      </li>
+      <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ENTE')">
+        <a class="btn btn-info" th:href="@{/inmueble/lista}">Expo Inmuebles</a>
+      </li>
+      <li
+        class="nav-item"
+        th:if="${T(com.proyectofinal.SeguridadWeb).isAuthenticated()}"
+      >
+        <a
+          class="btn btn-info"
+          th:href="@{/oferta/realizadas/{idCodigoTributario}(idCodigoTributario=${session.usuariosession.idCodigoTributario})}"
+          >Expo Ofertas</a
+        >
+      </li>
+      <li
+        class="nav-item"
+        th:if="${T(com.proyectofinal.SeguridadWeb).isAuthenticated()}"
+      >
+        <a
+          class="btn btn-info"
+          th:href="@{/reclamo/lista/{idCodigoTributario}(idCodigoTributario=${session.idCodigoTributario})}"
+          >Expo Reclamos</a
         >
       </li>
       <li

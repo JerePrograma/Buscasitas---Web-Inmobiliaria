@@ -41,6 +41,12 @@ public class PortalControlador {
         return "index.html";
     }
 
+    @GetMapping("/mapa")
+    public String mapa(@RequestParam(required = false) String error, ModelMap modelo) {
+
+        return "mapa.html";
+    }
+
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {
         if (error != null) {
@@ -48,15 +54,8 @@ public class PortalControlador {
         }
         return "login.html";
     }
-    
-     @GetMapping("/mapa")
-    public String mapa(@RequestParam(required = false) String error, ModelMap modelo) {
-        
-        return "mapa.html";
-    }
 
-     
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ENTE','ROLE_CLIENT', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_INQUILINO','ROLE_ENTE','ROLE_CLIENTE', 'ROLE_ADMIN')")
     @GetMapping("/inicio")
     public String inicio(ModelMap modelo, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
@@ -65,8 +64,7 @@ public class PortalControlador {
         if (usuario.getRol().toString().equals("ADMIN")) {
             return "redirect:/inicio";
         }
-        return "index.html";
+        return "redirect:/usuario/perfil/" + usuario.getIdCodigoTributario();
     }
-
 
 }

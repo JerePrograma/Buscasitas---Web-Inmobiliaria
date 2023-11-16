@@ -23,11 +23,11 @@ public class Imagen implements Serializable {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    private String rutaImagen;
+    private String nombre;
 
     private String mime;
 
-    private String nombre;
+    private String rutaImagen;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
