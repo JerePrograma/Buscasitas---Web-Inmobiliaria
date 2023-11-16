@@ -749,3 +749,38 @@ main {
   border-radius: 23%;
   filter: drop-shadow(0 0 0.55rem rgb(97, 39, 213));
 }
+/* video background */
+#background-video {
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+/* page content */
+#h1-cover, #h2-cover {
+  color: white;
+  font-family: Trebuchet MS;
+  font-weight: bold;
+  text-align: center;
+}
+
+#h1-cover {
+  font-size: 6rem;
+  margin-top: 30vh; 
+}
+
+#h2-cover { font-size: 3rem; }
+
+@media (max-width: 750px) {
+    #background-video { display: none; }
+    #body-registro-user{
+      background: url("https://assets.codepen.io/6093409/river.jpg") no-repeat;
+      background-size: cover;
+    }
+}
