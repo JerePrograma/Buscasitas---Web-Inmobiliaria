@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.Email;
+
 
 @Data
 @NoArgsConstructor
@@ -17,7 +17,6 @@ import javax.validation.constraints.Email;
 public class Usuario implements Serializable {
 
     @Id
-    @Column(unique = true)
     private String idCodigoTributario;
     private String nombre;
     private String apellido;
@@ -26,8 +25,6 @@ public class Usuario implements Serializable {
     private String ciudad;
     private String provincia;
     private String sexo;
-    @Email
-    @Column(unique = true)
     private String email;
     private String celular;
     private String tipoPersona;

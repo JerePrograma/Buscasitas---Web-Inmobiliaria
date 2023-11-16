@@ -253,11 +253,12 @@ public class UsuarioServicio implements UserDetailsService {
         if (DNI == null || DNI.isEmpty()) {
             throw new MiExcepcion("El DNI no puede estar vacío o ser nulo.");
         }
-        if (email == null || email.isEmpty() || emailUsuario.equals(email)) {
+        if (email == null || email.isEmpty()) {
             throw new MiExcepcion("El email no puede estar vacío, ni haber sido registrado anteriormente");
         }
-        if (celular == null || celular.isEmpty() || celularUsuario.equals(celular)) {
+        if (celular == null || celular.isEmpty()) {
             throw new MiExcepcion("El celular no puede estar vacío, ni haber sido registrado anteriormente");
+        }
         if (email == null || email.isEmpty()) {
             throw new MiExcepcion("El email no puede estar vacío o ser nulo.");
         }
@@ -281,6 +282,7 @@ public class UsuarioServicio implements UserDetailsService {
             }
         if (contrasenia == null || contrasenia.isEmpty() || contrasenia.length() <= 5) {
             throw new MiExcepcion("La contraseña no puede estar vacía, y debe tener más de 5 dígitos");
+        }
         if (contrasenia == null || contrasenia.isEmpty()) {
             throw new MiExcepcion("La contraseña no puede estar vacía o ser nula.");
         }
