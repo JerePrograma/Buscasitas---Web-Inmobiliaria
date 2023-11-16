@@ -27,8 +27,9 @@ public class Oferta implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaAceptacion;
     @Temporal(TemporalType.DATE)
-    private Date fechaRevocacion;
+    private Date fechaRechazo;
     private String estadoOferta;
+    private String moneda;
 
     @ManyToOne
     private Inmueble inmueble; // varias ofertas a un inmueble?

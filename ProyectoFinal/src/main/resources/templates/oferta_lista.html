@@ -30,20 +30,30 @@
             <td th:text="${oferta.usuario.nombre}"></td>
             <td th:text="${oferta.usuario.apellido}"></td>
             <td th:text="${oferta.fechaOferta}"></td>
+            <td th:text="${oferta.moneda}"></td>
             <td th:text="${oferta.valorOferta}"></td>
 
             <td th:text="${oferta.estadoOferta}"></td>
-
-            <!--
-            <td>
-              <a
-                th:if="${oferta.estado.equals('Pendiente')}"
-                th:href="@{/oferta/respuesta/__${reclamo.idReclamo}__}"
+            <td th:if="${oferta.estadoOferta.equals('Enviada')}">
+              <form
+                th:action="@{/oferta/respuesta/{idOferta}(idOferta=${oferta.idOferta})}"
+                method="post"
               >
-                Responder
-              </a>
+                <select
+                  class="custom-select mr-sm-2"
+                  name="respuesta"
+                  id="respuesta"
+                  required
+                >
+                  <option value="Aceptada">Aceptar</option>
+                  <option value="Rechazada">Rechazar</option>
+                  <option disabled="true" selected="true" value="">
+                    Seleccionar respuesta
+                  </option>
+                </select>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+              </form>
             </td>
-                -->
           </tr>
         </tbody>
       </table>

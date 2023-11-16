@@ -23,5 +23,4 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
 //
 //    @Query("SELECT u FROM Usuario u WHERE u.resetPwToken =  :resetPwToken")
 //    public Usuario buscarPorResetPwToken(@Param("resetPwToken") String resetPwToken);
-
 }

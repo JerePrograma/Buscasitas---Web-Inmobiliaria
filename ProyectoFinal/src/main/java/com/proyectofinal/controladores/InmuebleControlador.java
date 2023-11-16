@@ -71,7 +71,8 @@ public class InmuebleControlador {
             @RequestParam("largo") int largo,
             @RequestParam("diaSemana") List<String> diaSemanaList,
             @RequestParam("horaInicio") List<String> horaInicioList,
-            @RequestParam("horaFin") List<String> horaFinList, HttpSession session) {
+            @RequestParam("horaFin") List<String> horaFinList,
+            HttpSession session) {
 
         // Obtener el usuario de la sesión
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
@@ -182,11 +183,6 @@ public class InmuebleControlador {
         }
 
         return "inmueble_busqueda.html";
-    }
-    // Método auxiliar para verificar si un String es nulo o vacío
-
-    private boolean isNullOrEmpty(String str) {
-        return str == null || str.isEmpty();
     }
 
     @GetMapping("/detalle/{cuentaTributaria}")
