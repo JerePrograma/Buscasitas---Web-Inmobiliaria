@@ -15,14 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
 // PROYECTO FINAL - EQUIPO A - Buscasitas.com.ar
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
-    
+
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 
@@ -33,11 +31,20 @@ public class PortalControlador {
     private InmuebleServicio inmuebleServicio;
 
     @GetMapping("/")
-    public String index(ModelMap modelo) {
+    public String index(ModelMap modelo, HttpSession session) {
         List<Inmueble> inmuebles = inmuebleServicio.listarTodosLosInmuebles();
-
         modelo.addAttribute("inmuebles", inmuebles);
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+
+        modelo.put("usuario", usuario);
         return "index.html";
+    }
+
+    @GetMapping("/mapa")
+    public String mapa(@RequestParam(required = false) String error, ModelMap modelo) {
+
+        return "mapa.html";
     }
 
     @GetMapping("/login")
@@ -48,14 +55,16 @@ public class PortalControlador {
         return "login.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ENTE','ROLE_CLIENT', 'ROLE_ADMIN')")
-
+    @PreAuthorize("hasAnyRole('ROLE_INQUILINO','ROLE_ENTE','ROLE_CLIENTE', 'ROLE_ADMIN')")
     @GetMapping("/inicio")
-    public String inicio(HttpSession session) {
-        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        if (logueado.getRol().toString().equals("ADMIN")) {
-            return "redirect:/inicio";
+    public String inicio(ModelMap modelo, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+
+        modelo.put("usuario", usuario);
+        if (usuario.getRol().toString().equals("ADMIN")) {
+            return "redirect:/";
         }
-        return "index.html";
+        return "redirect:/usuario/perfil/" + usuario.getIdCodigoTributario();
     }
+
 }

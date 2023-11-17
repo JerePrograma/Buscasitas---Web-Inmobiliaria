@@ -1,4 +1,3 @@
-
 package com.proyectofinal.repositorios;
 
 import com.proyectofinal.entidades.Oferta;
@@ -11,8 +10,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OfertaRepositorio extends JpaRepository<Oferta, String> {
 
-     //buscar oferta por inmueble
-   // @Query("SELECT o FROM Oferta o WHERE o.oferta =  :oferta")
-    //public Oferta buscarPorOferta(@Param("oferta") String oferta);
+    // buscar oferta por inmueble
+    @Query("SELECT o FROM Oferta o WHERE o.inmueble.cuentaTributaria =  :idcuentaTributaria")
+    public List<Oferta> buscarPorIdCuentaTributaria(@Param("idcuentaTributaria") String idcuentaTributaria);
+
+    @Query("SELECT o FROM Oferta o WHERE o.usuario.idCodigoTributario =  :idCodigoTributario")
+    public List<Oferta> buscarPorIdCodigoTributario(@Param("idCodigoTributario") String idCodigoTributario);
 
 }

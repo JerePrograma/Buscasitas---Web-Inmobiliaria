@@ -1,5 +1,5 @@
 <div th:fragment="publicaciones" xmlns:th="http://www.thymeleaf.org">
-  <div class="container" style="padding: 5px">
+  <div class="container-index" style="padding: 5px">
     <!-- Bootstrap's grid system is built with flexbox and allows up to 12 columns across the page. A grid row is divided into 12 parts. -->
 
     <!-- The grid system is responsive, and the columns will re-arrange automatically depending on the screen size.
@@ -22,24 +22,39 @@
 
     <div class="blog-card" th:each="inmueble : ${inmuebles}">
       <a
-        th:href="@{/inmueble/detalle/{cuentaTributaria}(cuentaTributaria=${inmueble.cuentaTributaria})}"
+        th:href="@{/inmueble/detalle/{cuentaTributaria}/principal(cuentaTributaria=${inmueble.cuentaTributaria})}"
       >
         <div class="meta">
           <div
             class="photo"
-            th:style="'background-image: url(\'' + @{/imagen/inmueble/} + ${inmueble.cuentaTributaria} + '\')'"
+            th:style="'background-image: url(\'' + '/imagen/inmueble/' + ${inmueble.cuentaTributaria} + '/principal' + '\')'"
           ></div>
           <ul class="details">
-            <li class="author"><a href="#">Autor</a></li>
+            <li class="author">
+              <a
+                th:text="${inmueble.usuarioAdministrador.nombre} + ' ' + ${inmueble.usuarioAdministrador.apellido}"
+              ></a>
+            </li>
             <li class="date">Aug. 24, 2015</li>
             <li class="tags">
               <ul>
-                <li><a href="#">Etiquetas</a></li>
+                <li>
+                  <span
+                    th:text="${'Habitaciones: ' + inmueble.cantidadHabitaciones}"
+                  ></span>
+                </li>
+                <li><span th:text="${'Baños: ' + inmueble.banios}"></span></li>
+                <li>
+                  <span
+                    th:text="${'Ambientes: ' + inmueble.cantidadAmbientes}"
+                  ></span>
+                </li>
+                <li><span th:text="${'Altura: ' + inmueble.altura}"></span></li>
+                <li><span th:text="${'Largo: ' + inmueble.largo}"></span></li>
               </ul>
             </li>
-          </ul>
-        </div></a
-      >
+          </ul></div
+      ></a>
       <a
         th:href="@{/inmueble/detalle/{cuentaTributaria}(cuentaTributaria=${inmueble.cuentaTributaria})}"
       >
@@ -47,10 +62,17 @@
           <h1 th:text="${inmueble.tituloAnuncio}"></h1>
           <h2 th:text="${inmueble.direccion}" +></h2>
           <p th:text="${inmueble.descripcionAnuncio}"></p>
+
+          <h1 class="custom-title">
+            <span th:text="${inmueble.precio}"></span>
+            <span
+              th:text="${inmueble.moneda == 'dolar' ? 'USD' : 'ARS'}"
+            ></span>
+          </h1>
           <p class="read-more">
             <a
               th:href="@{/inmueble/detalle/{cuentaTributaria}(cuentaTributaria=${inmueble.cuentaTributaria})}"
-              >Leer mas</a
+              >Leer más</a
             >
           </p>
         </div>
@@ -60,6 +82,7 @@
     <!-- Reviews and Feedbacks which displays star ratings -->
 
     <!--Estrellas-->
+    <!-- Estrellas, "Ya decidiste cual te gusta mas", y boton de Agrega Fechas comentados
     <div class="container" style="padding: 5px">
       <div class="row">
         <div class="col-md-4">
@@ -86,7 +109,7 @@
       </div>
     </div>
 
-    <!-- Reviews and Feedbacks which uses Bootstrap Grid property, includes text -->
+     Reviews and Feedbacks which uses Bootstrap Grid property, includes text -->
 
     <!-- <div class="container" style="padding: 3px; font-size: 14px; font-family: Helvetica;">
     <div class="row">
@@ -142,7 +165,7 @@
         </div>
     </div>
 </div>
-    -->
+
     <div class="container" style="margin-bottom: 50px; color: #484848">
       <div class="row">
         <div class="col-md-10">
@@ -169,5 +192,6 @@
         </div>
       </div>
     </div>
+    -->
   </div>
 </div>

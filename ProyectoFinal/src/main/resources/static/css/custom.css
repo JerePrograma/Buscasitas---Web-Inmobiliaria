@@ -1,43 +1,55 @@
-.h1 {
+h1 {
   align-items: center;
 }
 * {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
+  text-decoration: none;
 }
 
 .body .main {
-    background: url(../images/fondo_inmo.png);
-
+  background: url(../images/fondo_inmo.png);
 }
+
+.imagenFondoIndex {
+  background: url(../images/dfp-alquiler.jpg);
+  width: 100%;
+  height: auto;
+  max-height: 1200px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  }
 
 .content {
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
-.header,
-.main,
-.aside,
-.footer {
-  padding: 20px;
-}
+
 #logo {
-   height: 2.4em;
-  width: 2.2em;
-  display: block;
+  height: 4em;
+  padding-left: 1em;
   fill: currentcolor;
   color: white;
-  font-family: Helvetica;
-  font-size: 16px;
+  object-fit: contain;
+  }
+#logo-container {
+  display: flex; /* Agrega display: flex al contenedor del logo y el texto */
+  align-items: center; /* Centra los elementos verticalmente dentro del contenedor */
 }
+
 .logo-text {
-    padding-left: 0.5em;
-  background-image: linear-gradient(45deg, blueviolet, lightblue); /* Degradado de blueviolet a lightblue */
+  padding-top: 1em;
+  margin: auto !important;
+  padding-left: 1em;
+  background-image: linear-gradient(
+    45deg,
+    blueviolet,
+    lightblue
+  ); /* Degradado de blueviolet a lightblue */
   -webkit-background-clip: text; /* Clip de fondo al texto para que el degradado solo afecte al texto en navegadores webkit (Safari, Chrome) */
   background-clip: text;
   color: transparent; /* Texto transparente para que se muestre el degradado de fondo */
-  display: inline-block;
   font-size: 36px;
   animation: colorChange 2s infinite; /* Animación de cambio de color infinita en 4 segundos */
 }
@@ -45,21 +57,55 @@
   background-color: lightblue;
   flex-basis: 60px;
 }
+
 nav {
   color: white;
-    background-color: blueviolet;
-    background-image: linear-gradient(
-        150deg,
-        #9500ff,
-        #09f,
-        #00DDFF
-    );
+  background-color: blueviolet;
+  background-image: linear-gradient(150deg, #000, #0000ff, #fff);
+  display: flex; /* Esto asegurará que los hijos de nav se alineen en línea y te permitirá alinearlos verticalmente */
+  align-items: center; /* Esto centrará verticalmente los hijos de nav */
+  justify-content: space-between; /* Esto separa el logo y los elementos del menú */
+  padding: 1em 1em 0; /* Añade un poco de padding horizontal para que el contenido no toque los bordes */
+  height: 6em; /* Si el contenido interno es más grande, puedes ajustar esto */
+  overflow: hidden;
+  border-bottom: 2.5px ridge #d0b084;
 }
-
+#detalleInmueble-button {
+  color: white;
+  background-color: blueviolet;
+  background-image: linear-gradient(150deg, #000, #0000ff, #fff);
+  display: flex; /* Esto asegurará que los hijos de nav se alineen en línea y te permitirá alinearlos verticalmente */
+  width: 100%;
+  align-items: center; /* Esto centrará verticalmente los hijos de nav */
+  justify-content: space-between; /* Esto separa el logo y los elementos del menú */
+  padding: 1em 1em 0; /* Añade un poco de padding horizontal para que el contenido no toque los bordes */
+  height: 6em; /* Si el contenido interno es más grande, puedes ajustar esto */
+  overflow: hidden;
+}
+.containerImg {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
 
 .navbar-nav .nav-item .nav-link {
   color: white !important; /* Cambiar a blanco y usar !important para anular estilos previos */
   transition: color 1s;
+}
+.container-index {
+  padding-top: 10em;
+  padding-left: 30em;
+  box-sizing: border-box;
+  align-content: center;
+  justify-content: center;
+}
+.container-custom {
+  padding-top: 10em;
+  padding-left: 30em;
+  box-sizing: border-box;
+  background-color: aliceblue;
+  align-content: center;
+  justify-content: center;
 }
 .btn-info,
 .btn-info:active {
@@ -71,26 +117,21 @@ nav {
   /* Bordes redondeados */
   transition: background-color 0.3s; /* Transición de color suave */
   padding: 10px 20px;
-    border-radius: 10px;
-    border: 2px solid black;
-    box-shadow: 2px 2px 10px black;
-    color: white;
-    background-color: blueviolet;
-    background-image: linear-gradient(
-        150deg,
-        #9500ff,
-        #09f,
-        #00DDFF
-    );
-  
-    cursor: pointer;
-    transition: .3s;
-    border: 0;
+  border-radius: 10px;
+  border: 2px solid black;
+  box-shadow: 2px 2px 10px black;
+  color: white;
+  background-color: blueviolet;
+  background-image: linear-gradient(150deg, #9500ff, #09f, #00ddff);
+
+  cursor: pointer;
+  transition: 0.3s;
+  border: 0;
 }
 
 .btn-info:hover {
-     background-color: blueviolet;
-    cursor: pointer;
+  background-color: blueviolet;
+  cursor: pointer;
 }
 
 h1 .title {
@@ -242,10 +283,25 @@ img {
 }
 .container {
   padding-top: 5em;
-  padding: 2em;
-  background-color: aliceblue;
-  max-width: 40%;
   box-sizing: border-box;
+  background-color: aliceblue;
+  align-content: center;
+  justify-content: center;
+}
+.container-sm {
+  padding-top: 5em;
+  box-sizing: border-box;
+  background-color: aliceblue;
+  align-content: center;
+  justify-content: center;
+}
+.container-custom {
+  padding-top: 10em;
+  padding-left: 20em;
+  box-sizing: border-box;
+  background-color: aliceblue;
+  align-content: center;
+  justify-content: center;
 }
 
 .container-login {
@@ -257,47 +313,44 @@ img {
   justify-content: center;
 }
 
-
 /* Agregar estilos específicos para la página de detalles de inmuebles */
 .inmueble-details {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .inmueble-image img {
-    max-width: 100%;
-    max-height: 300px;
-    object-fit: cover;
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: cover;
 }
 
 .inmueble-info {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .inmueble-info h3 {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .inmueble-info ul {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 .inmueble-info li {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .inmueble-info li strong {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 /* Agregar estilos adicionales según sea necesario */
 
-
 #Blog Cards body {
-  background: #f1f1f1;
   display: flex;
   flex-direction: column;
   font-size: 1rem;
@@ -459,6 +512,35 @@ img {
   opacity: 1;
 }
 
+.blog-card .custom-title {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  text-align: right;
+}
+
+.blog-card .custom-title h1 {
+  font-family: Poppins, sans-serif;
+  line-height: 1;
+  margin: 0;
+  font-size: 1.7rem;
+  color: #5ad67d;
+}
+
+.blog-card .custom-title h1:before {
+  content: "\f061";
+  font-family: FontAwesome;
+  margin-right: 5px;
+  opacity: 0;
+  vertical-align: middle;
+  transition: margin 0.3s, opacity 0.3s;
+}
+
+.blog-card .custom-title:hover h1:before {
+  margin-right: 0;
+  opacity: 1;
+}
+
 .blog-card p {
   position: relative;
   margin: 1rem 0 0;
@@ -523,31 +605,42 @@ img {
     padding-left: 25px;
   }
 }
-main{
+
+#Conteinererror {
+  padding-top: 150px;
+  align-items: center;
+  flex-direction: column;
+}
+
+main {
   padding-top: 2em;
-  background: url(../images/dfp-alquiler.jpg);
-  background-size:auto;
-  background-position: center;
-  background-repeat: no-repeat;
-  
-  height: 70vh;
-  margin-top: 40px;
+  margin-top: 5em;
 }
 .emp-profile {
   padding: 3%;
+  padding-top: 10em;
   margin-top: 3%;
   margin-bottom: 3%;
   border-radius: 0.5rem;
   background: #fff;
 }
+
 .profile-img {
   text-align: center;
 }
 .profile-img img {
-  width: 70%;
-  height: 100%;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
 }
-.profile-img .file {
+#preview {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+/*.profile-img .file {
   position: relative;
   overflow: hidden;
   margin-top: -20%;
@@ -556,12 +649,15 @@ main{
   border-radius: 0;
   font-size: 15px;
   background: #212529b8;
-}
+}*/
 .profile-img .file input {
-  position: absolute;
-  opacity: 0;
-  right: 0;
-  top: 0;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 .profile-head h5 {
   color: #333;
@@ -634,3 +730,70 @@ main{
   background-position: center;
 }
 
+#Neiboorhood {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 20em;
+  border-radius: 23%;
+  filter: drop-shadow(0 0 0.55rem rgb(97, 39, 213));
+}
+
+#Neiboorhood2 {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 20em;
+  border-radius: 23%;
+  filter: drop-shadow(0 0 0.55rem rgb(97, 39, 213));
+}
+/* video background */
+#background-video {
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+/* page content */
+#h1-cover, #h2-cover {
+  color: white;
+  font-family: Trebuchet MS;
+  font-weight: bold;
+  text-align: center;
+}
+
+#h1-cover {
+  font-size: 6rem;
+  margin-top: 30vh; 
+}
+
+#h2-cover { font-size: 3rem; }
+
+@media (max-width: 750px) {
+    #background-video { display: none; }
+    #body-registro-user{
+      background: url("https://assets.codepen.io/6093409/river.jpg") no-repeat;
+      background-size: cover;
+    }
+}
+.im-dt{
+    padding: 1em;
+    margin: 1em;
+    display: inline-block;
+}
+footer{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-top: 70px; 
+    border: 2.5px ridge #d0b084; 
+    border-radius: 0.5rem
+}

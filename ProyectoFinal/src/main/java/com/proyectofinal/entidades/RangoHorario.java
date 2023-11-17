@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
@@ -18,6 +18,8 @@ public class RangoHorario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private LocalDate fecha;
+
     private String diaSemana; // Día de la semana (por ejemplo, "Lunes", "Martes", etc.)
 
     @Column(name = "hora_inicio")
@@ -28,7 +30,6 @@ public class RangoHorario implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "cuenta_tributaria", referencedColumnName = "cuentaTributaria")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Inmueble inmueble;
 
     // Otras propiedades y getters/setters

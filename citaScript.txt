@@ -1,0 +1,83 @@
+<script>
+      // Declarar la variable cuentaTributaria fuera de la función cargarFechasDisponibles
+var cuentaTributaria;
+
+// Función para cargar dinámicamente las fechas y horas disponibles
+function cargarFechasDisponibles() {
+  // Obtener las fechas y horas disponibles usando cuentaTributaria
+  $.ajax({
+    url: '/cita/horarios-disponibles/' + cuentaTributaria,
+    method: 'GET',
+    success: function (fechasYHorasDisponibles) {
+      console.log('Fechas y Horas Disponibles:', fechasYHorasDisponibles);
+
+      // Añade estos logs para asegurarte de que estás recibiendo los datos esperados
+      console.log('Fechas en la respuesta:', fechasYHorasDisponibles.fechas);
+      console.log('Horas en la respuesta:', fechasYHorasDisponibles.horas);
+
+      // Llamar a la función para actualizar las horas disponibles
+      actualizarHorariosDisponibles(fechasYHorasDisponibles);
+    },
+    error: function () {
+      // Manejar el error si es necesario
+    }
+  });
+}
+// Función que se llama cuando el día de la semana cambia
+function actualizarHorariosDisponibles(fechasYHorasDisponibles) {
+  // Obtén el selector de horario
+  var selectHorario = $("#horario");
+  selectHorario.empty(); // Limpiar opciones existentes
+
+  // Obtén las fechas y horas disponibles
+  var fechasDisponibles = fechasYHorasDisponibles.fechas;
+  var horasDisponibles = fechasYHorasDisponibles.horas;  // Asegúrate de que esta propiedad sea 'horas'
+
+  // Asegúrate de que las fechas y horas no sean undefined o nulas
+  if (!fechasDisponibles || !horasDisponibles) {
+    console.error('Error: Fechas u horas no definidas.');
+    return;
+  }
+
+  // Inicializar el calendario con las fechas disponibles
+  $('#fecha').datepicker({
+    dateFormat: 'yy-mm-dd',
+    beforeShowDay: function (date) {
+      var stringDate = $.datepicker.formatDate('yy-mm-dd', date);
+      return [fechasDisponibles.includes(stringDate)];
+    },
+    onSelect: function (dateText) {
+      // Filtrar las horas disponibles según la fecha seleccionada
+      var horasFiltradas = horasDisponibles.filter(function (hora) {
+        // Comprobar si la hora contiene la fecha seleccionada
+        return hora.includes(dateText);
+      });
+
+      console.log('Horas Filtradas:', horasFiltradas); // Agrega este log
+
+      // Llenar el selector de horarios con las horas filtradas
+      llenarSelectorHorarios(horasFiltradas);
+    }
+  });
+}
+
+// Función para llenar el selector de horarios con las horas filtradas
+function llenarSelectorHorarios(horas) {
+  var selectHorario = $("#horario");
+  selectHorario.empty();
+
+  // Llenar el selector con las horas filtradas
+  horas.forEach(function (hora) {
+    var option = new Option(hora, hora);
+    selectHorario.append(option);
+  });
+}
+
+// Obtener cuentaTributaria en algún lugar de tu código JavaScript
+cuentaTributaria = $('input[name="cuentaTributaria"]').val();
+
+// Llamar a la función al cargar la página
+$(document).ready(function () {
+  cargarFechasDisponibles();
+});
+    </script>

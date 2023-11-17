@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Registrar Oferta</title>
+    <title>Contestacion del Reclamo</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -31,42 +31,48 @@
     <nav th:replace="fragments/navbar :: nav"></nav>
 
     <div class="align-center">
-      <h1>Registrar Oferta</h1>
+      <h1>Formulario Contestacion de Reclamo</h1>
     </div>
     <form
       class="form-register"
-      th:action="@{/oferta/inmueble/aceptar/__${cuentaTributaria}__}"
+      th:action="@{/reclamo/respuesta/__${idReclamo}__}"
       method="post"
       enctype="multipart/form-data"
     >
+      <input hidden th:value="${idReclamo}" name="idReclamo" />
       <input
         hidden
-        th:value="${inmueble.cuentaTributaria}"
+        th:value="${reclamo.inmueble.cuentaTributaria}"
         name="cuentaTributaria"
       />
-      <input
-        hidden
-        th:value="${usuario.idCodigoTributario}"
-        name="idCodigoTributario"
-      />
 
-      <input
-        class="controls"
-        type="number"
-        id="valorOferta"
-        name="valorOferta"
-        th:value="${valorOferta}"
-        placeholder="Valor de la Oferta"
-      />
-      <input
-        class="controls"
-        type="date"
-        id="fechaOferta"
-        name="fechaOferta"
-        placeholder="Fecha de la Oferta"
-      />
+      <div>
+        <label>
+          Su reclamo fue:
+          <td th:text="${reclamo.reclamoDescrip}"></td>
+        </label>
+      </div>
 
-      <button type="submit">Guardar Oferta</button>
+      <div>
+        <label class="col-form-label" for="formGroupExampleInput"
+          >Respuesta al Reclamo</label
+        >
+        <textarea
+          class="controls"
+          id="respuesta"
+          name="respuesta"
+          rows="10"
+          cols="150"
+          placeholder="Escriba la respuesta al Reclamo"
+        ></textarea>
+      </div>
+
+      <br />
+
+      <button type="submit">Enviar</button>
     </form>
+    <br>
+        <hr>
+    <div th:replace="fragments/footer :: footer"></div>
   </body>
 </html>
