@@ -13,7 +13,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -75,44 +74,29 @@ public class CitaControlador {
 
     @GetMapping("/horarios-disponibles/{cuentaTributaria}")
     @ResponseBody
-    public ResponseEntity<FechaHoraContainer> obtenerHorariosDisponibles(@PathVariable String cuentaTributaria) {
+    public ResponseEntity<Map<LocalDate, List<LocalTime>>> obtenerHorariosDisponibles(@PathVariable String cuentaTributaria) {
         try {
-            // Obtener el rango horario según la cuenta tributaria
-            List<RangoHorario> rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
+            // Utiliza el nuevo método del servicio para obtener la lista de RangoHorario
+            List<RangoHorario> rangoHorarioList = inmuebleServicio.obtenerRangosHorariosPorCuentaTributaria(cuentaTributaria);
 
-            // Validar si el rangoHorario existe
-            if (rangoHorario == null) {
+            // Si la lista está vacía, devuelve una respuesta indicando que no se encontraron datos
+            if (rangoHorarioList.isEmpty()) {
                 return ResponseEntity.notFound().build();
             }
 
-            // Obtener todas las fechas disponibles
-            List<LocalDate> fechasDisponibles = rangoHorario.stream()
-                    .map(RangoHorario::getFecha)
-                    .collect(Collectors.toList());
+            // Convierte la lista de RangoHorario en un mapa de fechas a listas de horas de inicio
+            Map<LocalDate, List<LocalTime>> horariosPorFecha = rangoHorarioList.stream()
+                    .collect(Collectors.groupingBy(
+                            RangoHorario::getFecha,
+                            Collectors.mapping(
+                                    RangoHorario::getHoraInicio,
+                                    Collectors.toList())
+                    ));
 
-            // Obtener todas las horas disponibles
-            List<LocalTime> horasDisponibles = rangoHorario.stream()
-                    .flatMap(rango -> {
-                        LocalTime horaInicio = rango.getHoraInicio();
-                        LocalTime horaFin = rango.getHoraFin();
-                        List<LocalTime> horas = new ArrayList<>();
-                        while (horaInicio.isBefore(horaFin) || horaInicio.equals(horaFin)) {
-                            horas.add(horaInicio);
-                            horaInicio = horaInicio.plusMinutes(30); // Puedes ajustar el intervalo según tus necesidades
-                        }
-                        return horas.stream();
-                    })
-                    .collect(Collectors.toList());
-
-            // Crear un objeto FechaHoraContainer con ambas propiedades
-            FechaHoraContainer fechaHoraContainer = new FechaHoraContainer();
-            fechaHoraContainer.setFechas(fechasDisponibles);
-            fechaHoraContainer.setHoras(horasDisponibles);
-
-            // Devolver el objeto FechaHoraContainer en la respuesta
-            return ResponseEntity.ok(fechaHoraContainer);
+            // Devuelve el mapa como respuesta con un estado HTTP 200 OK
+            return ResponseEntity.ok(horariosPorFecha);
         } catch (Exception e) {
-            // Manejar cualquier excepción y devolver un código de error
+            // Si hay una excepción, devuelve una respuesta de error interno del servidor
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

@@ -14,13 +14,13 @@
       <p class="logo-text">Buscasitas.com.ar</p>
     </div>
   </a>
-    
-    <i class="fa-solid fa-user" style="color: #c9a97e;"></i>
-<small
-              th:if="${session.usuariosession != null}"
-              th:text="${session.usuariosession.nombre} + ${session.usuariosession.apellido}"
-            ></small>
-    
+
+  <i class="fa-solid fa-user" style="color: #c9a97e"></i>
+  <small
+    th:if="${session.usuariosession != null}"
+    th:text="${session.usuariosession.nombre} + ${session.usuariosession.apellido}"
+  ></small>
+
   <button
     class="navbar-toggler"
     type="button"

@@ -10,6 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class FechaHoraContainer {
+
     private List<LocalDate> fechas;
     private List<LocalTime> horas;
 

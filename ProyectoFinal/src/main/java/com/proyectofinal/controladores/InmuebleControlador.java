@@ -70,7 +70,7 @@ public class InmuebleControlador {
             @RequestParam("diaSemana") List<String> diaSemanaList,
             @RequestParam("horaInicio") List<String> horaInicioList,
             @RequestParam("horaFin") List<String> horaFinList,
-            @RequestParam("fecha") String fecha,  // Agrega el parámetro fecha
+            @RequestParam("fecha") String fecha, // Agrega el parámetro fecha
             HttpSession session) {
 
         // Obtener el usuario de la sesión

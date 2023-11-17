@@ -1,5 +1,6 @@
 package com.proyectofinal.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Data
 @NoArgsConstructor
-public class Reclamo {
+public class Reclamo implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")
