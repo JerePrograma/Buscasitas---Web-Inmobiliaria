@@ -46,20 +46,14 @@
       </li>
       <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ENTE')">
         <a class="btn btn-info" th:href="@{/inmueble/registrar}"
-          ><i class="fa-solid fa-shop" style="color: #d4b285"></i>Vende o alquila</a
-        >
-      </li>
-      <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ENTE')">
-        <a class="btn btn-info" th:href="@{/inmueble/lista}">Expo Inmuebles</a>
-      </li>
-      <li
+          ><i class="fa-solid fa-shop" style="color: #d4b285"></i>Vende o alquila</a>
+     <li
         class="nav-item"
-        th:if="${T(com.proyectofinal.SeguridadWeb).isAuthenticated()}"
-      >
+        th:if="${T(com.proyectofinal.SeguridadWeb).isAuthenticated()}">
         <a
           class="btn btn-info"
           th:href="@{/oferta/realizadas/{idCodigoTributario}(idCodigoTributario=${session.usuariosession.idCodigoTributario})}"
-          >Expo Ofertas</a
+          ><i class="fa-solid fa-gavel" style="color: #d3b488;"></i> Expo Ofertas</a
         >
       </li>
       <li
@@ -69,7 +63,7 @@
         <a
           class="btn btn-info"
           th:href="@{/reclamo/lista/{idCodigoTributario}(idCodigoTributario=${session.idCodigoTributario})}"
-          >Expo Reclamos</a
+          ><i class="fa-solid fa-exclamation" style="color: #bea178"></i> Expo Reclamos</a
         >
       </li>
       <li
