@@ -11,6 +11,7 @@ import com.proyectofinal.repositorios.InmuebleRepositorio;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -234,6 +235,46 @@ public class InmuebleServicio {
     public Inmueble obtenerInmueblePorCuentaTributaria(String cuentaTributaria) {
         // Implementa la lógica para obtener un inmueble por su cuenta tributaria
         return inmuebleRepositorio.findById(cuentaTributaria).orElse(null);
+    }
+
+
+    public List<Inmueble> listarInmueblesPorPrecioAsc() {
+        return inmuebleRepositorio.findAll(Sort.by(Sort.Direction.ASC, "precio"));
+    }
+
+
+    public List<Inmueble> listarInmueblesPorPrecioDesc() {
+        return inmuebleRepositorio.findAll(Sort.by(Sort.Direction.DESC, "precio"));
+    }
+
+
+    public List<Inmueble> listarInmueblesPorTransaccionAsc() {
+        return inmuebleRepositorio.findAll(Sort.by(Sort.Direction.ASC, "transaccion"));
+    }
+
+
+    public List<Inmueble> listarInmueblesPorTransaccionDesc() {
+        return inmuebleRepositorio.findAll(Sort.by(Sort.Direction.DESC, "transaccion"));
+    }
+
+
+    public List<Inmueble> listarInmueblesPorEstadoAsc() {
+        return inmuebleRepositorio.findAll(Sort.by(Sort.Direction.ASC, "estado"));
+    }
+
+
+    public List<Inmueble> listarInmueblesPorEstadoDesc() {
+        return inmuebleRepositorio.findAll(Sort.by(Sort.Direction.DESC, "estado"));
+    }
+
+
+    public List<Inmueble> listarInmueblesPorAltaAsc() {
+        return inmuebleRepositorio.findAll(Sort.by(Sort.Direction.ASC, "alta"));
+    }
+
+
+    public List<Inmueble> listarInmueblesPorAltaDesc() {
+        return inmuebleRepositorio.findAll(Sort.by(Sort.Direction.DESC, "alta"));
     }
 
     public void validarDatos(MultipartFile archivo,

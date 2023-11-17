@@ -64,9 +64,7 @@ public class CitaControlador {
     public String registrarCita(@RequestParam String idEnte, @RequestParam String idCliente,
                                 @RequestParam Long idHorario, @RequestParam(required = false) String nota,
                                 ModelMap modelo) {
-        System.out.println("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         try {
-            System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
             System.out.println("Id del ente: " + idEnte);
             System.out.println("Id del CLiente: " + idCliente);
             System.out.println("Id del Horario: " + idHorario);

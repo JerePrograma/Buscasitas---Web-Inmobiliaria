@@ -44,5 +44,21 @@ public interface InmuebleRepositorio extends JpaRepository<Inmueble, String> {
             @Param("largoMaximo") Integer largoMaximo,
             @Param("alturaMinima") Integer alturaMinima,
             @Param("alturaMaxima") Integer alturaMaxima);
+        List<Inmueble> findAllByOrderByPrecioAsc();
+
+        List<Inmueble> findAllByOrderByPrecioDesc();
+
+        List<Inmueble> findAllByOrderByTransaccionAsc();
+
+        List<Inmueble> findAllByOrderByTransaccionDesc();
+
+        List<Inmueble> findAllByOrderByEstadoAsc();
+
+        List<Inmueble> findAllByOrderByEstadoDesc();
+
+        List<Inmueble> findAllByOrderByAltaAsc();
+
+        List<Inmueble> findAllByOrderByAltaDesc();
+
 
 }

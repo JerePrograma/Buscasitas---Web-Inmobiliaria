@@ -99,17 +99,50 @@ public class InmuebleControlador {
     }
 
     @GetMapping("/lista")
-    public String listarInmueble(ModelMap modelo) throws Exception {
+    public String listarInmueblesInmueble(ModelMap modelo, @RequestParam(name = "orden", required = false) String orden) throws Exception {
         List<Inmueble> inmuebles = inmuebleServicio.listarTodosLosInmuebles();
         for (Inmueble inmueble : inmuebles) {
             List<RangoHorario> rangosHorarios = rangoHorarioServicio.obtenerTodosLosRangosHorarios();
             inmueble.setRangosHorarios(rangosHorarios);
         }
 
+        switch (orden) {
+            case "precioAsc":
+                inmuebles = inmuebleServicio.listarInmueblesPorPrecioAsc();
+                break;
+            case "precioDesc":
+                inmuebles = inmuebleServicio.listarInmueblesPorPrecioDesc();
+                break;
+            case "transaccionAsc":
+                inmuebles = inmuebleServicio.listarInmueblesPorTransaccionAsc();
+                break;
+            case "transaccionDesc":
+                inmuebles = inmuebleServicio.listarInmueblesPorTransaccionDesc();
+                break;
+            case "estadoAsc":
+                inmuebles = inmuebleServicio.listarInmueblesPorEstadoAsc();
+                break;
+            case "estadoDesc":
+                inmuebles = inmuebleServicio.listarInmueblesPorEstadoDesc();
+                break;
+            case "altaAsc":
+                inmuebles = inmuebleServicio.listarInmueblesPorAltaAsc();
+                break;
+            case "altaDesc":
+                inmuebles = inmuebleServicio.listarInmueblesPorAltaDesc();
+                break;
+            default:
+                // Orden predeterminado (puedes cambiar esto según tus necesidades)
+                inmuebles = inmuebleServicio.listarTodosLosInmuebles();
+                break;
+        }
+
         modelo.addAttribute("inmuebles", inmuebles);
 
         return "inmueble_lista";
     }
+
+
 
     @GetMapping("/modificar/{cuentaTributaria}")
     public String editarInmueble(@PathVariable String cuentaTributaria, ModelMap model) throws Exception {

@@ -2,14 +2,33 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
-  <head th:replace="/fragments/head :: head"> </head>
+  <head th:replace="/fragments/head :: head">
+  </head>
 
   <body>
     <div th:replace="fragments/navbar :: navbar"></div>
     <br />
     <div class="container-sm">
-      <table class="table table-dark table table-hover">
-        <thead>
+
+      <!-- Agrega estos botones antes de la tabla -->
+
+      <!-- Tabla -->
+
+        <table class="table table-dark table table-hover">
+          <!-- Agrega estos enlaces para los botones de ordenamiento antes de la fila de encabezados -->
+          <div class="btn-group" role="group" aria-label="Ordenar por">
+            <a th:href="@{/inmueble/lista?orden=precioAsc}" class="btn btn-secondary">Precio ascendente</a>
+            <a th:href="@{/inmueble/lista?orden=precioDesc}" class="btn btn-secondary">Precio descendente</a>
+            <a th:href="@{/inmueble/lista?orden=transaccionAsc}" class="btn btn-secondary">Transacción ascendente</a>
+            <a th:href="@{/inmueble/lista?orden=transaccionDesc}" class="btn btn-secondary">Transacción descendente</a>
+            <a th:href="@{/inmueble/lista?orden=estadoAsc}" class="btn btn-secondary">Estado ascendente</a>
+            <a th:href="@{/inmueble/lista?orden=estadoDesc}" class="btn btn-secondary">Estado descendente</a>
+            <a th:href="@{/inmueble/lista?orden=altaAsc}" class="btn btn-secondary">Alta ascendente</a>
+            <a th:href="@{/inmueble/lista?orden=altaDesc}" class="btn btn-secondary">Alta descendente</a>
+          </div>
+
+          <!-- Encabezados de la tabla -->
+          <thead>
           <tr>
             <th scope="col">Cuenta Tributaria</th>
             <th scope="col">Imagen</th>
@@ -25,7 +44,7 @@
             <th scope="col" sec:authorize="hasRole('ADMIN')">Alta</th>
             <th scope="col" sec:authorize="hasRole('ADMIN')">Acciones</th>
           </tr>
-        </thead>
+          </thead>
         <tbody th:each="inmueble, iterStat : ${inmuebles}">
           <tr>
             <td th:text="${inmueble.cuentaTributaria}"></td>
