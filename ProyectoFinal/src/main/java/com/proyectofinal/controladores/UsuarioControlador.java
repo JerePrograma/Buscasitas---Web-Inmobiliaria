@@ -147,10 +147,10 @@ public class UsuarioControlador {
                     sexo, email, celular, tipoPersona, rol);
             modelo.put("exito", "Usuario actualizado correctamente!");
             return "usuario_form_exito.html";
-            } catch (DataIntegrityViolationException e) {
-        //} catch (DataIntegrityViolationException e) Manejar la excepción de violación de unicidad (ID duplicado)
-        modelo.addAttribute("error", "Ya existe una entidad con ese ID");
-        return "usuario_form.html";
+        } catch (DataIntegrityViolationException e) {
+            //} catch (DataIntegrityViolationException e) Manejar la excepción de violación de unicidad (ID duplicado)
+            modelo.addAttribute("error", "Ya existe una entidad con ese ID");
+            return "usuario_form.html";
         } catch (MiExcepcion ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("email", email);

@@ -2,6 +2,7 @@ package com.proyectofinal.servicios;
 
 import com.proyectofinal.entidades.Imagen;
 import com.proyectofinal.entidades.Inmueble;
+import com.proyectofinal.entidades.RangoHorario;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.excepciones.MiExcepcion;
 import com.proyectofinal.repositorios.ImagenRepositorio;
@@ -14,9 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
 
 @Service
 public class InmuebleServicio {
@@ -135,7 +136,6 @@ public class InmuebleServicio {
 
             inmuebleRepositorio.save(inmueble);
 
-
         } else {
             throw new MiExcepcion("No se ha encontrado un inmueble con la cuenta tributaria proporcionada.");
         }
@@ -212,6 +212,23 @@ public class InmuebleServicio {
                 (largoMaximo != null && largoMaximo > 0) ? largoMaximo : null,
                 (alturaMinima != null && alturaMinima > 0) ? alturaMinima : null,
                 (alturaMaxima != null && alturaMaxima > 0) ? alturaMaxima : null);
+    }
+
+    public List<RangoHorario> obtenerRangosHorariosPorCuentaTributaria(String cuentaTributaria) {
+        // Encuentra el inmueble por su cuenta tributaria
+        Inmueble inmueble = getOne(cuentaTributaria);
+
+        // Si no se encuentra el inmueble, devolver una lista vacía o lanzar una excepción
+        if (inmueble == null) {
+            // Opción 1: Devolver una lista vacía
+            // return new ArrayList<>();
+
+            // Opción 2: Lanzar una excepción
+            throw new EntityNotFoundException("Inmueble no encontrado con cuenta tributaria: " + cuentaTributaria);
+        }
+
+        // Devuelve los rangos horarios asociados al inmueble encontrado
+        return inmueble.getRangosHorarios();
     }
 
     public Inmueble obtenerInmueblePorCuentaTributaria(String cuentaTributaria) {

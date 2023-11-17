@@ -7,12 +7,11 @@ import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.repositorios.CitaRepositorio;
 import com.proyectofinal.repositorios.RangoHorarioRepositorio;
 import com.proyectofinal.repositorios.UsuarioRepositorio;
-
 import java.time.LocalDate;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +37,7 @@ public class CitaServicio {
             Optional<Usuario> clienteOptional = usuarioRepositorio.findById(idCliente);
             Optional<RangoHorario> rangoHorarioOptional = rangoHorarioRepositorio.findById(idHorario);
 
-            if (rangoHorarioOptional.isPresent() && enteOptional.isPresent() && clienteOptional.isPresent() ) {
+            if (rangoHorarioOptional.isPresent() && enteOptional.isPresent() && clienteOptional.isPresent()) {
                 RangoHorario rangoHorario = rangoHorarioOptional.get();
                 Usuario ente = enteOptional.get();
                 Usuario cliente = clienteOptional.get();

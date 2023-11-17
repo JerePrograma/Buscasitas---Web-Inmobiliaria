@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Registrar Inmueble</title>
+    <title>Registrar Cita</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -41,7 +41,7 @@
     <nav th:replace="fragments/navbar :: nav"></nav>
 
     <div class="align-center">
-      <h1>Registrar Oferta</h1>
+      <h1>Registrar Cita</h1>
     </div>
     <form
       th:action="@{/cita/registrar/__${cuentaTributaria}__}"
@@ -63,6 +63,13 @@
         name="idEnte"
       />
       <!-- Agrega este input oculto al formulario -->
+      <!-- Asegúrate de que la cuentaTributaria está disponible para el script -->
+      <input
+        type="hidden"
+        id="cuentaTributaria"
+        th:value="${cuentaTributaria}"
+      />
+
       <input type="hidden" id="idHorario" name="idHorario" />
 
       <!-- Rango Horario por dia de la semana
@@ -143,88 +150,56 @@
     </script>
 
     <!-- Script para fechas -->
-
     <script>
-      // Declarar la variable cuentaTributaria fuera de la función cargarFechasDisponibles
-      var cuentaTributaria;
+      // Inicializa la variable en el alcance global
+      var horariosPorFecha = /*[[${horariosPorFecha}]]*/ {}; // Asegúrate de que esto se define correctamente
 
-      // Función para cargar dinámicamente las fechas y horas disponibles
-      function cargarFechasDisponibles() {
-        // Obtener las fechas y horas disponibles usando cuentaTributaria
+      $(document).ready(function () {
+        // Obtén la cuentaTributaria del elemento input oculto
+        var cuentaTributaria = $("#cuentaTributaria").val();
+
+        // Realiza una solicitud AJAX para obtener los horarios disponibles
         $.ajax({
-          url: "/cita/horarios-disponibles/" + cuentaTributaria,
+          url: "/horario/horarios-disponibles/" + cuentaTributaria, // Asegúrate de que esta URL coincida con tu controlador
           method: "GET",
-          success: function (fechasYHorasDisponibles) {
-            console.log("Fechas y Horas Disponibles:", fechasYHorasDisponibles);
-
-            // Añade estos logs para asegurarte de que estás recibiendo los datos esperados
-            console.log(
-              "Fechas en la respuesta:",
-              fechasYHorasDisponibles.fechas
-            );
-            console.log(
-              "Horas en la respuesta:",
-              fechasYHorasDisponibles.horas
-            );
-
-            // Llamar a la función para actualizar las horas disponibles
-            actualizarHorariosDisponibles(fechasYHorasDisponibles);
+          success: function (data) {
+            horariosPorFecha = data; // Actualiza la variable con los datos recibidos
+            console.log("Datos cargados: ", horariosPorFecha);
           },
-          error: function () {
-            // Manejar el error si es necesario
+          error: function (error) {
+            console.error("Error al cargar los datos: ", error);
           },
         });
-      }
 
-      // Función que se llama cuando el día de la semana cambia
-      function actualizarHorariosDisponibles(fechasYHorasDisponibles) {
-        // Obtén el selector de horario
-        var selectHorario = $("#horario");
-        selectHorario.empty(); // Limpiar opciones existentes
-
-        // Obtén las fechas y horas disponibles
-
-        let fechasDisponibles = fechasYHorasDisponibles.fechas;
-        console.log(fechasDisponibles);
-        var horasDisponibles = fechasYHorasDisponibles.horas; // Cambia el nombre de la propiedad a 'horas'
-
-        // Asegúrate de que las fechas y horas no sean undefined
-        if (fechasDisponibles === undefined) {
-          console.error("Error: Fechas no definidas.");
-          return;
-        }
-        if (!horasDisponibles) {
-          console.error("Error: Horas no definidas."); // Cambia el mensaje de error a 'Horas'
-          return;
-        }
-
-        // Inicializar el calendario con las fechas disponibles
+        // Inicializa el DatePicker
         $("#fecha").datepicker({
           dateFormat: "yy-mm-dd",
           beforeShowDay: function (date) {
+            // Formatea la fecha al formato correcto
             var stringDate = $.datepicker.formatDate("yy-mm-dd", date);
-            return [fechasDisponibles.includes(stringDate)];
+            // Comprueba si la fecha está disponible
+            var available = horariosPorFecha.hasOwnProperty(stringDate);
+            console.log(stringDate + " disponible: " + available);
+            return [available];
           },
-          onSelect: function (dateText) {
-            // Filtrar las horas disponibles según la fecha seleccionada
-            var horasFiltradas = horasDisponibles.filter(function (hora) {
-              // Comprobar si la hora comienza con la fecha seleccionada
-              return hora.startsWith(dateText);
-            });
-
-            // Llamar a la función para actualizar las horas disponibles
-            actualizarHorariosDisponibles(horasFiltradas);
+          onSelect: function (selectedDate) {
+            // Llama a la función para actualizar el selector de horarios
+            actualizarSelectorHorarios(horariosPorFecha[selectedDate]);
           },
         });
-      }
-
-      // Obtener cuentaTributaria en algún lugar de tu código JavaScript
-      cuentaTributaria = $('input[name="cuentaTributaria"]').val();
-
-      // Llamar a la función al cargar la página
-      $(document).ready(function () {
-        cargarFechasDisponibles();
       });
+
+      function actualizarSelectorHorarios(horarios) {
+        var selectHorario = $("#horario");
+        selectHorario.empty(); // Limpia el selector
+
+        if (horarios) {
+          // Añade los nuevos horarios al selector
+          horarios.forEach(function (hora) {
+            selectHorario.append(new Option(hora, hora));
+          });
+        }
+      }
     </script>
   </body>
 </html>
