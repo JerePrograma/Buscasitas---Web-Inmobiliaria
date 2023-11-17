@@ -34,12 +34,13 @@
   <source src="https://assets.codepen.io/6093409/river.mp4" type="video/mp4">
 </video>
 
-    <div class="container">
+    <div class="container" style="border-radius: 1.5rem">
       <form
         class="formulario"
         th:action="@{/usuario/registrar}"
         method="post"
         enctype="multipart/form-data"
+        style="border-radius: 1.5rem"
       >
         <input type="hidden" id="selectedImagePath" name="selectedImagePath" />
         <br />
@@ -64,41 +65,49 @@
           </div>
         </div>
         <br />
-        <h1><span class="badge badge-primary">Regístrate</span></h1>
+        <h1><span class="badge badge-info">Regístrate</span></h1>
         <br />
         <!-- Panel de Selección de Imagen de Perfil -->
         <!-- Botón para abrir el modal y seleccionar una imagen predefinida -->
-        <button
+       <div class="form-group">
+  <div class="row">
+        <div class="col-md-4">
+          <button
           type="button"
           class="btn btn-primary"
           data-toggle="modal"
           data-target="#seleccionImagenModal"
+          style="margin-top: 1.6em"
         >
-          Seleccionar Imagen de Perfil
+        Elije tu avatar
         </button>
+            </div>
 
         <!-- Campo para cargar una imagen -->
-        <div class="form-group">
-          <label for="archivo">Cargar Imagen de Perfil</label>
+        <div class="col-md-4">
+         <small> <label for="archivo">O una Imagen de Perfil</label>
           <input
             type="file"
             class="form-control-file"
             id="archivo"
             name="archivo"
             onchange="imagenCargada()"
-          />
+          /></small>
         </div>
 
         <!-- Contenedor para la vista previa de la imagen -->
+        <div class="col-md-4">
         <div id="imagenPreviewContainer" style="margin-top: 10px">
           <img
             id="imagenPreview"
             src="#"
             alt="Imagen de Perfil"
-            style="max-width: 200px; max-height: 200px; display: none"
+            style="max-width: 200px; max-height: 200px; display: none; border-radius: 50%; padding-bottom: 2em"
           />
         </div>
-
+        </div>
+        </div>
+           </div>
         <div
           class="modal fade"
           id="seleccionImagenModal"
@@ -379,13 +388,13 @@
             >
           </div>
           <br />
-          <button type="submit" class="btn btn-primary col-md-7">
+          <button type="submit" class="btn btn-info col-md-7" style="margin-left: 2em">
             Enviar Formulario
           </button>
           <div style="padding-left: 11em" class="divVolver">
             <a
               th:href="@{/}"
-              class="btn btn-secondary my-2 boton Volver botones"
+              class="btn btn-dark my-2 boton Volver botones"
               >Volver</a
             >
           </div>

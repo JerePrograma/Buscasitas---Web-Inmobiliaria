@@ -18,7 +18,7 @@
   max-height: 1200px;
   background-repeat: no-repeat;
   background-size: cover;
-}
+  }
 
 .content {
   display: flex;
@@ -27,12 +27,12 @@
 }
 
 #logo {
-  height: 5em;
+  height: 4em;
   padding-left: 1em;
   fill: currentcolor;
   color: white;
   object-fit: contain;
-}
+  }
 #logo-container {
   display: flex; /* Agrega display: flex al contenedor del logo y el texto */
   align-items: center; /* Centra los elementos verticalmente dentro del contenedor */
@@ -68,6 +68,7 @@ nav {
   padding: 1em 1em 0; /* Añade un poco de padding horizontal para que el contenido no toque los bordes */
   height: 6em; /* Si el contenido interno es más grande, puedes ajustar esto */
   overflow: hidden;
+  border-bottom: 2.5px ridge #d0b084;
 }
 #detalleInmueble-button {
   color: white;
