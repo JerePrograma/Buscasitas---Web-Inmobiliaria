@@ -24,10 +24,10 @@ public interface InmuebleRepositorio extends JpaRepository<Inmueble, String> {
             + "AND (:habitacionesMaximas IS NULL OR i.cantidadHabitaciones <= :habitacionesMaximas) "
             + "AND (:baniosMinimos IS NULL OR i.banios >= :baniosMinimos)"
             + "AND (:baniosMaximos IS NULL OR i.banios <= :baniosMaximos) "
-            + "AND (:largoMinimo IS NULL OR i.largo >= :largoMinimo)"
-            + "AND (:largoMaximo IS NULL OR i.largo <= :largoMaximo) "
-            + "AND (:alturaMinima IS NULL OR i.altura >= :alturaMinima)"
-            + "AND (:alturaMaxima IS NULL OR i.altura <= :alturaMaxima) ")
+            + "AND (:superficieCubiertaMinima IS NULL OR i.superficieCubierta >= :superficieCubiertaMinima)"
+            + "AND (:superficieCubiertaMaxima IS NULL OR i.superficieCubierta <= :superficieCubiertaMaxima) "
+            + "AND (:superficieTotalMinima IS NULL OR i.superficieTotal >= :superficieTotalMinima)"
+            + "AND (:superficieTotalMaxima IS NULL OR i.superficieTotal <= :superficieTotalMaxima) ")
     List<Inmueble> findInmueblesByFiltros(@Param("ubicacion") String ubicacion,
             @Param("transaccion") String transaccion,
             @Param("tipoInmueble") String tipoInmueble,
@@ -40,10 +40,10 @@ public interface InmuebleRepositorio extends JpaRepository<Inmueble, String> {
             @Param("habitacionesMaximas") Integer habitacionesMaximas,
             @Param("baniosMinimos") Integer baniosMinimos,
             @Param("baniosMaximos") Integer baniosMaximos,
-            @Param("largoMinimo") Integer largoMinimo,
-            @Param("largoMaximo") Integer largoMaximo,
-            @Param("alturaMinima") Integer alturaMinima,
-            @Param("alturaMaxima") Integer alturaMaxima);
+            @Param("superficieCubiertaMinima") Integer superficieCubiertaMinimo,
+            @Param("superficieCubiertaMaxima") Integer superficieCubiertaMaximo,
+            @Param("superficieTotalMinima") Integer superficieTotalMinima,
+            @Param("superficieTotalMaxima") Integer superficieTotalMaxima);
         List<Inmueble> findAllByOrderByPrecioAsc();
 
         List<Inmueble> findAllByOrderByPrecioDesc();

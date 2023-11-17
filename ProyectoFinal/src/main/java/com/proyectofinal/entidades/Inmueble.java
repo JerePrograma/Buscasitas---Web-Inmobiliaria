@@ -29,8 +29,8 @@ public class Inmueble implements Serializable {
     private int cantidadHabitaciones;
     private int banios;
     private int cantidadAmbientes;
-    private int altura; //Ambos en metros cuadrados
-    private int largo; //
+    private int  superficieTotal;  //Ambos en metros cuadrados
+    private int superficieCubierta; //
     private Boolean alta;
     private String tipoInmueble;
     private String estado;

@@ -65,8 +65,8 @@ public class InmuebleControlador {
             @RequestParam("cantidadHabitaciones") Integer cantidadHabitaciones,
             @RequestParam("banios") Integer banios,
             @RequestParam("cantidadAmbientes") Integer cantidadAmbientes,
-            @RequestParam("altura") int altura,
-            @RequestParam("largo") int largo,
+            @RequestParam("superficieTotal") int superficieTotal,
+            @RequestParam("superficieCubierta") int superficieCubierta,
             @RequestParam("diaSemana") List<String> diaSemanaList,
             @RequestParam("horaInicio") List<String> horaInicioList,
             @RequestParam("horaFin") List<String> horaFinList,
@@ -86,7 +86,7 @@ public class InmuebleControlador {
                     archivoPrincipal, archivosSecundarios, cuentaTributaria, direccion, ciudad, provincia,
                     transaccion, tipoInmueble, tituloAnuncio, descripcionAnuncio, moneda,
                     precio, cantidadHabitaciones, banios, cantidadAmbientes,
-                    altura, largo, usuario, fechas, diaSemanaList, horaInicioList, horaFinList);
+                    superficieTotal, superficieCubierta, usuario, fechas, diaSemanaList, horaInicioList, horaFinList);
 
             modelo.put("exito", "El inmueble fue cargado correctamente!");
         } catch (Exception ex) {
@@ -195,10 +195,10 @@ public class InmuebleControlador {
             @RequestParam(name = "habitacionesMaximas", required = false) Integer habitacionesMaximas,
             @RequestParam(name = "baniosMinimos", required = false) Integer baniosMinimos,
             @RequestParam(name = "baniosMaximos", required = false) Integer baniosMaximos,
-            @RequestParam(name = "largoMinimo", required = false) Integer largoMinimo,
-            @RequestParam(name = "largoMaximo", required = false) Integer largoMaximo,
-            @RequestParam(name = "alturaMinima", required = false) Integer alturaMinima,
-            @RequestParam(name = "alturaMaxima", required = false) Integer alturaMaxima,
+            @RequestParam(name = "superficieCubiertaMinima", required = false) Integer superficieCubiertaMinima,
+            @RequestParam(name = "superficieCubiertaMaxima", required = false) Integer superficieCubiertaMaxima,
+            @RequestParam(name = "superficieTotalMinima", required = false) Integer superficieTotalMinima,
+            @RequestParam(name = "superficieTotalMaxima", required = false) Integer superficieTotalMaxima,
             @RequestParam(name = "archivo", required = false) MultipartFile archivo,
             Model model
     ) {
@@ -207,7 +207,7 @@ public class InmuebleControlador {
             // Llama al servicio con los parámetros adecuados
             List<Inmueble> inmuebles = inmuebleServicio.buscarInmueblesPorFiltros(ubicacion, transaccion, tipoInmueble,
                     ciudad, provincia, moneda, precioMaximo, precioMinimo, habitacionesMinimas,
-                    habitacionesMaximas, baniosMinimos, baniosMaximos, largoMinimo, largoMaximo, alturaMinima, alturaMaxima);
+                    habitacionesMaximas, baniosMinimos, baniosMaximos, superficieCubiertaMinima, superficieCubiertaMaxima, superficieTotalMinima, superficieTotalMaxima);
             // Agrega los resultados al modelo.
             model.addAttribute("inmuebles", inmuebles);
         } catch (Exception e) {

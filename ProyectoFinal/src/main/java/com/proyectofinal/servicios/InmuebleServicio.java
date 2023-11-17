@@ -41,7 +41,7 @@ public class InmuebleServicio {
             String transaccion, String tipoInmueble, String tituloAnuncio,
             String descripcionAnuncio, String moneda, Integer precio,
             int cantidadAmbientes, int banios, int cantidadHabitaciones,
-            int altura, int largo, Usuario usuario, List<LocalDate> fechaRangoHorario,
+            int superficieTotal, int superficieCubierta, Usuario usuario, List<LocalDate> fechaRangoHorario,
             List<String> diaSemanaList, List<String> horaInicioList,
             List<String> horaFinList) throws Exception {
 
@@ -63,8 +63,8 @@ public class InmuebleServicio {
         inmueble.setCantidadHabitaciones(cantidadHabitaciones);
         inmueble.setBanios(banios);
         inmueble.setCantidadAmbientes(cantidadAmbientes);
-        inmueble.setAltura(altura);
-        inmueble.setLargo(largo);
+        inmueble.setSuperficieTotal(superficieTotal);
+        inmueble.setSuperficieCubierta(superficieCubierta);
         inmueble.setEstado("Disponible");
         inmueble.setTituloAnuncio(tituloAnuncio);
         inmueble.setAlta(true);
