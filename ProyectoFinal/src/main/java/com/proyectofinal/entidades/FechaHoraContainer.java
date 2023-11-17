@@ -13,6 +13,7 @@ public class FechaHoraContainer {
 
     private List<LocalDate> fechas;
     private List<LocalTime> horas;
+    private List<Long> idsRangoHorario; // Nueva lista para almacenar las IDs del RangoHorario
 
     public FechaHoraContainer() {
 

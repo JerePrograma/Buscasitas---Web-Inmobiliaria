@@ -10,6 +10,7 @@ import com.proyectofinal.servicios.RangoHorarioServicio;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,15 +40,18 @@ public class CitaControlador {
 
     @GetMapping("/registrar/{cuentaTributaria}")
     public String registrarCita(@PathVariable("cuentaTributaria") String cuentaTributaria,
-            ModelMap model, HttpSession session) throws Exception {
+                                ModelMap model, HttpSession session) throws Exception {
         Inmueble inmueble = inmuebleServicio.obtenerInmueblePorCuentaTributaria(cuentaTributaria);
         List<RangoHorario> rangoHorario = rangoHorarioServicio.obtenerRangoHorarioPorCuentaTributaria(cuentaTributaria);
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");//enviar la session del usuario logueado
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         model.put("inmueble", inmueble);
-        Map<Long, List<LocalTime>> horariosDisponiblesMap = new HashMap<>();
+
+        // Cambia la clave de r.getId() a r.getFecha()
+        Map<String, List<LocalTime>> horariosDisponiblesMap = new HashMap<>();
         for (RangoHorario r : rangoHorario) {
             List<LocalTime> horariosDisponibles = citaServicio.obtenerHorariosDisponibles(r.getHoraInicio(), r.getHoraFin());
-            horariosDisponiblesMap.put(r.getId(), horariosDisponibles);
+            String fechaFormateada = r.getFecha().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            horariosDisponiblesMap.put(fechaFormateada, horariosDisponibles);
         }
 
         model.put("horariosDisponiblesMap", horariosDisponiblesMap);
@@ -57,15 +61,20 @@ public class CitaControlador {
     }
 
     @PostMapping("/registrar/{cuentaTributaria}")
-    public String registrarCita(@RequestParam String idEnte, @RequestParam String idCliente, @RequestParam Long idHorario,
-            @RequestParam(required = false) String nota, ModelMap modelo) {
+    public String registrarCita(@RequestParam String idEnte, @RequestParam String idCliente,
+                                @RequestParam Long idHorario, @RequestParam(required = false) String nota,
+                                ModelMap modelo) {
+        System.out.println("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         try {
+            System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
             System.out.println("Id del ente: " + idEnte);
             System.out.println("Id del CLiente: " + idCliente);
+            System.out.println("Id del Horario: " + idHorario);
             citaServicio.crearCita(idEnte, idCliente, idHorario, nota);
             modelo.put("exito", "la cita fue cargada correctamente");
         } catch (Exception e) {
             System.out.println(e);
+            System.out.println("El id del horario es: " + idHorario);
             return "cita_form";
         }
 
@@ -74,29 +83,37 @@ public class CitaControlador {
 
     @GetMapping("/horarios-disponibles/{cuentaTributaria}")
     @ResponseBody
-    public ResponseEntity<Map<LocalDate, List<LocalTime>>> obtenerHorariosDisponibles(@PathVariable String cuentaTributaria) {
+    public ResponseEntity<Map<String, List<LocalTime>>> obtenerHorariosDisponibles(@PathVariable String cuentaTributaria) {
         try {
-            // Utiliza el nuevo método del servicio para obtener la lista de RangoHorario
             List<RangoHorario> rangoHorarioList = inmuebleServicio.obtenerRangosHorariosPorCuentaTributaria(cuentaTributaria);
 
-            // Si la lista está vacía, devuelve una respuesta indicando que no se encontraron datos
             if (rangoHorarioList.isEmpty()) {
                 return ResponseEntity.notFound().build();
             }
 
-            // Convierte la lista de RangoHorario en un mapa de fechas a listas de horas de inicio
-            Map<LocalDate, List<LocalTime>> horariosPorFecha = rangoHorarioList.stream()
+            // Formatea las fechas como cadenas en el formato "yyyy-MM-dd"
+            Map<String, List<LocalTime>> horariosPorFecha = rangoHorarioList.stream()
                     .collect(Collectors.groupingBy(
-                            RangoHorario::getFecha,
-                            Collectors.mapping(
-                                    RangoHorario::getHoraInicio,
-                                    Collectors.toList())
+                            rango -> rango.getFecha().toString(),
+                            Collectors.flatMapping(
+                                    rango -> {
+                                        List<LocalTime> horas = new ArrayList<>();
+                                        LocalTime horaInicio = rango.getHoraInicio();
+                                        LocalTime horaFin = rango.getHoraFin();
+
+                                        while (horaInicio.isBefore(horaFin) || horaInicio.equals(horaFin)) {
+                                            horas.add(horaInicio);
+                                            horaInicio = horaInicio.plusMinutes(30);
+                                        }
+
+                                        return horas.stream();
+                                    },
+                                    Collectors.toList()
+                            )
                     ));
 
-            // Devuelve el mapa como respuesta con un estado HTTP 200 OK
             return ResponseEntity.ok(horariosPorFecha);
         } catch (Exception e) {
-            // Si hay una excepción, devuelve una respuesta de error interno del servidor
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
