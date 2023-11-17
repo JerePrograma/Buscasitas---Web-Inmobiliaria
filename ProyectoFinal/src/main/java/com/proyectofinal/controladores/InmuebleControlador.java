@@ -223,9 +223,10 @@ public class InmuebleControlador {
     }
 
     @GetMapping("/eliminar/{cuentaTributaria}")
-    public String eliminarInmueble(@PathVariable String cuentaTributaria) throws Exception {
+    public String eliminarInmueble(@PathVariable String cuentaTributaria ) throws Exception {
+        
         inmuebleServicio.eliminarInmueblePorCuentaTributaria(cuentaTributaria);
-        rangoHorarioServicio.eliminarInmueblePorCuentaTributaria(cuentaTributaria);
+        
         return "redirect:/";
     }
 

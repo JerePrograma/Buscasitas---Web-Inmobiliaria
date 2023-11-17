@@ -1,6 +1,7 @@
 package com.proyectofinal.servicios;
 
 import com.proyectofinal.entidades.Inmueble;
+import com.proyectofinal.entidades.RangoHorario;
 import com.proyectofinal.entidades.Reclamo;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.repositorios.InmuebleRepositorio;
@@ -80,5 +81,12 @@ public class ReclamoServicio {
 
         return reclamoRepositorio.findAll();
 
+    }
+  
+    @Transactional
+    public void eliminarReclamoInmueblePorCuentaTributaria(String cuentaTributaria) {
+        // Implementa la lógica para eliminar un inmueble por su cuenta tributaria
+        List<Reclamo> reclamos = (List<Reclamo>) reclamoRepositorio.buscarPorIdCuentaTributaria(cuentaTributaria);
+        reclamoRepositorio.deleteAll(reclamos);
     }
 }

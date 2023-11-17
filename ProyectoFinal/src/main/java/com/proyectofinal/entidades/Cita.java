@@ -13,12 +13,15 @@ import org.hibernate.annotations.GenericGenerator;
 public class Cita implements Serializable {
 
     @Id
+   
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     @ManyToOne
+    
     private Usuario ente;
     @ManyToOne
+   
     private Usuario cliente;
 
     @ManyToOne

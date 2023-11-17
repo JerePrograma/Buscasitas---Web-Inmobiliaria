@@ -141,4 +141,15 @@ public class CitaServicio {
 
         return new FechaHoraContainer(fechasDisponibles, horariosDisponibles);
     }
+//    
+//    @Transactional
+//    public void eliminarCitaInmueblePorCuentaTributaria(String cuentaTributaria) {
+//        // Implementa la lógica para eliminar un inmueble por su cuenta tributaria
+//        
+//     
+//        
+//        List<Cita> citas = (List<Cita>) citaRepositorio.findByHorario(cuentaTributaria);
+//        citaRepositorio.deleteAll(citas);
+//
+//}
 }

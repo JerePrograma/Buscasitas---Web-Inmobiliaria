@@ -33,7 +33,13 @@ public class InmuebleServicio {
 
     @Autowired
     private RangoHorarioServicio rangoHorarioServicio;
+    
+    @Autowired
+    private ReclamoServicio reclamoServicio;
 
+     @Autowired
+    private CitaServicio citaServicio;
+     
     @Transactional
     public Inmueble registrarInmueble(MultipartFile archivoPrincipal, MultipartFile[] archivosSecundarios,
             String cuentaTributaria, String direccion, String ciudad, String provincia,
@@ -176,6 +182,16 @@ public class InmuebleServicio {
 
     @Transactional
     public void eliminarInmueblePorCuentaTributaria(String cuentaTributaria) {
+        Inmueble inmueble = getOne(cuentaTributaria);
+       imagenServicio.eliminarImagen(inmueble.getImagenPrincipal().getId());
+       List<Imagen> imagenesSec = inmueble.getImagenesSecundarias();
+      // while (imagenesSec.get(0)!= null){
+           imagenServicio.eliminarImagen(imagenesSec.get(0).getId());
+
+              rangoHorarioServicio.eliminarInmueblePorCuentaTributaria(cuentaTributaria);
+              reclamoServicio.eliminarReclamoInmueblePorCuentaTributaria(cuentaTributaria);
+//              citaServicio.eliminarCitaInmueblePorCuentaTributaria(cuentaTributaria);
+       
         // Implementa la lógica para eliminar un inmueble por su cuenta tributaria
         inmuebleRepositorio.deleteById(cuentaTributaria);
     }
