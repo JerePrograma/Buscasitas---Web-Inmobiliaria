@@ -71,14 +71,14 @@
 
         <!-- Panel de Selección de Imagen de Perfil -->
         <!-- Botón para abrir el modal y seleccionar una imagen predefinida -->
-        <button
+<!--        <button
           type="button"
           class="btn btn-primary"
           data-toggle="modal"
           data-target="#seleccionImagenModal"
         >
           Seleccionar Imagen de Perfil
-        </button>
+        </button>-->
 
         <!-- Campo para cargar una imagen -->
         <div class="form-group">
@@ -98,7 +98,7 @@
             id="imagenPreview"
             src="#"
             alt="Imagen de Perfil"
-            style="max-width: 200px; max-height: 200px; display: none"
+            style="max-width: 200px; max-height: 200px; display: none; border-radius:50%;"
           />
         </div>
 
@@ -294,7 +294,7 @@
           </button>
           <a
             type="button"
-            class="btn btn-danger"
+            class="btn btn-dark"
             style="margin-left: 15em"
             th:href="@{/usuario/eliminar/__${usuario.idCodigoTributario}__}"
             >Eliminar mi cuenta</a
