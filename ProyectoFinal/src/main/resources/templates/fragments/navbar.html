@@ -59,9 +59,6 @@
           alquila</a
         >
       </li>
-      <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ENTE')">
-        <a class="btn btn-info" th:href="@{/inmueble/lista}">Expo Inmuebles</a>
-      </li>
       <li
         class="nav-item"
         th:if="${T(com.proyectofinal.SeguridadWeb).isAuthenticated()}"

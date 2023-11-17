@@ -9,10 +9,9 @@ import com.proyectofinal.servicios.InmuebleServicio;
 import com.proyectofinal.servicios.RangoHorarioServicio;
 import com.proyectofinal.servicios.UsuarioServicio;
 import java.security.Principal;
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.*;
 
-import java.util.Base64;
-import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -22,8 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/inmueble")
@@ -72,21 +70,23 @@ public class InmuebleControlador {
             @RequestParam("diaSemana") List<String> diaSemanaList,
             @RequestParam("horaInicio") List<String> horaInicioList,
             @RequestParam("horaFin") List<String> horaFinList,
+            @RequestParam("fecha") String fecha, // Agrega el parámetro fecha
             HttpSession session) {
 
         // Obtener el usuario de la sesión
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
 
         try {
+            // Parsear la lista de fechas
+            List<LocalDate> fechas = Arrays.stream(fecha.split(","))
+                    .map(LocalDate::parse)
+                    .collect(Collectors.toList());
             // Guardar el inmueble y capturar la instancia guardada
             Inmueble inmuebleGuardado = inmuebleServicio.registrarInmueble(
                     archivoPrincipal, archivosSecundarios, cuentaTributaria, direccion, ciudad, provincia,
                     transaccion, tipoInmueble, tituloAnuncio, descripcionAnuncio, moneda,
                     precio, cantidadHabitaciones, banios, cantidadAmbientes,
-                    altura, largo, usuario);
-
-            // Establecer los rangos horarios con el inmueble guardado
-            rangoHorarioServicio.establecerRangoHorarios(diaSemanaList, horaInicioList, horaFinList, inmuebleGuardado);
+                    altura, largo, usuario, fechas, diaSemanaList, horaInicioList, horaFinList);
 
             modelo.put("exito", "El inmueble fue cargado correctamente!");
         } catch (Exception ex) {

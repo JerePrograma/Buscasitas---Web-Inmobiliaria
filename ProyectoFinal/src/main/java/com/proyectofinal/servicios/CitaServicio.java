@@ -1,11 +1,14 @@
 package com.proyectofinal.servicios;
 
 import com.proyectofinal.entidades.Cita;
+import com.proyectofinal.entidades.FechaHoraContainer;
 import com.proyectofinal.entidades.RangoHorario;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.repositorios.CitaRepositorio;
 import com.proyectofinal.repositorios.RangoHorarioRepositorio;
 import com.proyectofinal.repositorios.UsuarioRepositorio;
+import java.time.LocalDate;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -98,5 +101,44 @@ public class CitaServicio {
             inicio = inicio.plusMinutes(30); // Incrementa en intervalos de 30 minutos
         }
         return horarios;
+    }
+
+    public List<LocalTime> obtenerHorasEntre(LocalTime horaInicio, LocalTime horaFin) {
+        List<LocalTime> horasDisponibles = new ArrayList<>();
+        LocalTime horaActual = horaInicio;
+
+        // Mientras la hora actual sea antes de la hora de finalización
+        while (!horaActual.isAfter(horaFin)) {
+            horasDisponibles.add(horaActual);
+            horaActual = horaActual.plusMinutes(30); // Puedes ajustar el intervalo según tus necesidades
+        }
+
+        return horasDisponibles;
+    }
+
+    public FechaHoraContainer obtenerFechasYHorariosDisponiblesSegunFecha(List<RangoHorario> rangoHorarios, LocalDate fechaSeleccionada) {
+        List<LocalDate> fechasDisponibles = new ArrayList<>();
+        List<LocalTime> horariosDisponibles = new ArrayList<>();
+
+        for (RangoHorario rangoHorario : rangoHorarios) {
+            LocalDate fechaRangoHorario = rangoHorario.getFecha();
+            LocalTime horaInicio = rangoHorario.getHoraInicio();
+            LocalTime horaFin = rangoHorario.getHoraFin();
+
+            if (!fechaRangoHorario.isBefore(fechaSeleccionada)) {
+                if (fechaRangoHorario.isEqual(fechaSeleccionada) || fechaRangoHorario.isAfter(fechaSeleccionada)) {
+                    // Agregar la fecha a la lista de fechas disponibles
+                    fechasDisponibles.add(fechaRangoHorario);
+
+                    // Agregar los horarios entre la horaInicio y horaFin a la lista de horarios disponibles
+                    while (horaInicio.isBefore(horaFin) || horaInicio.equals(horaFin)) {
+                        horaInicio = horaInicio.plusMinutes(30);
+                        horariosDisponibles.add(horaInicio);
+                    }
+                }
+            }
+        }
+
+        return new FechaHoraContainer(fechasDisponibles, horariosDisponibles);
     }
 }

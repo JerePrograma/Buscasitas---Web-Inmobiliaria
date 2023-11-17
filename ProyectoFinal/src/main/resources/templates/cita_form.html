@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Registrar Inmueble</title>
+    <title>Registrar Cita</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -25,13 +25,23 @@
       type="image/x-icon"
       th:href="@{images/logoInmobiliaria2.png}"
     />
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- jQuery UI -->
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   </head>
   <body>
     <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
     <nav th:replace="fragments/navbar :: nav"></nav>
 
     <div class="align-center">
-      <h1>Registrar Oferta</h1>
+      <h1>Registrar Cita</h1>
     </div>
     <form
       th:action="@{/cita/registrar/__${cuentaTributaria}__}"
@@ -53,8 +63,16 @@
         name="idEnte"
       />
       <!-- Agrega este input oculto al formulario -->
+      <!-- Asegúrate de que la cuentaTributaria está disponible para el script -->
+      <input
+        type="hidden"
+        id="cuentaTributaria"
+        th:value="${cuentaTributaria}"
+      />
+
       <input type="hidden" id="idHorario" name="idHorario" />
 
+      <!-- Rango Horario por dia de la semana
       <label for="diaSemana">Horarios Disponibles</label>
       <select
         class="controls"
@@ -70,8 +88,16 @@
 
       <label for="horario">Hora de inicio:</label>
       <select class="controls" id="horario" name="horario" required>
-        <!-- Las opciones se llenarán dinámicamente -->
+        Las opciones se llenarán dinámicamente
       </select>
+      -->
+
+      <label for="fecha">Fecha:</label>
+      <input class="controls" type="text" id="fecha" name="fecha" required />
+
+      <label for="horario">Hora de la Cita:</label>
+      <select class="controls" id="horario" name="horario" required></select>
+
       <input
         class="controls"
         type="text"
@@ -86,10 +112,9 @@
 
       <button type="submit">Guardar Cita</button>
     </form>
-    <script src="/js/script.js"></script>
     <script>
       // Función que se llama cuando el día de la semana cambia
-      function actualizarHorariosDisponibles(rangoId) {
+      function actualizarHorariosPorRango(rangoId) {
         // Obtén el selector de horario
         var selectHorario = document.getElementById("horario");
         var idRangoHorarioInput = document.getElementById("idHorario");
@@ -122,6 +147,59 @@
         // horariosPorRango esté disponible para tu función actualizarHorariosDisponibles
       });
       /*]]>*/
+    </script>
+
+    <!-- Script para fechas -->
+    <script>
+      // Inicializa la variable en el alcance global
+      var horariosPorFecha = /*[[${horariosPorFecha}]]*/ {}; // Asegúrate de que esto se define correctamente
+
+      $(document).ready(function () {
+        // Obtén la cuentaTributaria del elemento input oculto
+        var cuentaTributaria = $("#cuentaTributaria").val();
+
+        // Realiza una solicitud AJAX para obtener los horarios disponibles
+        $.ajax({
+          url: "/horario/horarios-disponibles/" + cuentaTributaria, // Asegúrate de que esta URL coincida con tu controlador
+          method: "GET",
+          success: function (data) {
+            horariosPorFecha = data; // Actualiza la variable con los datos recibidos
+            console.log("Datos cargados: ", horariosPorFecha);
+          },
+          error: function (error) {
+            console.error("Error al cargar los datos: ", error);
+          },
+        });
+
+        // Inicializa el DatePicker
+        $("#fecha").datepicker({
+          dateFormat: "yy-mm-dd",
+          beforeShowDay: function (date) {
+            // Formatea la fecha al formato correcto
+            var stringDate = $.datepicker.formatDate("yy-mm-dd", date);
+            // Comprueba si la fecha está disponible
+            var available = horariosPorFecha.hasOwnProperty(stringDate);
+            console.log(stringDate + " disponible: " + available);
+            return [available];
+          },
+          onSelect: function (selectedDate) {
+            // Llama a la función para actualizar el selector de horarios
+            actualizarSelectorHorarios(horariosPorFecha[selectedDate]);
+          },
+        });
+      });
+
+      function actualizarSelectorHorarios(horarios) {
+        var selectHorario = $("#horario");
+        selectHorario.empty(); // Limpia el selector
+
+        if (horarios) {
+          // Añade los nuevos horarios al selector
+          horarios.forEach(function (hora) {
+            selectHorario.append(new Option(hora, hora));
+          });
+        }
+      }
     </script>
   </body>
 </html>

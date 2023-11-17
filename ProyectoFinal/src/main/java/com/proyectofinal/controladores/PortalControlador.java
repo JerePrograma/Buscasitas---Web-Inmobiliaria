@@ -62,7 +62,7 @@ public class PortalControlador {
 
         modelo.put("usuario", usuario);
         if (usuario.getRol().toString().equals("ADMIN")) {
-            return "redirect:/inicio";
+            return "redirect:/";
         }
         return "redirect:/usuario/perfil/" + usuario.getIdCodigoTributario();
     }

@@ -2,10 +2,13 @@ package com.proyectofinal.servicios;
 
 import com.proyectofinal.entidades.Imagen;
 import com.proyectofinal.entidades.Inmueble;
+import com.proyectofinal.entidades.RangoHorario;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.excepciones.MiExcepcion;
 import com.proyectofinal.repositorios.ImagenRepositorio;
 import com.proyectofinal.repositorios.InmuebleRepositorio;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
 
 @Service
 public class InmuebleServicio {
@@ -27,13 +31,18 @@ public class InmuebleServicio {
     @Autowired
     private ImagenRepositorio imagenRepositorio;
 
+    @Autowired
+    private RangoHorarioServicio rangoHorarioServicio;
+
     @Transactional
     public Inmueble registrarInmueble(MultipartFile archivoPrincipal, MultipartFile[] archivosSecundarios,
             String cuentaTributaria, String direccion, String ciudad, String provincia,
             String transaccion, String tipoInmueble, String tituloAnuncio,
             String descripcionAnuncio, String moneda, Integer precio,
             int cantidadAmbientes, int banios, int cantidadHabitaciones,
-            int altura, int largo, Usuario usuario) throws Exception {
+            int altura, int largo, Usuario usuario, List<LocalDate> fechaRangoHorario,
+            List<String> diaSemanaList, List<String> horaInicioList,
+            List<String> horaFinList) throws Exception {
 
         // Validar datos de entrada
         validarDatos(archivoPrincipal, cuentaTributaria, direccion, ciudad, provincia, transaccion, tipoInmueble,
@@ -83,6 +92,9 @@ public class InmuebleServicio {
         }
         inmueble.setImagenesSecundarias(imagenesSecundarias);
 
+        // Establecer los rangos horarios con el inmueble guardado
+        rangoHorarioServicio.establecerRangoHorarios(fechaRangoHorario, diaSemanaList, horaInicioList, horaFinList, inmueble);
+
         // No es necesario guardar de nuevo el inmueble si los métodos de guardarImagen ya realizan el guardado
         return inmueble; // Devolver el inmueble guardado con las relaciones establecidas
     }
@@ -123,6 +135,7 @@ public class InmuebleServicio {
             inmueble.setEstado(estado);
 
             inmuebleRepositorio.save(inmueble);
+
         } else {
             throw new MiExcepcion("No se ha encontrado un inmueble con la cuenta tributaria proporcionada.");
         }
@@ -199,6 +212,23 @@ public class InmuebleServicio {
                 (largoMaximo != null && largoMaximo > 0) ? largoMaximo : null,
                 (alturaMinima != null && alturaMinima > 0) ? alturaMinima : null,
                 (alturaMaxima != null && alturaMaxima > 0) ? alturaMaxima : null);
+    }
+
+    public List<RangoHorario> obtenerRangosHorariosPorCuentaTributaria(String cuentaTributaria) {
+        // Encuentra el inmueble por su cuenta tributaria
+        Inmueble inmueble = getOne(cuentaTributaria);
+
+        // Si no se encuentra el inmueble, devolver una lista vacía o lanzar una excepción
+        if (inmueble == null) {
+            // Opción 1: Devolver una lista vacía
+            // return new ArrayList<>();
+
+            // Opción 2: Lanzar una excepción
+            throw new EntityNotFoundException("Inmueble no encontrado con cuenta tributaria: " + cuentaTributaria);
+        }
+
+        // Devuelve los rangos horarios asociados al inmueble encontrado
+        return inmueble.getRangosHorarios();
     }
 
     public Inmueble obtenerInmueblePorCuentaTributaria(String cuentaTributaria) {
