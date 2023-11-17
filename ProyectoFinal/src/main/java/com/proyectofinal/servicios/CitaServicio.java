@@ -12,8 +12,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -116,9 +118,8 @@ public class CitaServicio {
         return horasDisponibles;
     }
 
-    public FechaHoraContainer obtenerFechasYHorariosDisponiblesSegunFecha(List<RangoHorario> rangoHorarios, LocalDate fechaSeleccionada) {
-        List<LocalDate> fechasDisponibles = new ArrayList<>();
-        List<LocalTime> horariosDisponibles = new ArrayList<>();
+    public List<RangoHorario> obtenerRangosHorariosDisponiblesSegunFecha(List<RangoHorario> rangoHorarios, LocalDate fechaSeleccionada) {
+        List<RangoHorario> rangosDisponibles = new ArrayList<>();
 
         for (RangoHorario rangoHorario : rangoHorarios) {
             LocalDate fechaRangoHorario = rangoHorario.getFecha();
@@ -127,18 +128,11 @@ public class CitaServicio {
 
             if (!fechaRangoHorario.isBefore(fechaSeleccionada)) {
                 if (fechaRangoHorario.isEqual(fechaSeleccionada) || fechaRangoHorario.isAfter(fechaSeleccionada)) {
-                    // Agregar la fecha a la lista de fechas disponibles
-                    fechasDisponibles.add(fechaRangoHorario);
-
-                    // Agregar los horarios entre la horaInicio y horaFin a la lista de horarios disponibles
-                    while (horaInicio.isBefore(horaFin) || horaInicio.equals(horaFin)) {
-                        horaInicio = horaInicio.plusMinutes(30);
-                        horariosDisponibles.add(horaInicio);
-                    }
+                    rangosDisponibles.add(rangoHorario);
                 }
             }
         }
 
-        return new FechaHoraContainer(fechasDisponibles, horariosDisponibles);
+        return rangosDisponibles;
     }
 }

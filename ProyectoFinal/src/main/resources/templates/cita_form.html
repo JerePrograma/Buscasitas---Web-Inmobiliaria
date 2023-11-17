@@ -44,8 +44,8 @@
       <h1>Registrar Cita</h1>
     </div>
     <form
-      th:action="@{/cita/registrar/__${cuentaTributaria}__}"
-      method="post"
+      th:action="@{/cita/registrar/${cuentaTributaria}}"
+      method="POST"
       enctype="multipart/form-data"
     >
       <input hidden th:value="${cuentaTributaria}" name="cuentaTributaria" />
@@ -70,7 +70,7 @@
         th:value="${cuentaTributaria}"
       />
 
-      <input type="hidden" id="idHorario" name="idHorario" />
+      <input type="hidden" id="idHorario" name="idHorario" th:value="${idHorario}" />
 
       <!-- Rango Horario por dia de la semana
       <label for="diaSemana">Horarios Disponibles</label>
@@ -79,7 +79,7 @@
         id="diaSemana"
         name="diaSemana"
         th:onchange="actualizarHorariosDisponibles(this.value)"
-      >
+                >
         <option value="" selected>Selecciona un día</option>
         <th:block th:each="rango : ${rangoHorario}">
           <option th:value="${rango.id}" th:text="${rango.diaSemana}"></option>
@@ -88,15 +88,20 @@
 
       <label for="horario">Hora de inicio:</label>
       <select class="controls" id="horario" name="horario" required>
-        Las opciones se llenarán dinámicamente
+                Las opciones se llenarán dinámicamente
       </select>
-      -->
+                -->
 
       <label for="fecha">Fecha:</label>
       <input class="controls" type="text" id="fecha" name="fecha" required />
 
       <label for="horario">Hora de la Cita:</label>
-      <select class="controls" id="horario" name="horario" required></select>
+      <select
+        class="controls"
+        id="horaSeleccionada"
+        name="horaSeleccionada"
+        required
+      ></select>
 
       <input
         class="controls"
@@ -116,7 +121,7 @@
       // Función que se llama cuando el día de la semana cambia
       function actualizarHorariosPorRango(rangoId) {
         // Obtén el selector de horario
-        var selectHorario = document.getElementById("horario");
+        var selectHorario = $("#horaSeleccionada");
         var idRangoHorarioInput = document.getElementById("idHorario");
 
         // Limpia las opciones existentes
@@ -133,7 +138,7 @@
           selectHorario.add(option);
         });
 
-        // Establece el valor del campo oculto con la ID del rangoHorario seleccionado
+        // Actualiza el nombre del campo oculto con la ID del rangoHorario seleccionado
         idRangoHorarioInput.value = rangoId;
       }
     </script>
@@ -141,6 +146,7 @@
       /*<![CDATA[*/
       // Inicializa la variable en el alcance global
       var horariosPorRango = /*[[${horariosDisponiblesMap}]]*/ {};
+      var idsRangoHorario = []; // Agrega esta línea para inicializar la variable global
 
       document.addEventListener("DOMContentLoaded", (event) => {
         // La página está completamente cargada, ahora puedes asegurarte de que
@@ -149,57 +155,72 @@
       /*]]>*/
     </script>
 
-    <!-- Script para fechas -->
+    // Script para fechas
     <script>
-      // Inicializa la variable en el alcance global
-      var horariosPorFecha = /*[[${horariosPorFecha}]]*/ {}; // Asegúrate de que esto se define correctamente
+      var cuentaTributaria = $("#cuentaTributaria").val();
 
       $(document).ready(function () {
-        // Obtén la cuentaTributaria del elemento input oculto
-        var cuentaTributaria = $("#cuentaTributaria").val();
+          var horariosPorFecha = {};
 
-        // Realiza una solicitud AJAX para obtener los horarios disponibles
-        $.ajax({
-          url: "/horario/horarios-disponibles/" + cuentaTributaria, // Asegúrate de que esta URL coincida con tu controlador
-          method: "GET",
-          success: function (data) {
-            horariosPorFecha = data; // Actualiza la variable con los datos recibidos
-            console.log("Datos cargados: ", horariosPorFecha);
-          },
-          error: function (error) {
-            console.error("Error al cargar los datos: ", error);
-          },
-        });
+          $.ajax({
+              url: "/cita/horarios-disponibles/" + cuentaTributaria,
+              method: "GET",
+              success: function (data) {
+                  horariosPorFecha = data;
+                  console.log("Datos cargados: ", horariosPorFecha);
 
-        // Inicializa el DatePicker
-        $("#fecha").datepicker({
-          dateFormat: "yy-mm-dd",
-          beforeShowDay: function (date) {
-            // Formatea la fecha al formato correcto
-            var stringDate = $.datepicker.formatDate("yy-mm-dd", date);
-            // Comprueba si la fecha está disponible
-            var available = horariosPorFecha.hasOwnProperty(stringDate);
-            console.log(stringDate + " disponible: " + available);
-            return [available];
-          },
-          onSelect: function (selectedDate) {
-            // Llama a la función para actualizar el selector de horarios
-            actualizarSelectorHorarios(horariosPorFecha[selectedDate]);
-          },
-        });
-      });
+                  Object.entries(horariosPorFecha).forEach(([fecha, horas]) => {
+                      console.log("Fecha:", fecha, "Horas:", horas);
+                  });
 
-      function actualizarSelectorHorarios(horarios) {
-        var selectHorario = $("#horario");
-        selectHorario.empty(); // Limpia el selector
-
-        if (horarios) {
-          // Añade los nuevos horarios al selector
-          horarios.forEach(function (hora) {
-            selectHorario.append(new Option(hora, hora));
+                  $("#fecha").datepicker({
+                      dateFormat: "yy-mm-dd",
+                      beforeShowDay: function (date) {
+                          var stringDate = $.datepicker.formatDate("yy-mm-dd", date);
+                          var available = horariosPorFecha.hasOwnProperty(stringDate);
+                          console.log(stringDate + " disponible: " + available);
+                          return [available];
+                      },
+                      onSelect: function (selectedDate) {
+                          var horarios = horariosPorFecha[selectedDate];
+                          if (horarios && horarios.length > 0) {
+                              // Llama a la función para actualizar el selector de horarios
+                              actualizarSelectorHorarios(horarios);
+                              // Actualiza el valor de idHorario
+                              actualizarIdHorario();
+                          } else {
+                              console.log(
+                                  "No hay horarios disponibles para la fecha seleccionada."
+                              );
+                              // Puedes manejar esta situación de la manera que consideres apropiada
+                          }
+                      },
+                  });
+              },
+              error: function (error) {
+                  console.error("Error al cargar los datos: ", error);
+              },
           });
-        }
-      }
+
+          // Función para actualizar el selector de horarios
+          function actualizarSelectorHorarios(horarios) {
+              var selectHorario = $("#horaSeleccionada");
+              selectHorario.empty();
+
+              if (horarios) {
+                  horarios.forEach(function (hora) {
+                      selectHorario.append(new Option(hora, hora));
+                  });
+              }
+          }
+
+          // Función para actualizar el valor de idHorario
+          function actualizarIdHorario() {
+              var index = $("#horaSeleccionada")[0].selectedIndex;
+              $("#idHorario").val(index + 1); // Suma 1 para tener un valor distinto de cero
+              console.log("idHorario actualizado:", $("#idHorario").val());
+          }
+      });
     </script>
   </body>
 </html>
