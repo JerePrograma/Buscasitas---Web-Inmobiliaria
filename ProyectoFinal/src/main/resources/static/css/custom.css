@@ -1,4 +1,4 @@
-.h1 {
+h1 {
   align-items: center;
 }
 * {
@@ -788,4 +788,12 @@ main {
     padding: 1em;
     margin: 1em;
     display: inline-block;
+}
+footer{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-top: 70px; 
+    border: 2.5px ridge #d0b084; 
+    border-radius: 0.5rem
 }
